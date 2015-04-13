@@ -1,16 +1,28 @@
 <html>
   <head>
+    <script src='js/jquery-1.11.2.min.js'></script>
     <script src='js/handlebars-v3.0.1.js'></script>
+    <script src='js/handlebars-helpers.js'></script>
   </head>
   <body>
  
   <script id='proposal-template' type='text/x-handlebars-template'>
     <ul class="proposal-group">
-      <li class="proposal-item">
-        <h1>{{proposal.title}}</h1>
-        {{proposal.description}}
-      </li>
+        {{#each articles}}
+          <li class="proposal-item">
+            {{#link title id}}{{/link}}
+            <h2>{{title}}</h2>
+            <spam>{{body}} </spam>
+          </li>
+        {{/each}}
     </ul>
+    {{#each articles}}
+      <div id="proposal-{{id}}">
+        <div class='title'>{{title}}</div> 
+        <spam>{{body}} </spam>
+      </div>
+    {{/each}}
+    
   </script>
 
   <div id='proposal-result'></div>
