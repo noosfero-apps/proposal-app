@@ -16,7 +16,8 @@ $.getJSON(noosferoAPI)
     //console.log(data);
     resultsPlaceholder.innerHTML = template(data);
     $( 'a' ).click(function(){ 
-      resultsPlaceholder.innerHTML = $('#proposal-' + this.id.replace('#','')).html();
+//      resultsPlaceholder.innerHTML = $('#proposal-item-' + this.id.replace('#','')).html();
+      resultsPlaceholder.innerHTML = $('#proposal-item-' + this.id.replace('#','')).html();
     });
     //console.log(resultsPlaceholder);
   })

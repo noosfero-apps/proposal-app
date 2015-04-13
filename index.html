@@ -1,33 +1,68 @@
 <html>
   <head>
-    <script src='js/jquery-1.11.2.min.js'></script>
+    <meta charset="utf-8" />
+    <title>Participa Brasil</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src='js/jquery-2.1.3.min.js'></script>
     <script src='js/handlebars-v3.0.1.js'></script>
     <script src='js/handlebars-helpers.js'></script>
   </head>
   <body>
- 
-  <script id='proposal-template' type='text/x-handlebars-template'>
-    <ul class="proposal-group">
-        {{#each articles}}
-          <li class="proposal-item">
-            {{#link title id}}{{/link}}
-            <h2>{{title}}</h2>
-            <spam>{{body}} </spam>
-          </li>
-        {{/each}}
-    </ul>
-    {{#each articles}}
-      <div id="proposal-{{id}}">
-        <div class='title'>{{title}}</div> 
-        <spam>{{body}} </spam>
-      </div>
-    {{/each}}
-    
-  </script>
+    <header>
+      <h1>Participa <span>Brasil</span></h1>
+    </header>
 
-  <div id='proposal-result'></div>
+    <div id="content">
+      <p>Estamos construindo o Plano Plurianual (PPA) para os próximos quatros anos. Queremos sua participação para definir o que é importante. O Brasil fica melhor quando todos participam. Faça uma sugestão para melhorar um programa, curta ideias de outros participantes e conte para nós sua experiência com iniciativas do governo. Aqui suas ideias viram propostas e você ajuda a melhorar o Brasil. Participe!</p>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#proposal-categories" id="active">Temas</a></li>
+        <li><a href="#proposal-group">Programas</a></li>
+      </ul>
+    </nav>
+
  
-  <script src='js/main.js'></script>
+    <script id='proposal-template' type='text/x-handlebars-template'>
+      <ul id="proposal-categories">
+        <li><a href="" id="sau">Saúde</a></li>
+        <li><a href="" id="edu">Educação</a></li> 
+        <li><a href="" id="seg">Segurança</a></li>
+        <li><a href="" id="des">Desenvolvimento Social</a></li>
+        <li><a href="" id="cid">Cidades</a></li>
+        <li><a href="" id="cul">Cultura</a></li>
+        <li><a href="" id="esp">Esporte</a></li> 
+        <li><a href="" id="cin">Cidadania</a></li>
+        <li><a href="" id="ges">Gestão Pública</a></li>
+        <li><a href="" id="inf">Infraestrutura</a></li>
+        <li><a href="" id="eco">Economia</a></li>
+        <li><a href="" id="mei">Meio Ambiente</a></li>
+      </div>
+
+      <ul id="proposal-group">
+          {{#each articles}}
+            <li class="proposal-item">
+              {{#link title id}}{{/link}}
+            </li>
+          {{/each}}
+      </ul>
+      {{#each articles}}
+        <div class='proposal-item-hide' id="proposal-item-{{id}}">
+          <div class='title'>{{title}}</div> 
+          <spam>{{body}} </spam>
+        </div>
+      {{/each}}
+      
+    </script>
+
+    <div id='proposal-result'></div>
+
+    <footer>
+      <p>Ícones desenhados por <a href="http://flaticon.com">Flaticon.com</a></p>
+    </footer>
+
+    <script src='js/main.js'></script>
   </body>
 
 </html>
