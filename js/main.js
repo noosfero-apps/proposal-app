@@ -13,13 +13,28 @@ var noosferoAPI = 'http://localhost:3000/api/v1/articles?private_token=89419a2d3
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
-    //console.log(data);
     resultsPlaceholder.innerHTML = template(data);
     $( 'a' ).click(function(){ 
-//      resultsPlaceholder.innerHTML = $('#proposal-item-' + this.id.replace('#','')).html();
-      resultsPlaceholder.innerHTML = $('#proposal-item-' + this.id.replace('#','')).html();
+    var item = this.href.split('#').pop();
+      if(item == 'proposal-categories'){
+        $('#proposal-group').hide();
+        var active_tab = $('nav ul li a.active').removeClass('active');
+        var inactive_tab = $('nav ul li a.inactive').removeClass('inactive');
+        inactive_tab.addClass('active');
+        active_tab.addClass('inactive');
+      }else if(item == 'proposal-group'){
+        $('#proposal-categories').hide();
+        var active_tab = $('nav ul li a.active').removeClass('active');
+        var inactive_tab = $('nav ul li a.inactive').removeClass('inactive');
+        inactive_tab.addClass('active');
+        active_tab.addClass('inactive');
+      }else{
+        $('#proposal-categories').hide();
+        $('#proposal-group').hide();
+      }
+      $('.proposal-detail').hide();
+      $('#' + item).show();
     });
-    //console.log(resultsPlaceholder);
   })
   .fail(function( jqxhr, textStatus, error ) {
     var err = textStatus + ", " + error;

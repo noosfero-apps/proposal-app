@@ -95,13 +95,13 @@ nav li a {
   text-transform: lowercase;
 }
 
-nav li a#active {
+nav li a.active {
   position: relative;
   background: #2997cc;
   color: #fff;
 }
 
-nav li a#active:after {
+nav li a.active:after {
   content: "";
   position: absolute;
   bottom: -15px;
@@ -113,7 +113,7 @@ nav li a#active:after {
   width: 0;
 }
 
-#proposal-categories {
+#proposal-categories, #proposal-group {
   background: #f3f5f7;
   clear: both;
   margin: 0;
@@ -122,12 +122,12 @@ nav li a#active:after {
   text-align: center;
 }
 
-#proposal-categories li {
+#proposal-categories li, #proposal-group li {
   list-style: none;
   display: inline-block;
 }
 
-#proposal-categories a {
+#proposal-categories a, #proposal-group a {
   text-transform: lowercase;
   text-decoration: none;
   color: #fff;
@@ -151,12 +151,12 @@ nav li a#active:after {
   border-color: #0e232e;
 }
 
-#proposal-categories a:hover {
+#proposal-categories a:hover, #proposal-group a:hover {
   background-color: #244f68;
   border-color: #f3f5f7;
 }
 
-#proposal-group, .proposal-item-hide {
+.hide {
   display: none;
 }
 
