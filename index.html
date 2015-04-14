@@ -45,8 +45,26 @@
           {{/list_proposal}}
       </ul>
 
-      {{#proposal_detail article.children}}
-      {{/proposal_detail}}
+      {{#each article.children}}
+        <div class='proposal-detail hide' id="proposal-item-{{id}}">
+          <ul>
+            {{#each categories}}
+              <li>{{name}}</li>
+            {{/each}}
+          </ul>
+          <img src="{{../host}}{{image.thumb_url}}"/>
+          <div class='title'>{{title}}</div> 
+          <span>{{body}}</span>
+          <div class='make-proposal'>
+            <title>Faça sua proposta</title>
+          </div>
+          <div class='support-proposal'>
+            <title> Apoie outras propostas</title>
+          </div>
+          <div class='experience-proposal'>Conte sua experiência</div>
+          <div class='talk-proposal'>Fale com o ministro</div>
+        </div>
+      {{/each}}
       
     </script>
 
