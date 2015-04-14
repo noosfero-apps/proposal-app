@@ -34,7 +34,7 @@ $.getJSON(noosferoAPI)
         $('#nav-proposal-categories a').addClass('active');
         $('#nav-proposal-group a').removeClass('active');
       }else if(item == 'proposal-group'){
-        //Display the Topics or Discussions
+        //Display the Topics or Discussions tab
         $('#proposal-categories').hide();
         $('#proposal-group').show();
         $('#nav-proposal-group a').addClass('active');

@@ -33,7 +33,13 @@
               <ul id='proposal-item-{{id}}' class='proposal-category-item hide'>
                 {{#each ../article.children}}
                   <li class="proposal-item">
+                    <ul class='category'>
+                      {{#each categories}}
+                        <li>{{name}}</li>
+                      {{/each}}
+                    </ul>
                     {{#link title id}}{{/link}}
+                    <p>{{body}}</p>
                   </li>
                 {{/each}}
               </ul>
