@@ -1,4 +1,6 @@
-function handleLoginResult(logged_in) {
-  // TODO reload
-  alert('login: ' + logged_in);
+var privateToken;
+
+function handleLoginResult(loggedIn, token) {
+  privateToken = token;
+  jQuery('#login #private-token').val(privateToken); //FIXME remove
 }
