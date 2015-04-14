@@ -9,12 +9,21 @@ var resultsPlaceholder = document.getElementById('proposal-result');
 
 var topics;
 
+//var host = 'http://www.participa.br';
+var host = 'http://localhost:3000';
+//var private_token = '9350c1488fcae884ad955091a3d2d960';
+var private_token = 'bd8996155f5ea4354e42fee50b4b6891';
+//var proposal_discussion = '92856'; 
+var proposal_discussion = '401'; 
+
 //var noosferoAPI = 'http://localhost:3000/api/v1/articles?private_token=89419a2d331a17e815c3ecc53b303aac&content_type=ProposalsDiscussionPlugin::Topic&parent_id=377&callback=?';
 
-var noosferoAPI = 'http://www.participa.br/api/v1/articles?private_token=9350c1488fcae884ad955091a3d2d960&content_type=ProposalsDiscussionPlugin::Topic&parent_id=92856&callback=?';
+var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&callback=?';
+//var noosferoAPI = host + '/api/v1/articles?private_token=' + private_token + '&parent_id=401&callback=?';
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
+    data['host'] = host;
     resultsPlaceholder.innerHTML = template(data);
     $( 'a' ).click(function(event){ 
       var item = this.href.split('#').pop();

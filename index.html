@@ -26,29 +26,23 @@
       </nav>
 
       <ul id="proposal-categories">
-        <li><a href="" id="sau">Saúde</a></li>
-        <li><a href="" id="edu">Educação</a></li> 
-        <li><a href="" id="seg">Segurança</a></li>
-        <li><a href="" id="des">Desenvolvimento Social</a></li>
-        <li><a href="" id="cid">Cidades</a></li>
-        <li><a href="" id="cul">Cultura</a></li>
-        <li><a href="" id="esp">Esporte</a></li> 
-        <li><a href="" id="cin">Cidadania</a></li>
-        <li><a href="" id="ges">Gestão Pública</a></li>
-        <li><a href="" id="inf">Infraestrutura</a></li>
-        <li><a href="" id="eco">Economia</a></li>
-        <li><a href="" id="mei">Meio Ambiente</a></li>
+          {{#each article.categories}}
+            <li class="category">
+              <img src="{{../host}}{{image.thumb_url}}"/>
+              {{#link name id}}{{/link}}
+            </li>
+          {{/each}}
       </ul>
 
-      <ul id="proposal-group">
-          {{#each articles}}
+      <ul id="proposal-group" class='hide'>
+          {{#each article.children}}
             <li class="proposal-item">
               {{#link title id}}{{/link}}
             </li>
           {{/each}}
       </ul>
-      {{#each articles}}
-        <div class='proposal-detail' id="proposal-item-{{id}}">
+      {{#each article.children}}
+        <div class='proposal-detail hide' id="proposal-item-{{id}}">
           <div class='title'>{{title}}</div> 
           <span>{{body}}</span>
         </div>
