@@ -31,28 +31,18 @@
               <img src="{{../host}}{{image.thumb_url}}"/>
               {{#link name id}}{{/link}}
               <ul id='proposal-item-{{id}}' class='proposal-category-item hide'>
-                {{#each ../article.children}}
-                  <li class="proposal-item">
-                    <ul class='category'>
-                      {{#each categories}}
-                        <li>{{name}}</li>
-                      {{/each}}
-                    </ul>
-                    {{#link title id}}{{/link}}
-                    <p>{{body}}</p>
-                  </li>
-                {{/each}}
+                {{#list_proposal ../article.children}}
+                  {{#link title id}}{{/link}}
+                {{/list_proposal}}
               </ul>
             </li>
           {{/each}}
       </ul>
 
       <ul id="proposal-group" class='hide'>
-          {{#each article.children}}
-            <li class="proposal-item">
-              {{#link title id}}{{/link}}
-            </li>
-          {{/each}}
+          {{#list_proposal article.children}}
+            {{#link title id}}{{/link}}
+          {{/list_proposal}}
       </ul>
       {{#each article.children}}
         <div class='proposal-detail hide' id="proposal-item-{{id}}">
