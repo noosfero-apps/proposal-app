@@ -57,6 +57,13 @@
           <span>{{body}}</span>
           <div class='make-proposal'>
             <title>Faça sua proposta</title>
+            <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
+              <input id="article_name" name="article[name]" type="text">
+              <textarea id="article_abstract" name="article[abstract]"></textarea>
+              <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
+              <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
+              <input type='submit' id='make-proposal-button'  name='make-proposal-button' value='Submit'>
+            </form>
           </div>
           <div class='support-proposal'>
             <title> Apoie outras propostas</title>
