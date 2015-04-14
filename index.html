@@ -8,16 +8,16 @@
     <script src='js/handlebars-helpers.js'></script>
   </head>
   <body>
-    <header>
-      <h1>Participa <span>Brasil</span></h1>
-    </header>
-
-    <div id="content">
-      <p>Estamos construindo o Plano Plurianual (PPA) para os próximos quatros anos. Queremos sua participação para definir o que é importante. O Brasil fica melhor quando todos participam. Faça uma sugestão para melhorar um programa, curta ideias de outros participantes e conte para nós sua experiência com iniciativas do governo. Aqui suas ideias viram propostas e você ajuda a melhorar o Brasil. Participe!</p>
-    </div>
-
  
     <script id='proposal-template' type='text/x-handlebars-template'>
+      <header>
+        <h1>{{article.title}}</h1>
+      </header>
+  
+      <div id="content">
+        <p>{{article.body}}</p>
+      </div>
+  
       <nav>
         <ul>
           <li id='nav-proposal-categories'><a href="#proposal-categories" class="active">Temas</a></li>
