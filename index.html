@@ -31,7 +31,7 @@
               <img src="{{../host}}{{image.thumb_url}}"/>
               {{#link name id}}{{/link}}
               <ul id='proposal-item-{{id}}' class='proposal-category-item hide'>
-                {{#list_proposal ../article.children}}
+                {{#list_proposal ../article.children category=slug}}
                   {{#link title id}}{{/link}}
                 {{/list_proposal}}
               </ul>
@@ -44,6 +44,7 @@
             {{#link title id}}{{/link}}
           {{/list_proposal}}
       </ul>
+
       {{#each article.children}}
         <div class='proposal-detail hide' id="proposal-item-{{id}}">
           <div class='title'>{{title}}</div> 
