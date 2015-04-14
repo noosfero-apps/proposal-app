@@ -28,19 +28,29 @@ $.getJSON(noosferoAPI)
     $( 'a' ).click(function(event){ 
       var item = this.href.split('#').pop();
       if(item == 'proposal-categories'){
+        //Display the category tab
         $('#proposal-group').hide();
         $('#nav-proposal-categories a').addClass('active');
         $('#nav-proposal-group a').removeClass('active');
       }else if(item == 'proposal-group'){
+        //Display the Topics or Discussions
         $('#proposal-categories').hide();
         $('#nav-proposal-group a').addClass('active');
         $('#nav-proposal-categories a').removeClass('active');
       }else{
-        $('#proposal-categories').hide();
-        $('#proposal-group').hide();
+        if($('#' + item).hasClass('proposal-category-item')){
+          //Display Topics or Discussion by category
+          $('.proposal-category-item').hide();
+          $('#' + item).show();
+          
+        }else{
+          //Display Proposal
+          $('#proposal-categories').hide();
+          $('#proposal-group').hide();
+          $('.proposal-detail').hide();
+          $('#' + item).show();
+        }
       }
-      $('.proposal-detail').hide();
-      $('#' + item).show();
       event.preventDefault();
     });
   })
