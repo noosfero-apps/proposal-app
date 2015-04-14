@@ -16,8 +16,8 @@ var noosferoAPI = 'http://www.participa.br/api/v1/articles?private_token=9350c14
 $.getJSON(noosferoAPI)
   .done(function( data ) {
     resultsPlaceholder.innerHTML = template(data);
-    $( 'a' ).click(function(){ 
-    var item = this.href.split('#').pop();
+    $( 'a' ).click(function(event){ 
+      var item = this.href.split('#').pop();
       if(item == 'proposal-categories'){
         $('#proposal-group').hide();
         $('#nav-proposal-categories a').addClass('active');
@@ -32,6 +32,7 @@ $.getJSON(noosferoAPI)
       }
       $('.proposal-detail').hide();
       $('#' + item).show();
+      event.preventDefault();
     });
   })
   .fail(function( jqxhr, textStatus, error ) {
