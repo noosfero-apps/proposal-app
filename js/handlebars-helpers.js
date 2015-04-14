@@ -29,7 +29,16 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
     element = element + '<p>' + proposals[i].body + '</p>';
     ret = ret + element + '</li>';
   }
-
   return ret;
+});
 
+Handlebars.registerHelper('proposal_detail', function(proposals, options) {
+  var ret = "";
+  for(var i=0, j=proposals.length; i<j; i++) {
+    ret = ret + "<div class='proposal-detail hide' id='proposal-item-" + proposals[i].id + "'>";
+    ret = ret + "<div class='title'>" + proposals[i].title + "</div>";
+    ret = ret + "<span>" + proposals[i].body + "</span>";
+    ret = ret + '</div>';
+  }
+  return ret;
 });

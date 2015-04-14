@@ -45,12 +45,8 @@
           {{/list_proposal}}
       </ul>
 
-      {{#each article.children}}
-        <div class='proposal-detail hide' id="proposal-item-{{id}}">
-          <div class='title'>{{title}}</div> 
-          <span>{{body}}</span>
-        </div>
-      {{/each}}
+      {{#proposal_detail article.children}}
+      {{/proposal_detail}}
       
     </script>
 
