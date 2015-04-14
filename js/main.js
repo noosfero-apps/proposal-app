@@ -30,11 +30,13 @@ $.getJSON(noosferoAPI)
       if(item == 'proposal-categories'){
         //Display the category tab
         $('#proposal-group').hide();
+        $('#proposal-categories').show();
         $('#nav-proposal-categories a').addClass('active');
         $('#nav-proposal-group a').removeClass('active');
       }else if(item == 'proposal-group'){
         //Display the Topics or Discussions
         $('#proposal-categories').hide();
+        $('#proposal-group').show();
         $('#nav-proposal-group a').addClass('active');
         $('#nav-proposal-categories a').removeClass('active');
       }else{
