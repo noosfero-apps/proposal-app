@@ -111,3 +111,7 @@ function loadRandomProposal(topic_id, private_token) {
     });
   });
 }
+
+function oauthPluginHandleLoginResult(loggedIn, token) {
+  private_token = token;
+}
