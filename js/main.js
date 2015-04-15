@@ -1,9 +1,11 @@
 // The template code
 var templateSource = document.getElementById('proposal-template').innerHTML;
- 
+
 // compile the template
 var template = Handlebars.compile(templateSource);
- 
+
+var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
+
 // The div/container that we are going to display the results in
 var resultsPlaceholder = document.getElementById('proposal-result');
 
@@ -15,10 +17,10 @@ if(participa){
   var private_token = '9350c1488fcae884ad955091a3d2d960';  //participa
   var proposal_discussion = '92856'; //participa
 }else{
-  var host = 'http://localhost:3000';
+  var host = 'http://noosfero.com:3000';
   //var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
-  var private_token = '89419a2d331a17e815c3ecc53b303aac'; //local serpro
-  var proposal_discussion = '377'; //local serpro
+  var private_token = '04c9b36cf0afba52915fe86f182e741c'; //local serpro
+  var proposal_discussion = '632'; //local serpro
   //var proposal_discussion = '401'; //casa
 }
 
@@ -30,35 +32,53 @@ $.getJSON(noosferoAPI)
     data['private_token'] = private_token;
     resultsPlaceholder.innerHTML = template(data);
     //Actions for links
-    $( 'a' ).click(function(event){ 
+    $( '#nav-proposal-categories a' ).click(function(event){
+      //Display the category tab
+      $('#proposal-group').hide();
+      $('#proposal-categories').show();
+      $('#nav-proposal-categories a').addClass('active');
+      $('#nav-proposal-group a').removeClass('active');
+      $('.proposal-category-item').hide();
+      $('.proposal-detail').hide();
+      event.preventDefault();
+    });
+    $( '#nav-proposal-group a' ).click(function(event){
+      //Display the Topics or Discussions tab
+      $('#proposal-categories').hide();
+      $('#proposal-group').show();
+      $('#nav-proposal-group a').addClass('active');
+      $('#nav-proposal-categories a').removeClass('active');
+      event.preventDefault();
+    });
+    $( '.proposal-item a' ).click(function(event){
       var item = this.href.split('#').pop();
-      if(item == 'proposal-categories'){
-        //Display the category tab
-        $('#proposal-group').hide();
-        $('#proposal-categories').show();
-        $('#nav-proposal-categories a').addClass('active');
-        $('#nav-proposal-group a').removeClass('active');
+      //Display Proposal
+      $('#proposal-categories').hide();
+      $('#proposal-group').hide();
+      $('.proposal-detail').hide();
+      $('#' + item).show();
+
+      var topic_id = this.id.replace('\#','');
+      var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()';
+      $.getJSON(url).done(function( data ) {
+        var article = data.articles.length > 0 ? data.articles[0] : null;
+        $('.support-proposal-container').html(supportProposalTemplate(article));
+        $(document.body).on('click', '.vote-actions .like', function(e) {
+          $.ajax({
+            type: 'post',
+            url: host + '/api/v1/articles/' + article.id + '/vote',
+            data: {value: $(this).data('vote-value'), private_token: private_token}
+          });
+          e.preventDefault();
+        });
+      });
+    });
+    $( '.proposal-category a' ).click(function(event){
+      var item = this.href.split('#').pop();
+      if($('#' + item).hasClass('proposal-category-item')){
+        //Display Topics or Discussion by category
         $('.proposal-category-item').hide();
-        $('.proposal-detail').hide();
-      }else if(item == 'proposal-group'){
-        //Display the Topics or Discussions tab
-        $('#proposal-categories').hide();
-        $('#proposal-group').show();
-        $('#nav-proposal-group a').addClass('active');
-        $('#nav-proposal-categories a').removeClass('active');
-      }else{
-        if($('#' + item).hasClass('proposal-category-item')){
-          //Display Topics or Discussion by category
-          $('.proposal-category-item').hide();
-          $('#' + item).show();
-          
-        }else{
-          //Display Proposal
-          $('#proposal-categories').hide();
-          $('#proposal-group').hide();
-          $('.proposal-detail').hide();
-          $('#' + item).show();
-        }
+        $('#' + item).show();
       }
       event.preventDefault();
     });
@@ -66,7 +86,7 @@ $.getJSON(noosferoAPI)
     $('.make-proposal-form').submit(function (e) {
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
-      $.ajax({             
+      $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
         data: $('#'+this.id).serialize()
@@ -84,4 +104,3 @@ $.getJSON(noosferoAPI)
     var err = textStatus + ", " + error;
     console.log( "Request Failed: " + err );
    });
-

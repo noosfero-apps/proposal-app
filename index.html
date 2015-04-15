@@ -65,16 +65,23 @@
               <input type='submit' id='make-proposal-button'  name='make-proposal-button' value='Submit'>
             </form>
           </div>
-          <div class='support-proposal'>
-            <div class='title'> Apoie outras propostas</div>
-            <div class='author'>{{author.name}}</div>
-            <div class='abstract'>{{abstract}}</div>
-          </div>
+          <div class='support-proposal-container'></div>
           <div class='experience-proposal'>Conte sua experiência</div>
           <div class='talk-proposal'>Fale com o ministro</div>
         </div>
       {{/each}}
-      
+    </script>
+
+    <script id='support-proposal-template' type='text/x-handlebars-template'>
+      <div class='support-proposal'>
+        <div class='title'> Apoie outras propostas</div>
+        <div class='author'>{{author.name}}</div>
+        <div class='abstract'>{{abstract}}</div>
+        <div class="vote-actions">
+          <a href="#" class="like" data-vote-value="1">Gostei</a>
+          <a href="#" class="like" data-vote-value="-1">Não Gostei</a>
+        </div>
+      </div>
     </script>
 
     <div id='proposal-result'></div>
