@@ -6,6 +6,7 @@
     <script src='js/jquery-2.1.3.min.js'></script>
     <script src='js/handlebars-v3.0.1.js'></script>
     <script src='js/handlebars-helpers.js'></script>
+    <script src='js/layout.js'></script>
   </head>
   <body>
  
@@ -21,22 +22,26 @@
       <nav>
         <ul>
           <li id='nav-proposal-categories'><a href="#proposal-categories" class="active">Temas</a></li>
-          <li id='nav-proposal-group'><a href="#proposal-group">Programas</a></li>
+          <li id='nav-proposal-group'><a href="#proposal-group">Todos os Programas</a></li>
         </ul>
       </nav>
 
       <ul id="proposal-categories">
+        <div id="proposal-categories-container">
           {{#each article.categories}}
-            <li class="proposal-category">
+            <li id='proposal-category-{{slug}}' class="proposal-category">
+              <!-- Better to set the icon on CSS
               <img src="{{../host}}{{image.thumb_url}}"/>
+              -->
               {{#link name id}}{{/link}}
-              <ul id='proposal-item-{{id}}' class='proposal-category-item hide'>
-                {{#list_proposal ../article.children category=slug}}
-                  {{#link title id}}{{/link}}
-                {{/list_proposal}}
-              </ul>
             </li>
+            <ul id='proposal-item-{{id}}' class='proposal-category-items proposal-category-items-{{slug}} hide'>
+              {{#list_proposal ../article.children category=slug}}
+                {{#link title id}}{{/link}}
+              {{/list_proposal}}
+            </ul>
           {{/each}}
+        </div>
       </ul>
 
       <ul id="proposal-group" class='hide'>
@@ -92,10 +97,6 @@
       <a href="/plugin/oauth_client/noosfero_oauth2?oauth_client_popup=true&id=3" target="_blank" class="participa">Participa</a>
       <input type="text" id="private-token" style="display: none">
     </div>
-
-    <footer>
-      <p>Ícones desenhados por <a href="http://flaticon.com">Flaticon.com</a></p>
-    </footer>
 
     <script src='js/main.js'></script>
     <script src='js/login.js'></script>

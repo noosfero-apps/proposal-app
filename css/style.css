@@ -1,39 +1,35 @@
 @font-face {
-  font-family: ptsans_bold_italic;
-  src: url(../fonts/PT_Sans-Web-BoldItalic.ttf);
+  font-family: asap_bold_italic;
+  src: url(../fonts/Asap-BoldItalic.ttf);
 }
 
 @font-face {
-  font-family: ptsans_bold;
-  src: url(../fonts/PT_Sans-Web-Bold.ttf);
+  font-family: asap_bold;
+  src: url(../fonts/Asap-Bold.ttf);
 }
 
 @font-face {
-  font-family: ptsans_italic;
-  src: url(../fonts/PT_Sans-Web-Italic.ttf);
+  font-family: asap_italic;
+  src: url(../fonts/Asap-Italic.ttf);
 }
 
 @font-face {
-  font-family: ptsans;
-  src: url(../fonts/PT_Sans-Web-Regular.ttf);
+  font-family: asap;
+  src: url(../fonts/Asap-Regular.ttf);
 }
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: ptsans, sans;
-  font-weight: lighter;
+  font-family: asap, sans;
 }
 
 header {
-  height: 30%;
-  max-height: 399px;
-  background: #69aef3 url(../images/header.png) left bottom no-repeat;
-  background-size: 100%;
+  height: 100px;
+  background: #fff;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   position: relative;
 }
 
@@ -41,24 +37,26 @@ h1 {
   position: absolute;
   bottom: 0;
   left: 0;
-  font-size: 4em;
+  color: #03316f;
+  font-size: 28px;
   padding: 20px;
   margin: 0;
-  background: rgba(255, 255, 255, 0.5);
   display: block;
   width: 100%;
-  text-transform: lowercase;
+  text-transform: uppercase;
+  border-bottom: 1px solid #d6dcd7;
 }
 
-h1 span {
-  font-weight: lighter;
+#content {
+  padding-bottom: 150px;
+  background: transparent url(../images/header.png) center bottom no-repeat;
 }
 
 #content p {
   font-weight: lighter;
   text-align: justify;
   margin: 20px;
-  font-size: 1.2em;
+  font-size: 14px;
   line-height: 1.5em;
 }
 
@@ -86,35 +84,25 @@ nav li a {
   float: left;
   text-align: center;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 16px;
   font-weight: bold;
-  color: #9eabb0;
-  background: #efefef;
+  color: #fff;
+  background: #03316f;
   margin: 0;
   padding: 20px 1%;
-  text-transform: lowercase;
+  text-transform: uppercase;
+  border-bottom: 3px solid #001129;
 }
 
 nav li a.active {
   position: relative;
-  background: #2997cc;
-  color: #fff;
-}
-
-nav li a.active:after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
-  left: 49%;
-  border-width: 15px 15px 0;
-  border-style: solid;
-  border-color: #2997cc transparent;
-  display: block;
-  width: 0;
+  background: #fff;
+  color: #03316f;
+  border-bottom: 3px solid #fff;
 }
 
 #proposal-categories, #proposal-group {
-  background: #f3f5f7;
+  background: #fff;
   clear: both;
   margin: 0;
   width: 100%;
@@ -127,33 +115,30 @@ nav li a.active:after {
   display: inline-block;
 }
 
-#proposal-categories a, #proposal-group a {
-  text-transform: lowercase;
+#proposal-categories .proposal-category > a, #proposal-group a {
   text-decoration: none;
   color: #fff;
   margin: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  background-color: #0e232e;
-  background-position: center 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  background-position: center 30px;
   background-repeat: no-repeat;
-  width: 125px;
-  height: 55px;
+  width: 140px;
+  height: 40px;
   display: inline-block;
-  font-size: 1em;
-  font-weight: bold;
+  font-size: 14px
+  font-family: asap_bold, sans;
+  font-weight: bolder;
   text-align: center;
-  padding-top: 70px;
+  padding-top: 100px;
   overflow: hidden;
   border-width: 2px;
   border-style: solid;
-  border-color: #0e232e;
 }
 
 #proposal-categories a:hover, #proposal-group a:hover {
-  background-color: #244f68;
-  border-color: #f3f5f7;
+  border-color: #fff !important;
 }
 
 .hide {
@@ -169,15 +154,93 @@ footer {
   display: none;
 }
 
-#sau { background-image: url(../images/icons/sau.png); }
-#edu { background-image: url(../images/icons/edu.png); }
-#seg { background-image: url(../images/icons/seg.png); }
-#des { background-image: url(../images/icons/des.png); }
-#cid { background-image: url(../images/icons/cid.png); }
-#cul { background-image: url(../images/icons/cul.png); }
-#esp { background-image: url(../images/icons/esp.png); }
-#cin { background-image: url(../images/icons/cin.png); }
-#ges { background-image: url(../images/icons/ges.png); }
-#inf { background-image: url(../images/icons/inf.png); }
-#eco { background-image: url(../images/icons/eco.png); }
-#mei { background-image: url(../images/icons/mei.png); }
+#login a {
+  margin: 10px;
+  font-size: 12px;
+  color: #333;
+  text-decoration: none;
+}
+
+/*
+ * Each button
+ * FIXME: This selector doesn't look reliable
+ */
+
+#proposal-category-saude a {
+  background-image: url(../images/icons/saude.png);
+  background-color: #00cbd7;
+  border-color: #00cbd7;
+}
+.proposal-category-items-saude {
+  background-color: #00cbd7;
+}
+
+#proposal-category-seguranca a {
+  background-image: url(../images/icons/seguranca.png);
+  background-color: #e34748;
+  border-color: #e34748;
+}
+.proposal-category-items-seguranca {
+  background-color: #e34748;
+}
+
+#proposal-category-educacao a {
+  background-image: url(../images/icons/educacao.png);
+  background-color: #ffb400;
+  border-color: #ffb400;
+}
+.proposal-category-items-educacao {
+  background-color: #ffb400;
+}
+
+#proposal-categories-container {
+  display: inline;
+  width: auto;
+}
+
+.proposal-category-items {
+  margin: 0 auto;
+  padding: 0;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+ul.category {
+  display: block;
+  text-align: left;
+  padding: 0;
+}
+
+.category > li {
+  color: #03316f;
+  text-align: left;
+  display: block !important;
+  font-family: asap_bold;
+  font-size: 16px;
+  padding: 10px 0 5px 0;
+  border-bottom: 1px solid #03316f;
+  margin-bottom: 10px;
+}
+
+.proposal-item p {
+  font-size: 14px;
+  color: #172938;
+  margin: 0;
+  padding: 10px;
+  padding-top: 5px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.proposal-item > a {
+  display: block;
+  margin: 0;
+  color: #03316f;
+  text-align: left;
+  font-family: asap_bold;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 10px;
+  background: #fff;
+}

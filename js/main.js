@@ -38,7 +38,7 @@ $.getJSON(noosferoAPI)
       $('#proposal-categories').show();
       $('#nav-proposal-categories a').addClass('active');
       $('#nav-proposal-group a').removeClass('active');
-      $('.proposal-category-item').hide();
+      $('.proposal-category-items').hide();
       $('.proposal-detail').hide();
       event.preventDefault();
     });
@@ -75,9 +75,9 @@ $.getJSON(noosferoAPI)
     });
     $( '.proposal-category a' ).click(function(event){
       var item = this.href.split('#').pop();
-      if($('#' + item).hasClass('proposal-category-item')){
+      if($('#' + item).hasClass('proposal-category-items')){
         //Display Topics or Discussion by category
-        $('.proposal-category-item').hide();
+        $('.proposal-category-items').hide();
         $('#' + item).show();
       }
       event.preventDefault();
