@@ -9,19 +9,20 @@ var resultsPlaceholder = document.getElementById('proposal-result');
 
 var topics;
 
-var host = 'http://www.participa.br';
-//var host = 'http://localhost:3000';
-var private_token = '9350c1488fcae884ad955091a3d2d960';  //participa
-//var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
-//var private_token = '89419a2d331a17e815c3ecc53b303aac'; //local serpro
-var proposal_discussion = '92856'; //participa
-//var proposal_discussion = '377'; //local serpro
-//var proposal_discussion = '401'; //casa
-
-//var noosferoAPI = 'http://localhost:3000/api/v1/articles?private_token=89419a2d331a17e815c3ecc53b303aac&content_type=ProposalsDiscussionPlugin::Topic&parent_id=377&callback=?';
+var participa = true;
+if(participa){
+  var host = 'http://www.participa.br';
+  var private_token = '9350c1488fcae884ad955091a3d2d960';  //participa
+  var proposal_discussion = '92856'; //participa
+}else{
+  var host = 'http://localhost:3000';
+  //var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
+  var private_token = '89419a2d331a17e815c3ecc53b303aac'; //local serpro
+  var proposal_discussion = '377'; //local serpro
+  //var proposal_discussion = '401'; //casa
+}
 
 var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&callback=?';
-//var noosferoAPI = host + '/api/v1/articles?private_token=' + private_token + '&parent_id=401&callback=?';
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
