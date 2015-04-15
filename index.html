@@ -30,9 +30,6 @@
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id='proposal-category-{{slug}}' class="proposal-category">
-              <!-- Better to set the icon on CSS
-              <img src="{{../host}}{{image.thumb_url}}"/>
-              -->
               {{#link name id}}{{/link}}
             </li>
             <ul id='proposal-item-{{id}}' class='proposal-category-items proposal-category-items-{{slug}} hide'>
