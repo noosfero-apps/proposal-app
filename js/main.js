@@ -24,7 +24,7 @@ if(participa){
   //var proposal_discussion = '401'; //casa
 }
 
-var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&callback=?';
+var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token;
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
