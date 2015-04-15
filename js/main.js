@@ -94,7 +94,7 @@ $.getJSON(noosferoAPI)
    });
 
 function loadRandomProposal(topic_id, private_token) {
-  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()';
+  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime();
   $.getJSON(url).done(function( data ) {
     var article = data.articles.length > 0 ? data.articles[0] : null;
     $('.support-proposal-container').html(supportProposalTemplate(article));
