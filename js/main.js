@@ -69,6 +69,8 @@ $.getJSON(noosferoAPI)
       var item = this.href.split('#').pop();
       if($('#' + item).hasClass('proposal-category-items')){
         //Display Topics or Discussion by category
+        $('nav').show();
+        $('#content').show();
         $('#proposal-categories').show();
         $('.proposal-category-items').hide();
         $('.proposal-detail').hide();
