@@ -94,7 +94,7 @@ $.getJSON(noosferoAPI)
    });
 
 function loadRandomProposal(topic_id, private_token) {
-  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime();
+  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,author';
   $.getJSON(url).done(function( data ) {
     var article = data.articles.length > 0 ? data.articles[0] : null;
     $('.support-proposal-container').html(supportProposalTemplate(article));
@@ -103,7 +103,10 @@ function loadRandomProposal(topic_id, private_token) {
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + article.id + '/vote',
-        data: {value: $(this).data('vote-value'), private_token: private_token}
+        data: {
+          value: $(this).data('vote-value'),
+          private_token: private_token
+        }
       }).done(function( data ) {
         loadRandomProposal(topic_id, private_token);
       });
