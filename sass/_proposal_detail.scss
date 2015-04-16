@@ -108,7 +108,12 @@
         }
         a {
           background-image: url(./images/icons/#{$category}.png);
-          padding: 20px;
+          padding: 20px 5%;
+          font: {
+            size: larger;
+            weight: bold;
+          }
+          color: white;
           background: {
             color: $color;
             position: center left;
