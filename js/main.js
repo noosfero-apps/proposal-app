@@ -39,6 +39,7 @@ $.getJSON(noosferoAPI)
       $('#nav-proposal-categories a').addClass('active');
       $('#nav-proposal-group a').removeClass('active');
       $('.proposal-category-items').hide();
+      $('.proposal-category .arrow-box').hide();
       $('.proposal-detail').hide();
       event.preventDefault();
     });

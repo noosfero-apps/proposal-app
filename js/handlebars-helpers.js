@@ -19,7 +19,7 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
         element = '';
         continue;
       }      
-      element = element + '<li>' + proposals[i].categories[x].name + '</li>';
+      element = element + '<li class="category-'+proposals[i].categories[x].slug+'">' + proposals[i].categories[x].name + '</li>';
     }
     if(element == ''){
       continue;

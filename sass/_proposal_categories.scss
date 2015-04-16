@@ -62,7 +62,7 @@
   }
 
   .proposal-item > a {
-    border-top: 1px dotted #03316f;
+    border-top: 1px dotted #045312;
     padding-top: 10px;
     display: block;
     margin: 0;
@@ -125,7 +125,7 @@
     border-bottom-color: $color;
   }
 
-  .proposal-category-items-#{$category} ul.category li {
+  .category-#{$category} {
     background-color: $color;
     background-image: url(./images/icons/#{$category}.png);
     background-repeat: no-repeat;
