@@ -18,21 +18,62 @@
           weight: bold;
         }
       }
-      .make-proposal{
+      .clear{
+        clear: both;
+      }
+      .make-proposal-container{
         .title{
           color: $color;
+          font-weight: bolder;
+          font-size: x-large;
+          margin: 10px;
         }
-        width: 49%;
-        border: 1px solid $color;
+        width: 50%;
+        height: 200px;
+        float: left;
+        text-align: center;
+        .make-proposal{
+//          border: 1px solid $color;
+          margin: 2% 2% 2% 2%;
+          height: 100%;
+        }
       }
       .support-proposal-container{
-        width: 49%;
+        .title{
+          color: $color;
+          font-weight: bolder;
+          font-size: x-large;
+          margin: 10px;
+        }
+        width: 50%;
+        float: left;
+        height: 200px;
+        text-align: center;
+        .support-proposal{
+//          border: 1px solid $color;
+          height: 100%;
+          margin: 2% 2% 2% 2%;
+        }
       }
-      .experience-proposal{
-        width: 49%;
+      .experience-proposal-container{
+        float: left;
+        width: 50%;
+        height: 200px;
+        .experience-proposal{
+          border: 1px solid $color;
+          margin: 6% 2% 2% 2%;
+          height: 100%;
+        }
       }
-      .talk-proposal{
-        width: 49%;
+      .talk-proposal-container{
+        width: 50%;
+        float: left;
+        height: 200px;
+        .talk-proposal{
+          border: 1px solid $color;
+          margin: 6% 2% 2% 2%;
+          height: 100%;
+        }
     
       }
       li{
