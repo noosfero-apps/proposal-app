@@ -1,3 +1,7 @@
 @each $category, $color in $categories {
-
+.proposal-detail {
+  .#{$category}{
+    background-color: $color;
+  }
+}
 }
