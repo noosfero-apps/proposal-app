@@ -29,13 +29,23 @@
           margin: 10px;
         }
         width: 50%;
-        height: 200px;
+        height: 90%;
         float: left;
         text-align: center;
         .make-proposal{
-//          border: 1px solid $color;
+          border: 1px solid $color;
           margin: 2% 2% 2% 2%;
           height: 100%;
+        }
+        .make-proposal-button{
+          font-weight: bolder;
+          font-size: x-large;
+          background-color: $color;
+          color: white;
+          width: 40%;
+          height: 15%;
+          border: none;
+          margin-top: 8%;
         }
       }
       .support-proposal-container{
@@ -47,18 +57,25 @@
         }
         width: 50%;
         float: left;
-        height: 200px;
+        height: 90%;
         text-align: center;
         .support-proposal{
-//          border: 1px solid $color;
+          border: 1px solid $color;
           height: 100%;
           margin: 2% 2% 2% 2%;
         }
       }
       .experience-proposal-container{
+        .title{
+          color: $color;
+          font-weight: bolder;
+          font-size: x-large;
+          margin: 10px;
+        }
         float: left;
         width: 50%;
-        height: 200px;
+        height: 90%;
+        text-align: center;
         .experience-proposal{
           border: 1px solid $color;
           margin: 6% 2% 2% 2%;
@@ -66,9 +83,16 @@
         }
       }
       .talk-proposal-container{
+        .title{
+          color: $color;
+          font-weight: bolder;
+          font-size: x-large;
+          margin: 10px;
+        }
         width: 50%;
         float: left;
-        height: 200px;
+        height: 90%;
+        text-align: center;
         .talk-proposal{
           border: 1px solid $color;
           margin: 6% 2% 2% 2%;
