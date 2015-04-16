@@ -4,7 +4,6 @@
   background: #fff;
   clear: both;
   margin: 0;
-  width: 100%;
   padding: 10px;
   text-align: center;
   li {
@@ -87,6 +86,7 @@
 
   .proposal-category-items {
     text-align: left;
+    border-radius: 6px;
     .proposal-list {
       padding-left: 20px;
     }
