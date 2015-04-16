@@ -1,3 +1,5 @@
+@import "utilities/variables";
+
 #proposal-categories{
   background: #fff;
   clear: both;
@@ -34,8 +36,6 @@
     }
   }
 }
-
-$categories: (saude: #00cbd7, seguranca: #e34748, educacao: #ffb400, desenvolvimento-social: #51d0b3);
 
 @each $category, $color in $categories {
   .proposal-category-items-#{$category} {
