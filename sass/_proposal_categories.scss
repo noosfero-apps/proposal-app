@@ -92,9 +92,14 @@
 
   .header {
     color: white;
+    padding: 10px 30px;
+    text-align: left;
     .name {
       font-weight: bold;
-      border: 2px solid white;
+      border-bottom: 2px solid white;
+      padding-bottom: 10px;
+      padding-top: 20px;
+      margin-bottom: 10px;
     }
   }
 
