@@ -74,19 +74,34 @@
             </div>
             <div class='title'>{{title}}</div> 
             <div class='body'>{{body}}</div>
-            <div class='make-proposal'>
-              <div class='title'>Proponha</div>
-              <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
-                <input id="article_name" name="article[name]" type="text">
-                <textarea id="article_abstract" name="article[abstract]"></textarea>
-                <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
-                <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
-                <input type='submit' id='make-proposal-button'  name='make-proposal-button' value='Submit'>
-              </form>
+            <div class='make-proposal-container'>
+              <div class='make-proposal'>
+                <div class='title'>Faça Uma Proposta</div>
+                <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
+                  <input id="article_name" name="article[name]" type="text">
+                  <textarea id="article_abstract" name="article[abstract]"></textarea>
+                  <label>Título</label>
+                  <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
+                  <label>Descrição</label>
+                  <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
+                  <input type='submit' id='make-proposal-button'  name='make-proposal-button' value='Nova Proposta'>
+                </form>
+              </div>
             </div>
-            <div class='support-proposal-container'></div>
-            <div class='experience-proposal'>Conte sua experiência</div>
-            <div class='talk-proposal'>Fale com o ministro</div>
+            <div class='support-proposal-container'>
+            </div>
+<!--
+            <div class='experience-proposal-container'>
+              <div class='experience-proposal'>
+                <div class='title'>Conte sua experiência</div>
+              </div>
+            </div>
+            <div class='talk-proposal-container'>
+              <div class='talk-proposal'>
+                <div class='title'>Fale com o ministro</div>
+              </div>
+            </div>
+-->
           </div>
         </div>
       {{/each}}
@@ -95,6 +110,7 @@
     <script id='support-proposal-template' type='text/x-handlebars-template'>
       <div class='support-proposal'>
         <div class='title'> Apoie outras propostas</div>
+        <div class='subtitle'> Propostas da sociedade</div>
         <div class='author'>{{author.name}}</div>
         <div class='abstract'>{{abstract}}</div>
         <div class="vote-actions">
