@@ -1,27 +1,28 @@
 @font-face {
   font-family: asap_bold_italic;
-  src: url(../fonts/Asap-BoldItalic.ttf);
+  src: url(./fonts/Asap-BoldItalic.ttf);
 }
 
 @font-face {
   font-family: asap_bold;
-  src: url(../fonts/Asap-Bold.ttf);
+  src: url(./fonts/Asap-Bold.ttf);
 }
 
 @font-face {
   font-family: asap_italic;
-  src: url(../fonts/Asap-Italic.ttf);
+  src: url(./fonts/Asap-Italic.ttf);
 }
 
 @font-face {
   font-family: asap;
-  src: url(../fonts/Asap-Regular.ttf);
+  src: url(./fonts/Asap-Regular.ttf);
 }
 
 @import 'nav';
 @import 'header';
 @import 'proposal_categories';
 @import 'proposal_group';
+@import 'proposal_detail';
 @import 'login';
 @import 'footer';
 
@@ -48,7 +49,7 @@ h1 {
 
 #content {
   padding-bottom: 150px;
-  background: transparent url(../images/header.png) center bottom no-repeat;
+  background: transparent url(./images/header.png) center bottom no-repeat;
   p {
     font{
       weight: lighter;
