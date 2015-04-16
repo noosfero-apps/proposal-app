@@ -193,6 +193,14 @@ footer {
   background-color: #ffb400;
 }
 
+#proposal-category-desenvolvimento-social a {
+  background-image: url(../images/icons/desenvolvimento.png);
+  background-color: #51d0b3;
+  border-color: #51d0b3;
+}
+.proposal-category-items-desenvolvimento-social {
+  background-color: #51d0b3;
+}
 #proposal-categories-container {
   display: inline;
   width: auto;
