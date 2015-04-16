@@ -1,10 +1,9 @@
 @import "utilities/variables";
 
-#proposal-categories{
+#proposal-categories {
   background: #fff;
   clear: both;
   margin: 0;
-  width: 100%;
   padding: 10px;
   text-align: center;
   li {
@@ -77,12 +76,20 @@
 
   .proposal-category-items .proposal-item {
     width: 290px;
-    min-height: 134px;
+    height: 134px;
     margin: 10px;
     background: #fff;
     border-radius: 5px;
     padding: 15px;
     vertical-align: top;
+  }
+
+  .proposal-category-items {
+    text-align: left;
+    border-radius: 6px;
+    .proposal-list {
+      padding-left: 20px;
+    }
   }
 
   #proposal-categories-container {
@@ -114,6 +121,10 @@
     background-color: $color;
     border-color: $color;
   }
+  #proposal-category-#{$category} .arrow-box:after {
+    border-bottom-color: $color;
+  }
+
   .proposal-category-items-#{$category} ul.category li {
     background-color: $color;
     background-image: url(./images/icons/#{$category}.png);
@@ -126,5 +137,25 @@
 @each $category, $description in $categories-descriptions {
   .proposal-category-items-#{$category} .header .description:before {
     content: "#{$description}";
+  }
+}
+
+.arrow-box {
+  position: relative;
+  background: #88b7d5;
+  top: 3px;
+  &:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #88b7d5;
+    border-width: 8px;
+    margin-left: -8px;
   }
 }

@@ -6,6 +6,7 @@
     <script src='js/jquery-2.1.3.min.js'></script>
     <script src='js/handlebars-v3.0.1.js'></script>
     <script src='js/handlebars-helpers.js'></script>
+    <script src='js/jquery.dotdotdot.min.js'></script>
 <!--
     <script src='js/layout.js'></script>
 -->
@@ -33,6 +34,7 @@
           {{#each article.categories}}
             <li id='proposal-category-{{slug}}' class="proposal-category">
               {{#link name id}}{{/link}}
+              <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
           {{#each article.categories}}
@@ -41,7 +43,7 @@
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
               </div>
-              <ul>
+              <ul class="proposal-list">
                 {{#list_proposal ../article.children category=slug}}
                   {{#link title id}}{{/link}}
                 {{/list_proposal}}
