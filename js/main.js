@@ -55,6 +55,8 @@ $.getJSON(noosferoAPI)
       //Display Proposal
       $('#proposal-categories').hide();
       $('#proposal-group').hide();
+      $('nav').hide();
+      $('#content').hide();
       $('.proposal-detail').hide();
       $('#' + item).show();
 
