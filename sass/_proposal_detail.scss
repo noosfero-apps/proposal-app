@@ -2,6 +2,17 @@
     ul{
       padding: 0px;
     }
+    .abstract{
+      text-align: center;
+      margin-top: 50px;
+    }
+    .title{
+      margin: 25px 0px;
+      font: {
+        size: larger;
+        weight: bold;
+      }
+    }
 @each $category, $color in $categories {
     .#{$category}{
       background-color: $color;
