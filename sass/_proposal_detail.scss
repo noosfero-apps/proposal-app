@@ -1,7 +1,27 @@
+  .proposal-detail {
+    ul{
+      padding: 0px;
+    }
 @each $category, $color in $categories {
-.proposal-detail {
-  .#{$category}{
-    background-color: $color;
+    .#{$category}{
+      background-color: $color;
+      padding: { 
+        bottom: 20px;
+        top: 20px;
+      }
+      a {
+        background-image: url(./images/icons/#{$category}.png);
+        padding: 20px;
+        background: {
+          color: $color;
+          position: center left;
+          repeat: no-repeat;
+        }
+        span{
+          padding-left: 40px;
+        }
+      }
+    }
+}
+
   }
-}
-}

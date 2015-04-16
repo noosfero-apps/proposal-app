@@ -53,7 +53,9 @@
         <div class='proposal-detail hide' id="proposal-item-{{id}}">
           <ul>
             {{#each categories}}
-              <li class='{{slug}}'>{{name}}</li>
+              <li class='{{slug}}'>
+                <a href="#"><span>{{name}}</span></a>
+              </li>
             {{/each}}
           </ul>
           <img src="{{../host}}{{image.thumb_url}}"/>
