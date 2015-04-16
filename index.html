@@ -32,7 +32,7 @@
       <ul id="proposal-categories">
         <div id="proposal-categories-container">
           {{#each article.categories}}
-            <li id='proposal-category-{{slug}}' class="proposal-category">
+            <li id='proposal-category-{{slug}}' class="proposal-category" data-category="{{slug}}">
               {{#link name id}}{{/link}}
               <div class="arrow-box" style="display: none"></div>
             </li>
@@ -64,8 +64,8 @@
           <div class='categories {{#each categories}}{{slug}} {{/each}}'>
             <ul>
               {{#each categories}}
-                <li class='category'>
-                  <a href="#"><span>{{name}}</span></a>
+                <li class='category proposal-category' data-category="{{slug}}">
+                  {{#link name id}}{{/link}}
                 </li>
               {{/each}}
             </ul>

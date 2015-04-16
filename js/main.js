@@ -70,11 +70,14 @@ $.getJSON(noosferoAPI)
       var item = this.href.split('#').pop();
       if($('#' + item).hasClass('proposal-category-items')){
         //Display Topics or Discussion by category
+        $('#proposal-categories').show();
         $('.proposal-category-items').hide();
+        $('.proposal-detail').hide();
         $('#' + item).show();
         $(".proposal-item").dotdotdot();
         $('.proposal-category .arrow-box').hide();
-        $(this).siblings('.arrow-box').show();
+        $(this).parent('.proposal-category').data('category')
+        $('#proposal-category-'+$(this).parent('.proposal-category').data('category')).find('.arrow-box').show();
       }
       event.preventDefault();
     });
