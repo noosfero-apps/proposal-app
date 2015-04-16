@@ -70,11 +70,14 @@ $.getJSON(noosferoAPI)
       var item = this.href.split('#').pop();
       if($('#' + item).hasClass('proposal-category-items')){
         //Display Topics or Discussion by category
+        $('#proposal-categories').show();
         $('.proposal-category-items').hide();
+        $('.proposal-detail').hide();
         $('#' + item).show();
         $(".proposal-item").dotdotdot();
         $('.proposal-category .arrow-box').hide();
-        $(this).siblings('.arrow-box').show();
+        $(this).parent('.proposal-category').data('category')
+        $('#proposal-category-'+$(this).parent('.proposal-category').data('category')).find('.arrow-box').show();
       }
       event.preventDefault();
     });
@@ -104,7 +107,8 @@ $.getJSON(noosferoAPI)
 function loadRandomProposal(topic_id, private_token) {
   var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,created_by';
   $.getJSON(url).done(function( data ) {
-    var article = data.articles.length > 0 ? data.articles[0] : null;
+    if(data.articles.length == 0) return;
+    var article = data.articles[0];
     $('.support-proposal-container').html(supportProposalTemplate(article));
     $(document.body).off('click', '.vote-actions .like');
     $(document.body).on('click', '.vote-actions .like', function(e) {
