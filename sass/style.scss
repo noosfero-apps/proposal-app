@@ -1,0 +1,115 @@
+@font-face {
+  font-family: asap_bold_italic;
+  src: url(../fonts/Asap-BoldItalic.ttf);
+}
+
+@font-face {
+  font-family: asap_bold;
+  src: url(../fonts/Asap-Bold.ttf);
+}
+
+@font-face {
+  font-family: asap_italic;
+  src: url(../fonts/Asap-Italic.ttf);
+}
+
+@font-face {
+  font-family: asap;
+  src: url(../fonts/Asap-Regular.ttf);
+}
+
+@import 'nav';
+@import 'header';
+@import 'proposal_categories';
+@import 'proposal_group';
+@import 'login';
+@import 'footer';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: asap, sans;
+}
+
+h1 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #03316f;
+  font-size: 28px;
+  padding: 20px;
+  margin: 0;
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  border-bottom: 1px solid #d6dcd7;
+}
+
+#content {
+  padding-bottom: 150px;
+  background: transparent url(../images/header.png) center bottom no-repeat;
+  p {
+    font{
+      weight: lighter;
+      size: 14px;
+    }
+    text-align: justify;
+    margin: 20px;
+    line-height: 1.5em;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.mobile nav {
+  position: absolute;
+  bottom: 0;
+}
+
+/*
+ * Each button
+ * FIXME: This selector doesn't look reliable
+ */
+
+
+ul.category {
+  display: block;
+  text-align: left;
+  padding: 0;
+}
+
+.category > li {
+  color: #03316f;
+  text-align: left;
+  display: block !important;
+  font-family: asap_bold;
+  font-size: 16px;
+  padding: 10px 0 5px 0;
+  border-bottom: 1px solid #03316f;
+  margin-bottom: 10px;
+}
+
+.proposal-item p {
+  font-size: 14px;
+  color: #172938;
+  margin: 0;
+  padding: 10px;
+  padding-top: 5px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.proposal-item > a {
+  display: block;
+  margin: 0;
+  color: #03316f;
+  text-align: left;
+  font-family: asap_bold;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 10px;
+  background: #fff;
+}
