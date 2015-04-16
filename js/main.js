@@ -70,6 +70,8 @@ $.getJSON(noosferoAPI)
         $('.proposal-category-items').hide();
         $('#' + item).show();
         $(".proposal-item").dotdotdot();
+        $('.proposal-category .arrow-box').hide();
+        $(this).siblings('.arrow-box').show();
       }
       event.preventDefault();
     });
