@@ -59,7 +59,6 @@ $.getJSON(noosferoAPI)
       $('#proposal-group').hide();
       $('nav').hide();
       $('#content').hide();
-      $(".abstract").dotdotdot();
       $('.proposal-detail').hide();
       $('#' + item).show();
 
@@ -110,6 +109,7 @@ function loadRandomProposal(topic_id, private_token) {
     if(data.articles.length == 0) return;
     var article = data.articles[0];
     $('.support-proposal-container').html(supportProposalTemplate(article));
+    $(".abstract").dotdotdot();
     $(document.body).off('click', '.vote-actions .like');
     $(document.body).on('click', '.vote-actions .like', function(e) {
       $.ajax({
