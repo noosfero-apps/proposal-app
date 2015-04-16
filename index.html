@@ -34,11 +34,19 @@
             <li id='proposal-category-{{slug}}' class="proposal-category">
               {{#link name id}}{{/link}}
             </li>
-            <ul id='proposal-item-{{id}}' class='proposal-category-items proposal-category-items-{{slug}} hide'>
-              {{#list_proposal ../article.children category=slug}}
-                {{#link title id}}{{/link}}
-              {{/list_proposal}}
-            </ul>
+          {{/each}}
+          {{#each article.categories}}
+            <div id='proposal-item-{{id}}' class="proposal-category-items proposal-category-items-{{slug}} hide">
+              <div class="header">
+                <div class="name">{{name}}</div>
+                <div class="description"></div>
+              </div>
+              <ul>
+                {{#list_proposal ../article.children category=slug}}
+                  {{#link title id}}{{/link}}
+                {{/list_proposal}}
+              </ul>
+            </div>
           {{/each}}
         </div>
       </ul>
