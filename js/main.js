@@ -69,6 +69,7 @@ $.getJSON(noosferoAPI)
         //Display Topics or Discussion by category
         $('.proposal-category-items').hide();
         $('#' + item).show();
+        $(".proposal-item").dotdotdot();
       }
       event.preventDefault();
     });

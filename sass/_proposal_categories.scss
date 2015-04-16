@@ -1,6 +1,6 @@
 @import "utilities/variables";
 
-#proposal-categories{
+#proposal-categories {
   background: #fff;
   clear: both;
   margin: 0;
@@ -77,12 +77,19 @@
 
   .proposal-category-items .proposal-item {
     width: 290px;
-    min-height: 134px;
+    height: 134px;
     margin: 10px;
     background: #fff;
     border-radius: 5px;
     padding: 15px;
     vertical-align: top;
+  }
+
+  .proposal-category-items {
+    text-align: left;
+    .proposal-list {
+      padding-left: 20px;
+    }
   }
 
   #proposal-categories-container {
