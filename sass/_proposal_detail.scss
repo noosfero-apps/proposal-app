@@ -1,38 +1,59 @@
-  .proposal-detail {
-    ul{
-      padding: 0px;
-    }
-    .abstract{
-      text-align: center;
-      margin-top: 50px;
-    }
-    .title{
-      margin: 25px 0px;
-      font: {
-        size: larger;
-        weight: bold;
-      }
-    }
-@each $category, $color in $categories {
+.proposal-detail {
+  @each $category, $color in $categories {
     .#{$category}{
-      background-color: $color;
-      padding: { 
-        bottom: 20px;
-        top: 20px;
+      ul{
+        padding: 0px;
       }
-      a {
-        background-image: url(./images/icons/#{$category}.png);
-        padding: 20px;
-        background: {
-          color: $color;
-          position: center left;
-          repeat: no-repeat;
+      .abstract{
+        text-align: center;
+        margin-top: 50px;
+      }
+      .body{
+        margin-bottom: 20px;
+      }
+      .title{
+        margin: 25px 0px;
+        font: {
+          size: larger;
+          weight: bold;
         }
-        span{
-          padding-left: 40px;
+      }
+      .make-proposal{
+        .title{
+          color: $color;
+        }
+        width: 49%;
+        border: 1px solid $color;
+      }
+      .support-proposal-container{
+        width: 49%;
+      }
+      .experience-proposal{
+        width: 49%;
+      }
+      .talk-proposal{
+        width: 49%;
+    
+      }
+      li{
+        background-color: $color;
+        padding: { 
+          bottom: 20px;
+          top: 20px;
+        }
+        a {
+          background-image: url(./images/icons/#{$category}.png);
+          padding: 20px;
+          background: {
+            color: $color;
+            position: center left;
+            repeat: no-repeat;
+          }
+          span{
+            padding-left: 40px;
+          }
         }
       }
     }
-}
-
   }
+}

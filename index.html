@@ -59,31 +59,33 @@
 
       {{#each article.children}}
         <div class='proposal-detail hide' id="proposal-item-{{id}}">
-          <ul>
-            {{#each categories}}
-              <li class='{{slug}}'>
-                <a href="#"><span>{{name}}</span></a>
-              </li>
-            {{/each}}
-          </ul>
-          <div class='abstract'>
-            <img src="{{../host}}{{image.url}}"/>
+          <div class='categories {{#each categories}}{{slug}} {{/each}}'>
+            <ul>
+              {{#each categories}}
+                <li class='category'>
+                  <a href="#"><span>{{name}}</span></a>
+                </li>
+              {{/each}}
+            </ul>
+            <div class='abstract'>
+              <img src="{{../host}}{{image.url}}"/>
+            </div>
+            <div class='title'>{{title}}</div> 
+            <div class='body'>{{body}}</div>
+            <div class='make-proposal'>
+              <div class='title'>Proponha</div>
+              <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
+                <input id="article_name" name="article[name]" type="text">
+                <textarea id="article_abstract" name="article[abstract]"></textarea>
+                <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
+                <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
+                <input type='submit' id='make-proposal-button'  name='make-proposal-button' value='Submit'>
+              </form>
+            </div>
+            <div class='support-proposal-container'></div>
+            <div class='experience-proposal'>Conte sua experiência</div>
+            <div class='talk-proposal'>Fale com o ministro</div>
           </div>
-          <div class='title'>{{title}}</div> 
-          <span>{{body}}</span>
-          <div class='make-proposal'>
-            <div>Faça sua proposta</div>
-            <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
-              <input id="article_name" name="article[name]" type="text">
-              <textarea id="article_abstract" name="article[abstract]"></textarea>
-              <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
-              <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
-              <input type='submit' id='make-proposal-button'  name='make-proposal-button' value='Submit'>
-            </form>
-          </div>
-          <div class='support-proposal-container'></div>
-          <div class='experience-proposal'>Conte sua experiência</div>
-          <div class='talk-proposal'>Fale com o ministro</div>
         </div>
       {{/each}}
     </script>
