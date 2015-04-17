@@ -66,6 +66,12 @@
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
                   {{#link name id}}{{/link}}
+                  <select>
+                    {{#each ../../article.children}}
+                      <option value='{{id}}'> {{title}}</option>
+                    {{/each}}
+                   
+                  </select>
                 </li>
               {{/each}}
             </ul>
