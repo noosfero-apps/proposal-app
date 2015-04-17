@@ -101,6 +101,13 @@
               </div>
             </div>
             <div class='support-proposal-container'>
+              <div class='support-proposal'>
+                <div class='container-title'> Apoie outras propostas</div>
+                <div class='subtitle'> Propostas da sociedade</div>
+                <div class="random-proposal"></div>
+                <div class="loading">Carregando...</div>
+                <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+              </div>
             </div>
             <div class='experience-proposal-container'>
               <div class='experience-proposal'>
@@ -134,15 +141,11 @@
     </script>
 
     <script id='support-proposal-template' type='text/x-handlebars-template'>
-      <div class='support-proposal'>
-        <div class='container-title'> Apoie outras propostas</div>
-        <div class='subtitle'> Propostas da sociedade</div>
-        <div class='abstract'><p>"{{abstract}}"</p></div>
-        <div class="vote-actions">
-          <a href="#" class="like dislike" data-vote-value="-1"></a>
-          <a href="#" class="like" data-vote-value="1"></a>
-          <a href="#" class="skip">Pular</a>
-        </div>
+      <div class='abstract'><p>"{{abstract}}"</p></div>
+      <div class="vote-actions">
+        <a href="#" class="like dislike" data-vote-value="-1"></a>
+        <a href="#" class="like" data-vote-value="1"></a>
+        <a href="#" class="skip">Pular</a>
       </div>
     </script>
 
