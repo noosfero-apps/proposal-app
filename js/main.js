@@ -60,20 +60,7 @@ $.getJSON(noosferoAPI)
     });
     $( '.proposal-item a' ).click(function(event){
       var item = this.href.split('#').pop();
-      //Display Proposal
-      $('#proposal-categories').hide();
-      $('#proposal-group').hide();
-      $('nav').hide();
-      $('#content').hide();
-      $('.proposal-detail').hide();
-      $('#' + item).show();
-
-      $('.send-proposal-button').show();
-      $('.make-proposal-form').hide();
-      $('.login-container').hide();
-
-      var topic_id = this.id.replace('\#','');
-      loadRandomProposal(topic_id, private_token);
+      display_proposal(item);
     });
     $( '.proposal-category a' ).click(function(event){
       var item = this.href.split('#').pop();
@@ -104,7 +91,9 @@ $.getJSON(noosferoAPI)
       $('.body').toggle();
       event.preventDefault();
     });
-
+    $( '.proposal-selection' ).change(function(event){
+      display_proposal('proposal-item-' + this.value);
+    });
 
     $('.save-article-form').submit(function (e) {
       e.preventDefault();
@@ -213,4 +202,23 @@ function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+
+
+function display_proposal(item){
+  //Display Proposal
+  $('#proposal-categories').hide();
+  $('#proposal-group').hide();
+  $('nav').hide();
+  $('#content').hide();
+  $('.proposal-detail').hide();
+  $('#' + item).show();
+
+  $('.send-proposal-button').show();
+  $('.make-proposal-form').hide();
+  $('.login-container').hide();
+
+  var topic_id = this.id.replace('\#','');
+  loadRandomProposal(topic_id, private_token);
 }
