@@ -79,9 +79,9 @@
                 <div class='container-title'>Faça Uma Proposta</div>
                 <div class='subtitle'>Qual a sua sugestão para melhorar este programa?</div>
                 <div class='info'>Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
-                <div class='send-proposal-button'><a href='#'>Envie Sua Proposta</a></div>
+                <div class='send-proposal-button send-button'><a href='#'>Envie Sua Proposta</a></div>
                 <div class="login-container hide">Login</div>
-                <form class='make-proposal-form hide' id='make-proposal-form-{{id}}'>
+                <form class='make-proposal-form save-article-form hide' id='make-proposal-form-{{id}}'>
                   <div class="message"></div>
                   <div class="name">
                     <div><label>Título</label></div>
@@ -94,7 +94,7 @@
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
                   <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
                 </form>
-                <div class='success-proposal-sent hide'>
+                <div class='success-proposal-sent success-sent hide send-button'>
                   <p>Sua proposta foi encaminhada com sucesso!</p>
                   <a href='#'>Encaminhar Nova Proposta</a>
                 </div>
@@ -114,7 +114,25 @@
                 <div class='container-title'>Conte sua experiência</div>
                 <p>Adoraríamos que você nos contasse a sua experiência com este programa ou a de alguém que você conhece</p>
                 <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada</p>
-                <div class='send-experience-button'><a href='#'>Envie Sua Experiência</a></div>
+                <div class='send-experience-button send-button'><a href='#'>Envie Sua Experiência</a></div>
+                <div class="login-container hide">Login</div>
+                <form class='make-experience-form save-article-form hide' id='make-experience-form-{{id}}'>
+                  <div class="message"></div>
+                  <div class="name">
+                    <div><label>Título</label></div>
+                    <input id="article_name" name="article[name]" type="text" placeholder="Título">
+                  </div>
+                  <div>
+                    <div><label>Descrição</label></div>
+                    <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
+                  </div>
+                  <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Story' type='hidden'>
+                  <input type='submit' id='make-experience-button' class='make-experience-button'  name='make-experience-button' value='Enviar'>
+                </form>
+                <div class='success-experience-sent success-sent hide send-button'>
+                  <p>Sua experiência foi encaminhada com sucesso!</p>
+                  <a href='#'>Encaminhar Nova Experiência</a>
+                </div>
               </div>
             </div>
             <div class='talk-proposal-container'>
