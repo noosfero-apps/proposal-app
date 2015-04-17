@@ -19,7 +19,7 @@ var loginButton;
 var participa = true;
 if(participa){
   var host = 'http://www.participa.br';
-  var private_token = '9350c1488fcae884ad955091a3d2d960';  //participa
+  var private_token = '375bee7e17d0021af7160ce664874618';  //participa
   var proposal_discussion = '92856'; //participa
 }else{
   var host = 'http://noosfero.com:3000';
@@ -137,7 +137,7 @@ function loadRandomProposal(topic_id, private_token) {
   $(".no-proposals").hide();
   $(".loading").show();
   $('.random-proposal').html('');
-  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by';
+  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
   $.getJSON(url).done(function( data ) {
     $(".loading").hide();
 
