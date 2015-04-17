@@ -6,7 +6,10 @@
       }
       .abstract{
         text-align: center;
-        margin-top: 50px;
+        color: #083e87;
+        font-weight: bold;
+        font-style: italic;
+        margin: 50px 40px 30px 40px;
       }
       .body{
         margin-bottom: 20px;
@@ -28,6 +31,9 @@
           font-size: x-large;
           margin: 10px;
         }
+        .name {
+          margin-bottom: 15px;
+        }
         width: 50%;
         height: 90%;
         float: left;
@@ -46,6 +52,14 @@
           height: 15%;
           border: none;
           margin-top: 8%;
+          border-radius: 6px;
+        }
+        #article_abstract {
+          width: 65%;
+          height: 15%;
+        }
+        label {
+          color: gray;
         }
       }
       .support-proposal-container{
@@ -61,8 +75,40 @@
         text-align: center;
         .support-proposal{
           border: 1px solid $color;
-          height: 100%;
+          height: 96%;
           margin: 2% 2% 2% 2%;
+          padding: 10px;
+        }
+        .subtitle {
+          color: rgb(163, 163, 163);
+        }
+        .vote-actions {
+          .like {
+            background-image: url(./images/like.png);
+            background-repeat: no-repeat;
+            display: inline-block;
+            height: 72px;
+            width: 76px;
+            margin: 0 6%;
+          }
+          .dislike {
+            background-image: url(./images/dislike.png);
+          }
+          .skip {
+            display: block;
+            font-weight: bolder;
+            font-size: x-large;
+            background-color: #00a9bd;
+            color: white;
+            width: 15%;
+            margin-top: 4%;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+            margin-left: auto;
+            padding: 10px;
+            margin-right: auto;
+          }
         }
       }
       .experience-proposal-container{

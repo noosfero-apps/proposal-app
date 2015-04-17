@@ -112,6 +112,11 @@ function loadRandomProposal(topic_id, private_token) {
     var article = data.articles[0];
     $('.support-proposal-container').html(supportProposalTemplate(article));
     $(".abstract").dotdotdot();
+    $(document.body).off('click', '.vote-actions .skip');
+    $(document.body).on('click', '.vote-actions .skip', function(e) {
+      loadRandomProposal(topic_id, private_token);
+      e.preventDefault();
+    });
     $(document.body).off('click', '.vote-actions .like');
     $(document.body).on('click', '.vote-actions .like', function(e) {
       $.ajax({

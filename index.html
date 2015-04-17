@@ -78,11 +78,15 @@
               <div class='make-proposal'>
                 <div class='title'>Faça Uma Proposta</div>
                 <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
-                  <input id="article_name" name="article[name]" type="text">
-                  <textarea id="article_abstract" name="article[abstract]"></textarea>
-                  <label>Título</label>
+                  <div class="name">
+                    <div><label>Título</label></div>
+                    <input id="article_name" name="article[name]" type="text" placeholder="Título">
+                  </div>
+                  <div>
+                    <div><label>Descrição</label></div>
+                    <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
+                  </div>
                   <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
-                  <label>Descrição</label>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
                   <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Nova Proposta'>
                 </form>
@@ -109,18 +113,18 @@
       <div class='support-proposal'>
         <div class='title'> Apoie outras propostas</div>
         <div class='subtitle'> Propostas da sociedade</div>
-        <div class='author'>{{author.name}}</div>
-        <div class='abstract'><p>{{abstract}}</p></div>
+        <div class='abstract'><p>"{{abstract}}"</p></div>
         <div class="vote-actions">
-          <a href="#" class="like" data-vote-value="1">Gostei</a>
-          <a href="#" class="like" data-vote-value="-1">Não Gostei</a>
+          <a href="#" class="like dislike" data-vote-value="-1"></a>
+          <a href="#" class="like" data-vote-value="1"></a>
+          <a href="#" class="skip">Pular</a>
         </div>
       </div>
     </script>
 
     <div id='proposal-result'></div>
 
-    <div id="login">
+    <div id="login" style="display: none">
       <a href="/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google">Google</a>
       <a href="/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook">Facebook</a>
       <a href="/plugin/oauth_client/noosfero_oauth2?oauth_client_popup=true&id=3" target="_blank" class="participa">Participa</a>
