@@ -70,7 +70,6 @@
                     {{#each ../../article.children}}
                       <option value='{{id}}'> {{title}}</option>
                     {{/each}}
-                   
                   </select>
                 </li>
               {{/each}}
@@ -78,9 +77,9 @@
             <div class='abstract'>
               <img src="{{../host}}{{image.url}}"/>
             </div>
-            <div class='title'>{{title}}</div> 
-            <div class='abstract'>{{abstract}}</div> 
-            <div class='show_body'><a href='#'>Conheça o Programa</a></div> 
+            <div class='title'>{{title}}</div>
+            <div class='abstract'>{{{abstract}}}</div>
+            <div class='show_body'><a href='#'>Conheça o Programa</a></div>
             <div class='body hide'>{{body}}</div>
             <div class='make-proposal-container'>
               <div class='make-proposal'>
