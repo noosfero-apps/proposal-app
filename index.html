@@ -80,7 +80,9 @@
                 <div class='subtitle'>Qual a sua sugestão para melhorar este programa?</div>
                 <div class='info'>Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
                 <div class='send-proposal-button'><a href='#'>Envie Sua Proposta</a></div>
+                <div class="login-container hide">Login</div>
                 <form class='make-proposal-form hide' id='make-proposal-form-{{id}}'>
+                  <div class="message"></div>
                   <div class="name">
                     <div><label>Título</label></div>
                     <input id="article_name" name="article[name]" type="text" placeholder="Título">
@@ -89,7 +91,6 @@
                     <div><label>Descrição</label></div>
                     <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
                   </div>
-                  <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
                   <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
                 </form>
@@ -129,13 +130,31 @@
       </div>
     </script>
 
-    <div id='proposal-result'></div>
+    <script id='login' type='text/x-handlebars-template'>
+      <form class="login">
+        <div class="message"></div>
+        <div class="username">
+          <div class="label">Nome de Usuário / E-mail:</div>
+          <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
+        </div>
+        <div class="password">
+          <div class="label">Senha:</div>
+          <input id="user_password" name="password" type="password" placeholder="Senha">
+        </div>
+        <div class="actions">
+          <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
+          <a href="#" class="login-action">Acessar</a>
+        </div>
+        <div class="oauth">
+          <div class="label">Acessar com:</div>
+          <a href="/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook">Facebook</a>
+          <a href="/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google">Google +</a>
+          <a href="http://www.participa.br/account/signup" target="_blank" class="new-user">Cadastrar</a>
+        </div>
+      </form>
+    </script>
 
-    <div id="login" style="display: none">
-      <a href="/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google">Google</a>
-      <a href="/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook">Facebook</a>
-      <a href="/plugin/oauth_client/noosfero_oauth2?oauth_client_popup=true&id=3" target="_blank" class="participa">Participa</a>
-    </div>
+    <div id='proposal-result'></div>
 
     <script src='js/main.js'></script>
   </body>
