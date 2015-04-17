@@ -30,6 +30,17 @@
           font-size: x-large;
           margin: 10px;
       }
+      .container-button{
+        font-weight: bolder;
+        font-size: x-large;
+        background-color: $color;
+        color: white;
+        width: 40%;
+        height: 15%;
+        border: none;
+        margin-top: 8%;
+        border-radius: 6px;
+      }
       .make-proposal-container{
         .name {
           margin-bottom: 15px;
@@ -44,18 +55,10 @@
           height: 100%;
         }
         .make-proposal-button{
-          font-weight: bolder;
-          font-size: x-large;
-          background-color: $color;
-          color: white;
-          width: 40%;
-          height: 15%;
-          border: none;
-          margin-top: 8%;
-          border-radius: 6px;
+          @extend .container-button;
         }
         .send-proposal-button {
-          @extend .make-proposal-button;
+          @extend .container-button;
         }
         #article_abstract {
           width: 65%;
@@ -117,6 +120,9 @@
           border: 1px solid $color;
           margin: 6% 2% 2% 2%;
           height: 100%;
+        }
+        .send-experience-button {
+          @extend .container-button;
         }
       }
       .talk-proposal-container{
