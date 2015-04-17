@@ -100,6 +100,11 @@ $.getJSON(noosferoAPI)
       loginCallback(logged_in);
       event.preventDefault();
     });
+    $( '.show_body a' ).click(function(event){
+      $('.body').toggle();
+      event.preventDefault();
+    });
+
 
     $('.save-article-form').submit(function (e) {
       e.preventDefault();
