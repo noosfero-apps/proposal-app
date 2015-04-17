@@ -1,1 +1,3 @@
 *.swp
+.sass-cache
+style.css
