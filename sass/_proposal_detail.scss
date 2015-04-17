@@ -1,4 +1,42 @@
 .proposal-detail {
+  li {
+    list-style: none;
+    width: 70%;
+    padding: 0;
+    height: 50px;
+    overflow: hidden;
+
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 15px 35px;
+      margin: 0;
+      width: 20%;
+      display: inline-block;
+      span {
+        padding-left: 40px;
+      }
+      font: {
+        size: larger;
+        weight: bold;
+      }
+      background-size: 32px;
+      color: white;
+    }
+  }
+
+  .categories {
+    select {
+      height: 57px;
+      width: 70%;
+      margin: 0;
+      text-transform: uppercase;
+      border: 0;
+      background: #EEEFF1;
+      float: right;
+    }
+  }
+
   @each $category, $color in $categories {
     .#{$category}{
       ul{
@@ -139,25 +177,12 @@
       }
       li{
         background-color: $color;
-        padding: { 
-          bottom: 20px;
-          top: 20px;
-        }
         a {
           background-image: url(./images/icons/#{$category}.png);
-          padding: 20px 5%;
-          font: {
-            size: larger;
-            weight: bold;
-          }
-          color: white;
           background: {
             color: $color;
             position: center left;
             repeat: no-repeat;
-          }
-          span{
-            padding-left: 40px;
           }
         }
       }
