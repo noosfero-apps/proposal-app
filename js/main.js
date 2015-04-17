@@ -105,7 +105,7 @@ $.getJSON(noosferoAPI)
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
-        data: $('#'+this.id).serialize() + "&private_token="+private_token
+        data: $('#'+this.id).serialize() + "&private_token="+private_token+"&fields=id"
       })
       .done(function( data ) {
         form.reset();
