@@ -2,7 +2,7 @@ Handlebars.registerHelper('link', function(text, url) {
   text = Handlebars.Utils.escapeExpression(text);
   url  = Handlebars.Utils.escapeExpression(url);
 
-  var result = '<a id="#' + url + '" href="#proposal-item-' + url + '">' + text + '</a>';
+  var result = '<a id="#' + url + '" href="#proposal-item-' + url + '" class="proposal-link">' + text + '</a>';
 
   return new Handlebars.SafeString(result);
 });
@@ -11,7 +11,7 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
 
   var ret = "";
   for(var i=0, j=proposals.length; i<j; i++) {
-    element = "<li class='proposal-item'>";
+    element = "<li class='proposal-item'><div class='item'>";
     element = element + "<ul class='category'>";
      
     for(var x=0, y=proposals[i].categories.length; x<y; x++) {
@@ -27,7 +27,7 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
     element =  element + '</ul>';
     element = element + options.fn(proposals[i]);
     element = element + '<p>' + (proposals[i].abstract ? proposals[i].abstract : '') + '</p>';
-    ret = ret + element + '</li>';
+    ret = ret + element + '</div></li>';
   }
   return ret;
 });
