@@ -76,7 +76,10 @@
             <div class='body'>{{body}}</div>
             <div class='make-proposal-container'>
               <div class='make-proposal'>
-                <div class='title'>Faça Uma Proposta</div>
+                <div class='container-title'>Faça Uma Proposta</div>
+                <div class='subtitle'>Qual a sua sugestão para melhorar este programa?</div>
+                <div class='info'>Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
+                <div class='send-proposal-button'>Envie Sua Proposta</div>
                 <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
                   <div class="name">
                     <div><label>Título</label></div>
@@ -88,7 +91,7 @@
                   </div>
                   <input id='private_token' name='private_token' value='{{../private_token}}' type='hidden'>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
-                  <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Nova Proposta'>
+                  <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
                 </form>
               </div>
             </div>
@@ -96,12 +99,12 @@
             </div>
             <div class='experience-proposal-container'>
               <div class='experience-proposal'>
-                <div class='title'>Conte sua experiência</div>
+                <div class='container-title'>Conte sua experiência</div>
               </div>
             </div>
             <div class='talk-proposal-container'>
               <div class='talk-proposal'>
-                <div class='title'>Fale com o ministro</div>
+                <div class='container-title'>Fale com o ministro</div>
               </div>
             </div>
           </div>
@@ -111,7 +114,7 @@
 
     <script id='support-proposal-template' type='text/x-handlebars-template'>
       <div class='support-proposal'>
-        <div class='title'> Apoie outras propostas</div>
+        <div class='container-title'> Apoie outras propostas</div>
         <div class='subtitle'> Propostas da sociedade</div>
         <div class='abstract'><p>"{{abstract}}"</p></div>
         <div class="vote-actions">

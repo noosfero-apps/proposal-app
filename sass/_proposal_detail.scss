@@ -21,16 +21,16 @@
           weight: bold;
         }
       }
-      .clear{
+      .conclear{
         clear: both;
       }
-      .make-proposal-container{
-        .title{
+      .container-title{
           color: $color;
           font-weight: bolder;
           font-size: x-large;
           margin: 10px;
-        }
+      }
+      .make-proposal-container{
         .name {
           margin-bottom: 15px;
         }
@@ -63,12 +63,6 @@
         }
       }
       .support-proposal-container{
-        .title{
-          color: $color;
-          font-weight: bolder;
-          font-size: x-large;
-          margin: 10px;
-        }
         width: 50%;
         float: left;
         height: 90%;
@@ -112,12 +106,6 @@
         }
       }
       .experience-proposal-container{
-        .title{
-          color: $color;
-          font-weight: bolder;
-          font-size: x-large;
-          margin: 10px;
-        }
         float: left;
         width: 50%;
         height: 90%;
@@ -129,12 +117,6 @@
         }
       }
       .talk-proposal-container{
-        .title{
-          color: $color;
-          font-weight: bolder;
-          font-size: x-large;
-          margin: 10px;
-        }
         width: 50%;
         float: left;
         height: 90%;
