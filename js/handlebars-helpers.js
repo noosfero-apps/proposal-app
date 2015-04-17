@@ -26,7 +26,7 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
     }
     element =  element + '</ul>';
     element = element + options.fn(proposals[i]);
-    element = element + '<p>' + proposals[i].body + '</p>';
+    element = element + '<p>' + (proposals[i].abstract ? proposals[i].abstract : '') + '</p>';
     ret = ret + element + '</li>';
   }
   return ret;
