@@ -14,6 +14,8 @@ var topics;
 
 var logged_in = false;
 
+var loginButton;
+
 var participa = true;
 if(participa){
   var host = 'http://www.participa.br';
@@ -90,15 +92,16 @@ $.getJSON(noosferoAPI)
       }
       event.preventDefault();
     });
-    $( '.send-proposal-button a, .success-proposal-sent a' ).click(function(event){
+    $( '.send-button a' ).click(function(event){
       //display form to send proposal (or login form for non-logged users)
-      $('.send-proposal-button').hide();
+      loginButton = $(this).parents('.send-button');
+      loginButton.hide();
       $('.success-proposal-sent').hide();
       loginCallback(logged_in);
       event.preventDefault();
     });
 
-    $('.make-proposal-form').submit(function (e) {
+    $('.save-article-form').submit(function (e) {
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
       var form = this;
@@ -109,13 +112,13 @@ $.getJSON(noosferoAPI)
       })
       .done(function( data ) {
         form.reset();
-        $('.make-proposal-form').hide();
-        $('.success-proposal-sent').show();
+        $(form).hide();
+        $(form).siblings('.success-sent').show();
       })
       .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
         console.log( "Request Failed: " + err );
-        $('.make-proposal-form .message').text('Não foi possível enviar sua proposta.');
+        $(form).find('.message').text('Não foi possível enviar.');
        });
     });
 
@@ -169,12 +172,12 @@ function loginCallback(loggedIn, token) {
 
   if(logged_in) {
     if(token) private_token = token;
-    $('.make-proposal-form').show();
-    $('.make-proposal-form .message').text('');
-    $('.login-container').hide();
+    loginButton.siblings('.save-article-form').show();
+    loginButton.siblings('.save-article-form .message').show();
+    loginButton.siblings('.login-container').hide();
   } else {
-    $('.make-proposal-form').hide();
-    $('.login-container').show();
+    loginButton.siblings('.save-article-form').hide();
+    loginButton.siblings('.login-container').show();
   }
 }
 
