@@ -54,6 +54,9 @@
           margin-top: 8%;
           border-radius: 6px;
         }
+        .send-proposal-button {
+          @extend .make-proposal-button;
+        }
         #article_abstract {
           width: 65%;
           height: 15%;
