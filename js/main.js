@@ -126,11 +126,20 @@ $.getJSON(noosferoAPI)
    });
 
 function loadRandomProposal(topic_id, private_token) {
+  $(".no-proposals").hide();
+  $(".loading").show();
+  $('.random-proposal').html('');
   var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by';
   $.getJSON(url).done(function( data ) {
-    if(data.articles.length == 0) return;
+    $(".loading").hide();
+
+    if(data.articles.length == 0) {
+      $(".no-proposals").show();
+      return;
+    }
+
     var article = data.articles[0];
-    $('.support-proposal-container').html(supportProposalTemplate(article));
+    $('.random-proposal').html(supportProposalTemplate(article));
     $(".abstract").dotdotdot();
     $(document.body).off('click', '.vote-actions .skip');
     $(document.body).on('click', '.vote-actions .skip', function(e) {
