@@ -219,6 +219,6 @@ function display_proposal(item){
   $('.make-proposal-form').hide();
   $('.login-container').hide();
 
-  var topic_id = this.id.replace('\#','');
+  var topic_id = item.split('-').pop();
   loadRandomProposal(topic_id, private_token);
 }
