@@ -5,11 +5,14 @@ var templateSource = document.getElementById('proposal-template').innerHTML;
 var template = Handlebars.compile(templateSource);
 
 var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
+var loginTemplate = Handlebars.compile(document.getElementById('login').innerHTML);
 
 // The div/container that we are going to display the results in
 var resultsPlaceholder = document.getElementById('proposal-result');
 
 var topics;
+
+var logged_in = false;
 
 var participa = true;
 if(participa){
@@ -31,6 +34,7 @@ $.getJSON(noosferoAPI)
     data['host'] = host;
     data['private_token'] = private_token;
     resultsPlaceholder.innerHTML = template(data);
+    $('.login-container').html(loginTemplate());
     //Actions for links
     $( '#nav-proposal-categories a' ).click(function(event){
       //Display the category tab
@@ -62,6 +66,10 @@ $.getJSON(noosferoAPI)
       $('.proposal-detail').hide();
       $('#' + item).show();
 
+      $('.send-proposal-button').show();
+      $('.make-proposal-form').hide();
+      $('.login-container').hide();
+
       var topic_id = this.id.replace('\#','');
       loadRandomProposal(topic_id, private_token);
     });
@@ -82,35 +90,32 @@ $.getJSON(noosferoAPI)
       }
       event.preventDefault();
     });
-    $( '.send-proposal-button a' ).click(function(event){
-      //Display Topics or Discussion by category
-      $('.make-proposal-form').show();
+    $( '.send-proposal-button a, .success-proposal-sent a' ).click(function(event){
+      //display form to send proposal (or login form for non-logged users)
       $('.send-proposal-button').hide();
-      event.preventDefault();
-    });
-    $( '.success-proposal-sent a' ).click(function(event){
-      //Display Topics or Discussion by category
-      $('.make-proposal-form').show();
       $('.success-proposal-sent').hide();
+      loginCallback(logged_in);
       event.preventDefault();
     });
 
     $('.make-proposal-form').submit(function (e) {
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
+      var form = this;
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
-        data: $('#'+this.id).serialize()
+        data: $('#'+this.id).serialize() + "&private_token="+private_token+"&fields=id"
       })
       .done(function( data ) {
-        this.reset();
+        form.reset();
         $('.make-proposal-form').hide();
         $('.success-proposal-sent').show();
       })
       .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
         console.log( "Request Failed: " + err );
+        $('.make-proposal-form .message').text('Não foi possível enviar sua proposta.');
        });
     });
 
@@ -121,7 +126,7 @@ $.getJSON(noosferoAPI)
    });
 
 function loadRandomProposal(topic_id, private_token) {
-  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,created_by';
+  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by';
   $.getJSON(url).done(function( data ) {
     if(data.articles.length == 0) return;
     var article = data.articles[0];
@@ -149,6 +154,36 @@ function loadRandomProposal(topic_id, private_token) {
   });
 }
 
-function oauthPluginHandleLoginResult(loggedIn, token) {
-  private_token = token;
+function loginCallback(loggedIn, token) {
+  logged_in = loggedIn;
+  $('.login .message').text('');
+
+  if(logged_in) {
+    if(token) private_token = token;
+    $('.make-proposal-form').show();
+    $('.make-proposal-form .message').text('');
+    $('.login-container').hide();
+  } else {
+    $('.make-proposal-form').hide();
+    $('.login-container').show();
+  }
 }
+
+function oauthPluginHandleLoginResult(loggedIn, token) {
+  loginCallback(loggedIn, token);
+}
+
+jQuery(document).ready(function($) {
+  $(document).on('click', '.login-action', function(e) {
+    $.ajax({
+      type: 'post',
+      url: host + '/api/v1/login',
+      data: $(this).parents('.login').serialize(),
+    }).done(function(data) {
+      loginCallback(true, data.private_token);
+    }).fail(function(data) {
+      $('.login .message').text('Não foi possível logar');
+    });
+    e.preventDefault();
+  });
+});
