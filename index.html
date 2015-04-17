@@ -80,7 +80,7 @@
                 <div class='subtitle'>Qual a sua sugestão para melhorar este programa?</div>
                 <div class='info'>Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
                 <div class='send-proposal-button'><a href='#'>Envie Sua Proposta</a></div>
-                <form class='make-proposal-form' id='make-proposal-form-{{id}}'>
+                <form class='make-proposal-form hide' id='make-proposal-form-{{id}}'>
                   <div class="name">
                     <div><label>Título</label></div>
                     <input id="article_name" name="article[name]" type="text" placeholder="Título">
@@ -93,6 +93,10 @@
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
                   <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
                 </form>
+                <div class='success-proposal-sent hide'>
+                  <p>Sua proposta foi encaminhada com sucesso!</p>
+                  <a href='#'>Encaminhar Nova Proposta</a>
+                </div>
               </div>
             </div>
             <div class='support-proposal-container'>

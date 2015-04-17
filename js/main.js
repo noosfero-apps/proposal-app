@@ -82,6 +82,18 @@ $.getJSON(noosferoAPI)
       }
       event.preventDefault();
     });
+    $( '.send-proposal-button a' ).click(function(event){
+      //Display Topics or Discussion by category
+      $('.make-proposal-form').show();
+      $('.send-proposal-button').hide();
+      event.preventDefault();
+    });
+    $( '.success-proposal-sent a' ).click(function(event){
+      //Display Topics or Discussion by category
+      $('.make-proposal-form').show();
+      $('.success-proposal-sent').hide();
+      event.preventDefault();
+    });
 
     $('.make-proposal-form').submit(function (e) {
       e.preventDefault();
@@ -92,6 +104,9 @@ $.getJSON(noosferoAPI)
         data: $('#'+this.id).serialize()
       })
       .done(function( data ) {
+        this.reset();
+        $('.make-proposal-form').hide();
+        $('.success-proposal-sent').show();
       })
       .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
