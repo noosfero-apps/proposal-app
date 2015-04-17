@@ -19,7 +19,7 @@ var loginButton;
 var participa = true;
 if(participa){
   var host = 'http://www.participa.br';
-  var private_token = '9350c1488fcae884ad955091a3d2d960';  //participa
+  var private_token = '375bee7e17d0021af7160ce664874618';  //participa
   var proposal_discussion = '92856'; //participa
 }else{
   var host = 'http://noosfero.com:3000';
