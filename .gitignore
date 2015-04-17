@@ -1,3 +1,7 @@
 *.swp
 .sass-cache
 style.css
+sass/styles.scss
+style.css.map
+styles.css
+styles.css.map
