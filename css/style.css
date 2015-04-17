@@ -1,264 +1,82 @@
-@font-face {
-  font-family: asap_bold_italic;
-  src: url(../fonts/Asap-BoldItalic.ttf);
-}
-
-@font-face {
-  font-family: asap_bold;
-  src: url(../fonts/Asap-Bold.ttf);
-}
-
-@font-face {
-  font-family: asap_italic;
-  src: url(../fonts/Asap-Italic.ttf);
-}
-
-@font-face {
-  font-family: asap;
-  src: url(../fonts/Asap-Regular.ttf);
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: asap, sans;
-}
-
-header {
-  height: 100px;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-h1 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  color: #03316f;
-  font-size: 28px;
-  padding: 20px;
-  margin: 0;
-  display: block;
-  width: 100%;
-  text-transform: uppercase;
-  border-bottom: 1px solid #d6dcd7;
-}
-
-#content {
-  padding-bottom: 150px;
-  background: transparent url(../images/header.png) center bottom no-repeat;
-}
-
-#content p {
-  font-weight: lighter;
-  text-align: justify;
-  margin: 20px;
-  font-size: 14px;
-  line-height: 1.5em;
-}
-
-nav {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-nav ul {
-  padding: 0;
-  margin: 0;
-}
-
-nav li {
-  display: inline;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav li a {
-  display: block;
-  width: 48%;
-  float: left;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background: #03316f;
-  margin: 0;
-  padding: 20px 1%;
-  text-transform: uppercase;
-  border-bottom: 3px solid #001129;
-}
-
-nav li a.active {
-  position: relative;
-  background: #fff;
-  color: #03316f;
-  border-bottom: 3px solid #fff;
-}
-
-#proposal-categories, #proposal-group {
-  background: #fff;
-  clear: both;
-  margin: 0;
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-}
-
-#proposal-categories li, #proposal-group li {
-  list-style: none;
-  display: inline-block;
-}
-
-#proposal-categories .proposal-category > a, #proposal-group a {
-  text-decoration: none;
-  color: #fff;
-  margin: 10px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  background-position: center 30px;
-  background-repeat: no-repeat;
-  width: 140px;
-  height: 40px;
-  display: inline-block;
-  font-size: 14px
-  font-family: asap_bold, sans;
-  font-weight: bolder;
-  text-align: center;
-  padding-top: 100px;
-  overflow: hidden;
-  border-width: 2px;
-  border-style: solid;
-}
-
-#proposal-categories a:hover, #proposal-group a:hover {
-  border-color: #fff !important;
-}
-
-.hide {
-  display: none;
-}
-
-.mobile nav {
-  position: absolute;
-  bottom: 0;
-}
-
-footer {
-  display: none;
-}
-
-#login a {
-  margin: 10px;
-  font-size: 12px;
-  color: #333;
-  text-decoration: none;
-}
-
 /*
- * Each button
- * FIXME: This selector doesn't look reliable
- */
+Error: Invalid CSS after "...ackground: #fff": expected "{", was ";  "
+        on line 78 of _proposal_categories.scss
+        from line 25 of style.scss
 
-#proposal-category-saude a {
-  background-image: url(../images/icons/saude.png);
-  background-color: #00cbd7;
-  border-color: #00cbd7;
-}
-.proposal-category-items-saude {
-  background-color: #00cbd7;
-}
+73:     font-family: asap_bold;
+74:     font-size: 18pt;
+75:     font-weight: bold;  
+76:     text-decoration: none;
+77: <<<<<<< HEAD
+78:     background: #fff;  
+79: =======
+80: >>>>>>> 450d03f922b650755bff80ce172cd13d76d06632
+81:   }
+82: 
+83:   .proposal-item {
 
-#proposal-category-seguranca a {
-  background-image: url(../images/icons/seguranca.png);
-  background-color: #e34748;
-  border-color: #e34748;
-}
-.proposal-category-items-seguranca {
-  background-color: #e34748;
-}
-
-#proposal-category-educacao a {
-  background-image: url(../images/icons/educacao.png);
-  background-color: #ffb400;
-  border-color: #ffb400;
-}
-.proposal-category-items-educacao {
-  background-color: #ffb400;
-}
-
-#proposal-category-desenvolvimento-social a {
-  background-image: url(../images/icons/desenvolvimento.png);
-  background-color: #51d0b3;
-  border-color: #51d0b3;
-}
-.proposal-category-items-desenvolvimento-social {
-  background-color: #51d0b3;
-}
-#proposal-categories-container {
-  display: inline;
-  width: auto;
-}
-
-.proposal-category-items {
-  margin: 0 auto;
-  padding: 0;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-}
-
-ul.category {
-  display: block;
-  text-align: left;
-  padding: 0;
-}
-
-.category > li {
-  color: #FFFFFF;
-  text-align: left;
-  font-family: asap_bold;
-  font-size: 16px;
-  padding: 10px 10px 5px 10px;
-  margin-bottom: 10px;
-  background-color: gray;
-}
-
-.proposal-item p {
-  font-size: 14px;
-  color: #172938;
-  margin: 0;
-  padding-top: 5px;
-  background: #fff;
-  margin-bottom: 10px;
-  text-align: left;
-}
-
-.proposal-item > a {
-  border-top: 1px dotted #03316f;
-  padding-top: 10px;
-  display: block;
-  margin: 0;
-  color: #03316f;
-  text-align: left;
-  font-family: asap_bold;
-  font-size: 16px;
-  text-decoration: none;
-  background: #fff;
-}
-
-.proposal-category-items .proposal-item {
-  width: 290px;
-  min-height: 134px;
-  margin: 10px;
-  background: #fff;
-  border-radius: 7px;
-  padding: 15px;
-  vertical-align: top;
-}
+Backtrace:
+_proposal_categories.scss:78
+style.scss:25
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1165:in `expected'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1101:in `expected'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1096:in `tok!'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:641:in `block'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:711:in `declaration_or_ruleset'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:661:in `block_child'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:653:in `block_contents'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:642:in `block'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:711:in `declaration_or_ruleset'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:661:in `block_child'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:653:in `block_contents'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:642:in `block'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:635:in `ruleset'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:660:in `block_child'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:653:in `block_contents'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:117:in `stylesheet'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:42:in `parse'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/engine.rb:393:in `_to_tree'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/engine.rb:299:in `to_tree'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:323:in `block in visit_import'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/stack.rb:88:in `block in with_import'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/stack.rb:88:in `with_import'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `map'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:157:in `visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:8:in `visit'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/root_node.rb:36:in `css_tree'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/engine.rb:368:in `_render_with_sourcemap'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/engine.rb:285:in `render_with_sourcemap'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:328:in `block in watch'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/vendor/listen/lib/listen/listener.rb:252:in `call'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/vendor/listen/lib/listen/adapters/polling.rb:48:in `call'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
+C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sass-3.4.13/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"...ackground: #fff\": expected \"{\", was \";  \"\A         on line 78 of _proposal_categories.scss\A         from line 25 of style.scss\A \A 73:     font-family: asap_bold;\A 74:     font-size: 18pt;\A 75:     font-weight: bold;  \A 76:     text-decoration: none;\A 77: <<<<<<< HEAD\A 78:     background: #fff;  \A 79: =======\A 80: >>>>>>> 450d03f922b650755bff80ce172cd13d76d06632\A 81:   }\A 82: \A 83:   .proposal-item {"; }

@@ -49,9 +49,14 @@ h1 {
   border-bottom: 1px solid #d6dcd7;
 }
 
+#proposal-result {
+  width: 90%;
+  margin: 0 auto;
+}
+
 #content {
-  padding-bottom: 150px;
-  background: transparent url(./images/header.png) center bottom no-repeat;
+  padding-bottom: 50px;
+  /*background: transparent url(./images/header.png) center bottom no-repeat;*/
   p {
     font{
       weight: lighter;
