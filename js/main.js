@@ -126,7 +126,7 @@ $.getJSON(noosferoAPI)
    });
 
 function loadRandomProposal(topic_id, private_token) {
-  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,created_by';
+  var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by';
   $.getJSON(url).done(function( data ) {
     if(data.articles.length == 0) return;
     var article = data.articles[0];
