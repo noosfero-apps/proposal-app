@@ -113,7 +113,7 @@ $.getJSON(noosferoAPI)
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
-        data: $('#'+this.id).serialize() + "&private_token="+private_token+"&fields=id"
+        data: $('#'+this.id).serialize() + "&private_token="+private_token+"&fields=id&article[name]=article_"+guid()
       })
       .done(function( data ) {
         form.reset();
@@ -204,3 +204,13 @@ jQuery(document).ready(function($) {
     e.preventDefault();
   });
 });
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
