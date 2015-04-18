@@ -280,6 +280,42 @@
           height: $container-height;
           min-height: $container-height;
           margin: 20px 0 0 10px;
+          text-align: left;
+
+          span {
+            font-weight: 14px;
+            color: #333;
+            display: block;
+          }
+
+          div.date, div.time {
+            width: 45%;
+            text-align: left;
+            color: $color;
+            display: inline-block;
+            margin-top: 20px;
+          }
+
+          p {
+            margin: 20px;
+            text-align: left;
+          }
+
+          ul {
+            width: 80%;
+            display: block;
+            margin: 0 auto;
+
+            li {
+              width: 100%;
+              margin: 0;
+              padding: 10px;
+              height: auto;
+              overflow: visible;
+              margin-bottom: 5px;
+              background: #EEEFF1;
+            }
+          }
         }
     
       }
