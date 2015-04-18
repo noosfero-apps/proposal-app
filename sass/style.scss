@@ -77,8 +77,36 @@ h1 {
   bottom: 0;
 }
 
-/*
- * Each button
- * FIXME: This selector doesn't look reliable
- */
+form {
+  label, input, div.label, textarea {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 14px;
+    display: block;
+    padding: 5px;
+  }
 
+  input, textarea {
+    color: #333;
+    border: 1px solid #18376C;
+  }
+
+  textarea {
+    margin-bottom: 10px;
+  }
+
+  a {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 10px 20px;
+  }
+
+  .actions, .oauth {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}

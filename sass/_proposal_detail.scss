@@ -127,32 +127,63 @@
       .container-title{
           color: $color;
           font-weight: bolder;
-          font-size: x-large;
-          margin: 10px;
+          font-size: 38px;
+          margin: 20px;
+          text-align: left;
       }
-      .container-button{
+      .message {
+        margin-left: 20px;
+        font-size: 12px;
+        color: #333;
+      }
+      input, textarea {
+        border-color: $color;
+      }
+      .container-button a, input[type=submit] {
         font-weight: bolder;
-        font-size: x-large;
+        font-size: 14px;
+        text-transform: uppercase;
         background-color: $color;
         color: white;
-        width: 40%;
-        height: 15%;
+        width: 60%;
         border: none;
-        margin-top: 8%;
+        margin: 20px auto;
         border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        padding: 20px;
+        display: block;
+
+        span {
+          padding-left: 20px;
+          background: transparent url(images/airplane.png) left center no-repeat;
+        }
       }
       .make-proposal-container{
+        .subtitle, .info {
+          margin: 20px;
+          color: #18376C;
+        }
+        .subtitle {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        .info {
+          font-size: 14px;
+        }
         .name {
           margin-bottom: 15px;
         }
         width: 50%;
-        height: 90%;
+        height: $container-height;
+        min-height: $container-height;
         float: left;
-        text-align: center;
+        text-align: left;
         .make-proposal{
           border: 1px solid $color;
-          margin: 2% 2% 2% 2%;
-          height: 100%;
+          height: $container-height;
+          min-height: $container-height;
+          margin: 0 10px 20px 0;
         }
         .make-proposal-button{
           @extend .container-button;
@@ -161,7 +192,6 @@
           @extend .container-button;
         }
         #article_abstract {
-          width: 65%;
           height: 15%;
         }
         label {
@@ -171,13 +201,17 @@
       .support-proposal-container{
         width: 50%;
         float: left;
-        height: 90%;
+        height: $container-height;
+        min-height: $container-height;
         text-align: center;
+        .container-title {
+          text-align: center;
+        }
         .support-proposal{
           border: 1px solid $color;
-          height: 96%;
-          margin: 2% 2% 2% 2%;
-          padding: 10px;
+          height: $container-height;
+          min-height: $container-height;
+          margin: 0 0 20px 10px;
         }
         .subtitle {
           color: rgb(163, 163, 163);
@@ -214,12 +248,14 @@
       .experience-proposal-container{
         float: left;
         width: 50%;
-        height: 90%;
+        height: $container-height;
+        min-height: $container-height;
         text-align: center;
         .experience-proposal{
           border: 1px solid $color;
-          margin: 6% 2% 2% 2%;
-          height: 100%;
+          height: $container-height;
+          min-height: $container-height;
+          margin: 20px 10px 0 0;
         }
         .send-experience-button {
           @extend .container-button;
@@ -228,12 +264,14 @@
       .talk-proposal-container{
         width: 50%;
         float: left;
-        height: 90%;
+        height: $container-height;
+        min-height: $container-height;
         text-align: center;
         .talk-proposal{
           border: 1px solid $color;
-          margin: 6% 2% 2% 2%;
-          height: 100%;
+          height: $container-height;
+          min-height: $container-height;
+          margin: 20px 0 0 10px;
         }
     
       }
