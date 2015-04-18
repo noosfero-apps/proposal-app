@@ -64,7 +64,8 @@
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
                   {{#link name id}}{{/link}}
-                  <select>
+                  <select class='proposal-selection'>
+                    <option value='{{../id}}' selected> {{../title}}</option>
                     {{#each ../../article.children}}
                       <option value='{{id}}'> {{title}}</option>
                     {{/each}}
