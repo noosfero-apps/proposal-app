@@ -84,7 +84,11 @@
               <div class='show_body'><a href='#'>Conheça o Programa<span></span></a></div>
             </div>
 
-            <div class='body hide'>{{replace body '<[^>]+>' ''}}</div>
+            <div class='body hide'>
+              {{body}}
+              <div class='mais-medicos'> todo seu conteudo do mais medicos vai aqui </div>
+              <div class='sinesp'> todo seu conteudo do sinesp vai aqui </div>
+            </div>
             <div class='make-proposal-container'>
               <div class='make-proposal'>
                 <div class='container-title'>Faça Uma Proposta</div>
