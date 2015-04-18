@@ -72,13 +72,17 @@
                 </li>
               {{/each}}
             </ul>
-            <div class='abstract'>
-              <img src="{{../host}}{{image.url}}"/>
+            
+            <div class='proposal-header'>
+              <div class='abstract'>
+                <img src="{{../host}}{{image.url}}"/>
+              </div>
+              <div class='title'>{{title}}</div>
+              <div class='abstract'>{{{abstract}}}</div>
+              <div class='show_body'><a href='#'>Conheça o Programa<span></span></a></div>
             </div>
-            <div class='title'>{{title}}</div>
-            <div class='abstract'>{{{abstract}}}</div>
-            <div class='show_body'><a href='#'>Conheça o Programa</a></div>
-            <div class='body hide'>{{body}}</div>
+
+            <div class='body hide'>{{replace body '<[^>]+>' ''}}</div>
             <div class='make-proposal-container'>
               <div class='make-proposal'>
                 <div class='container-title'>Faça Uma Proposta</div>

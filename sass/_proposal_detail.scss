@@ -11,7 +11,7 @@
       text-transform: uppercase;
       padding: 15px 35px;
       margin: 0;
-      width: 20%;
+      width: 30%;
       display: inline-block;
       span {
         padding-left: 40px;
@@ -28,26 +28,88 @@
   .categories {
     select {
       height: 57px;
-      width: 70%;
+      width: 60%;
       margin: 0;
       text-transform: uppercase;
       border: 0;
       background: #EEEFF1;
       float: right;
     }
+
+    .proposal-header {
+      position: relative;
+
+      .title, .abstract p, .show_body a {
+        position: absolute;
+        right: 0;
+        color: #fff;
+        width: 50%;
+        vertical-align: middle;
+      }
+
+      .title {
+        padding: 20px 20px 5px 20px;
+        text-transform: uppercase;
+        bottom: 60px;
+        font-size: 32px;
+      }
+
+      .abstract p {
+        padding: 5px 20px 20px 20px;
+        bottom: 40px;
+        font-size: 14px;
+        text-align: left;
+      }
+
+      .show_body a {
+        display: inline-block;
+        width: 30%;
+        right: 20%;
+        bottom: 0;
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 18px 20px;
+        text-decoration: none;
+        overflow: hidden;
+      }
+    }
   }
 
   @each $category, $color in $categories {
     .#{$category}{
+      .proposal-header {
+        .title {
+          background: $color;
+        }
+        .abstract p {
+          background: $color;
+        }
+        .show_body a {
+          background: $color url(images/white-alpha.png);
+
+          span {
+            display: inline-block;
+            height: 60px;
+            width: 66px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: $color url(images/arrow.png) top right no-repeat;
+          }
+        }
+      }
       ul{
         padding: 0px;
       }
       .abstract{
-        text-align: center;
         color: #083e87;
-        font-weight: bold;
-        font-style: italic;
-        margin: 50px 40px 30px 40px;
+        width: 100%;
+        margin: 20px 0;
+
+        img {
+          width: 100%;
+        }
       }
       .body{
         margin-bottom: 20px;
