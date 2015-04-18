@@ -259,6 +259,11 @@
           height: $container-height;
           min-height: $container-height;
           margin: 20px 10px 0 0;
+
+          p {
+            margin: 10px 20px;
+            text-align: left;
+          }
         }
         .send-experience-button {
           @extend .container-button;
