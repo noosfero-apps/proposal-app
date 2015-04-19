@@ -169,7 +169,7 @@ function loadRandomProposal(topic_id, private_token) {
       if($('.results-container').is(":visible")) {
         $('.results-container .loading').show();
         $('.results-container .results-content').hide();
-        var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
+        var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
         $.getJSON(url).done(function( data ) {
           $('.results-container').html(resultsTemplate(data));
           $('.results-container .loading').hide();
