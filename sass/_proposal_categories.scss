@@ -50,8 +50,10 @@
   }
 
   ul.category {
+    border-top: 1px dotted #045312;
     text-align: left;
     padding: 0;
+    padding-top: 10px;
   }
 
   .proposal-item p {
@@ -68,7 +70,6 @@
   }
 
   .proposal-item .proposal-link {
-    border-top: 1px dotted #045312;
     padding-top: 10px;
     display: block;
     margin: 0;
