@@ -154,7 +154,7 @@ function loadRandomProposal(topic_id, private_token) {
 
     var article = data.articles[0];
     $('.random-proposal').html(supportProposalTemplate(article));
-    $(".abstract").dotdotdot();
+    $(".abstract").dotdotdot({height: 200});
     $(document.body).off('click', '.vote-actions .skip');
     $(document.body).on('click', '.vote-actions .skip', function(e) {
       loadRandomProposal(topic_id, private_token);
