@@ -96,6 +96,16 @@ $.getJSON(noosferoAPI)
       display_proposal('proposal-item-' + this.value);
     });
 
+    var availableTags = [ ];
+    $('#proposal-group li a').each(function(){
+      availableTags.push({ label: $(this).text(), value: $(this).attr('href')});
+    });
+    $( "#search-input" ).autocomplete({
+      source: availableTags,
+      select: function( event, ui ) { display_proposal(ui.item['value' ]); }
+    });
+
+
     $('.save-article-form').submit(function (e) {
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
