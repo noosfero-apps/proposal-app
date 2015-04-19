@@ -158,6 +158,11 @@ function loadRandomProposal(topic_id, private_token) {
       });
       e.preventDefault();
     });
+
+    $('.results-container').hide();
+    $('.experience-proposal-container').show();
+    $('.talk-proposal-container').show();
+
     $(document.body).off('click', '.vote-result');
     $(document.body).on('click', '.vote-result', function(e) {
       $('.results-container').toggle();
