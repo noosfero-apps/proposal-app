@@ -162,9 +162,13 @@ function loadRandomProposal(topic_id, private_token) {
     $(document.body).on('click', '.vote-result', function(e) {
       $('.results-container').toggle();
       if($('.results-container').is(":visible")) {
+        $('.results-container .loading').show();
+        $('.results-container .results-content').hide();
         var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
         $.getJSON(url).done(function( data ) {
           $('.results-container').html(resultsTemplate(data));
+          $('.results-container .loading').hide();
+          $('.results-container .results-content').show();
         });
         $('.experience-proposal-container').hide();
         $('.talk-proposal-container').hide();

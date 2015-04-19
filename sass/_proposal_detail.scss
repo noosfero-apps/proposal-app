@@ -86,87 +86,88 @@
       }
     }
   }
-  .results-container {
-    &:before {
-      content:"";
-      display:table;
-      clear:both;
-    }
-    .results-content {
-      border: 1px solid #00a9bd;
-      margin-top: 20px;
-      .vote-result {
-        font-weight: bolder;
-        font-size: 12px;
-        text-transform: uppercase;
-        color: gray;
-        border: none;
-        margin: 10px;
-        border-radius: 6px;
-        text-align: center;
-        text-decoration: none;
-        padding: 9px;
-        display: block;
-        float: right;
-      }
-    }
-    table {
-      clear: both;
-      margin-top: 20px;
-      tbody tr:nth-child(odd) {
-        background-color: #e5e5e5;
-      }
-
-      .abstract-text {
-        width: 80%;
-      }
-      .votes-for {
-        width: 10%;
-        text-align: center;
-      }
-      .votes-against {
-        @extend .votes-for;
-      }
-      .score {
-        @extend .votes-for;
-      }
-      .header {
-        line-height: 32px;
-        font-weight: bold;
-        text-align: center;
-        color: rgb(68, 68, 68);
-        .votes-for {
-          background-image: url(./images/result-like.png);
-          background-repeat: no-repeat;
-          display: inline-block;
-          background-position: center;
-        }
-        .votes-against {
-          background-image: url(./images/result-dislike.png);
-        }
-        .score {
-          background-image: none;
-        }
-      }
-
-      .truncate {
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-      }
-      .truncated {
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      tr {
-        color: rgb(77, 77, 77);
-      }
-    }
-  }
 
   @each $category, $color in $categories {
     .#{$category}{
+      .results-container {
+        &:before {
+          content:"";
+          display:table;
+          clear:both;
+        }
+        .results-content {
+          border: 1px solid $color;
+          margin-top: 20px;
+          .vote-result {
+            font-weight: bolder;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: gray;
+            border: none;
+            margin: 10px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            padding: 9px;
+            display: block;
+            float: right;
+          }
+        }
+        table {
+          clear: both;
+          margin-top: 20px;
+          tbody tr:nth-child(odd) {
+            background-color: #e5e5e5;
+          }
+
+          .abstract-text {
+            width: 80%;
+          }
+          .votes-for {
+            width: 10%;
+            text-align: center;
+          }
+          .votes-against {
+            @extend .votes-for;
+          }
+          .score {
+            @extend .votes-for;
+          }
+          .header {
+            line-height: 32px;
+            font-weight: bold;
+            text-align: center;
+            color: rgb(68, 68, 68);
+            .votes-for {
+              background-image: url(./images/result-like.png);
+              background-repeat: no-repeat;
+              display: inline-block;
+              background-position: center;
+            }
+            .votes-against {
+              background-image: url(./images/result-dislike.png);
+            }
+            .score {
+              background-image: none;
+            }
+          }
+
+          .truncate {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+          }
+          .truncated {
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          tr {
+            color: rgb(77, 77, 77);
+          }
+        }
+      }
+
       .proposal-header {
         .title {
           background: $color;
@@ -436,7 +437,6 @@
             }
           }
         }
-    
       }
       li{
         background-color: $color;
