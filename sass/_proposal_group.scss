@@ -5,15 +5,43 @@
   #search-input {
     border: 1px solid #000;
     padding: 1px;
-    width: 49%;
+    width: 100%;
     font-size: 14px;
   }
 
-  label[for=search] {
+  #search-input-container, label[for=search] {
     width: 49%;
     display: inline-block;
+      height: 80px;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+
+  label[for=search] {
     text-align: right;
     font-size: 14px;
     max-width: 450px;
+  }
+}
+
+.ui-autocomplete {
+  display: block;
+  padding: 0;
+  border: 1px solid #000;
+  background: #fff;
+  width: 99%;
+  overflow: auto;
+  height: 50px;
+  
+  li {
+    list-style: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px;
+    display: block !important;
+    float: none;
+    &:hover {
+      background: #eee;
+    }
   }
 }

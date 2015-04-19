@@ -55,7 +55,9 @@
 
       <div id="proposal-group" class='hide'>
         <label for="search">Selecione um programa para fazer propostas e contar sua experiência. </label>
-        <input placeholder="palavra chave" id="search-input" type="text" />
+        <div id="search-input-container">
+          <input placeholder="palavra chave" id="search-input" type="text" />
+        </div>
         <ul>
           {{#list_proposal article.children}}
             {{#link title id}}{{/link}}
