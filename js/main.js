@@ -102,7 +102,8 @@ $.getJSON(noosferoAPI)
     });
     $( "#search-input" ).autocomplete({
       source: availableTags,
-      select: function( event, ui ) { display_proposal(ui.item['value' ].replace('#','')); }
+      select: function( event, ui ) { display_proposal(ui.item['value' ].replace('#','')); },
+      appendTo: '#search-input-container'
     });
 
 
