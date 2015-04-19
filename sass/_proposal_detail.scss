@@ -230,6 +230,9 @@
       input, textarea {
         border-color: $color;
       }
+      textarea#article_abstract {
+        height: 205px;
+      }
       .container-button a, input[type=submit], .success-proposal-sent a {
         font-weight: bolder;
         font-size: 14px;
