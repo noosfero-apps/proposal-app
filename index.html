@@ -81,11 +81,11 @@
               </div>
               <div class='title'>{{title}}</div>
               <div class='abstract'>{{{abstract}}}</div>
-              <div class='show_body'><a href='#'>Conheça o Programa<span></span></a></div>
+              <div class='show_body'><a href='#'><span>Conheça o Programa</span></a></div>
             </div>
 
             <div class='body hide'>
-              {{body}}
+              {{replace body '<[^>]+>' ''}}
               <div class='mais-medicos'> todo seu conteudo do mais medicos vai aqui </div>
               <div class='sinesp'> todo seu conteudo do sinesp vai aqui </div>
             </div>
