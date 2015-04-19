@@ -99,9 +99,7 @@
         font-weight: bolder;
         font-size: 12px;
         text-transform: uppercase;
-        background-color: gray;
-        color: white;
-        width: 4%;
+        color: gray;
         border: none;
         margin: 10px;
         border-radius: 6px;
@@ -137,6 +135,18 @@
         font-weight: bold;
         text-align: center;
         color: rgb(68, 68, 68);
+        .votes-for {
+          background-image: url(./images/result-like.png);
+          background-repeat: no-repeat;
+          display: inline-block;
+          background-position: center;
+        }
+        .votes-against {
+          background-image: url(./images/result-dislike.png);
+        }
+        .score {
+          background-image: none;
+        }
       }
 
       .truncate {
@@ -324,7 +334,8 @@
             display: block;
           }
           .vote-result {
-            @extend .skip
+            text-decoration: none;
+            color: $color;
           }
         }
       }
