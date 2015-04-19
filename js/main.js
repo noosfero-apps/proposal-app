@@ -38,6 +38,11 @@ $.getJSON(noosferoAPI)
     data['private_token'] = private_token;
     resultsPlaceholder.innerHTML = template(data);
     $('.login-container').html(loginTemplate());
+
+    url = $(location).attr('href').split('#').pop();
+    if(url.match(/proposal-item-[0-9]+/)){
+      display_proposal(url);
+    }
     //Actions for links
     $( '#nav-proposal-categories a' ).click(function(event){
       //Display the category tab
