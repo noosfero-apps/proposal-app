@@ -6,6 +6,7 @@ var template = Handlebars.compile(templateSource);
 
 var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
 var loginTemplate = Handlebars.compile(document.getElementById('login').innerHTML);
+var resultsTemplate = Handlebars.compile(document.getElementById('results').innerHTML);
 
 // The div/container that we are going to display the results in
 var resultsPlaceholder = document.getElementById('proposal-result');
@@ -155,6 +156,22 @@ function loadRandomProposal(topic_id, private_token) {
       }).done(function( data ) {
         loadRandomProposal(topic_id, private_token);
       });
+      e.preventDefault();
+    });
+    $(document.body).off('click', '.vote-actions .result');
+    $(document.body).on('click', '.vote-actions .result', function(e) {
+      $('.results-container').toggle();
+      if($('.results-container').is(":visible")) {
+        var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
+        $.getJSON(url).done(function( data ) {
+          $('.results-container').html(resultsTemplate(data));
+        });
+        $('.experience-proposal-container').hide();
+        $('.talk-proposal-container').hide();
+      } else {
+        $('.experience-proposal-container').show();
+        $('.talk-proposal-container').show();
+      }
       e.preventDefault();
     });
   });
