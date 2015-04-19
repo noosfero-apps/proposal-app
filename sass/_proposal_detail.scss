@@ -257,6 +257,7 @@
         width: 50%;
         height: $container-height;
         min-height: $container-height;
+        position: relative;
         float: left;
         text-align: left;
         .make-proposal{
@@ -270,6 +271,14 @@
         }
         .send-proposal-button {
           @extend .container-button;
+          a {
+            position: absolute;
+            left: 50%;
+            margin: 0;
+            margin-left: -30%;
+            bottom: 40px;
+            padding: 20px 0;
+          }
         }
         #article_abstract {
           height: 15%;
@@ -283,6 +292,7 @@
         float: left;
         height: $container-height;
         min-height: $container-height;
+        position: relative;
         text-align: center;
         .container-title {
           text-align: center;
@@ -291,6 +301,7 @@
           border: 1px solid $color;
           height: $container-height;
           min-height: $container-height;
+          position: relative;
           margin: 0 0 20px 10px;
         }
         .subtitle {
@@ -316,15 +327,29 @@
             color: white;
             width: 60%;
             border: none;
-            margin: 20px auto;
+            margin: 0;
             border-radius: 6px;
             text-align: center;
             text-decoration: none;
-            padding: 20px;
+            padding: 20px 0;
             display: block;
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            margin-left: -30%;
           }
           .vote-result {
-            @extend .skip
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 0;
+            display: block;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 10px;
           }
         }
       }
@@ -333,6 +358,7 @@
         width: 50%;
         height: $container-height;
         min-height: $container-height;
+        position: relative;
         text-align: center;
         .experience-proposal{
           border: 1px solid $color;
@@ -354,6 +380,7 @@
         float: left;
         height: $container-height;
         min-height: $container-height;
+        position: relative;
         text-align: center;
         .talk-proposal{
           border: 1px solid $color;
