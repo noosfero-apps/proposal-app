@@ -21,7 +21,7 @@
       -webkit-border-radius: 6px;
       -moz-border-radius: 6px;
       border-radius: 6px;
-      background-position: center 30px;
+      background-position: center 5px;
       background-repeat: no-repeat;
       width: 140px;
       height: 40px;
@@ -34,6 +34,7 @@
       overflow: hidden;
       border-width: 2px;
       border-style: solid;
+      background-size: 90px;
       hover: {
         border-color: #fff !important;
       }
@@ -129,7 +130,7 @@
     background-color: $color;
   }
   #proposal-category-#{$category} a {
-    background-image: url(./images/icons/#{$category}.png);
+    background-image: url(./images/icons/#{$category}.png?2);
     background-color: $color;
     border-color: $color;
   }
@@ -139,7 +140,7 @@
 
   .category-#{$category} {
     background-color: $color;
-    background-image: url(./images/icons/#{$category}.png);
+    background-image: url(./images/icons/#{$category}.png?1);
     background-repeat: no-repeat;
     background-size: 22px;
     background-position-y: center;
