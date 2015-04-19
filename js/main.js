@@ -158,8 +158,8 @@ function loadRandomProposal(topic_id, private_token) {
       });
       e.preventDefault();
     });
-    $(document.body).off('click', '.vote-actions .result');
-    $(document.body).on('click', '.vote-actions .result', function(e) {
+    $(document.body).off('click', '.vote-result');
+    $(document.body).on('click', '.vote-result', function(e) {
       $('.results-container').toggle();
       if($('.results-container').is(":visible")) {
         var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';

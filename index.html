@@ -173,26 +173,29 @@
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>
         <a href="#" class="skip">Pular</a>
-        <a href="#" class="result">Resultado</a>
+        <a href="#" class="vote-result">Resultado</a>
       </div>
     </script>
 
     <script id="results" type='text/x-handlebars-template'>
       <div class="results-content">
-      <table>
-        <tr class="header">
-          <td class="abstract-text">Texto da Alternativa</td>
-          <td class="votes-for">Gostei</td>
-          <td class="votes-against">Não Gostei</td>
-        </tr>
-        {{#each articles}}
-          <tr>
-            <td class="abstract-text"><div class="truncate"><p class="truncated">{{abstract}}</p></div></td>
-            <td class="votes-for">{{votes_for}}</td>
-            <td class="votes-against">{{votes_against}}</td>
+        <a href="#" class="vote-result">Fechar</a>
+        <table>
+          <tr class="header">
+            <td class="abstract-text">Texto da Alternativa</td>
+            <td class="votes-for">Gostei</td>
+            <td class="votes-against">Não Gostei</td>
+            <td class="score">Pontuação</td>
           </tr>
-        {{/each}}
-      </table>
+          {{#each articles}}
+            <tr>
+              <td class="abstract-text"><div class="truncate"><p class="truncated">{{abstract}}</p></div></td>
+              <td class="votes-for">{{votes_for}}</td>
+              <td class="votes-against">{{votes_against}}</td>
+              <td class="score">{{#score .}}{{/score}}</td>
+            </tr>
+          {{/each}}
+        </table>
       </div>
     </script>
 

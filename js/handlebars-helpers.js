@@ -48,3 +48,7 @@ Handlebars.registerHelper('proposal_detail', function(proposals, options) {
 Handlebars.registerHelper('replace', function(string, to_replace, replacement) {
   return (string || '').replace(new RegExp(to_replace, 'g'), replacement);
 });
+
+Handlebars.registerHelper('score', function(article) {
+  return article.votes_for - article.votes_against;
+});

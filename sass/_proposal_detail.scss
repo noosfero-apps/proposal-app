@@ -76,14 +76,33 @@
     }
   }
   .results-container {
-    th, td {
-      border: 1px solid rgb(223, 223, 223);
+    &:before {
+      content:"";
+      display:table;
+      clear:both;
     }
     .results-content {
       border: 1px solid #00a9bd;
+      margin-top: 20px;
+      .vote-result {
+        font-weight: bolder;
+        font-size: 12px;
+        text-transform: uppercase;
+        background-color: gray;
+        color: white;
+        width: 4%;
+        border: none;
+        margin: 10px;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        padding: 9px;
+        display: block;
+        float: right;
+      }
     }
     table {
-      border-collapse: collapse;
+      clear: both;
       margin-top: 20px;
       tbody tr:nth-child(odd) {
         background-color: #e5e5e5;
@@ -99,9 +118,14 @@
       .votes-against {
         @extend .votes-for;
       }
+      .score {
+        @extend .votes-for;
+      }
       .header {
+        line-height: 32px;
         font-weight: bold;
         text-align: center;
+        color: rgb(68, 68, 68);
       }
 
       .truncate {
@@ -113,6 +137,9 @@
         overflow-x: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+      tr {
+        color: rgb(77, 77, 77);
       }
     }
   }
@@ -287,7 +314,7 @@
             padding: 20px;
             display: block;
           }
-          .result {
+          .vote-result {
             @extend .skip
           }
         }
