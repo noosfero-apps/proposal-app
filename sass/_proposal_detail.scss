@@ -230,7 +230,7 @@
       input, textarea {
         border-color: $color;
       }
-      .container-button a, input[type=submit] {
+      .container-button a, input[type=submit], .success-proposal-sent a {
         font-weight: bolder;
         font-size: 14px;
         text-transform: uppercase;
@@ -251,11 +251,11 @@
         }
       }
       .make-proposal-container{
-        .subtitle, .info {
+        .subtitle, .info, .success-proposal-sent {
           margin: 20px;
           color: #18376C;
         }
-        .subtitle {
+        .subtitle, .success-proposal-sent {
           font-size: 24px;
           font-weight: bold;
         }
@@ -280,7 +280,7 @@
         .make-proposal-button{
           @extend .container-button;
         }
-        .send-proposal-button {
+        .send-proposal-button, .success-proposal-sent {
           @extend .container-button;
           a {
             position: absolute;
