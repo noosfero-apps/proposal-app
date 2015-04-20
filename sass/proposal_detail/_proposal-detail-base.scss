@@ -1,10 +1,11 @@
-// @import "../utilities/variables";
-
 @each $category, $color in $categories {
-  .#{$category} .proposal-detail-base{
+  .#{$category} .proposal-detail-base {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     font-weight: 300;
+    .bloco-destaque {
+      background-color: $color;
+    }
     h2 {
       border-bottom: 1px solid #eeeff1;
       color: $color;
@@ -16,7 +17,7 @@
         display: block;
         font-size: 16px;
         font-weight: 300;
-        margin-top: -.5em;
+        margin-top: -.1em;
         text-transform: none;
       }
     }
@@ -55,45 +56,6 @@
           border-bottom: none;
         }
       }
-      &.list-unstyled {
-        list-style: none;
-      }
-    }
-    .row {
-      font-size: 0;
-      &:after {
-        display: block;
-        height: 0px;
-        content: "";
-        clear: both;
-        visibility: hidden;
-      }
-      .column {
-        display: inline-block;
-        font-size: 1rem;
-        vertical-align: top;
-        width: 6.25%;
-      }
-      &[class*="two column"] {
-        .column {
-          width: 50%;
-        }
-      }
-    }
-    .slide-01 {
-      img {
-        display: block;
-        margin: auto;
-      }
-    }
-    .grafico {
-      img {
-        display: block;
-        margin: auto;
-      }
-    }
-    .slide-02 {
-
     }
     .go-to-proposal-button a {
       background: $color;
@@ -107,6 +69,9 @@
       .fa-reply {
         margin-right: .7em;
       }
+    }
+    .row {
+      margin-bottom: 60px;
     }
   }
 }
