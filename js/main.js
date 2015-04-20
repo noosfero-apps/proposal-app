@@ -94,8 +94,7 @@ $.getJSON(noosferoAPI)
       event.preventDefault();
     });
     $( '.show_body a' ).click(function(event){
-      $('.body').toggle();
-      event.preventDefault();
+      display_proposal_detail();
     });
     $( '.proposal-selection' ).change(function(event){
       display_proposal('proposal-item-' + this.value);
@@ -246,21 +245,35 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
-
-
-function display_proposal(item){
-  //Display Proposal
+function display_proposal(proposal_id){
   $('#proposal-categories').hide();
   $('#proposal-group').hide();
   $('nav').hide();
   $('#content').hide();
-  $('.proposal-detail').hide();
-  $('#' + item).show();
-
-  $('.send-proposal-button').show();
   $('.make-proposal-form').hide();
   $('.login-container').hide();
+  $('.proposal-detail').hide();
 
-  var topic_id = item.split('-').pop();
+  $('#' + proposal_id).show();
+
+  var topic_id = proposal_id.split('-').pop();
   loadRandomProposal(topic_id, private_token);
+}
+
+function display_proposal_detail(){
+  $('#proposal-categories').hide();
+  $('#proposal-group').hide();
+  $('nav').hide();
+  $('#content').hide();
+  $('.make-proposal-form').hide();
+  $('.proposal-header').hide();
+  $('.make-proposal-container').hide();
+  $('.support-proposal-container').hide();
+  $('.results-container').hide();
+  $('.experience-proposal-container').hide();
+  $('.talk-proposal-container').hide();
+
+  $('.body').show();
+  event.preventDefault();
+  
 }
