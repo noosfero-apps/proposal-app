@@ -1,0 +1,112 @@
+// @import "../utilities/variables";
+
+@each $category, $color in $categories {
+  .#{$category} .proposal-detail-base{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    h2 {
+      border-bottom: 1px solid #eeeff1;
+      color: $color;
+      font-size: 38px;
+      font-weight: 300;
+      padding-bottom: .5em;
+      text-transform: uppercase;
+      small {
+        display: block;
+        font-size: 16px;
+        font-weight: 300;
+        margin-top: -.5em;
+        text-transform: none;
+      }
+    }
+    h3 {
+      color: $color;
+      font-size: 28px;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+    img {
+      &.pull-left {
+        margin-right: 20px;
+      }
+      &.pull-right {
+        margin-left: 20px;
+      }
+    }
+    blockquote {
+      border-bottom: 5px solid $color;
+      border-top: 5px solid $color;
+      margin-left: 0;
+      margin-right: 0;
+      p {
+        font-size: 30px;
+      }
+    }
+    ul {
+      li {
+        border-bottom: 1px solid #e0e0e0;
+        color: $color;
+        font-size: 18px;
+        font-weight: 700;
+        padding-bottom: 1em;
+        padding-top: 1em;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      &.list-unstyled {
+        list-style: none;
+      }
+    }
+    .row {
+      font-size: 0;
+      &:after {
+        display: block;
+        height: 0px;
+        content: "";
+        clear: both;
+        visibility: hidden;
+      }
+      .column {
+        display: inline-block;
+        font-size: 1rem;
+        vertical-align: top;
+        width: 6.25%;
+      }
+      &[class*="two column"] {
+        .column {
+          width: 50%;
+        }
+      }
+    }
+    .slide-01 {
+      img {
+        display: block;
+        margin: auto;
+      }
+    }
+    .grafico {
+      img {
+        display: block;
+        margin: auto;
+      }
+    }
+    .slide-02 {
+
+    }
+    .go-to-proposal-button a {
+      background: $color;
+      border-radius: 3px;
+      color: #fff;
+      display: block;
+      padding: 1em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      .fa-reply {
+        margin-right: .7em;
+      }
+    }
+  }
+}

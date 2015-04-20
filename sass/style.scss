@@ -27,10 +27,10 @@
 @import 'proposal_detail';
 @import 'login';
 @import 'footer';
+@import 'font-awesome/scss/font-awesome';
 
-//Importando Programas
-@import 'programas/mais-medicos';
-@import 'programas/sinesp';
+@import 'proposal_detail/proposal-detail-base';
+@import 'proposal_detail/urgencia-e-emergencia';
 
 html, body {
   margin: 0;
@@ -100,7 +100,7 @@ form {
   }
 
   a {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: #333;
     font-weight: bold;

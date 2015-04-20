@@ -38,6 +38,11 @@ $.getJSON(noosferoAPI)
     data['private_token'] = private_token;
     resultsPlaceholder.innerHTML = template(data);
     $('.login-container').html(loginTemplate());
+
+    url = $(location).attr('href').split('#').pop();
+    if(url.match(/proposal-item-[0-9]+/)){
+      display_proposal(url);
+    }
     //Actions for links
     $( '#nav-proposal-categories a' ).click(function(event){
       //Display the category tab
@@ -89,12 +94,25 @@ $.getJSON(noosferoAPI)
       event.preventDefault();
     });
     $( '.show_body a' ).click(function(event){
-      $('.body').toggle();
-      event.preventDefault();
+      display_proposal_detail();
+    });
+    $( '.go-to-proposal-button a' ).click(function(event){
+      display_proposal(this.href.split('#').pop());
     });
     $( '.proposal-selection' ).change(function(event){
       display_proposal('proposal-item-' + this.value);
     });
+
+    var availableTags = [ ];
+    $('#proposal-group li a').each(function(){
+      availableTags.push({ label: $(this).text(), value: $(this).attr('href')});
+    });
+    $( "#search-input" ).autocomplete({
+      source: availableTags,
+      select: function( event, ui ) { display_proposal(ui.item['value' ].replace('#','')); },
+      appendTo: '#search-input-container'
+    });
+
 
     $('.save-article-form').submit(function (e) {
       e.preventDefault();
@@ -158,13 +176,22 @@ function loadRandomProposal(topic_id, private_token) {
       });
       e.preventDefault();
     });
-    $(document.body).off('click', '.vote-actions .result');
-    $(document.body).on('click', '.vote-actions .result', function(e) {
+
+    $('.results-container').hide();
+    $('.experience-proposal-container').show();
+    $('.talk-proposal-container').show();
+
+    $(document.body).off('click', '.vote-result');
+    $(document.body).on('click', '.vote-result', function(e) {
       $('.results-container').toggle();
       if($('.results-container').is(":visible")) {
-        var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
+        $('.results-container .loading').show();
+        $('.results-container .results-content').hide();
+        var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
         $.getJSON(url).done(function( data ) {
           $('.results-container').html(resultsTemplate(data));
+          $('.results-container .loading').hide();
+          $('.results-container .results-content').show();
         });
         $('.experience-proposal-container').hide();
         $('.talk-proposal-container').hide();
@@ -221,21 +248,42 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
-
-
-function display_proposal(item){
-  //Display Proposal
+function display_proposal(proposal_id){
   $('#proposal-categories').hide();
   $('#proposal-group').hide();
   $('nav').hide();
   $('#content').hide();
-  $('.proposal-detail').hide();
-  $('#' + item).show();
-
-  $('.send-proposal-button').show();
   $('.make-proposal-form').hide();
   $('.login-container').hide();
+  $('.proposal-detail').hide();
 
-  var topic_id = item.split('-').pop();
+  $('.proposal-detail-base').hide();
+  $('#' + proposal_id).show();
+  $('.proposal-header').show();
+  $('.make-proposal-container').show();
+  $('.support-proposal-container').show();
+  $('.results-container').show();
+  $('.experience-proposal-container').show();
+  $('.talk-proposal-container').show();
+
+  var topic_id = proposal_id.split('-').pop();
   loadRandomProposal(topic_id, private_token);
+}
+
+function display_proposal_detail(){
+  $('#proposal-categories').hide();
+  $('#proposal-group').hide();
+  $('nav').hide();
+  $('#content').hide();
+  $('.make-proposal-form').hide();
+  $('.proposal-header').hide();
+  $('.make-proposal-container').hide();
+  $('.support-proposal-container').hide();
+  $('.results-container').hide();
+  $('.experience-proposal-container').hide();
+  $('.talk-proposal-container').hide();
+
+  $('.body').show();
+  event.preventDefault();
+  
 }
