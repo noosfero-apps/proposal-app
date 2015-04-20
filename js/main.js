@@ -204,6 +204,16 @@ function loadRandomProposal(topic_id, private_token) {
   });
 }
 
+jQuery(document).ready(function($) {
+  if($.cookie('_dialoga_session')) {
+    var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
+    $.getJSON(url).done(function( data ) {
+      logged_in = true;
+      private_token = $.cookie('_dialoga_session');
+    });
+  }
+});
+
 function loginCallback(loggedIn, token) {
   logged_in = loggedIn;
   $('.login .message').text('');
@@ -213,6 +223,7 @@ function loginCallback(loggedIn, token) {
     loginButton.siblings('.save-article-form').show();
     loginButton.siblings('.save-article-form .message').show();
     loginButton.siblings('.login-container').hide();
+    $.cookie('_dialoga_session', private_token);
   } else {
     loginButton.siblings('.save-article-form').hide();
     loginButton.siblings('.login-container').show();
@@ -229,6 +240,9 @@ jQuery(document).ready(function($) {
       type: 'post',
       url: host + '/api/v1/login',
       data: $(this).parents('.login').serialize(),
+      xhrFields: {
+        //withCredentials: true
+      }
     }).done(function(data) {
       loginCallback(true, data.private_token);
     }).fail(function(data) {
