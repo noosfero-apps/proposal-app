@@ -29,10 +29,8 @@
 @import 'footer';
 @import 'font-awesome/scss/font-awesome';
 
-//Importando Programas
-@import 'programas/mais-medicos';
-@import 'programas/sinesp';
-@import 'programas/saude-rue';
+@import 'proposal_detail/proposal-detail-base';
+@import 'proposal_detail/urgencia-e-emergencia';
 
 html, body {
   margin: 0;

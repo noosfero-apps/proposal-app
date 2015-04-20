@@ -1,7 +1,7 @@
 // @import "../utilities/variables";
 
 @each $category, $color in $categories {
-  .#{$category}{
+  .#{$category} .proposal-detail-base{
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     font-weight: 300;
@@ -95,7 +95,7 @@
     .slide-02 {
 
     }
-    .btn-envie-proposta a {
+    .go-to-proposal-button a {
       background: $color;
       border-radius: 3px;
       color: #fff;

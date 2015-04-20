@@ -96,6 +96,9 @@ $.getJSON(noosferoAPI)
     $( '.show_body a' ).click(function(event){
       display_proposal_detail();
     });
+    $( '.go-to-proposal-button a' ).click(function(event){
+      display_proposal(this.href.split('#').pop());
+    });
     $( '.proposal-selection' ).change(function(event){
       display_proposal('proposal-item-' + this.value);
     });
@@ -254,7 +257,14 @@ function display_proposal(proposal_id){
   $('.login-container').hide();
   $('.proposal-detail').hide();
 
+  $('.proposal-detail-base').hide();
   $('#' + proposal_id).show();
+  $('.proposal-header').show();
+  $('.make-proposal-container').show();
+  $('.support-proposal-container').show();
+  $('.results-container').show();
+  $('.experience-proposal-container').show();
+  $('.talk-proposal-container').show();
 
   var topic_id = proposal_id.split('-').pop();
   loadRandomProposal(topic_id, private_token);
