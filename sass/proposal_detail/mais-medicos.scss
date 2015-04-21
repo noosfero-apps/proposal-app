@@ -1,6 +1,8 @@
 .proposal-detail-base
 	.bloco-destaque {
-		background: url("http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png") no-repeat right bottom;
+		background-image: url("http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png");
+		background-repeat: no-repeat;
+		background-position: right bottom;
 		border-radius: 10px;
 		min-height: 486px;
 		padding: 35px;
