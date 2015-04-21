@@ -56,10 +56,12 @@
       padding-left: 1em;
       &.list-unstyled {
         li {
+          background-color: transparent;
           border-bottom: 1px solid #e0e0e0;
           color: $color;
           font-size: 18px;
           font-weight: 700;
+          height: auto;
           padding: 1em;
           &:last-child {
             border-bottom: none;
