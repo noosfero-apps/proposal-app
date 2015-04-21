@@ -1,9 +1,5 @@
 @each $category, $color in $categories {
-<<<<<<< HEAD
-  .#{$category} {
-=======
   .#{$category} .proposal-detail-base {
->>>>>>> c9ef3706dcfc94f2fb21b61a8636092fdf00ed03
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     font-weight: 300;
