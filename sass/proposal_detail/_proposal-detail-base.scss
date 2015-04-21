@@ -48,20 +48,17 @@
       }
     }
     ul {
+      padding-left: 1em;
       &.list-unstyled {
         li {
+          border-bottom: 1px solid #e0e0e0;
+          color: $color;
+          font-size: 18px;
+          font-weight: 700;
           padding: 1em;
-        }
-      }
-      li {
-        border-bottom: 1px solid #e0e0e0;
-        color: $color;
-        font-size: 18px;
-        font-weight: 700;
-        // padding-bottom: 1em;
-        // padding-top: 1em;
-        &:last-child {
-          border-bottom: none;
+          &:last-child {
+            border-bottom: none;
+          }
         }
       }
     }
