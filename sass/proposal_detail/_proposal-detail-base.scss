@@ -48,6 +48,11 @@
       }
     }
     ul {
+      &.list-unstyled {
+        li {
+          padding: 1em;
+        }
+      }
       li {
         border-bottom: 1px solid #e0e0e0;
         color: $color;
