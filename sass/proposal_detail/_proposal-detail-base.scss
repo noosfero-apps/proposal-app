@@ -27,6 +27,11 @@
       font-weight: 300;
       text-transform: uppercase;
     }
+    h4 {
+      font-size: 24px;
+      color: $color;
+      text-transform: none;
+    }
     img {
       &.pull-left {
         margin-right: 20px;
