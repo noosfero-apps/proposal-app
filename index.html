@@ -77,7 +77,8 @@
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
                   {{#link name id}}{{/link}}
-                  <select name="proposal-selection" title="Selecione o programa" class='proposal-selection'>
+                  <label for="proposal-selection" class="sr-only">Selecione o programa</label>
+                  <select id="proposal-selection" name="proposal-selection" title="Selecione o programa" class='proposal-selection'>
                     <option value='{{../id}}' selected> {{../title}}</option>
                     {{#each ../../article.children}}
                       <option value='{{id}}'> {{title}}</option>
@@ -89,7 +90,7 @@
             
             <div class='proposal-header'>
               <div class='abstract'>
-                <img src="{{../host}}{{image.url}}"/>
+                <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
               </div>
               <div class='title'>{{title}}</div>
               <div class='abstract'>{{{abstract}}}</div>
@@ -215,7 +216,7 @@
     </script>
 
     <script id='login' type='text/x-handlebars-template'>
-      <form class="login">
+      <form id="login-form" class="login">
         <div class="message"></div>
         <div class="username">
           <div class="label">Nome de Usuário / E-mail:</div>
@@ -226,7 +227,7 @@
           <input id="user_password" name="password" type="password" placeholder="Senha">
         </div>
         <div class="actions">
-          <a href="#" class="login-action">Acessar</a>
+          <input type="submit" class="login-action" value="Acessar"/>
           <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
         </div>
         <div class="oauth">
