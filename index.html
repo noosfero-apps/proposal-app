@@ -77,16 +77,11 @@
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
                   {{#link name id}}{{/link}}
-                  <select class='proposal-selection'>
-                    <option value='{{../id}}' selected> {{../title}}</option>
-                    {{#each ../../article.children}}
-                      <option value='{{id}}'> {{title}}</option>
-                    {{/each}}
-                  </select>
+                  {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
                 </li>
               {{/each}}
             </ul>
-            
+
             <div class='proposal-header'>
               <div class='abstract'>
                 <img src="{{../host}}{{image.url}}"/>

@@ -52,3 +52,23 @@ Handlebars.registerHelper('replace', function(string, to_replace, replacement) {
 Handlebars.registerHelper('score', function(article) {
   return article.votes_for - article.votes_against;
 });
+
+Handlebars.registerHelper('select_proposal', function(proposals, category_slug, selected_id) {
+  var ret = '<select class="proposal-selection">';
+
+  for(var i=0; i<proposals.length; i++) {
+    if(!proposal_has_category(proposals[i], category_slug)) continue;
+    var selected = proposals[i].id===selected_id ? "selected" : "";
+    ret += '<option value="'+proposals[i].id+'" '+selected+'>'+proposals[i].title+'</option>';
+  }
+  ret += '</select>';
+  return ret;
+});
+
+function proposal_has_category(proposal, category_slug) {
+  for(var i=0; i<proposal.categories.length; i++) {
+    if(proposal.categories[i].slug == category_slug)
+      return true;
+  }
+  return false;
+}
