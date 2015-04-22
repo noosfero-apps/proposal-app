@@ -453,6 +453,66 @@
           }
         }
       }
+    /*------------------ formulario ---------------- */
+    form .oauth {
+        margin-top: 10px;
+        float: left;
+        width: 50%;
+    }
+
+    form .actions {
+        float: right;
+        width: 50%;
+    }
+
+    .actions > a.login-action{
+        background: $color;
+        border-radius: 7px;
+        color: #fff;
+        display: block;
+        margin-right: 37px;
+        margin-top: 40px;
+        padding: 10px 35px;
+    }
+
+    form .oauth .new-user{
+        background: $color;
+        border-radius: 7px;
+        color: #fff;
+        padding: 10px 15px;
+    }
+
+    form .oauth .label{
+      margin: 0 0 10px;
+    }
+
+    .actions > a.forgot-password{
+        color: $color;
+        display: block;
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+    .oauth > .facebook,
+    .oauth > .google{
+      width: 39px;
+      height: 39px;
+      overflow: hidden;
+      text-indent: -150px;
+      vertical-align: middle;
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    .oauth > .facebook{
+      background: transparent url(./images/icon-facebook.png) top left no-repeat;
+    }
+    .oauth > .google{
+      background: transparent url(./images/icon-google-plus.png) top left no-repeat;
+    }
+    /*-----------------------------------------------*/
+
+
     }
   }
 }

@@ -54,11 +54,12 @@
       </ul>
 
       <div id="proposal-group" class='hide'>
-        <label for="search">Selecione um programa para fazer propostas e contar sua experiência. </label>
+        <label for="search">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" />
         </div>
         <ul>
+
           {{#list_proposal article.children}}
             {{#link title id}}{{/link}}
           {{/list_proposal}}
@@ -221,8 +222,8 @@
           <input id="user_password" name="password" type="password" placeholder="Senha">
         </div>
         <div class="actions">
-          <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
           <a href="#" class="login-action">Acessar</a>
+          <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
         </div>
         <div class="oauth">
           <div class="label">Acessar com:</div>
