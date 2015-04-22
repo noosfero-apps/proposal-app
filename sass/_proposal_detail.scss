@@ -516,3 +516,109 @@
     }
   }
 }
+
+// @media only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 480px) {
+  form {
+    .actions {
+      float: none !important;
+      width: 100% !important;
+      text-align: center !important;
+      a.login-action {
+        font-weight: bolder !important;
+        margin: 40px auto 0 !important;
+        padding: 20px 0 !important;
+        width: 60% !important;
+      }
+    }
+    .oauth {
+      float: none !important;
+      width: 100% !important;
+      .label {
+        margin: 0 auto 10px !important;
+      }
+      a {
+        vertical-align: middle !important;
+      }
+      .new-user {
+        font-weight: bolder !important;
+        margin: 0 10px !important;
+      }
+    }
+  }
+  .make-proposal-container {
+    height: auto !important;
+    margin-bottom: 10px !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    .make-proposal {
+      height: auto !important;
+      margin: 0 !important;
+      min-height: 0 !important;
+    }
+    .send-proposal-button {
+      text-align: center !important;
+      a {
+        position: relative !important;
+        left: inherit !important;
+        margin: auto !important;
+        bottom: inherit !important;
+      }
+    }
+  }
+  .support-proposal-container {
+    height: auto !important;
+    margin-bottom: 10px !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    .support-proposal {
+      height: auto !important;
+      margin: 0 !important;
+      min-height: 0 !important;
+    }
+    .vote-actions {
+      .skip {
+        position: relative !important;
+        bottom: inherit !important;
+        left: inherit !important;
+        margin: 20px auto 0 !important;
+      }
+      .vote-result {
+        position: relative !important;
+        bottom: inherit !important;
+        margin: 10px auto 10px !important;
+      }
+    }
+  }
+  .results-container {
+    margin-bottom: 10px !important;
+    .results-content {
+      margin-top: 0 !important;
+    }
+    .truncated {
+      padding: 0 10px !important;
+    }
+  }
+  .experience-proposal-container {
+    height: auto !important;
+    margin-bottom: 10px !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    .experience-proposal {
+      height: auto !important;
+      margin: 0 !important;
+      min-height: 0 !important;
+    }
+  }
+  .talk-proposal-container {
+    height: auto !important;
+    margin-bottom: 10px !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    .talk-proposal {
+      height: auto !important;
+      margin: 0 !important;
+      min-height: 0 !important;
+    }
+  }
+}
