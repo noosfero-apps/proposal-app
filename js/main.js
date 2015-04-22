@@ -93,6 +93,9 @@ $.getJSON(noosferoAPI)
       loginCallback(logged_in);
       event.preventDefault();
     });
+    $( '#display-contrast' ).click(function(event){
+      $('#proposal-result').toggleClass('contrast');
+    });
     $( '.show_body a' ).click(function(event){
       display_proposal_detail();
     });
