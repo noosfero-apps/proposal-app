@@ -1,4 +1,4 @@
-<html>
+<html lang-"pt-br">
   <head>
     <meta charset="utf-8" />
     <title>Dialoga Brasil</title>
@@ -58,9 +58,9 @@
       </ul>
 
       <div id="proposal-group" class='hide'>
-        <label for="search">Selecione um programa para fazer propostas e contar sua experiência.</label>
+        <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
-          <input placeholder="palavra chave" id="search-input" type="text" />
+          <input placeholder="palavra chave" id="search-input" type="text" name="search" />
         </div>
         <ul>
 
@@ -84,7 +84,7 @@
 
             <div class='proposal-header'>
               <div class='abstract'>
-                <img src="{{../host}}{{image.url}}"/>
+                <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
               </div>
               <div class='title'>{{title}}</div>
               <div class='abstract'>{{{abstract}}}</div>
@@ -108,7 +108,7 @@
                 <form class='make-proposal-form save-article-form hide' id='make-proposal-form-{{id}}'>
                   <div class="message"></div>
                   <div>
-                    <div><label>Descrição</label></div>
+                    <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
                   </div>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
@@ -141,7 +141,7 @@
                 <form class='make-experience-form save-article-form hide' id='make-experience-form-{{id}}'>
                   <div class="message"></div>
                   <div>
-                    <div><label>Descrição</label></div>
+                    <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
                   </div>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Story' type='hidden'>
@@ -210,18 +210,18 @@
     </script>
 
     <script id='login' type='text/x-handlebars-template'>
-      <form class="login">
+      <form id="login-form" class="login">
         <div class="message"></div>
         <div class="username">
-          <div class="label">Nome de Usuário / E-mail:</div>
+          <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
         </div>
         <div class="password">
-          <div class="label">Senha:</div>
+          <label for="user_password" class="label">Senha:</label>
           <input id="user_password" name="password" type="password" placeholder="Senha">
         </div>
         <div class="actions">
-          <a href="#" class="login-action">Acessar</a>
+          <input type="submit" class="login-action" value="Acessar"/>
           <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
         </div>
         <div class="oauth">

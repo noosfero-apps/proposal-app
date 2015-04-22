@@ -54,7 +54,8 @@ Handlebars.registerHelper('score', function(article) {
 });
 
 Handlebars.registerHelper('select_proposal', function(proposals, category_slug, selected_id) {
-  var ret = '<select class="proposal-selection">';
+  var ret = '<label for="proposal-selection" class="sr-only">Selecione o programa</label>'
+  ret =  ret + '<select id="proposal-selection" name="proposal-selection" title="Selecione o programa" class="proposal-selection">';
 
   for(var i=0; i<proposals.length; i++) {
     if(!proposal_has_category(proposals[i], category_slug)) continue;
