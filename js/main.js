@@ -17,7 +17,7 @@ var logged_in = false;
 
 var loginButton;
 
-var participa = true;
+var participa = false;
 if(participa){
   var host = 'http://www.participa.br';
   var private_token = '375bee7e17d0021af7160ce664874618';  //participa
@@ -25,12 +25,12 @@ if(participa){
 }else{
   var host = 'http://noosfero.com:3000';
   //var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
-  var private_token = '04c9b36cf0afba52915fe86f182e741c'; //local serpro
+  var private_token = '8f7e60ce3208897d61c4bc49fc1f2bf5'; //local serpro
   var proposal_discussion = '632'; //local serpro
   //var proposal_discussion = '401'; //casa
 }
 
-var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
+var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + private_token_param() + '&fields=id,children,categories,abstract,body,title,image,url';
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
@@ -205,11 +205,11 @@ function loadRandomProposal(topic_id, private_token) {
 }
 
 jQuery(document).ready(function($) {
-  if($.cookie('_dialoga_session')) {
-    var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
+  if(!logged_in) {
+    var url = host + '/api/v1/users/me';
     $.getJSON(url).done(function( data ) {
       logged_in = true;
-      private_token = $.cookie('_dialoga_session');
+      private_token = data.private_token;
     });
   }
 });
@@ -241,7 +241,7 @@ jQuery(document).ready(function($) {
       url: host + '/api/v1/login',
       data: $(this).parents('.login').serialize(),
       xhrFields: {
-        //withCredentials: true
+        withCredentials: true
       }
     }).done(function(data) {
       loginCallback(true, data.private_token);
@@ -300,4 +300,12 @@ function display_proposal_detail(){
   $('.body').show();
   event.preventDefault();
   
+}
+
+function private_token_param() {
+  if(!logged_in) {
+    return "?private_token="+private_token;
+  } else {
+    return '?';
+  }
 }
