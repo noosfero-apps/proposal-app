@@ -68,6 +68,16 @@
           }
         }
       }
+      &.list-styled {
+        margin-left: 1.2em;
+        list-style: inherit;
+        li {
+          list-style: inherit;
+          width: auto;
+          padding: 0;
+          height: auto;
+        }
+      }
     }
     .go-to-proposal-button a {
       background: $color;
