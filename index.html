@@ -58,7 +58,7 @@
       </ul>
 
       <div id="proposal-group" class='hide'>
-        <label for="search">Selecione um programa para fazer propostas e contar sua experiência.</label>
+        <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
         </div>
@@ -77,7 +77,7 @@
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
                   {{#link name id}}{{/link}}
-                  <select class='proposal-selection'>
+                  <select name="proposal-selection" title="Selecione o programa" class='proposal-selection'>
                     <option value='{{../id}}' selected> {{../title}}</option>
                     {{#each ../../article.children}}
                       <option value='{{id}}'> {{title}}</option>
