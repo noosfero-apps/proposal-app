@@ -237,7 +237,7 @@
         border-color: $color;
       }
       textarea#article_abstract {
-        height: 205px;
+        height: 15%;
       }
       .container-button a, input[type=submit], .success-proposal-sent a {
         font-weight: bolder;
@@ -518,6 +518,13 @@
     /*-----------------------------------------------*/
 
 
+    }
+  }
+  .save-article-form {
+    .maxlength {
+      text-align: right;
+      margin-right: 36px;
+      font-size: 12px;
     }
   }
 }
