@@ -48,11 +48,8 @@ $.getJSON(noosferoAPI)
 
       var $link = $(this);
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-      
-      // Display the Category tab
-      display_category_tab();
     });
 
     $( '#nav-proposal-group a' ).click(function(event){
@@ -60,21 +57,16 @@ $.getJSON(noosferoAPI)
 
       var $link = $(this);
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-      
-      //Display the Proposals tab
-      display_proposals_tab();
     });
 
     $( '.proposal-item a' ).click(function(event){
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-      
-      display_proposal(item);
     });
 
     $( '.proposal-category a' ).click(function(event){
@@ -83,10 +75,8 @@ $.getJSON(noosferoAPI)
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-
-      display_proposal_by_category(item);
     });
 
     $( '.send-button a' ).click(function(event){
@@ -106,7 +96,7 @@ $.getJSON(noosferoAPI)
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
@@ -116,7 +106,7 @@ $.getJSON(noosferoAPI)
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
