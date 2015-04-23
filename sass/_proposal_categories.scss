@@ -27,8 +27,8 @@
       height: 40px;
       display: inline-block;
       font-size: 14px;
-      font-family: asap_bold, sans;
-      font-weight: bolder;
+      font-family: 'Asap', sans;
+      font-weight: 700;
       text-align: center;
       padding-top: 100px;
       overflow: hidden;
@@ -44,7 +44,8 @@
   .category > li {
     color: #FFFFFF;
     text-align: left;
-    font-family: asap_bold;
+    font-family: 'Asap';
+    font-weight: 700;
     font-size: 16px;
     padding: 5px 12px 5px 32px;
     margin-bottom: 10px;
@@ -76,9 +77,9 @@
     margin: 0;
     color: #335277;
     text-align: left;
-    font-family: asap_bold;
+    font-family: 'Asap';
+    font-weight: 700;
     font-size: 18pt;
-    font-weight: bold;  
     text-decoration: none;
   }
 
