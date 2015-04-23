@@ -404,7 +404,7 @@
         min-height: $container-height;
         position: relative;
         text-align: center;
-        .talk-proposal{
+        .talk-proposal {
           border: 1px solid $color;
           height: $container-height;
           min-height: $container-height;
@@ -434,7 +434,7 @@
             width: 80%;
             display: block;
             margin: 0 auto;
-
+            list-style: none;
             li {
               width: 100%;
               margin: 0;
