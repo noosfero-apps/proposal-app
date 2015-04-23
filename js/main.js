@@ -40,52 +40,55 @@ $.getJSON(noosferoAPI)
     $('.login-container').html(loginTemplate());
     $('.countdown').maxlength({text: '%left caracteres restantes'});
 
-    url = $(location).attr('href').split('#').pop();
-    if(url.match(/proposal-item-[0-9]+/)){
-      display_proposal(url);
-    }
+    navigateTo(window.location.hash);
+
     //Actions for links
     $( '#nav-proposal-categories a' ).click(function(event){
-      //Display the category tab
-      $('#proposal-group').hide();
-      $('#proposal-categories').show();
-      $('#nav-proposal-categories a').addClass('active');
-      $('#nav-proposal-group a').removeClass('active');
-      $('.proposal-category-items').hide();
-      $('.proposal-category .arrow-box').hide();
-      $('.proposal-detail').hide();
       event.preventDefault();
+
+      var $link = $(this);
+
+      // Update URL
+      updateHash($link.attr('href'));
+      
+      // Display the Category tab
+      display_category_tab();
     });
+
     $( '#nav-proposal-group a' ).click(function(event){
-      //Display the Topics or Discussions tab
-      $('#proposal-categories').hide();
-      $('#proposal-group').show();
-      $('#nav-proposal-group a').addClass('active');
-      $('#nav-proposal-categories a').removeClass('active');
-      $(".proposal-item p").dotdotdot();
       event.preventDefault();
+
+      var $link = $(this);
+
+      // Update URL
+      updateHash($link.attr('href'));
+      
+      //Display the Proposals tab
+      display_proposals_tab();
     });
+
     $( '.proposal-item a' ).click(function(event){
-      var item = this.href.split('#').pop();
+      var $link = $(this);
+      var item = $link.data('target');
+
+      // Update URL
+      updateHash($link.attr('href'));
+      
       display_proposal(item);
     });
+
     $( '.proposal-category a' ).click(function(event){
-      var item = this.href.split('#').pop();
-      if($('#' + item).hasClass('proposal-category-items')){
-        //Display Topics or Discussion by category
-        $('nav').show();
-        $('#content').show();
-        $('#proposal-categories').show();
-        $('.proposal-category-items').hide();
-        $('.proposal-detail').hide();
-        $('#' + item).show();
-        $(".proposal-item p").dotdotdot();
-        $('.proposal-category .arrow-box').hide();
-        $(this).parent('.proposal-category').data('category');
-        $('#proposal-category-'+$(this).parent('.proposal-category').data('category')).find('.arrow-box').show();
-      }
       event.preventDefault();
+
+      var $link = $(this);
+      var item = $link.data('target');
+
+      // Update URL
+      updateHash($link.attr('href'));
+
+      display_proposal_by_category(item);
     });
+
     $( '.send-button a' ).click(function(event){
       //display form to send proposal (or login form for non-logged users)
       loginButton = $(this).parents('.send-button');
@@ -98,11 +101,25 @@ $.getJSON(noosferoAPI)
       $('#proposal-result').toggleClass('contrast');
     });
     $( '.show_body a' ).click(function(event){
-      display_proposal_detail();
+      event.preventDefault();
+
+      var $link = $(this);
+      var item = $link.data('target');
+
+      // Update URL
+      updateHash($link.attr('href'));
     });
+
     $( '.go-to-proposal-button a' ).click(function(event){
-      display_proposal(this.href.split('#').pop());
+      event.preventDefault();
+
+      var $link = $(this);
+      var item = $link.data('target');
+
+      // Update URL
+      updateHash($link.attr('href'));
     });
+
     $( '.proposal-selection' ).change(function(event){
       display_proposal('proposal-item-' + this.value);
     });
@@ -111,6 +128,7 @@ $.getJSON(noosferoAPI)
     $('#proposal-group li a').each(function(){
       availableTags.push({ label: $(this).text(), value: $(this).attr('href')});
     });
+
     $( "#search-input" ).autocomplete({
       source: availableTags,
       select: function( event, ui ) { display_proposal(ui.item['value' ].replace('#','')); },
@@ -143,7 +161,7 @@ $.getJSON(noosferoAPI)
   .fail(function( jqxhr, textStatus, error ) {
     var err = textStatus + ", " + error;
     console.log( "Request Failed: " + err );
-   });
+  });
 
 function loadRandomProposal(topic_id, private_token) {
   $(".no-proposals").hide();
@@ -160,7 +178,7 @@ function loadRandomProposal(topic_id, private_token) {
 
     var article = data.articles[0];
     $('.random-proposal').html(supportProposalTemplate(article));
-    $(".abstract").dotdotdot();
+    // $(".abstract").dotdotdot();
     $(document.body).off('click', '.vote-actions .skip');
     $(document.body).on('click', '.vote-actions .skip', function(e) {
       loadRandomProposal(topic_id, private_token);
@@ -180,10 +198,6 @@ function loadRandomProposal(topic_id, private_token) {
       });
       e.preventDefault();
     });
-
-    $('.results-container').hide();
-    $('.experience-proposal-container').show();
-    $('.talk-proposal-container').show();
 
     $(document.body).off('click', '.vote-result');
     $(document.body).on('click', '.vote-result', function(e) {
@@ -267,6 +281,24 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+function display_category_tab(){
+  $('#proposal-group').hide();
+  $('#proposal-categories').show();
+  $('#nav-proposal-categories a').addClass('active');
+  $('#nav-proposal-group a').removeClass('active');
+  $('.proposal-category-items').hide();
+  $('.proposal-category .arrow-box').hide();
+  $('.proposal-detail').hide();
+}
+
+function display_proposals_tab(){
+  $('#proposal-categories').hide();
+  $('#proposal-group').show();
+  $('#nav-proposal-group a').addClass('active');
+  $('#nav-proposal-categories a').removeClass('active');
+  $(".proposal-item p").dotdotdot();
+}
+
 function display_proposal(proposal_id){
   $('#proposal-categories').hide();
   $('#proposal-group').hide();
@@ -304,5 +336,87 @@ function display_proposal_detail(){
 
   $('.body').show();
   $("html, body").animate({ scrollTop: 0 }, "fast");
-  event.preventDefault();
+}
+
+function display_proposal_by_category(item){
+  var $item = $('#' + item);
+  
+  if($item.hasClass('proposal-category-items')){
+    //Display Topics or Discussion by category
+    $('nav').show();
+    $('#content').show();
+    $('#proposal-categories').show();
+    $('.proposal-category-items').hide();
+    $('.proposal-detail').hide();
+    $item.show();
+    $(".proposal-item p").dotdotdot();
+    $('.proposal-category .arrow-box').hide();
+    var categorySlug = $item.data('category');
+    $('#proposal-category-' + categorySlug).find('.arrow-box').show();
+  }
+}
+
+function updateHash(hash){
+  var id = hash.replace(/^.*#/, '');
+  var elem = document.getElementById(id);
+
+  if ( !elem ) {
+    window.location.hash = hash;
+    return;
+  }
+
+  elem.id = id+'-tmp';
+  window.location.hash = hash;
+  elem.id = id;
+}
+
+function locationHashChanged(){
+  var hash = location.hash;
+  navigateTo(hash);
+}
+
+function navigateTo(hash){
+  var regexProposals = /#\/programas/;
+  var regexCategory = /#\/temas/;
+  var m;
+  var parts = hash.split('/');
+  
+  if( (m = regexProposals.exec(hash)) !== null ){
+    var proposalId = parts[2];
+    navigateToProposal(proposalId);
+  } else if( (m = regexCategory.exec(hash)) !== null ){
+    var categoryId = parts[3];
+    navigateToCategory(categoryId);
+  } else {
+    console.log('route not handled', hash);
+  }
+}
+
+function navigateToProposal(proposalId){  
+  if(proposalId === undefined){
+    display_proposals_tab();
+  }else{
+    display_proposal('proposal-item-' + proposalId);
+
+    // show sub-page
+    var regexSubpages = /sobre-o-programa$/;
+    var m;
+    if((m = regexSubpages.exec(window.location.hash)) !== null ){
+      display_proposal_detail();
+    }
+  }
+}
+
+function navigateToCategory(categoryId){
+  if(categoryId === undefined){
+    display_category_tab();
+  }else{
+    display_proposal_by_category('proposal-item-' + categoryId)
+  }
+}
+
+if("onhashchange" in window){
+  window.onhashchange = locationHashChanged;
+}else{
+  console.log('The browser not supports the hashchange event!');
 }
