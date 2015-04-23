@@ -1,0 +1,483 @@
+
+/*----------------------- ESTRUTURA ---------------------- */
+
+.contrast,
+.contrast header{
+  color: #fff !important;
+  background: #000 !important;
+}
+
+#proposal-result.contrast{
+	overflow: hidden;
+}
+
+
+/*----------------------- ELEMENTOS COR BRANCA ---------------------- */
+.contrast h1, 
+.contrast h2, 
+.contrast h3, 
+.contrast h4, 
+.contrast h5, 
+.contrast h6, 
+.contrast a, 
+.contrast p, 
+.contrast small, 
+.contrast .container-title, 
+.contrast .subtitle, 
+.contrast .info{
+	color: #fff !important;
+}
+
+/*----------------------- ELEMENTOS BACKGROUND PRETO COM TEXTO BRANCO ---------------------- */
+.contrast nav li,
+.contrast #proposal-categories, 
+.contrast #proposal-group,
+.contrast #proposal-categories .proposal-item, 
+.contrast .proposal-detail .saude .proposal-header .show_body,
+.contrast .proposal-detail .saude .proposal-header .show_body span,
+.contrast .proposal-detail .saude .proposal-header .title,
+.contrast .proposal-detail .saude .proposal-header .abstract p,
+.contrast .proposal-detail .seguranca .proposal-header .show_body,
+.contrast .proposal-detail .seguranca .proposal-header .show_body span,
+.contrast .proposal-detail .seguranca .proposal-header .title,
+.contrast .proposal-detail .seguranca .proposal-header .abstract p,
+.contrast .proposal-detail .educacao .proposal-header .show_body,
+.contrast .proposal-detail .educacao .proposal-header .show_body span,
+.contrast .proposal-detail .educacao .proposal-header .title,
+.contrast .proposal-detail .educacao .proposal-header .abstract p,
+.contrast .proposal-detail .reducao-da-pobreza .proposal-header .show_body,
+.contrast .proposal-detail .reducao-da-pobreza .proposal-header .show_body span,
+.contrast .proposal-detail .reducao-da-pobreza .proposal-header .title,
+.contrast .proposal-detail .reducao-da-pobreza .proposal-header .abstract p,
+.contrast .talk-proposal .calendar li,
+.contrast .proposal-detail .saude .talk-proposal-container .talk-proposal ul li,
+.contrast .proposal-detail .educacao .talk-proposal-container .talk-proposal ul li,
+.contrast .proposal-detail .seguranca .talk-proposal-container .talk-proposal ul li,
+.contrast .proposal-detail .reducao-da-pobreza .talk-proposal-container .talk-proposal ul li,
+.contrast .talk-proposal .calendar li span,
+.contrast .talk-proposal .calendar li .date,
+.contrast .talk-proposal .calendar li .time,
+.contrast .make-proposal #user_name,
+.contrast .make-proposal #user_password,
+.contrast .experience-proposal #user_name,
+.contrast .experience-proposal #user_password,
+.contrast .proposal-detail .saude .actions > a.login-action,
+.contrast .proposal-detail .seguranca .actions > a.login-action,
+.contrast .proposal-detail .educacao .actions > a.login-action,
+.contrast .proposal-detail .reducao-da-pobreza .actions > a.login-action,
+.contrast .proposal-detail .saude form .oauth .new-user,
+.contrast .proposal-detail .seguranca form .oauth .new-user,
+.contrast .proposal-detail .educacao form .oauth .new-user,
+.contrast .proposal-detail .reducao-da-pobreza form .oauth .new-user,
+.contrast .saude .proposal-detail-base ul.list-unstyled li,
+.contrast .educacao .proposal-detail-base ul.list-unstyled li,
+.contrast .seguranca .proposal-detail-base ul.list-unstyled li,
+.contrast .reducao-da-pobreza .proposal-detail-base ul.list-unstyled li{
+  color: #fff !important;
+  background: #000 !important;
+}
+
+
+/*----------------------- ELEMENTOS BACKGROUND COM IMAGEM ---------------------- */
+.contrast .category-saude,
+.contrast .category-reducao-da-pobreza,
+.contrast .category-educacao,
+.contrast .category-seguranca,
+.contrast #proposal-category-saude a,
+.contrast #proposal-category-seguranca a,
+.contrast #proposal-category-educacao a,
+.contrast #proposal-category-reducao-da-pobreza a,
+.contrast .proposal-detail .saude .container-button a, 
+.contrast .proposal-detail .educacao .container-button a, 
+.contrast .proposal-detail .seguranca .container-button a, 
+.contrast .proposal-detail .reducao-da-pobreza .container-button a, 
+.contrast .proposal-detail .saude .make-proposal-container .make-proposal-button a, 
+.contrast .proposal-detail .saude .make-proposal-container .send-proposal-button a, 
+.contrast .proposal-detail .saude .make-proposal-container .success-proposal-sent a, 
+.contrast .proposal-detail .saude .experience-proposal-container .send-experience-button a, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .make-proposal-button a, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .send-proposal-button a, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .success-proposal-sent a, 
+.contrast .proposal-detail .seguranca .experience-proposal-container .seguranca .send-experience-button a, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .make-proposal-button a, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .send-proposal-button a, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .success-proposal-sent a, 
+.contrast .proposal-detail .educacao .experience-proposal-container .educacao .send-experience-button a, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .reducao-da-pobreza .make-proposal-button a, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .reducao-da-pobreza .send-proposal-button a, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .reducao-da-pobreza .success-proposal-sent a, 
+.contrast .proposal-detail .reducao-da-pobreza .experience-proposal-container .reducao-da-pobreza .send-experience-button a, 
+.contrast .proposal-detail .saude input[type="submit"], 
+.contrast .proposal-detail .saude .success-proposal-sent a,
+.contrast .proposal-detail .educacao input[type="submit"], 
+.contrast .proposal-detail .educacao .success-proposal-sent a,
+.contrast .proposal-detail .seguranca input[type="submit"], 
+.contrast .proposal-detail .seguranca .success-proposal-sent a,
+.contrast .proposal-detail .reducao-da-pobreza input[type="submit"], 
+.contrast .proposal-detail .reducao-da-pobreza .success-proposal-sent a,
+.contrast #proposal-categories .proposal-category-items, 
+.contrast #proposal-group .proposal-category-items,
+.contrast .skip,
+.contrast .send-proposal-button.send-button > a,
+.contrast .send-experience-button.send-button > a{
+	background-color: #000 !important;
+}
+
+.contrast .saude .proposal-detail-base .bloco-destaque,
+.contrast .educacao .proposal-detail-base .bloco-destaque,
+.contrast .seguranca .proposal-detail-base .bloco-destaque,
+.contrast .reducao-da-pobreza .proposal-detail-base .bloco-destaque{
+	background-color: #fff !important;	
+}
+
+
+/*----------------------- ELEMENTOS BACKGROUND BRANCO COM TEXTO PRETO ---------------------- */
+.contrast nav li a.active,
+.contrast #proposal-group,
+.contrast #proposal-categories,
+.contrast #proposal-group .proposal-item,
+.contrast .proposal-detail .saude li,
+.contrast .proposal-detail .saude li a,
+.contrast .proposal-detail .seguranca li,
+.contrast .proposal-detail .seguranca li a,
+.contrast .proposal-detail .educacao li,
+.contrast .proposal-detail .educacao li a,
+.contrast .proposal-detail .reducao-da-pobreza li,
+.contrast .proposal-detail .reducao-da-pobreza li a,
+.contrast .experience-proposal,
+.contrast .make-proposal,
+.contrast .support-proposal,
+.contrast .talk-proposal,
+.contrast .saude .proposal-detail-base .go-to-proposal-button a,
+.contrast .educacao .proposal-detail-base .go-to-proposal-button a,
+.contrast .seguranca .proposal-detail-base .go-to-proposal-button a,
+.contrast .reducao-da-pobreza .proposal-detail-base .go-to-proposal-button a{
+  color: #000 !important;
+  background: #fff !important;
+}
+
+/*----------------------- ELEMENTO CONHEÇA O PROGRAMA ADIÇÃO DE BORDA BRANCA ---------------------- */
+.contrast .proposal-detail .saude .proposal-header .show_body,
+.contrast .proposal-detail .educacao .proposal-header .show_body,
+.contrast .proposal-detail .seguranca .proposal-header .show_body,
+.contrast .proposal-detail .reducao-da-pobreza .proposal-header .show_body{
+	border-top: 5px solid #fff !important;
+	border-bottom: 1px solid #fff !important;
+	border-left: 1px solid #fff !important;
+	border-right: 1px solid #fff !important;
+}
+
+/*----------------------- ELEMENTOS ADIÇÃO DE BORDA BRANCA ---------------------- */
+.contrast #proposal-categories,
+.contrast #proposal-group,
+.contrast .proposal-item,
+.contrast .category-saude,
+.contrast .category-reducao-da-pobreza,
+.contrast .category-educacao,
+.contrast .category-seguranca,
+.contrast #proposal-categories .proposal-item .item, 
+.contrast #proposal-group .proposal-item .item,
+.contrast .make-proposal,
+.contrast .support-proposal,
+.contrast .experience-proposal,
+.contrast .talk-proposal{
+	border: 1px solid #fff !important;
+}
+
+.contrast #proposal-categories ul.category, 
+.contrast #proposal-group ul.category{
+	border-top: 1px dotted #fff !important;
+}
+
+.contrast nav li a.active{
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+}
+
+.contrast .saude .proposal-detail-base blockquote,
+.contrast .educacao .proposal-detail-base blockquote,
+.contrast .seguranca .proposal-detail-base blockquote,
+.contrast .reducao-da-pobreza .proposal-detail-base blockquote{
+	border-color: #fff !important;
+}
+
+/*----------------------- ELEMENTOS ADIÇÃO DE BORDA PRETA ---------------------- */
+
+.contrast #proposal-group .proposal-item{
+	border-bottom: 1px solid #000 !important;
+}
+
+.contrast #proposal-category-saude .arrow-box::after,
+.contrast #proposal-category-seguranca .arrow-box::after,
+.contrast #proposal-category-educacao .arrow-box::after,
+.contrast #proposal-category-reducao-da-pobreza .arrow-box::after{
+	border-bottom-color: #000 !important;
+}
+
+/*----------------------- ELEMENTOS APENAS TEXTO PRETO ---------------------- */
+.contrast #proposal-group .proposal-item a,
+.contrast #proposal-group .proposal-item p,
+.contrast .make-proposal .container-title,
+.contrast .support-proposal .container-title,
+.contrast .experience-proposal .container-title,
+.contrast .talk-proposal .container-title,
+.contrast .make-proposal .subtitle,
+.contrast .support-proposal .subtitle,
+.contrast .experience-proposal .subtitle,
+.contrast .talk-proposal .subtitle,
+.contrast .make-proposal .info,
+.contrast .support-proposal .info,
+.contrast .experience-proposal .info,
+.contrast .talk-proposal .info,
+.contrast .support-proposal .vote-result,
+.contrast .experience-proposal p,
+.contrast .talk-proposal p,
+.contrast .proposal-detail-base .bloco-destaque h4,
+.contrast .proposal-detail-base .bloco-destaque p,
+.contrast .forgot-password{
+	color: #000 !important;
+}
+
+/*----------------------- ELEMENTOS APENAS TEXTO BRANCO ---------------------- */
+.contrast #proposal-group .proposal-item:hover a,
+.contrast #proposal-group .proposal-item:hover p,
+.contrast .votes-for,
+.contrast .score,
+.contrast .votes-for{
+	color: #fff !important;
+}
+
+/*----------------------- ELEMENTOS MOUSE HOVER ---------------------- */
+.contrast #proposal-group .proposal-item:hover{
+	color: #fff !important;
+    background: #000 !important;	
+}
+
+.contrast .send-proposal-button.send-button > a:hover,
+.contrast #proposal-category-saude a:hover,
+.contrast #proposal-category-seguranca a:hover,
+.contrast #proposal-category-educacao a:hover,
+.contrast #proposal-category-reducao-da-pobreza a:hover,
+.contrast .proposal-detail .saude .container-button a:hover, 
+.contrast .proposal-detail .educacao .container-button a:hover, 
+.contrast .proposal-detail .seguranca .container-button a:hover, 
+.contrast .proposal-detail .reducao-da-pobreza .container-button a:hover, 
+.contrast .proposal-detail .saude .make-proposal-container .make-proposal-button a:hover, 
+.contrast .proposal-detail .saude .make-proposal-container .send-proposal-button a:hover, 
+.contrast .proposal-detail .saude .make-proposal-container .success-proposal-sent a:hover, 
+.contrast .proposal-detail .saude .experience-proposal-container .send-experience-button a:hover, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .make-proposal-button a:hover, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .send-proposal-button a:hover, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .success-proposal-sent a:hover, 
+.contrast .proposal-detail .seguranca .experience-proposal-container .seguranca .send-experience-button a:hover, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .make-proposal-button a:hover, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .send-proposal-button a:hover, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .success-proposal-sent a:hover, 
+.contrast .proposal-detail .educacao .experience-proposal-container .educacao .send-experience-button a:hover, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .reducao-da-pobreza .make-proposal-button a:hover, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .reducao-da-pobreza .send-proposal-button a:hover, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .reducao-da-pobreza .success-proposal-sent a:hover, 
+.contrast .proposal-detail .reducao-da-pobreza .experience-proposal-container .reducao-da-pobreza .send-experience-button a:hover, 
+.contrast .proposal-detail .saude input[type="submit"]:hover, 
+.contrast .proposal-detail .saude .success-proposal-sent a:hover,
+.contrast .proposal-detail .educacao input[type="submit"]:hover, 
+.contrast .proposal-detail .educacao .success-proposal-sent a:hover,
+.contrast .proposal-detail .seguranca input[type="submit"]:hover, 
+.contrast .proposal-detail .seguranca .success-proposal-sent a:hover,
+.contrast .proposal-detail .reducao-da-pobreza input[type="submit"]:hover, 
+.contrast .proposal-detail .reducao-da-pobreza .success-proposal-sent a:hover,
+.contrast .skip:hover,
+.contrast .send-proposal-button.send-button > a:hover,
+.contrast .send-experience-button.send-button > a:hover,
+.contrast .proposal-detail .saude .actions > a.login-action:hover,
+.contrast .proposal-detail .seguranca .actions > a.login-action:hover,
+.contrast .proposal-detail .educacao .actions > a.login-action:hover,
+.contrast .proposal-detail .reducao-da-pobreza .actions > a.login-action:hover,
+.contrast .proposal-detail .saude form .oauth .new-user:hover,
+.contrast .proposal-detail .seguranca form .oauth .new-user:hover,
+.contrast .proposal-detail .educacao form .oauth .new-user:hover,
+.contrast .proposal-detail .reducao-da-pobreza form .oauth .new-user:hover{
+	color: #000 !important;
+	// border: 1px solid #000 !important;
+	background: #fff !important;
+	box-shadow: 0 0 5px 1px #000;
+}
+
+
+.contrast .proposal-detail .reducao-da-pobreza .container-button a:hover span,
+.contrast .proposal-detail .saude .container-button a:hover span,
+.contrast .proposal-detail .educacao .container-button a:hover span,
+.contrast .proposal-detail .seguranca .container-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .saude .make-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .saude .send-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .saude .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .saude .experience-proposal-container .saude .send-experience-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .make-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .send-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .seguranca .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .seguranca .experience-proposal-container .seguranca .send-experience-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .make-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .send-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .educacao .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .educacao .experience-proposal-container .educacao .send-experience-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .make-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .send-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .experience-proposal-container .send-experience-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza input[type="submit"]:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .success-proposal-sent a:hover span,
+.contrast .proposal-detail .saude input[type="submit"]:hover span, 
+.contrast .proposal-detail .saude .success-proposal-sent a:hover span,
+.contrast .proposal-detail .educacao input[type="submit"]:hover span, 
+.contrast .proposal-detail .educacao .success-proposal-sent a:hover span,
+.contrast .proposal-detail .seguranca input[type="submit"]:hover span, 
+.contrast .proposal-detail .seguranca .success-proposal-sent a:hover span,
+.contrast .proposal-detail .seguranca .container-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .seguranca .make-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .seguranca .send-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .seguranca .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .saude .experience-proposal-container .seguranca .send-experience-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .make-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .send-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .seguranca .experience-proposal-container .send-experience-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .seguranca .make-proposal-button a:hover span,
+.contrast .proposal-detail .educacao .make-proposal-container .seguranca .send-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .seguranca .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .educacao .experience-proposal-container .seguranca .send-experience-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .seguranca .make-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .seguranca .send-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .seguranca .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .experience-proposal-container .seguranca .send-experience-button a:hover span,
+.contrast .proposal-detail .seguranca input[type="submit"]:hover span, 
+.contrast .proposal-detail .seguranca .success-proposal-sent a:hover span,
+.contrast .proposal-detail .educacao .container-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .educacao .make-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .educacao .send-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .educacao .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .saude .experience-proposal-container .educacao .send-experience-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .educacao .make-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .educacao .send-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .educacao .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .seguranca .experience-proposal-container .educacao .send-experience-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .make-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .send-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .educacao .experience-proposal-container .send-experience-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .educacao .make-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .educacao .send-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .educacao .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .experience-proposal-container .educacao .send-experience-button a:hover span,
+.contrast .proposal-detail .educacao input[type="submit"]:hover span, 
+.contrast .proposal-detail .educacao .success-proposal-sent a:hover span,
+.contrast .proposal-detail .saude .container-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .make-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .send-proposal-button a:hover span, 
+.contrast .proposal-detail .saude .make-proposal-container .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .saude .experience-proposal-container .send-experience-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .saude .make-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .saude .send-proposal-button a:hover span, 
+.contrast .proposal-detail .seguranca .make-proposal-container .saude .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .seguranca .experience-proposal-container .saude .send-experience-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .saude .make-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .saude .send-proposal-button a:hover span, 
+.contrast .proposal-detail .educacao .make-proposal-container .saude .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .educacao .experience-proposal-container .saude .send-experience-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .saude .make-proposal-button a:hover span,
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .saude .send-proposal-button a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .make-proposal-container .saude .success-proposal-sent a:hover span, 
+.contrast .proposal-detail .reducao-da-pobreza .experience-proposal-container .saude .send-experience-button a:hover span, 
+.contrast .proposal-detail .saude input[type="submit"]:hover span, 
+.contrast .proposal-detail .saude .success-proposal-sent a:hover span{
+	background: #fff url("images/airplane-contrast.png") no-repeat scroll left center !important;
+}
+
+.contrast #proposal-category-saude a:hover{
+	background-image: url("images/icons/saude-contrast.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center 5px !important;
+}
+
+.contrast #proposal-category-seguranca a:hover{
+	background-image: url("images/icons/seguranca-contrast.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center 5px !important;
+}
+
+.contrast #proposal-category-educacao a:hover{
+	background-image: url("images/icons/educacao-contrast.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center 5px !important;
+}
+
+.contrast #proposal-category-reducao-da-pobreza a:hover{
+	background-image: url("images/icons/reducao-da-pobreza-contrast.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center 5px !important;
+}
+
+/*----------------------- ELEMENTOS REMOÇÃO DE BORDAS ---------------------- */
+.contrast #proposal-category-saude a,
+.contrast #proposal-category-seguranca a,
+.contrast #proposal-category-educacao a,
+.contrast #proposal-category-reducao-da-pobreza a,
+.contrast .make-proposal #user_name,
+.contrast .make-proposal #user_password,
+.contrast .experience-proposal #user_name,
+.contrast .experience-proposal #user_password,
+.contrast .proposal-detail .saude .results-container .results-content,
+.contrast .proposal-detail .educacao .results-container .results-content,
+.contrast .proposal-detail .seguranca .results-container .results-content,
+.contrast .proposal-detail .reducao-da-pobreza .results-container .results-content{
+	border: none !important;
+
+}
+
+/*----------------------- ELEMENTOS BACKGROUND 90% NEGRO ---------------------- */
+.contrast nav li a,
+.contrast .proposal-detail .categories select{
+    color: #fff !important;
+  	background: #333 !important;	
+}
+
+
+/*----------------------------------- IMAGENS --------------------------------- */
+
+.contrast .proposal-detail .saude .support-proposal-container .vote-actions .dislike,
+.contrast .proposal-detail .educacao .support-proposal-container .vote-actions .dislike,
+.contrast .proposal-detail .seguranca .support-proposal-container .vote-actions .dislike,
+.contrast .proposal-detail .reducao-da-pobreza .support-proposal-container .vote-actions .dislike{
+	background-image: url("images/dislike-contrast.png") !important;
+}
+
+.contrast .proposal-detail .saude .support-proposal-container .vote-actions .like,
+.contrast .proposal-detail .educacao .support-proposal-container .vote-actions .like,
+.contrast .proposal-detail .seguranca .support-proposal-container .vote-actions .like,
+.contrast .proposal-detail .reducao-da-pobreza .support-proposal-container .vote-actions .like{
+	background-image: url("images/like-contrast.png") !important;
+}
+
+.contrast .proposal-detail .saude .oauth > .facebook,
+.contrast .proposal-detail .educacao .oauth > .facebook,
+.contrast .proposal-detail .seguranca .oauth > .facebook,
+.contrast .proposal-detail .reducao-da-pobreza .oauth > .facebook{
+	background: url("images/icon-facebook-contrast.png") no-repeat left top transparent !important;
+}
+
+.contrast .proposal-detail .saude .oauth > .google,
+.contrast .proposal-detail .educacao .oauth > .google,
+.contrast .proposal-detail .seguranca .oauth > .google,
+.contrast .proposal-detail .reducao-da-pobreza .oauth > .google{
+	background: url("images/icon-google-plus-contrast.png") no-repeat left top transparent !important;
+}
+
+
+
+/*----------------------------------- ADIÇÃO DE BOLD --------------------------------- */
+.contrast .saude .proposal-detail-base .go-to-proposal-button a,
+.contrast .educacao .proposal-detail-base .go-to-proposal-button a,
+.contrast .seguranca .proposal-detail-base .go-to-proposal-button a,
+.contrast .reducao-da-pobreza .proposal-detail-base .go-to-proposal-button a{
+	font-weight: bold !important;
+}
