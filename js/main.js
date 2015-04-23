@@ -210,6 +210,7 @@ function loadRandomProposal(topic_id, private_token) {
           $('.results-container').html(resultsTemplate(data));
           $('.results-container .loading').hide();
           $('.results-container .results-content').show();
+          $("html, body").animate({ scrollTop: $(document).height() }, "fast");
         });
         $('.experience-proposal-container').hide();
         $('.talk-proposal-container').hide();
@@ -334,6 +335,7 @@ function display_proposal_detail(){
   $('.talk-proposal-container').hide();
 
   $('.body').show();
+  $("html, body").animate({ scrollTop: 0 }, "fast");
 }
 
 function display_proposal_by_category(item){
