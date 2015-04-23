@@ -13,20 +13,22 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
   for(var i=0, j=proposals.length; i<j; i++) {
     element = "<li class='proposal-item'><div class='item'>";
     category = "<ul class='category'>";
-     
-    for(var x=0, y=proposals[i].categories.length; x<y; x++) {
-      if((options.hash['category'] != null) && (options.hash['category'] != proposals[i].categories[x].slug)){
+    
+    var proposal = proposals[i];
+    
+    for(var x=0, y=proposal.categories.length; x<y; x++) {
+      if((options.hash['category'] != null) && (options.hash['category'] != proposal.categories[x].slug)){
         element = '';
         continue;
       }      
-      category = category + '<li class="category-'+proposals[i].categories[x].slug+'">' + proposals[i].categories[x].name + '</li>';
+      category = category + '<li class="category-'+proposal.categories[x].slug+'">' + proposal.categories[x].name + '</li>';
     }
     if(element == ''){
       continue;
     }
     category =  category + '</ul>';
-    element = element + options.fn(proposals[i]);
-    element = element + (proposals[i].abstract ? proposals[i].abstract : '');
+    element = element + options.fn(proposal);
+    element = element + (proposal.abstract ? proposal.abstract : '');
 
     element = element + category;
     ret = ret + element + '</div></li>';

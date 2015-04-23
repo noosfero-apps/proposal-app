@@ -61,7 +61,7 @@ $.getJSON(noosferoAPI)
       $('#proposal-group').show();
       $('#nav-proposal-group a').addClass('active');
       $('#nav-proposal-categories a').removeClass('active');
-      $(".proposal-item").dotdotdot();
+      $(".proposal-item p").dotdotdot();
       event.preventDefault();
     });
     $( '.proposal-item a' ).click(function(event){
@@ -78,9 +78,9 @@ $.getJSON(noosferoAPI)
         $('.proposal-category-items').hide();
         $('.proposal-detail').hide();
         $('#' + item).show();
-        $(".proposal-item").dotdotdot();
+        $(".proposal-item p").dotdotdot();
         $('.proposal-category .arrow-box').hide();
-        $(this).parent('.proposal-category').data('category')
+        $(this).parent('.proposal-category').data('category');
         $('#proposal-category-'+$(this).parent('.proposal-category').data('category')).find('.arrow-box').show();
       }
       event.preventDefault();
