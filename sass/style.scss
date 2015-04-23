@@ -32,6 +32,10 @@ h1 {
   width: 100%;
   text-transform: uppercase;
   border-bottom: 1px solid #d6dcd7;
+  a {
+    text-decoration: none;
+    color: #03316f;
+  }
 }
 
 #proposal-result {

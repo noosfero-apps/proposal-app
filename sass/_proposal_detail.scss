@@ -289,7 +289,8 @@
         .make-proposal-button{
           @extend .container-button;
         }
-        .send-proposal-button, .success-proposal-sent {
+        .send-proposal-button,
+        .success-proposal-sent {
           @extend .container-button;
           a {
             position: absolute;
@@ -395,6 +396,18 @@
         }
         .send-experience-button {
           @extend .container-button;
+        }
+        .send-experience-button,
+        .success-experience-sent {
+          @extend .container-button;
+          a {
+            position: absolute;
+            left: 50%;
+            margin: 0;
+            margin-left: -30%;
+            bottom: 20px;
+            padding: 20px 0;
+          }
         }
       }
       .talk-proposal-container{
