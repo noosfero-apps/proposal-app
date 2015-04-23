@@ -24,13 +24,17 @@
       </header>
   
       <div id="content">
-        {{{article.body}}}
+        <p>{{{article.body}}}</p>
       </div>
   
       <nav>
         <ul>
-          <li id='nav-proposal-categories'><a href="#proposal-categories" class="active">Temas</a></li>
-          <li id='nav-proposal-group'><a href="#proposal-group">Programas</a></li>
+          <li id='nav-proposal-categories'>
+            <a href="#/temas" class="active">Temas</a>
+          </li>
+          <li id='nav-proposal-group'>
+            <a href="#/programas">Programas</a>
+          </li>
         </ul>
       </nav>
 
@@ -38,12 +42,12 @@
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id='proposal-category-{{slug}}' class="proposal-category" data-category="{{slug}}">
-              {{#link name id}}{{/link}}
+              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
               <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
           {{#each article.categories}}
-            <div id='proposal-item-{{id}}' class="proposal-category-items proposal-category-items-{{slug}} hide">
+            <div id='proposal-item-{{id}}' class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
               <div class="header">
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
@@ -77,7 +81,7 @@
             <ul class="select">
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
-                  {{#link name id}}{{/link}}
+                  <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                   {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
                 </li>
               {{/each}}
@@ -89,13 +93,18 @@
               </div>
               <div class='title'>{{title}}</div>
               <div class='abstract'>{{{abstract}}}</div>
-              <div class='show_body'><a href='#'><span>Conheça o Programa</span></a></div>
+              <div class='show_body'>
+                <a href='#/programas/{{id}}/sobre-o-programa'><span>Conheça o Programa</span></a>
+              </div>
             </div>
 
             <div class='body proposal-detail-base hide'>
               {{{body}}}
-              <div class='go-to-proposal-button'><a href='#proposal-item-{{id}}'>
-                <div class='fa fa-reply'> </div>Agora contribua para a melhoria desse programa</a>
+              <div class='go-to-proposal-button'>
+                <a href="#/programas/{{id}}" data-target='proposal-item-{{id}}'>
+                  <span class='fa fa-reply'></span>
+                  Agora contribua para a melhoria desse programa
+                </a>
               </div>
               
             </div>
@@ -173,7 +182,6 @@
               </div>
             </div>
           </div>
-          <div class="clearfix"></div>
         </div>
       {{/each}}
     </script>
