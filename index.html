@@ -110,7 +110,7 @@
                   <div class="message"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
-                    <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
+                    <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
                   </div>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
                   <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
@@ -143,7 +143,7 @@
                   <div class="message"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
-                    <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
+                    <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
                   </div>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Story' type='hidden'>
                   <input type='submit' id='make-experience-button' class='make-experience-button'  name='make-experience-button' value='Enviar'>
@@ -178,7 +178,7 @@
     </script>
 
     <script id='support-proposal-template' type='text/x-handlebars-template'>
-      <div class='abstract'><p>"{{abstract}}"</p></div>
+      <div class='abstract'><p>"{{trimString abstract 200}}"</p></div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>
@@ -240,6 +240,7 @@
     <script src='js/handlebars-v3.0.1.js'></script>
     <script src='js/handlebars-helpers.js'></script>
     <script src='js/jquery.dotdotdot.min.js'></script>
+    <script src='js/jquery.maxlength.min.js'></script>
     <script src='js/layout.js'></script>
 
     <script src='js/main.js'></script>

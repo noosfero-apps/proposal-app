@@ -38,6 +38,7 @@ $.getJSON(noosferoAPI)
     data['private_token'] = private_token;
     resultsPlaceholder.innerHTML = template(data);
     $('.login-container').html(loginTemplate());
+    $('.countdown').maxlength({text: '%left caracteres restantes'});
 
     url = $(location).attr('href').split('#').pop();
     if(url.match(/proposal-item-[0-9]+/)){

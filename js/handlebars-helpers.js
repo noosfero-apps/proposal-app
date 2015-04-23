@@ -68,6 +68,11 @@ Handlebars.registerHelper('select_proposal', function(proposals, category_slug, 
   return ret;
 });
 
+Handlebars.registerHelper('trimString', function(passedString, endstring) {
+  var theString = passedString.substring(0, endstring);
+  return new Handlebars.SafeString(theString)
+});
+
 function proposal_has_category(proposal, category_slug) {
   for(var i=0; i<proposal.categories.length; i++) {
     if(proposal.categories[i].slug == category_slug)
