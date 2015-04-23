@@ -73,7 +73,7 @@
       {{#each article.children}}
         <div class='proposal-detail hide' id="proposal-item-{{id}}">
           <div class='categories {{#each categories}}{{slug}} {{/each}}'>
-            <ul>
+            <ul class="select">
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
                   {{#link name id}}{{/link}}

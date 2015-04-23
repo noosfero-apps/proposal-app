@@ -1,9 +1,5 @@
 .proposal-detail {
   li {
-    list-style: none;
-    width: 70%;
-    padding: 0;
-    height: 50px;
     a {
       text-decoration: none;
       text-transform: uppercase;
@@ -88,6 +84,17 @@
 
   @each $category, $color in $categories {
     .#{$category}{
+      .select {
+        li {
+          background: $color;
+          list-style: none;
+          padding: 0;
+          a {
+            min-width: 0;
+            width: auto;
+          }
+        }
+      }
       .results-container {
         &:before {
           content:"";
@@ -540,7 +547,7 @@
       padding: 20px 0 !important;
       span {
         text-align: center !important;
-        margin: 0 10px !important;
+        margin: 0 20px !important;
         display: block !important;
         padding: 0 !important;
         line-height: 1.2 !important;
