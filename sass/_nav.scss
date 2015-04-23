@@ -8,37 +8,33 @@ nav ul {
   padding: 0;
   margin: 0;
   width: 100%;
+  font-size: 0;
+  list-style: none;
 }
 
 nav li {
   display: inline-block;
-  list-style: none;
   padding: 0;
   margin: 0;
   width: 50%;
-  background: #03316f;
-  float: left;
 }
 
 nav li a {
   display: block;
-  width: 97.6%;
-  float: left;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
   background: #03316f;
-  margin: 1px 0.2% 0 0.2%;
-  padding: 20px 1%;
+  padding: 20px 5px;
   text-transform: uppercase;
-  border-bottom: 3px solid #001129;
+  border-color: #03316f;
+  border-style: solid;
+  border-width: 1px 1px 0;
 }
 
 nav li a.active {
-  position: relative;
   background: #fff;
   color: #03316f;
-  border-bottom: 3px solid transparent;
 }
