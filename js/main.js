@@ -88,15 +88,18 @@ $.getJSON(noosferoAPI)
 
     $( '.send-button a' ).click(function(event){
       //display form to send proposal (or login form for non-logged users)
-      loginButton = $(this).parents('.send-button');
+      var $this = $(this);
+      loginButton = $this.parents('.send-button');
       loginButton.hide();
-      $('.success-proposal-sent').hide();
+      $this.parents('.success-proposal-sent').hide();
       loginCallback(logged_in);
       event.preventDefault();
     });
+
     $( '#display-contrast' ).click(function(event){
       $('#proposal-result').toggleClass('contrast');
     });
+
     $( '.show_body a' ).click(function(event){
       event.preventDefault();
 
@@ -349,6 +352,8 @@ function display_proposal_by_category(item){
     $('nav').show();
     $('#content').show();
     $('#proposal-categories').show();
+    $('#nav-proposal-categories a').addClass('active');
+    $('#nav-proposal-group a').removeClass('active');
     $('.proposal-category-items').hide();
     $('.proposal-detail').hide();
     $item.show();
