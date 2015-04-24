@@ -81,6 +81,12 @@
           height: auto;
         }
       }
+      &.no-border {
+        li {
+          border: 0;
+          padding: 0 0 0.5em;
+        }
+      }
     }
     .go-to-proposal-button a {
       background: $color;
