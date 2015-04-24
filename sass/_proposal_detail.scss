@@ -671,6 +671,15 @@
       margin: 0 !important;
       min-height: 0 !important;
     }
+    .send-experience-button {
+      text-align: center !important;
+      a {
+        position: relative !important;
+        left: inherit !important;
+        margin: auto !important;
+        bottom: inherit !important;
+      }
+    }
   }
   .talk-proposal-container {
     height: auto !important;
