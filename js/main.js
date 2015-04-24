@@ -79,6 +79,13 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
+    $( '.proposal-category .go-back' ).click(function(event){
+      event.preventDefault();
+
+      // Update URL and Navigate
+      updateHash('#/temas');
+    });
+
     $( '.send-button a' ).click(function(event){
       //display form to send proposal (or login form for non-logged users)
       loginButton = $(this).parents('.send-button');
@@ -279,6 +286,9 @@ function display_category_tab(){
   $('.proposal-category-items').hide();
   $('.proposal-category .arrow-box').hide();
   $('.proposal-detail').hide();
+
+  $('#content').show();
+  $('nav').show();
 }
 
 function display_proposals_tab(){
@@ -287,6 +297,9 @@ function display_proposals_tab(){
   $('#nav-proposal-group a').addClass('active');
   $('#nav-proposal-categories a').removeClass('active');
   $(".proposal-item p").dotdotdot();
+
+  $('#content').show();
+  $('nav').show();
 }
 
 function display_proposal(proposal_id){
@@ -368,18 +381,33 @@ function locationHashChanged(){
 function navigateTo(hash){
   var regexProposals = /#\/programas/;
   var regexCategory = /#\/temas/;
-  var m;
   var parts = hash.split('/');
   
-  if( (m = regexProposals.exec(hash)) !== null ){
+  var isProposal = regexProposals.exec(hash) !== null;
+  var isCategory = regexCategory.exec(hash) !== null;
+
+  if( isProposal ){
+    
+    // go to proposal 
     var proposalId = parts[2];
     navigateToProposal(proposalId);
-  } else if( (m = regexCategory.exec(hash)) !== null ){
+
+    return;
+  }
+
+  if( isCategory ){
+    
+    // go to category 
     var categoryId = parts[3];
     navigateToCategory(categoryId);
-  } else {
-    console.log('route not handled', hash);
+
+    return;
   }
+
+  // default
+  // show the 'index' -> category tab
+  display_category_tab();
+  console.log('route not handled', hash);
 }
 
 function navigateToProposal(proposalId){  
