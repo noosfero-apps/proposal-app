@@ -6,11 +6,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="novo.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/hover.custom.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Asap:400,700">
+    <link rel="stylesheet" href="novo.css">
+
+    <script type='text/javascript'>
+      function removeUrlParameters(full_url){
+        var url_base = full_url.split('#').shift();
+        return url_base;
+      }
+      function addBaseUrl(filename){
+        var base = window.location.href;
+        if(base.match(/file:/) || filename.match(/http:/)){
+          base = '';
+        }else{
+          base = removeUrlParameters(base) + '/';
+        }
+        return base + filename;
+      }
+      function makeCSSLink(filename){
+        var fileref=document.createElement("link");
+        fileref.setAttribute("rel", "stylesheet");
+        fileref.setAttribute("type", "text/css");
+        fileref.setAttribute("href",  addBaseUrl(filename));
+        return fileref;
+      }
+      function loadCSSFiles(){
+        var css_files = [
+          'css/bootstrap.min.css', 
+          'css/hover.custom.css', 
+          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
+          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
+          'http://fonts.googleapis.com/css?family=Asap:400,700', 
+          'style.css'
+        ];
+        head = document.getElementsByTagName("head")[0]
+        for(i = 0; i < css_files.length; i++){
+          head.appendChild(makeCSSLink(css_files[i]));
+        }
+      }
+      function makeJSURL(filename){
+        var url = addBaseUrl(filename);
+       
+        return url;
+      }
+
+      function loadJavaScriptSync(file_path){
+          var head = document.getElementsByTagName("head")[0];
+          var script_element = document.createElement("script");
+          script_element.type = "text/javascript";
+          var req = new XMLHttpRequest();
+          req.open("GET", file_path, false); // 'false': synchronous.
+          req.send(null);
+          script_element.text = req.responseText;
+          head.appendChild(script_element);
+      }
+
+      function loadJavaScriptAsync(file_path){
+          var head = document.getElementsByTagName("head")[0];
+          var script_element = document.createElement("script");
+          script_element.type = "text/javascript";
+          script_element.src = file_path;
+          head.appendChild(script_element);
+      }
+
+      function loadJSFiles(){
+        var js_files = [
+          'js/jquery-2.1.3.min.js', 
+          'js/jquery-ui-1.11.4.custom/jquery-ui.min.js', 
+          'js/jquery.cookie.js', 
+          'js/handlebars-v3.0.1.js',
+          'js/handlebars-helpers.js',
+          'js/jquery.dotdotdot.min.js',
+          'js/jquery.maxlength.min.js',
+          'js/layout.js',
+          'js/main.js'    
+        ];
+
+        var file_path = '';
+        for(i = 0; i < js_files.length; i++){
+          file_path = makeJSURL(js_files[i]);
+          if(file_path.match('layout.js') || file_path.match('main.js')){
+            loadJavaScriptAsync(file_path);
+          }else{
+            loadJavaScriptSync(file_path);
+          }
+        }
+      }
+
+      loadCSSFiles();
+
+    </script>
 
   </head>
   <body>
@@ -19,7 +108,7 @@
  
     <script id='proposal-template' type='text/x-handlebars-template'>
       <header>
-        <h1><a href="/">{{article.title}}</a></h1>
+        <h1><a href="#">{{article.title}}</a></h1>
         <a id='display-contrast' href='#'>Alto Contraste</a>
       </header>
   
@@ -42,7 +131,7 @@
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id='proposal-category-{{slug}}' class="proposal-category" data-category="{{slug}}">
-              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
+              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
               <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
@@ -112,15 +201,15 @@
               </div>
               
             </div>
-            <div class='make-proposal-container proposal-container'>
-              <div class='make-proposal proposal-content'>
+            <div class='make-proposal-container'>
+              <div class='make-proposal'>
                 <div class='container-title'>Faça Uma Proposta</div>
                 <div class='subtitle'>Qual a sua sugestão para melhorar este programa?</div>
                 <div class='info'>Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
                 <div class='send-proposal-button send-button'><a href='#'><span>Envie Sua Proposta</span></a></div>
                 <div class="login-container hide">Login</div>
                 <form class='make-proposal-form save-article-form hide' id='make-proposal-form-{{id}}'>
-                  <div class="message"></div>
+                  <div class="message hide"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
@@ -135,8 +224,8 @@
                 <br style="clear: both;" />
               </div>
             </div>
-            <div class='support-proposal-container proposal-container'>
-              <div class='support-proposal proposal-content'>
+            <div class='support-proposal-container'>
+              <div class='support-proposal'>
                 <div class='container-title'> Apoie outras propostas</div>
                 <div class='subtitle'> Propostas da sociedade</div>
                 <div class="random-proposal"></div>
@@ -145,15 +234,15 @@
               </div>
             </div>
             <div class='results-container hide'></div>
-            <div class='experience-proposal-container proposal-container'>
-              <div class='experience-proposal proposal-content'>
+            <div class='experience-proposal-container'>
+              <div class='experience-proposal'>
                 <div class='container-title'>Conte sua experiência</div>
                 <p>Adoraríamos que você nos contasse a sua experiência com este programa ou a de alguém que você conhece.</p>
                 <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada.</p>
                 <div class='send-experience-button send-button'><a href='#'><span>Envie Sua Experiência</span></a></div>
                 <div class="login-container hide">Login</div>
                 <form class='make-experience-form save-article-form hide' id='make-experience-form-{{id}}'>
-                  <div class="message"></div>
+                  <div class="message hide"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="5000"></textarea>
@@ -167,8 +256,8 @@
                 </div>
               </div>
             </div>
-            <div class='talk-proposal-container proposal-container'>
-              <div class='talk-proposal proposal-content'>
+            <div class='talk-proposal-container'>
+              <div class='talk-proposal'>
                 <div class='container-title'>Fale com os ministros</div>
                 <p>Confira as datas e horários disponíveis:</p>
                 <ul class='calendar'>
@@ -225,7 +314,7 @@
 
     <script id='login' type='text/x-handlebars-template'>
       <form id="login-form" class="login">
-        <div class="message"></div>
+        <div class="message hide"></div>
         <div class="username">
           <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
@@ -255,8 +344,8 @@
     <script src='js/jquery.dotdotdot.min.js'></script>
     <script src='js/jquery.maxlength.min.js'></script>
     <script src='js/layout.js'></script>
-
     <script src='js/main.js'></script>
+
   </body>
 
 </html>

@@ -9,6 +9,14 @@
       margin-top: $default-spacing-size;
       padding-left: 0;
     }
+    .item {
+      border: 0;
+    }
+    .category {
+      background: transparent;
+      border-top: 1px dotted $default-color;
+      padding-top: 10px;
+    }
 	}
 }
 #search-input-container {
