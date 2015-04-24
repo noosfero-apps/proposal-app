@@ -78,6 +78,10 @@ nav ul {
     padding-left: 20px;
     padding-top: 20px;
     text-align: center; }
+  #proposal-categories .category {
+    background: transparent;
+    border-top: 1px dotted #172938;
+    padding-top: 10px; }
 
 .proposal-category {
   display: inline-block;
@@ -150,8 +154,7 @@ nav ul {
 
 .category {
   list-style: none;
-  padding-left: 0;
-  padding-top: 10px; }
+  padding-left: 0; }
   .category li {
     background-color: #000;
     color: #fff;
@@ -222,7 +225,7 @@ nav ul {
   padding-left: 0; }
 
 .btn {
-  border: 1px solid;
+  border: 1px solid #ccc;
   display: inline-block;
   font-size: 14px;
   line-height: 3.1;
