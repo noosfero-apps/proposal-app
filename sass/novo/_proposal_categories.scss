@@ -1,5 +1,3 @@
-@import "utilities/variables";
-
 @each $category, $description in $categories-descriptions {
   .proposal-category-items-#{$category} .description:before {
     color: #fff;

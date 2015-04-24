@@ -1,31 +1,168 @@
 .proposal {
 	&-detail {
 		.proposal {
-      &-category {
-        background-color: #000;
-        border-top: 0;
-        display: block;
-        margin-right: 0;
-        padding-top: 0;
-        text-align: left;
-      }
       &-link {
         border-radius: 0;
-        font-size: $category-title-size;
+        font-size: $category-select-size;
         padding: 15px 35px;
         text-transform: uppercase;
         vertical-align: middle;
         width: auto;
       }
     }
-	}
+  }
   &-selection {
+    background-color: #EEEFF1;
+    border: 0;
+    float: right;
+    font-size: $default-font-size;
+    font-weight: 300;
     height: 57px;
+    margin: 0;
+    text-transform: uppercase;
     width: 60%;
-    
+  }
+  &-header {
+    position: relative;
+  }
+  &-container {
+    display: block;
+    float: left;
+    margin-bottom: $default-spacing-size;
+    width: 50%;
+  }
+  &-content {
+    border: 1px solid #000;
+    height: $container-height;
+    padding: $default-spacing-size;
   }
 }
-
+.category {
+  background-color: #000;
+  border-top: 0;
+  display: block;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding-top: 0;
+  text-align: left;
+}
 .select {
 	padding-left: 0;
+}
+.btn {
+  border: 1px solid;
+  display: inline-block;
+  font-size: $small-font-size;
+  line-height: 3.1;
+  padding: 6px 12px;
+  &-default {
+    background-color: #fff;
+  }
+}
+.abstract {
+  img {
+    width: 100%;
+  }
+  p {
+    background-color: #000;
+    bottom: 140px;
+    color: #fff;
+    font-size: $small-font-size;
+    padding: 5px 20px 20px 20px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 50%;
+  }
+}
+.title {
+  background-color: #000;
+  bottom: 170px;
+  color: #fff;
+  font-size: $detail-title-size;
+  font-weight: 700;
+  padding: $default-spacing-size $default-spacing-size 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-transform: uppercase;
+  width: 50%;
+}
+.show_body {
+  background: #000 url("images/black-alpha.png") no-repeat;
+  border-top: 5px solid;
+  padding: 30px 0;
+  margin: 10px auto;
+  a {
+    background: url("images/white-line.png") left center repeat-x;
+    color: #fff;
+    display: block;
+    font-size: $detail-proposal-size;
+    font-weight: 700;
+    margin: auto;
+    text-align: center;
+    text-transform: uppercase;
+    width: 70%;
+  }
+  span {
+    padding: 5px 15px; 
+  }
+}
+.container {
+  &-title {
+    color: #000;
+    font-size: $detail-proposal-size;
+    margin-bottom: $default-spacing-size;
+  }
+}
+.subtitle {
+  color: $header-color;
+  font-size: $proposal-link-size;
+  font-weight: 700;
+  margin-bottom: $default-spacing-size;
+}
+.info {
+  font-size: $small-font-size;
+  font-weight: 300;
+}
+.send {
+  &-button {
+    a {
+      background-color: #000;
+      border-radius: $default-radius-size;
+      color: #fff;
+      display: block;
+      margin: auto;
+      padding: $default-spacing-size 0;
+      text-align: center;
+      text-transform: uppercase;
+      width: 60%;
+      span {
+        padding-left: 20px;
+        background-image: url("images/airplane.png");
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+.make {
+  &-proposal {
+    margin-right: $default-spacing-size - 10;
+  }
+}
+.support {
+  &-proposal {
+    margin-left: $default-spacing-size - 10;
+  }
+}
+.experience {
+  &-proposal {
+    margin-right: $default-spacing-size - 10;
+  }
+}
+.talk {
+  &-proposal {
+    margin-left: $default-spacing-size - 10;
+  }
 }
