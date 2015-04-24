@@ -33,7 +33,9 @@
       // border-width: 2px;
       // border-style: solid;
       background-size: 90px;
-      hover: {
+      cursor: pointer;
+      
+      &:hover {
         border-color: #fff !important;
       }
     }
@@ -79,6 +81,7 @@
     font-weight: 700;
     font-size: 18pt;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .proposal-item {

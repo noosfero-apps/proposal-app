@@ -49,7 +49,7 @@ $.getJSON(noosferoAPI)
     navigateTo(window.location.hash);
 
     //Actions for links
-    $( '#nav-proposal-categories a' ).click(function(event){
+    $( '#nav-proposal-categories a' ).on('click touchstart', function(event){
       event.preventDefault();
 
       var $link = $(this);
@@ -58,7 +58,7 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '#nav-proposal-group a' ).click(function(event){
+    $( '#nav-proposal-group a' ).on('click touchstart', function(event){
       event.preventDefault();
 
       var $link = $(this);
@@ -67,7 +67,7 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-item a' ).click(function(event){
+    $( '.proposal-item a' ).on('click touchstart', function(event){
       var $link = $(this);
       var item = $link.data('target');
 
@@ -75,7 +75,7 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-category a' ).click(function(event){
+    $( '.proposal-category a' ).on('click touchstart', function(event){
       event.preventDefault();
 
       var $link = $(this);
@@ -99,7 +99,7 @@ $.getJSON(noosferoAPI)
 //        $(this).removeClass('animated');
 //      });
 
-    $( '.proposal-category .go-back' ).click(function(event){
+    $( '.proposal-category .go-back' ).on('click touchstart', function(event){
       event.preventDefault();
 
       var oldHash = window.location.hash;
@@ -116,7 +116,7 @@ $.getJSON(noosferoAPI)
       updateHash(newHash);
     });
 
-    $( '.send-button a' ).click(function(event){
+    $( '.send-button a' ).on('click touchstart', function(event){
       //display form to send proposal (or login form for non-logged users)
       var $this = $(this);
       loginButton = $this.parents('.send-button');
@@ -126,11 +126,11 @@ $.getJSON(noosferoAPI)
       event.preventDefault();
     });
 
-    $( '#display-contrast' ).click(function(event){
+    $( '#display-contrast' ).on('click touchstart', function(event){
       $('#proposal-result').toggleClass('contrast');
     });
 
-    $( '.show_body a' ).click(function(event){
+    $( '.show_body a' ).on('click touchstart', function(event){
       event.preventDefault();
 
       var $link = $(this);
@@ -140,7 +140,7 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '.go-to-proposal-button a' ).click(function(event){
+    $( '.go-to-proposal-button a' ).on('click touchstart', function(event){
       event.preventDefault();
 
       var $link = $(this);
