@@ -126,7 +126,7 @@ $.getJSON(noosferoAPI)
 
     var availableTags = [ ];
     $('#proposal-group li a').each(function(){
-      availableTags.push({ label: $(this).text(), value: $(this).attr('href')});
+      availableTags.push({ label: $(this).text(), value: $(this).data('target')});
     });
 
     $( "#search-input" ).autocomplete({
