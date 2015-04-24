@@ -30,6 +30,7 @@
       function loadCSSFiles(){
         var css_files = [
           'css/bootstrap.min.css', 
+          'css/hover.custom.css', 
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
           'http://fonts.googleapis.com/css?family=Asap:400,700', 
@@ -123,7 +124,7 @@
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id='proposal-category-{{slug}}' class="proposal-category" data-category="{{slug}}">
-              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
+              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
               <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
@@ -234,7 +235,7 @@
                 <div class='send-experience-button send-button'><a href='#'><span>Envie Sua Experiência</span></a></div>
                 <div class="login-container hide">Login</div>
                 <form class='make-experience-form save-article-form hide' id='make-experience-form-{{id}}'>
-                  <div class="message"></div>
+                  <div class="message hide"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="5000"></textarea>
