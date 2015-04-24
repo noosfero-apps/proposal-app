@@ -349,6 +349,8 @@ function display_proposal_by_category(item){
     $('nav').show();
     $('#content').show();
     $('#proposal-categories').show();
+    $('#nav-proposal-categories a').addClass('active');
+    $('#nav-proposal-group a').removeClass('active');
     $('.proposal-category-items').hide();
     $('.proposal-detail').hide();
     $item.show();
