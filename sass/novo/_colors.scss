@@ -36,4 +36,18 @@
       background-size: 22px;
     }
   }
+  .#{$category} {
+    .category {
+      background-color: $color;
+    }
+    .proposal {
+      &-link {
+        background-color: $color;
+        background-image: url(./images/icons/#{$category}.png);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+        background-size: 32px;
+      }
+    }
+  }
 }

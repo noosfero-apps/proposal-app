@@ -99,7 +99,11 @@
   font-size: $small-font-size;
   padding: $default-spacing-size;
   p {
-    min-height: 60px;
+    overflow: hidden;
+    min-height: 4em;
+  }
+  &:hover {
+    background-color: #eeeff1;
   }
 }
 .category {

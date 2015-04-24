@@ -1,0 +1,31 @@
+.proposal {
+	&-detail {
+		.proposal {
+      &-category {
+        background-color: #000;
+        border-top: 0;
+        display: block;
+        margin-right: 0;
+        padding-top: 0;
+        text-align: left;
+      }
+      &-link {
+        border-radius: 0;
+        font-size: $category-title-size;
+        padding: 15px 35px;
+        text-transform: uppercase;
+        vertical-align: middle;
+        width: auto;
+      }
+    }
+	}
+  &-selection {
+    height: 57px;
+    width: 60%;
+    
+  }
+}
+
+.select {
+	padding-left: 0;
+}

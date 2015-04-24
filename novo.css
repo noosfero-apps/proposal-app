@@ -143,7 +143,10 @@ nav ul {
   font-size: 14px;
   padding: 20px; }
   .item p {
-    min-height: 60px; }
+    overflow: hidden;
+    min-height: 4em; }
+  .item:hover {
+    background-color: #eeeff1; }
 
 .category {
   border-top: 1px dotted #172938;
@@ -158,6 +161,40 @@ nav ul {
     font-size: 16px;
     font-weight: 700;
     padding: 5px 12px 5px 32px; }
+
+#proposal-group {
+  border-bottom: 1px solid #03316f;
+  border-left: 1px solid #03316f;
+  border-right: 1px solid #03316f;
+  padding: 20px 20px 0; }
+  #proposal-group ul {
+    margin-bottom: 0;
+    margin-top: 20px;
+    padding-left: 0; }
+
+#search-input-container {
+  margin-top: 10px; }
+
+.proposal-detail .proposal-category {
+  background-color: #000;
+  border-top: 0;
+  display: block;
+  margin-right: 0;
+  padding-top: 0;
+  text-align: left; }
+.proposal-detail .proposal-link {
+  border-radius: 0;
+  font-size: 18px;
+  padding: 15px 35px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  width: auto; }
+.proposal-selection {
+  height: 57px;
+  width: 60%; }
+
+.select {
+  padding-left: 0; }
 
 #proposal-category-saude .proposal-link {
   background-color: #00a9bd;
@@ -177,6 +214,15 @@ li.category-saude {
   background-repeat: no-repeat;
   background-size: 22px; }
 
+.saude .category {
+  background-color: #00a9bd; }
+.saude .proposal-link {
+  background-color: #00a9bd;
+  background-image: url(./images/icons/saude.png);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: 32px; }
+
 #proposal-category-seguranca .proposal-link {
   background-color: #e34748;
   background-image: url(./images/icons/seguranca.png?3);
@@ -194,6 +240,15 @@ li.category-seguranca {
   background-position: 3px center;
   background-repeat: no-repeat;
   background-size: 22px; }
+
+.seguranca .category {
+  background-color: #e34748; }
+.seguranca .proposal-link {
+  background-color: #e34748;
+  background-image: url(./images/icons/seguranca.png);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: 32px; }
 
 #proposal-category-educacao .proposal-link {
   background-color: #ffb400;
@@ -213,6 +268,15 @@ li.category-educacao {
   background-repeat: no-repeat;
   background-size: 22px; }
 
+.educacao .category {
+  background-color: #ffb400; }
+.educacao .proposal-link {
+  background-color: #ffb400;
+  background-image: url(./images/icons/educacao.png);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: 32px; }
+
 #proposal-category-reducao-da-pobreza .proposal-link {
   background-color: #51d0b3;
   background-image: url(./images/icons/reducao-da-pobreza.png?3);
@@ -230,3 +294,12 @@ li.category-reducao-da-pobreza {
   background-position: 3px center;
   background-repeat: no-repeat;
   background-size: 22px; }
+
+.reducao-da-pobreza .category {
+  background-color: #51d0b3; }
+.reducao-da-pobreza .proposal-link {
+  background-color: #51d0b3;
+  background-image: url(./images/icons/reducao-da-pobreza.png);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: 32px; }

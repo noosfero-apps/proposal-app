@@ -177,7 +177,17 @@
   border: none;
 }
 
-// @media only screen and (max-device-width: 480px) {
+@media only screen and (max-device-width: 480px) {
+  p, .description, label, .info, h2 small{
+    font-size: 18px !important;
+  }
+}
+@media only screen and (max-width: 630px) {
+  .proposal-detail .categories select{
+    width: 100% !important;
+  }
+
+}
 @media only screen and (max-width: 768px) {
   .proposal-item {
     width: 95% !important;

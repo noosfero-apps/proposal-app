@@ -1,0 +1,16 @@
+#proposal {
+	&-group {
+    border-bottom: 1px solid $header-color;
+    border-left: 1px solid $header-color;
+    border-right: 1px solid $header-color;
+    padding: $default-spacing-size $default-spacing-size 0;
+    ul {
+      margin-bottom: 0;
+      margin-top: $default-spacing-size;
+      padding-left: 0;
+    }
+	}
+}
+#search-input-container {
+  margin-top: 10px;
+}
