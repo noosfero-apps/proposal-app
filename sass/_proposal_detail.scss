@@ -55,6 +55,8 @@
         bottom: 140px;
         font-size: 14px;
         text-align: center;
+        word-break: break-word;
+        word-wrap: break-word;
       }
 
       .show_body {
@@ -668,6 +670,15 @@
       height: auto !important;
       margin: 0 !important;
       min-height: 0 !important;
+    }
+    .send-experience-button {
+      text-align: center !important;
+      a {
+        position: relative !important;
+        left: inherit !important;
+        margin: auto !important;
+        bottom: inherit !important;
+      }
     }
   }
   .talk-proposal-container {
