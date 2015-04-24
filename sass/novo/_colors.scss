@@ -1,0 +1,39 @@
+@import "../utilities/variables";
+
+@each $category, $color in $categories {
+  #proposal {
+    &-category {
+      &-#{$category} {
+        .proposal {
+          &-link {
+            background-color: $color;
+            background-image: url(./images/icons/#{$category}.png?3);
+            background-position: 50% 5px;
+            background-repeat: no-repeat;
+          }
+        }
+        .arrow-box {
+          border-bottom-color: $color;
+        }
+      }
+    }
+  }
+  .proposal {
+    &-category {
+      &-items {
+        &-#{$category} {
+          background-color: $color;
+        }
+      }
+    }
+  }
+  li.category {
+    &-#{$category} {
+      background-color: $color;
+      background-image: url(./images/icons/#{$category}.png?1);
+      background-position: 3px center;
+      background-repeat: no-repeat;
+      background-size: 22px;
+    }
+  }
+}

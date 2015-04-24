@@ -1,0 +1,232 @@
+@charset "UTF-8";
+.hide {
+  display: none; }
+
+#proposal-result {
+  margin: 0 auto 40px;
+  width: 90%; }
+
+body {
+  color: #172938;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400; }
+
+h1 {
+  border-bottom: 1px solid #d6dcd7;
+  font-size: 28px;
+  padding-bottom: 20px;
+  text-transform: uppercase; }
+  h1 a {
+    color: #03316f; }
+
+a {
+  color: #335277;
+  text-decoration: none; }
+
+nav ul {
+  font-size: 0;
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0; }
+  nav ul li {
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    width: 50%; }
+    nav ul li a {
+      background-color: #03316f;
+      border-left: 1px solid #03316f;
+      border-right: 1px solid #03316f;
+      border-top: 1px solid #03316f;
+      color: #fff;
+      font-weight: 700;
+      display: block;
+      padding: 20px;
+      text-transform: uppercase; }
+      nav ul li a.active {
+        background-color: transparent;
+        color: #03316f; }
+
+.proposal-category-items-saude .description:before {
+  color: #fff;
+  content: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) atende a todos os brasileiros. Ele é universal, integral e de responsabilidade do Governo Federal, dos estados e dos municípios.";
+  font-size: 14px; }
+
+.proposal-category-items-seguranca .description:before {
+  color: #fff;
+  content: "A segurança pública é um direito fundamental, dever do Estado e responsabilidade de todos. Tem na proteção da vida, na disseminação da cultura de paz e na integração dos órgãos e instituições seus maiores compromissos.";
+  font-size: 14px; }
+
+.proposal-category-items-educacao .description:before {
+  color: #fff;
+  content: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis. Agora, o Plano Nacional de Educação (PNE) definiu metas quantitativas e qualitativas para os próximos 10 anos.";
+  font-size: 14px; }
+
+.proposal-category-items-reducao-da-pobreza .description:before {
+  color: #fff;
+  content: "Este governo escolheu como prioridade combater a pobreza e reduzir as desigualdades sociais. Por isso, o Brasil saiu do Mapa da Fome das Nações Unidas";
+  font-size: 14px; }
+
+#proposal-categories {
+  border-bottom: 1px solid #03316f;
+  border-left: 1px solid #03316f;
+  border-right: 1px solid #03316f;
+  list-style: none;
+  padding: 0; }
+  #proposal-categories-container {
+    font-size: 0;
+    padding-left: 20px;
+    padding-top: 20px;
+    text-align: center; }
+
+.proposal-category {
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  position: relative;
+  text-align: center; }
+  .proposal-category .proposal-link {
+    background-color: #000;
+    border-radius: 7px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 100px;
+    width: 150px; }
+  .proposal-category-items {
+    border-radius: 7px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 20px 20px 0;
+    text-align: left; }
+.proposal-list {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0; }
+.proposal-item {
+  display: inline-block;
+  margin-bottom: 20px;
+  vertical-align: top;
+  width: 50%; }
+  .proposal-item:nth-child(odd) .item {
+    margin-right: 20px; }
+.proposal-link {
+  font-family: 'Asap', sans-serif;
+  font-size: 24px;
+  font-weight: 700; }
+
+.arrow-box {
+  border-bottom: 10px solid #000;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  bottom: -12px;
+  height: 0;
+  left: 50%;
+  margin-left: -7px;
+  position: absolute;
+  width: 0; }
+
+.name {
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  padding: 10px 0; }
+
+.item {
+  background-color: #fff;
+  border: 1px solid #03316f;
+  border-radius: 7px;
+  font-size: 14px;
+  padding: 20px; }
+  .item p {
+    min-height: 60px; }
+
+.category {
+  border-top: 1px dotted #172938;
+  list-style: none;
+  padding-left: 0;
+  padding-top: 10px; }
+  .category li {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    font-family: 'Asap', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 12px 5px 32px; }
+
+#proposal-category-saude .proposal-link {
+  background-color: #00a9bd;
+  background-image: url(./images/icons/saude.png?3);
+  background-position: 50% 5px;
+  background-repeat: no-repeat; }
+#proposal-category-saude .arrow-box {
+  border-bottom-color: #00a9bd; }
+
+.proposal-category-items-saude {
+  background-color: #00a9bd; }
+
+li.category-saude {
+  background-color: #00a9bd;
+  background-image: url(./images/icons/saude.png?1);
+  background-position: 3px center;
+  background-repeat: no-repeat;
+  background-size: 22px; }
+
+#proposal-category-seguranca .proposal-link {
+  background-color: #e34748;
+  background-image: url(./images/icons/seguranca.png?3);
+  background-position: 50% 5px;
+  background-repeat: no-repeat; }
+#proposal-category-seguranca .arrow-box {
+  border-bottom-color: #e34748; }
+
+.proposal-category-items-seguranca {
+  background-color: #e34748; }
+
+li.category-seguranca {
+  background-color: #e34748;
+  background-image: url(./images/icons/seguranca.png?1);
+  background-position: 3px center;
+  background-repeat: no-repeat;
+  background-size: 22px; }
+
+#proposal-category-educacao .proposal-link {
+  background-color: #ffb400;
+  background-image: url(./images/icons/educacao.png?3);
+  background-position: 50% 5px;
+  background-repeat: no-repeat; }
+#proposal-category-educacao .arrow-box {
+  border-bottom-color: #ffb400; }
+
+.proposal-category-items-educacao {
+  background-color: #ffb400; }
+
+li.category-educacao {
+  background-color: #ffb400;
+  background-image: url(./images/icons/educacao.png?1);
+  background-position: 3px center;
+  background-repeat: no-repeat;
+  background-size: 22px; }
+
+#proposal-category-reducao-da-pobreza .proposal-link {
+  background-color: #51d0b3;
+  background-image: url(./images/icons/reducao-da-pobreza.png?3);
+  background-position: 50% 5px;
+  background-repeat: no-repeat; }
+#proposal-category-reducao-da-pobreza .arrow-box {
+  border-bottom-color: #51d0b3; }
+
+.proposal-category-items-reducao-da-pobreza {
+  background-color: #51d0b3; }
+
+li.category-reducao-da-pobreza {
+  background-color: #51d0b3;
+  background-image: url(./images/icons/reducao-da-pobreza.png?1);
+  background-position: 3px center;
+  background-repeat: no-repeat;
+  background-size: 22px; }

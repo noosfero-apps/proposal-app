@@ -1,0 +1,27 @@
+nav ul {
+  font-size: 0;
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0;
+  li {
+    display: inline-block;
+    font-size: $default-font-size;
+    text-align: center;
+    width: 50%;
+    a {
+      background-color: $header-color;
+      border-left: 1px solid $header-color;
+      border-right: 1px solid $header-color;
+      border-top: 1px solid $header-color;
+      color: #fff;
+      font-weight: 700;
+      display: block;
+      padding: $default-spacing-size;
+      text-transform: uppercase;
+      &.active {
+        background-color: transparent;
+        color: $header-color;
+      }
+    }
+  }
+}
