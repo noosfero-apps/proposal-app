@@ -30,7 +30,14 @@ if(participa){
   //var proposal_discussion = '401'; //casa
 }
 
-var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
+// Set isProduction to true when at production environment
+// Set isProduction to false when at development environment
+var isProduction = true; // default is true
+if( isProduction ){
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
+} else {
+  var noosferoAPI = '/data.json';
+}
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
@@ -78,12 +85,36 @@ $.getJSON(noosferoAPI)
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
+//TODO remove this
+//    $( '.proposal-category a' ).hover(function(event){
+//      $(this).stop().effect('shake', {distance:20}, 700);
+//      $(form).siblings('.success-sent').show();
+//
+//      if(!$(this)..siblings.hasClass('animated')){
+//      if(!$(this).hasClass('animated')){
+//        $(this).addClass('animated');
+//        $(this).stop().effect('shake', {distance:20}, 700);
+//      }
+//      }, 
+//      function(){
+//        $(this).removeClass('animated');
+//      });
 
     $( '.proposal-category .go-back' ).click(function(event){
       event.preventDefault();
 
+      var oldHash = window.location.hash;
+      var regexSubpages = /sobre-o-programa$/;
+      var isSubpage = regexSubpages.exec(oldHash) !== null;
+      var newHash = '#/temas'; // default page
+
+      if(isSubpage){
+        // return to proposal page
+        newHash = oldHash.split('/sobre-o-programa')[0];
+      }
+
       // Update URL and Navigate
-      updateHash('#/temas');
+      updateHash(newHash);
     });
 
     $( '.send-button a' ).click(function(event){
@@ -131,6 +162,7 @@ $.getJSON(noosferoAPI)
 
     $( "#search-input" ).autocomplete({
       source: availableTags,
+      minLength: 3,
       select: function( event, ui ) {
         updateHash(ui.item.value);
         return false;
@@ -147,6 +179,9 @@ $.getJSON(noosferoAPI)
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
       var form = this;
+      var message = $(form).find('.message');
+      message.hide();
+      message.text('');
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
@@ -160,7 +195,8 @@ $.getJSON(noosferoAPI)
       .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
         console.log( "Request Failed: " + err );
-        $(form).find('.message').text('Não foi possível enviar.');
+        message.show();
+        message.text('Não foi possível enviar.');
        });
     });
 
@@ -262,6 +298,9 @@ function oauthPluginHandleLoginResult(loggedIn, token) {
 
 jQuery(document).ready(function($) {
   $(document).on('click', '.login-action', function(e) {
+    var message = $('.login .message')
+    message.hide();
+    message.text('');
     $.ajax({
       type: 'post',
       url: host + '/api/v1/login',
@@ -272,7 +311,8 @@ jQuery(document).ready(function($) {
     }).done(function(data) {
       loginCallback(true, data.private_token);
     }).fail(function(data) {
-      $('.login .message').text('Não foi possível logar');
+      message.show();
+      message.text('Não foi possível logar');
     });
     e.preventDefault();
   });
@@ -363,7 +403,7 @@ function display_proposal_by_category(item){
     $('#nav-proposal-group a').removeClass('active');
     $('.proposal-category-items').hide();
     $('.proposal-detail').hide();
-    $item.show();
+    $item.toggle( 'blind', 1000 );
     $(".proposal-item p").dotdotdot();
     $('.proposal-category .arrow-box').hide();
     var categorySlug = $item.data('category');
