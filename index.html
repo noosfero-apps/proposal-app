@@ -1,4 +1,4 @@
-<html lang-"pt-br">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8" />
     <title>Dialoga Brasil</title>
@@ -7,31 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script type='text/javascript'>
-      function baseUrl(){
+      function removeUrlParameters(full_url){
+        var url_base = full_url.split('#').shift();
+        return url_base;
+      }
+      function addBaseUrl(filename){
         var base = window.location.href;
-        if(base.match(/file:/)){
+        if(base.match(/file:/) || filename.match(/http:/)){
           base = '';
         }else{
-          base = base + '/';
+          base = removeUrlParameters(base) + '/';
         }
-        return base;
+        return base + filename;
       }
       function makeCSSLink(filename){
         var fileref=document.createElement("link");
         fileref.setAttribute("rel", "stylesheet");
         fileref.setAttribute("type", "text/css");
-        fileref.setAttribute("href",  baseUrl() + filename);
+        fileref.setAttribute("href",  addBaseUrl(filename));
         return fileref;
       }
       function loadCSSFiles(){
-        var css_files = ['css/bootstrap.min.css', 'css/font-awesome.min.css', 'css/open-sans.min.css', 'style.css'];
+        var css_files = [
+          'css/bootstrap.min.css', 
+          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
+          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
+          'http://fonts.googleapis.com/css?family=Asap:400,700', 
+          'style.css'
+        ];
         head = document.getElementsByTagName("head")[0]
         for(i = 0; i < css_files.length; i++){
           head.appendChild(makeCSSLink(css_files[i]));
         }
       }
       function makeJSURL(filename){
-        var url = baseUrl() + filename;
+        var url = addBaseUrl(filename);
        
         return url;
       }
@@ -57,14 +67,15 @@
 
       function loadJSFiles(){
         var js_files = [
-           'js/jquery-2.1.3.min.js', 
-           'js/jquery-ui-1.11.4.custom/jquery-ui.min.js', 
-           'js/jquery.cookie.js', 
-           'js/handlebars-v3.0.1.js',
-           'js/handlebars-helpers.js',
-           'js/jquery.dotdotdot.min.js',
-           'js/layout.js',
-           'js/main.js'    
+          'js/jquery-2.1.3.min.js', 
+          'js/jquery-ui-1.11.4.custom/jquery-ui.min.js', 
+          'js/jquery.cookie.js', 
+          'js/handlebars-v3.0.1.js',
+          'js/handlebars-helpers.js',
+          'js/jquery.dotdotdot.min.js',
+          'js/jquery.maxlength.min.js',
+          'js/layout.js',
+          'js/main.js'    
         ];
 
         var file_path = '';
@@ -89,18 +100,22 @@
  
     <script id='proposal-template' type='text/x-handlebars-template'>
       <header>
-        <h1>{{article.title}}</h1>
+        <h1><a href="#">{{article.title}}</a></h1>
         <a id='display-contrast' href='#'>Alto Contraste</a>
       </header>
   
       <div id="content">
-        <p>{{article.body}}</p>
+        <p>{{{article.body}}}</p>
       </div>
   
       <nav>
         <ul>
-          <li id='nav-proposal-categories'><a href="#proposal-categories" class="active">Temas</a></li>
-          <li id='nav-proposal-group'><a href="#proposal-group">Programas</a></li>
+          <li id='nav-proposal-categories'>
+            <a href="#/temas" class="active">Temas</a>
+          </li>
+          <li id='nav-proposal-group'>
+            <a href="#/programas">Programas</a>
+          </li>
         </ul>
       </nav>
 
@@ -108,12 +123,12 @@
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id='proposal-category-{{slug}}' class="proposal-category" data-category="{{slug}}">
-              {{#link name id}}{{/link}}
+              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
               <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
           {{#each article.categories}}
-            <div id='proposal-item-{{id}}' class="proposal-category-items proposal-category-items-{{slug}} hide">
+            <div id='proposal-item-{{id}}' class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
               <div class="header">
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
@@ -147,7 +162,11 @@
             <ul class="select">
               {{#each categories}}
                 <li class='category proposal-category' data-category="{{slug}}">
-                  {{#link name id}}{{/link}}
+                  <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
+                  <button class="go-back btn btn-default pull-right">
+                    VOLTAR
+                    <span class="fa fa-reply"></span>
+                  </button>
                   {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
                 </li>
               {{/each}}
@@ -159,13 +178,18 @@
               </div>
               <div class='title'>{{title}}</div>
               <div class='abstract'>{{{abstract}}}</div>
-              <div class='show_body'><a href='#'><span>Conheça o Programa</span></a></div>
+              <div class='show_body'>
+                <a href='#/programas/{{id}}/sobre-o-programa'><span>Conheça o Programa</span></a>
+              </div>
             </div>
 
             <div class='body proposal-detail-base hide'>
               {{{body}}}
-              <div class='go-to-proposal-button'><a href='#proposal-item-{{id}}'>
-                <div class='fa fa-reply'> </div>Agora contribua para a melhoria desse programa</a>
+              <div class='go-to-proposal-button'>
+                <a href="#/programas/{{id}}" data-target='proposal-item-{{id}}'>
+                  <span class='fa fa-reply'></span>
+                  Agora contribua para a melhoria desse programa
+                </a>
               </div>
               
             </div>
@@ -180,7 +204,7 @@
                   <div class="message"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
-                    <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
+                    <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
                   </div>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
                   <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
@@ -213,7 +237,7 @@
                   <div class="message"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
-                    <textarea id="article_abstract" name="article[abstract]" placeholder="Descrição"></textarea>
+                    <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="5000"></textarea>
                   </div>
                   <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Story' type='hidden'>
                   <input type='submit' id='make-experience-button' class='make-experience-button'  name='make-experience-button' value='Enviar'>
@@ -248,7 +272,7 @@
     </script>
 
     <script id='support-proposal-template' type='text/x-handlebars-template'>
-      <div class='abstract'><p>"{{abstract}}"</p></div>
+      <div class='abstract'><p>"{{trimString abstract 200}}"</p></div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>

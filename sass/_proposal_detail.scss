@@ -237,7 +237,7 @@
         border-color: $color;
       }
       textarea#article_abstract {
-        height: 205px;
+        height: 15%;
       }
       .container-button a, input[type=submit], .success-proposal-sent a {
         font-weight: bolder;
@@ -289,7 +289,8 @@
         .make-proposal-button{
           @extend .container-button;
         }
-        .send-proposal-button, .success-proposal-sent {
+        .send-proposal-button,
+        .success-proposal-sent {
           @extend .container-button;
           a {
             position: absolute;
@@ -378,8 +379,8 @@
       .experience-proposal-container{
         float: left;
         width: 50%;
-        height: $container-height;
-        min-height: $container-height;
+        // height: $container-height;
+        // min-height: $container-height;
         position: relative;
         text-align: center;
         .experience-proposal{
@@ -396,12 +397,24 @@
         .send-experience-button {
           @extend .container-button;
         }
+        .send-experience-button,
+        .success-experience-sent {
+          @extend .container-button;
+          a {
+            position: absolute;
+            left: 50%;
+            margin: 0;
+            margin-left: -30%;
+            bottom: 20px;
+            padding: 20px 0;
+          }
+        }
       }
       .talk-proposal-container{
         width: 50%;
         float: left;
-        height: $container-height;
-        min-height: $container-height;
+        // height: $container-height;
+        // min-height: $container-height;
         position: relative;
         text-align: center;
         .talk-proposal {
@@ -520,6 +533,13 @@
 
     }
   }
+  .save-article-form {
+    .maxlength {
+      text-align: right;
+      margin-right: 36px;
+      font-size: 12px;
+    }
+  }
 }
 
 // @media only screen and (max-device-width: 480px) {
@@ -547,7 +567,7 @@
       padding: 20px 0 !important;
       span {
         text-align: center !important;
-        margin: 0 20px !important;
+        margin: 0 10px !important;
         display: block !important;
         padding: 0 !important;
         line-height: 1.2 !important;

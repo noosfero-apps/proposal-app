@@ -2,7 +2,8 @@ Handlebars.registerHelper('link', function(text, url) {
   text = Handlebars.Utils.escapeExpression(text);
   url  = Handlebars.Utils.escapeExpression(url);
 
-  var result = '<a id="#' + url + '" href="#proposal-item-' + url + '" class="proposal-link">' + text + '</a>';
+  // Exemplo: <a href="#/programas/{{id}}" class="proposal-link" data-target="">{{name}}</a>
+  var result = '<a href="#/programas/' + url + '" data-target="proposal-item-' + url + '" class="proposal-link">' + text + '</a>';
 
   return new Handlebars.SafeString(result);
 });
@@ -66,6 +67,11 @@ Handlebars.registerHelper('select_proposal', function(proposals, category_slug, 
   }
   ret += '</select>';
   return ret;
+});
+
+Handlebars.registerHelper('trimString', function(passedString, endstring) {
+  var theString = passedString.substring(0, endstring);
+  return new Handlebars.SafeString(theString)
 });
 
 function proposal_has_category(proposal, category_slug) {
