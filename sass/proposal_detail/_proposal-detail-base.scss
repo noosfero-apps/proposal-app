@@ -116,5 +116,13 @@
     .row {
       margin-bottom: 1.5em;
     }
+
+    .list-container-border {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      border: 3px solid $color;
+      padding: 0 20px;
+    }
   }
 }
