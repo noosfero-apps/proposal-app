@@ -32,7 +32,7 @@ if(participa){
 
 // Set isProduction to true when at production environment
 // Set isProduction to false when at development environment
-var isProduction = false;
+var isProduction = true; // default is true
 if( isProduction ){
   var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
 } else {
