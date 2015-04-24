@@ -30,7 +30,14 @@ if(participa){
   //var proposal_discussion = '401'; //casa
 }
 
-var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
+// Set isProduction to true when at production environment
+// Set isProduction to false when at development environment
+var isProduction = false;
+if( isProduction ){
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
+} else {
+  var noosferoAPI = '/data.json';
+}
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
