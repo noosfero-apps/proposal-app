@@ -155,6 +155,9 @@ $.getJSON(noosferoAPI)
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
       var form = this;
+      var message = $(form).find('.message');
+      message.hide();
+      message.text('');
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
@@ -168,7 +171,8 @@ $.getJSON(noosferoAPI)
       .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
         console.log( "Request Failed: " + err );
-        $(form).find('.message').text('Não foi possível enviar.');
+        message.show();
+        message.text('Não foi possível enviar.');
        });
     });
 
