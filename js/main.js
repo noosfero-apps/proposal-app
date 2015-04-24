@@ -131,8 +131,15 @@ $.getJSON(noosferoAPI)
 
     $( "#search-input" ).autocomplete({
       source: availableTags,
-      select: function( event, ui ) { display_proposal(ui.item['value' ].replace('#','')); },
-      appendTo: '#search-input-container'
+      select: function( event, ui ) {
+        updateHash(ui.item.value);
+        return false;
+      },
+      appendTo: '#search-input-container',
+      messages: {
+        noResults: '',
+        results: function() {}
+      }
     });
 
 
