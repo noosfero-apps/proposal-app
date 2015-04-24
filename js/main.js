@@ -89,13 +89,14 @@ $.getJSON(noosferoAPI)
     $( '.proposal-category .go-back' ).click(function(event){
       event.preventDefault();
 
+      var oldHash = window.location.hash;
       var regexSubpages = /sobre-o-programa$/;
-      var isSubpage = regexSubpages.exec(hash) !== null;
+      var isSubpage = regexSubpages.exec(oldHash) !== null;
       var newHash = '#/temas'; // default page
 
       if(isSubpage){
         // return to proposal page
-        newHash = window.location.hash.split('/sobre-o-programa')[0];
+        newHash = oldHash.split('/sobre-o-programa')[0];
       }
 
       // Update URL and Navigate
