@@ -86,7 +86,7 @@
 
   .proposal-item {
     width: 48%;
-    min-height: 166px;
+    min-height: 200px;
     margin: 0.5%;
     background: #fff;
     border-radius: 5px;
@@ -103,6 +103,7 @@
     border-radius: 6px;
     .proposal-list {
       padding-left: 20px;
+      padding-bottom: 20px;
     }
   }
 
