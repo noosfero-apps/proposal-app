@@ -85,6 +85,20 @@ $.getJSON(noosferoAPI)
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
+//TODO remove this
+//    $( '.proposal-category a' ).hover(function(event){
+//      $(this).stop().effect('shake', {distance:20}, 700);
+//      $(form).siblings('.success-sent').show();
+//
+//      if(!$(this)..siblings.hasClass('animated')){
+//      if(!$(this).hasClass('animated')){
+//        $(this).addClass('animated');
+//        $(this).stop().effect('shake', {distance:20}, 700);
+//      }
+//      }, 
+//      function(){
+//        $(this).removeClass('animated');
+//      });
 
     $( '.proposal-category .go-back' ).click(function(event){
       event.preventDefault();
@@ -389,7 +403,7 @@ function display_proposal_by_category(item){
     $('#nav-proposal-group a').removeClass('active');
     $('.proposal-category-items').hide();
     $('.proposal-detail').hide();
-    $item.show();
+    $item.toggle( 'blind', 1000 );
     $(".proposal-item p").dotdotdot();
     $('.proposal-category .arrow-box').hide();
     var categorySlug = $item.data('category');
