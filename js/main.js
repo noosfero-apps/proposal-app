@@ -131,6 +131,7 @@ $.getJSON(noosferoAPI)
 
     $( "#search-input" ).autocomplete({
       source: availableTags,
+      minLength: 3,
       select: function( event, ui ) { display_proposal(ui.item['value' ].replace('#','')); },
       appendTo: '#search-input-container'
     });
@@ -255,6 +256,9 @@ function oauthPluginHandleLoginResult(loggedIn, token) {
 
 jQuery(document).ready(function($) {
   $(document).on('click', '.login-action', function(e) {
+    var message = $('.login .message')
+    message.hide();
+    message.text('');
     $.ajax({
       type: 'post',
       url: host + '/api/v1/login',
@@ -265,7 +269,8 @@ jQuery(document).ready(function($) {
     }).done(function(data) {
       loginCallback(true, data.private_token);
     }).fail(function(data) {
-      $('.login .message').text('Não foi possível logar');
+      message.show();
+      message.text('Não foi possível logar');
     });
     e.preventDefault();
   });
