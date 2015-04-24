@@ -3,6 +3,9 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     font-weight: 300;
+    .proposal-detail-base a {
+      color: $color;
+    }
     .bloco-destaque {
       background-color: $color;
     }
@@ -29,11 +32,20 @@
       font-size: 28px;
       font-weight: 300;
       text-transform: uppercase;
+      .border {
+        border-bottom: 1px solid #eeeff1;        
+        padding-bottom: 20px;
+      }
     }
     h4 {
       font-size: 24px;
       color: $color;
       text-transform: none;
+    }
+    h5 {
+      color: $color;
+      font-size: 22px;
+      margin-top: 15px;
     }
     img {
       &.pull-left {
@@ -103,6 +115,14 @@
     }
     .row {
       margin-bottom: 1.5em;
+    }
+
+    .list-container-border {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      border: 3px solid $color;
+      padding: 0 20px;
     }
   }
 }
