@@ -48,11 +48,8 @@ $.getJSON(noosferoAPI)
 
       var $link = $(this);
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-      
-      // Display the Category tab
-      display_category_tab();
     });
 
     $( '#nav-proposal-group a' ).click(function(event){
@@ -60,21 +57,16 @@ $.getJSON(noosferoAPI)
 
       var $link = $(this);
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-      
-      //Display the Proposals tab
-      display_proposals_tab();
     });
 
     $( '.proposal-item a' ).click(function(event){
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
-      
-      display_proposal(item);
     });
 
     $( '.proposal-category a' ).click(function(event){
@@ -83,10 +75,15 @@ $.getJSON(noosferoAPI)
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
+    });
 
-      display_proposal_by_category(item);
+    $( '.proposal-category .go-back' ).click(function(event){
+      event.preventDefault();
+
+      // Update URL and Navigate
+      updateHash('#/temas');
     });
 
     $( '.send-button a' ).click(function(event){
@@ -106,7 +103,7 @@ $.getJSON(noosferoAPI)
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
@@ -116,7 +113,7 @@ $.getJSON(noosferoAPI)
       var $link = $(this);
       var item = $link.data('target');
 
-      // Update URL
+      // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
@@ -289,6 +286,9 @@ function display_category_tab(){
   $('.proposal-category-items').hide();
   $('.proposal-category .arrow-box').hide();
   $('.proposal-detail').hide();
+
+  $('#content').show();
+  $('nav').show();
 }
 
 function display_proposals_tab(){
@@ -297,6 +297,9 @@ function display_proposals_tab(){
   $('#nav-proposal-group a').addClass('active');
   $('#nav-proposal-categories a').removeClass('active');
   $(".proposal-item p").dotdotdot();
+
+  $('#content').show();
+  $('nav').show();
 }
 
 function display_proposal(proposal_id){
@@ -378,18 +381,33 @@ function locationHashChanged(){
 function navigateTo(hash){
   var regexProposals = /#\/programas/;
   var regexCategory = /#\/temas/;
-  var m;
   var parts = hash.split('/');
   
-  if( (m = regexProposals.exec(hash)) !== null ){
+  var isProposal = regexProposals.exec(hash) !== null;
+  var isCategory = regexCategory.exec(hash) !== null;
+
+  if( isProposal ){
+    
+    // go to proposal 
     var proposalId = parts[2];
     navigateToProposal(proposalId);
-  } else if( (m = regexCategory.exec(hash)) !== null ){
+
+    return;
+  }
+
+  if( isCategory ){
+    
+    // go to category 
     var categoryId = parts[3];
     navigateToCategory(categoryId);
-  } else {
-    console.log('route not handled', hash);
+
+    return;
   }
+
+  // default
+  // show the 'index' -> category tab
+  display_category_tab();
+  console.log('route not handled', hash);
 }
 
 function navigateToProposal(proposalId){  
