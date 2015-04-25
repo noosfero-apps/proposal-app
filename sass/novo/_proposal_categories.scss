@@ -28,6 +28,8 @@
 }
 .proposal {
   &-category {
+    background-color: #000;
+    border-radius: $default-radius-size;
     display: inline-block;
     margin-bottom: $default-spacing-size;
     margin-right: $default-spacing-size;
@@ -35,8 +37,6 @@
     text-align: center;
     .proposal {
       &-link {
-        background-color: #000;
-        border-radius: $default-radius-size;
         color: #fff;
         display: inline-block;
         font-size: $small-font-size;

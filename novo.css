@@ -84,14 +84,14 @@ nav ul {
     padding-top: 10px; }
 
 .proposal-category {
+  background-color: #000;
+  border-radius: 7px;
   display: inline-block;
   margin-bottom: 20px;
   margin-right: 20px;
   position: relative;
   text-align: center; }
   .proposal-category .proposal-link {
-    background-color: #000;
-    border-radius: 7px;
     color: #fff;
     display: inline-block;
     font-size: 14px;
@@ -348,13 +348,13 @@ nav ul {
     float: left;
     width: 50%; }
 
-#proposal-category-saude .proposal-link {
+#proposal-category-saude {
   background-color: #00a9bd;
   background-image: url(./images/icons/saude.png?3);
   background-position: 50% 5px;
   background-repeat: no-repeat; }
-#proposal-category-saude .arrow-box {
-  border-bottom-color: #00a9bd; }
+  #proposal-category-saude .arrow-box {
+    border-bottom-color: #00a9bd; }
 
 .proposal-category-items-saude {
   background-color: #00a9bd; }
@@ -398,13 +398,13 @@ li.category-saude {
 .saude .talk-proposal {
   border-color: #00a9bd; }
 
-#proposal-category-seguranca .proposal-link {
+#proposal-category-seguranca {
   background-color: #e34748;
   background-image: url(./images/icons/seguranca.png?3);
   background-position: 50% 5px;
   background-repeat: no-repeat; }
-#proposal-category-seguranca .arrow-box {
-  border-bottom-color: #e34748; }
+  #proposal-category-seguranca .arrow-box {
+    border-bottom-color: #e34748; }
 
 .proposal-category-items-seguranca {
   background-color: #e34748; }
@@ -448,13 +448,13 @@ li.category-seguranca {
 .seguranca .talk-proposal {
   border-color: #e34748; }
 
-#proposal-category-educacao .proposal-link {
+#proposal-category-educacao {
   background-color: #ffb400;
   background-image: url(./images/icons/educacao.png?3);
   background-position: 50% 5px;
   background-repeat: no-repeat; }
-#proposal-category-educacao .arrow-box {
-  border-bottom-color: #ffb400; }
+  #proposal-category-educacao .arrow-box {
+    border-bottom-color: #ffb400; }
 
 .proposal-category-items-educacao {
   background-color: #ffb400; }
@@ -498,13 +498,13 @@ li.category-educacao {
 .educacao .talk-proposal {
   border-color: #ffb400; }
 
-#proposal-category-reducao-da-pobreza .proposal-link {
+#proposal-category-reducao-da-pobreza {
   background-color: #51d0b3;
   background-image: url(./images/icons/reducao-da-pobreza.png?3);
   background-position: 50% 5px;
   background-repeat: no-repeat; }
-#proposal-category-reducao-da-pobreza .arrow-box {
-  border-bottom-color: #51d0b3; }
+  #proposal-category-reducao-da-pobreza .arrow-box {
+    border-bottom-color: #51d0b3; }
 
 .proposal-category-items-reducao-da-pobreza {
   background-color: #51d0b3; }
