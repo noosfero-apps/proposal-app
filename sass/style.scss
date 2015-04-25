@@ -45,15 +45,17 @@ h1 {
 
 #content {
   padding-bottom: 50px;
-  /*background: transparent url(./images/header.png) center bottom no-repeat;*/
   p {
+    
+    text-align: justify;
+    margin: 20px;
+    line-height: 1.5em;
+    font-size: 1.2em;
+
     font{
       weight: lighter;
       size: 14px;
     }
-    text-align: justify;
-    margin: 20px;
-    line-height: 1.5em;
   }
 }
 
