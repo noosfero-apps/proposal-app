@@ -184,6 +184,9 @@
   p, .description, label, .info, h2 small{
     font-size: 18px !important;
   }
+  .bloco-destaque {
+    background-image: url("transparent");
+  }
 }
 @media only screen and (max-width: 630px) {
   .proposal-detail .categories select{
@@ -194,5 +197,8 @@
 @media only screen and (max-width: 768px) {
   .proposal-item {
     width: 95% !important;
+  }
+  .bloco-destaque {
+    background-image: none !important;
   }
 }
