@@ -245,18 +245,18 @@ function loadRandomProposal(topic_id, private_token) {
       $resultsContainer.toggle();
       
       if($resultsContainer.is(':visible')) {
-        var $loading = $resultsContainer.find('.loading');
-        var $resultsContent = $resultsContainer.find('.results-content');
         
-        $loading.show();
-        $resultsContent.hide();
+        $resultsContainer.find('.loading').show();
+        $resultsContainer.find('.results-content').hide();
 
         var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
         $.getJSON(url).done(function( data ) {
           
           $resultsContainer.html(resultsTemplate(data));
-          $('.results-container .loading').hide();
-          $('.results-container .results-content').show();
+          $resultsContainer.find('.loading').hide();
+          $resultsContainer.find('.results-content').show();
+
+          // scroll to the end
           $('html, body').animate({
             scrollTop: $(document).height()
           }, 'fast');
@@ -267,6 +267,7 @@ function loadRandomProposal(topic_id, private_token) {
         $('.experience-proposal-container').show();
         $('.talk-proposal-container').show();
       }
+      
       e.preventDefault();
     });
   });
@@ -396,7 +397,6 @@ function display_proposal_detail(){
   $('.talk-proposal-container').hide();
 
   $('.body').show();
-  $('html, body').animate({ scrollTop: 0 }, 'fast');
 }
 
 function display_proposal_by_category(item){
@@ -451,8 +451,6 @@ function navigateTo(hash){
     // go to proposal 
     var proposalId = parts[2];
     navigateToProposal(proposalId);
-
-    return;
   }
 
   if( isCategory ){
@@ -460,14 +458,15 @@ function navigateTo(hash){
     // go to category 
     var categoryId = parts[3];
     navigateToCategory(categoryId);
-
-    return;
   }
 
   // default
-  // show the 'index' -> category tab
-  display_category_tab();
-  console.log('route not handled', hash);
+  if( !isProposal && !isCategory ){
+    // show the 'index' -> category tab
+    display_category_tab();
+  }
+
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 }
 
 function navigateToProposal(proposalId){  
