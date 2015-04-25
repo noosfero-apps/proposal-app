@@ -1,17 +1,15 @@
+/* global Handlebars, $ */
 // The template code
 var templateSource = document.getElementById('proposal-template').innerHTML;
 
 // compile the template
 var template = Handlebars.compile(templateSource);
-
 var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
 var loginTemplate = Handlebars.compile(document.getElementById('login').innerHTML);
 var resultsTemplate = Handlebars.compile(document.getElementById('results').innerHTML);
 
 // The div/container that we are going to display the results in
 var resultsPlaceholder = document.getElementById('proposal-result');
-
-var topics;
 
 var logged_in = false;
 
@@ -30,19 +28,18 @@ if(participa){
   //var proposal_discussion = '401'; //casa
 }
 
-// Set isProduction to true when at production environment
-// Set isProduction to false when at development environment
-var isProduction = true; // default is true
-if( isProduction ){
-  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
-} else {
+// Load data from localhost when it is dev env.
+var isLocalhost = (window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0');
+if( isLocalhost ){
   var noosferoAPI = '/data.json';
+} else {
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
 }
 
 $.getJSON(noosferoAPI)
   .done(function( data ) {
-    data['host'] = host;
-    data['private_token'] = private_token;
+    data.host = host;
+    data.private_token = private_token;
     resultsPlaceholder.innerHTML = template(data);
     $('.login-container').html(loginTemplate());
     $('.countdown').maxlength({text: '%left caracteres restantes'});
@@ -50,8 +47,8 @@ $.getJSON(noosferoAPI)
     navigateTo(window.location.hash);
 
     //Actions for links
-    $( '#nav-proposal-categories a' ).click(function(event){
-      event.preventDefault();
+    $( '#nav-proposal-categories a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
 
@@ -59,8 +56,8 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '#nav-proposal-group a' ).click(function(event){
-      event.preventDefault();
+    $( '#nav-proposal-group a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
 
@@ -68,40 +65,26 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-item a' ).click(function(event){
+    $( '.proposal-item a' ).on('click touchstart', function(e){
+      e.preventDefault();
+
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-category a' ).click(function(event){
-      event.preventDefault();
+    $( '.proposal-category a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
-//TODO remove this
-//    $( '.proposal-category a' ).hover(function(event){
-//      $(this).stop().effect('shake', {distance:20}, 700);
-//      $(form).siblings('.success-sent').show();
-//
-//      if(!$(this)..siblings.hasClass('animated')){
-//      if(!$(this).hasClass('animated')){
-//        $(this).addClass('animated');
-//        $(this).stop().effect('shake', {distance:20}, 700);
-//      }
-//      }, 
-//      function(){
-//        $(this).removeClass('animated');
-//      });
 
-    $( '.proposal-category .go-back' ).click(function(event){
-      event.preventDefault();
+    $( '.proposal-category .go-back' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var oldHash = window.location.hash;
       var regexSubpages = /sobre-o-programa$/;
@@ -117,41 +100,43 @@ $.getJSON(noosferoAPI)
       updateHash(newHash);
     });
 
-    $( '.send-button a' ).click(function(event){
+    $( '.send-button a' ).on('click touchstart', function(e){
+      e.preventDefault();
+      
       //display form to send proposal (or login form for non-logged users)
       var $this = $(this);
       loginButton = $this.parents('.send-button');
       loginButton.hide();
       $this.parents('.success-proposal-sent').hide();
       loginCallback(logged_in);
-      event.preventDefault();
     });
 
-    $( '#display-contrast' ).click(function(event){
+    $( '#display-contrast' ).on('click touchstart', function(e){
+      e.preventDefault();
       $('#proposal-result').toggleClass('contrast');
     });
 
-    $( '.show_body a' ).click(function(event){
-      event.preventDefault();
+    $( '.show_body a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
-    $( '.go-to-proposal-button a' ).click(function(event){
-      event.preventDefault();
+    $( '.go-to-proposal-button a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-selection' ).change(function(event){
+    $( '.proposal-selection' ).change(function(e){
+      e.preventDefault();
+
       display_proposal('proposal-item-' + this.value);
     });
 
@@ -160,7 +145,7 @@ $.getJSON(noosferoAPI)
       availableTags.push({ label: $(this).text(), value: $(this).attr('href')});
     });
 
-    $( "#search-input" ).autocomplete({
+    $( '#search-input' ).autocomplete({
       source: availableTags,
       minLength: 3,
       select: function( event, ui ) {
@@ -179,22 +164,23 @@ $.getJSON(noosferoAPI)
       e.preventDefault();
       var proposal_id = this.id.split('-').pop();
       var form = this;
+      var $form = $(this);
       var message = $(form).find('.message');
       message.hide();
       message.text('');
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + proposal_id + '/children',
-        data: $('#'+this.id).serialize() + "&private_token="+private_token+"&fields=id&article[name]=article_"+guid()
+        data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + guid()
       })
-      .done(function( data ) {
+      .done(function( /*data*/ ) {
         form.reset();
-        $(form).hide();
-        $(form).siblings('.success-sent').show();
+        $form.hide();
+        $form.siblings('.success-sent').show();
       })
       .fail(function( jqxhr, textStatus, error ) {
-        var err = textStatus + ", " + error;
-        console.log( "Request Failed: " + err );
+        var err = textStatus + ', ' + error;
+        console.log( 'Request Failed: ' + err );
         message.show();
         message.text('Não foi possível enviar.');
        });
@@ -202,33 +188,39 @@ $.getJSON(noosferoAPI)
 
   })
   .fail(function( jqxhr, textStatus, error ) {
-    var err = textStatus + ", " + error;
-    console.log( "Request Failed: " + err );
+    var err = textStatus + ', ' + error;
+    console.log( 'Request Failed: ' + err );
   });
 
 function loadRandomProposal(topic_id, private_token) {
-  $(".no-proposals").hide();
-  $(".loading").show();
-  $('.random-proposal').html('');
+  var $noProposals = $('.no-proposals');
+  var $loading = $('.loading');
+  var $randomProposal = $('.random-proposal');
+  var $body = $(document.body);
+  
+  // reset view
+  $noProposals.hide();
+  $loading.show();
+  $randomProposal.html('');
+
   var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
   $.getJSON(url).done(function( data ) {
-    $(".loading").hide();
+    $loading.hide();
 
-    if(data.articles.length == 0) {
-      $(".no-proposals").show();
+    if(data.articles.length === 0) {
+      $noProposals.show();
       return;
     }
 
     var article = data.articles[0];
-    $('.random-proposal').html(supportProposalTemplate(article));
-    // $(".abstract").dotdotdot();
-    $(document.body).off('click', '.vote-actions .skip');
-    $(document.body).on('click', '.vote-actions .skip', function(e) {
+    $randomProposal.html(supportProposalTemplate(article));
+    $body.off('click', '.vote-actions .skip');
+    $body.on('click', '.vote-actions .skip', function(e) {
       loadRandomProposal(topic_id, private_token);
       e.preventDefault();
     });
-    $(document.body).off('click', '.vote-actions .like');
-    $(document.body).on('click', '.vote-actions .like', function(e) {
+    $body.off('click', '.vote-actions .like');
+    $body.on('click', '.vote-actions .like', function(e) {
       $.ajax({
         type: 'post',
         url: host + '/api/v1/articles/' + article.id + '/vote',
@@ -236,69 +228,64 @@ function loadRandomProposal(topic_id, private_token) {
           value: $(this).data('vote-value'),
           private_token: private_token
         }
-      }).done(function( data ) {
+      }).done(function( /*data*/ ) {
         loadRandomProposal(topic_id, private_token);
       });
       e.preventDefault();
     });
 
-    $(document.body).off('click', '.vote-result');
-    $(document.body).on('click', '.vote-result', function(e) {
-      $('.results-container').toggle();
-      if($('.results-container').is(":visible")) {
-        $('.results-container .loading').show();
-        $('.results-container .results-content').hide();
+    $body.off('click', '.vote-result');
+    $body.on('click', '.vote-result', function(e) {
+
+      var $this = $(this);
+      var $proposalDetail = $this.parents('.proposal-detail');
+      var $resultsContainer = $proposalDetail.find('.results-container');
+      
+      // $resultsContainer.toggle();
+      // $resultsContainer.toggleClass('hide');
+
+      if($resultsContainer.css('display') === 'none') {
+        
+        $resultsContainer.find('.loading').show();
+        $resultsContainer.find('.results-content').hide();
+
         var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
         $.getJSON(url).done(function( data ) {
-          $('.results-container').html(resultsTemplate(data));
-          $('.results-container .loading').hide();
-          $('.results-container .results-content').show();
-          $("html, body").animate({ scrollTop: $(document).height() }, "fast");
+          
+          $resultsContainer.html(resultsTemplate(data));
+          $resultsContainer.find('.loading').hide();
+          $resultsContainer.find('.results-content').show();
+          $resultsContainer.show();
+
+          // scroll to the end
+          $('html, body').animate({
+            scrollTop: $(document).height()
+          }, 'fast');
         });
         $('.experience-proposal-container').hide();
         $('.talk-proposal-container').hide();
       } else {
         $('.experience-proposal-container').show();
         $('.talk-proposal-container').show();
+        $resultsContainer.hide();
       }
+
       e.preventDefault();
     });
   });
 }
 
-jQuery(document).ready(function($) {
+$(document).ready(function($) {
   if($.cookie('_dialoga_session')) {
     var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
-    $.getJSON(url).done(function( data ) {
+    $.getJSON(url).done(function( /*data*/ ) {
       logged_in = true;
       private_token = $.cookie('_dialoga_session');
     });
   }
-});
 
-function loginCallback(loggedIn, token) {
-  logged_in = loggedIn;
-  $('.login .message').text('');
-
-  if(logged_in) {
-    if(token) private_token = token;
-    loginButton.siblings('.save-article-form').show();
-    loginButton.siblings('.save-article-form .message').show();
-    loginButton.siblings('.login-container').hide();
-    $.cookie('_dialoga_session', private_token);
-  } else {
-    loginButton.siblings('.save-article-form').hide();
-    loginButton.siblings('.login-container').show();
-  }
-}
-
-function oauthPluginHandleLoginResult(loggedIn, token) {
-  loginCallback(loggedIn, token);
-}
-
-jQuery(document).ready(function($) {
   $(document).on('click', '.login-action', function(e) {
-    var message = $('.login .message')
+    var message = $('.login .message');
     message.hide();
     message.text('');
     $.ajax({
@@ -310,13 +297,35 @@ jQuery(document).ready(function($) {
       }
     }).done(function(data) {
       loginCallback(true, data.private_token);
-    }).fail(function(data) {
+    }).fail(function( /*data*/ ) {
       message.show();
       message.text('Não foi possível logar');
     });
     e.preventDefault();
   });
 });
+
+function loginCallback(loggedIn, token) {
+  logged_in = loggedIn;
+  $('.login .message').text('');
+
+  if(logged_in) {
+    if(token){
+      private_token = token;
+    }
+    loginButton.siblings('.save-article-form').show();
+    loginButton.siblings('.save-article-form .message').show();
+    loginButton.siblings('.login-container').hide();
+    $.cookie('_dialoga_session', private_token);
+  } else {
+    loginButton.siblings('.save-article-form').hide();
+    loginButton.siblings('.login-container').show();
+  }
+}
+
+// function oauthPluginHandleLoginResult(loggedIn, token) {
+//   loginCallback(loggedIn, token);
+// }
 
 function guid() {
   function s4() {
@@ -346,7 +355,7 @@ function display_proposals_tab(){
   $('#proposal-group').show();
   $('#nav-proposal-group a').addClass('active');
   $('#nav-proposal-categories a').removeClass('active');
-  $(".proposal-item p").dotdotdot();
+  $('.proposal-item p').dotdotdot();
 
   $('#content').show();
   $('nav').show();
@@ -366,7 +375,9 @@ function display_proposal(proposal_id){
   $('.proposal-header').show();
   $('.make-proposal-container').show();
   $('.support-proposal-container').show();
-  $('.results-container').show();
+  $('.results-container').hide();
+  $('.results-container .loading').hide();
+  $('.results-container .results-content').hide();
   $('.experience-proposal-container').show();
   $('.talk-proposal-container').show();
 
@@ -388,7 +399,6 @@ function display_proposal_detail(){
   $('.talk-proposal-container').hide();
 
   $('.body').show();
-  $("html, body").animate({ scrollTop: 0 }, "fast");
 }
 
 function display_proposal_by_category(item){
@@ -404,7 +414,7 @@ function display_proposal_by_category(item){
     $('.proposal-category-items').hide();
     $('.proposal-detail').hide();
     $item.toggle( 'blind', 1000 );
-    $(".proposal-item p").dotdotdot();
+    $('.proposal-item p').dotdotdot();
     $('.proposal-category .arrow-box').hide();
     var categorySlug = $item.data('category');
     $('#proposal-category-' + categorySlug).find('.arrow-box').show();
@@ -443,8 +453,6 @@ function navigateTo(hash){
     // go to proposal 
     var proposalId = parts[2];
     navigateToProposal(proposalId);
-
-    return;
   }
 
   if( isCategory ){
@@ -452,14 +460,15 @@ function navigateTo(hash){
     // go to category 
     var categoryId = parts[3];
     navigateToCategory(categoryId);
-
-    return;
   }
 
   // default
-  // show the 'index' -> category tab
-  display_category_tab();
-  console.log('route not handled', hash);
+  if( !isProposal && !isCategory ){
+    // show the 'index' -> category tab
+    display_category_tab();
+  }
+
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 }
 
 function navigateToProposal(proposalId){  
@@ -481,11 +490,11 @@ function navigateToCategory(categoryId){
   if(categoryId === undefined){
     display_category_tab();
   }else{
-    display_proposal_by_category('proposal-item-' + categoryId)
+    display_proposal_by_category('proposal-item-' + categoryId);
   }
 }
 
-if("onhashchange" in window){
+if('onhashchange' in window){
   window.onhashchange = locationHashChanged;
 }else{
   console.log('The browser not supports the hashchange event!');

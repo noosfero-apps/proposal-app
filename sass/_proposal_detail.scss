@@ -246,7 +246,9 @@
       textarea#article_abstract {
         height: 15%;
       }
-      .container-button a, input[type=submit], .success-proposal-sent a {
+      .container-button a,
+      input[type=submit],
+      .success-proposal-sent a {
         font-weight: bolder;
         font-size: 14px;
         text-transform: uppercase;
@@ -254,7 +256,7 @@
         color: white;
         width: 60%;
         border: none;
-        margin: 20px auto;
+        margin: 10px auto;
         border-radius: 6px;
         text-align: center;
         text-decoration: none;
@@ -267,16 +269,22 @@
         }
       }
       .make-proposal-container{
-        .subtitle, .info, .success-proposal-sent {
+        
+        .subtitle,
+        .info,
+        .success-proposal-sent {
           margin: 20px;
           color: #18376C;
         }
-        .subtitle, .success-proposal-sent {
+        
+        .subtitle,
+        .success-proposal-sent {
           font-size: 24px;
           font-weight: bold;
         }
         .info {
           font-size: 14px;
+          overflow-y: auto;
         }
         .name {
           margin-bottom: 15px;
@@ -324,6 +332,8 @@
         text-align: center;
         .container-title {
           text-align: center;
+          width: 100%;
+          margin: 20px auto;
         }
         .support-proposal{
           border: 1px solid $color;
@@ -378,6 +388,7 @@
             text-align: center;
             position: absolute;
             bottom: 10px;
+            left: 0;
             text-decoration: none;
             color: $color;
           }
@@ -547,9 +558,45 @@
       font-size: 12px;
     }
   }
+
+  .support-proposal .abstract{
+    overflow-y: auto;
+    max-height: 190px;
+    margin-bottom: 10px;
+
+    @media only screen and (max-width: 1048px) {
+      max-height: 140px;
+      font-size: 20px;
+    }
+  }
 }
 
-// @media only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 992px) {
+  
+  .proposal-detail {
+
+    .container-title {
+      font-size: 30px !important;
+      margin-bottom: 15px !important;
+    }
+
+    .make-proposal-container {
+      
+      .subtitle {
+        margin: 5px 20px !important;
+        font-size: 20px !important;
+      }
+
+      .info {
+        margin: 0 20px !important;
+        max-height: 40px !important;
+      }
+    }
+
+  }
+
+}
+
 @media only screen and (max-width: 768px) {
   .proposal-header {
     .title {
@@ -623,7 +670,7 @@
       a {
         position: relative !important;
         left: inherit !important;
-        margin: auto !important;
+        margin: 20px auto !important;
         bottom: inherit !important;
       }
     }
@@ -676,7 +723,7 @@
       a {
         position: relative !important;
         left: inherit !important;
-        margin: auto !important;
+        margin: 20px auto !important;
         bottom: inherit !important;
       }
     }
