@@ -236,12 +236,15 @@ function loadRandomProposal(topic_id, private_token) {
 
     $body.off('click', '.vote-result');
     $body.on('click', '.vote-result', function(e) {
+
+      var $this = $(this);
+      var $proposalDetail = $this.parents('.proposal-detail');
+      var $resultsContainer = $proposalDetail.find('.results-container');
       
-      var $resultsContainer = $('.results-container');
-      
-      $resultsContainer.toggle();
-      
-      if($resultsContainer.is(':visible')) {
+      // $resultsContainer.toggle();
+      // $resultsContainer.toggleClass('hide');
+
+      if($resultsContainer.css('display') === 'none') {
         
         $resultsContainer.find('.loading').show();
         $resultsContainer.find('.results-content').hide();
@@ -252,6 +255,7 @@ function loadRandomProposal(topic_id, private_token) {
           $resultsContainer.html(resultsTemplate(data));
           $resultsContainer.find('.loading').hide();
           $resultsContainer.find('.results-content').show();
+          $resultsContainer.show();
 
           // scroll to the end
           $('html, body').animate({
@@ -263,6 +267,7 @@ function loadRandomProposal(topic_id, private_token) {
       } else {
         $('.experience-proposal-container').show();
         $('.talk-proposal-container').show();
+        $resultsContainer.hide();
       }
 
       e.preventDefault();
@@ -370,7 +375,9 @@ function display_proposal(proposal_id){
   $('.proposal-header').show();
   $('.make-proposal-container').show();
   $('.support-proposal-container').show();
-  $('.results-container').show();
+  $('.results-container').hide();
+  $('.results-container .loading').hide();
+  $('.results-container .results-content').hide();
   $('.experience-proposal-container').show();
   $('.talk-proposal-container').show();
 
