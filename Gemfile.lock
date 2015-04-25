@@ -7,4 +7,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  sass (= 3.4.9)
+  sass (~> 3.4.9)
