@@ -1,3 +1,4 @@
+/* global Handlebars, $ */
 // The template code
 var templateSource = document.getElementById('proposal-template').innerHTML;
 
@@ -9,8 +10,6 @@ var resultsTemplate = Handlebars.compile(document.getElementById('results').inne
 
 // The div/container that we are going to display the results in
 var resultsPlaceholder = document.getElementById('proposal-result');
-
-var topics;
 
 var logged_in = false;
 
@@ -48,8 +47,8 @@ $.getJSON(noosferoAPI)
     navigateTo(window.location.hash);
 
     //Actions for links
-    $( '#nav-proposal-categories a' ).on('click touchstart', function(event){
-      event.preventDefault();
+    $( '#nav-proposal-categories a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
 
@@ -57,8 +56,8 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '#nav-proposal-group a' ).on('click touchstart', function(event){
-      event.preventDefault();
+    $( '#nav-proposal-group a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
 
@@ -66,26 +65,26 @@ $.getJSON(noosferoAPI)
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-item a' ).on('click touchstart', function(event){
+    $( '.proposal-item a' ).on('click touchstart', function(e){
+      e.preventDefault();
+
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-category a' ).on('click touchstart', function(event){
-      event.preventDefault();
+    $( '.proposal-category a' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
     });
 
-    $( '.proposal-category .go-back' ).on('click touchstart', function(event){
-      event.preventDefault();
+    $( '.proposal-category .go-back' ).on('click touchstart', function(e){
+      e.preventDefault();
 
       var oldHash = window.location.hash;
       var regexSubpages = /sobre-o-programa$/;
@@ -121,7 +120,6 @@ $.getJSON(noosferoAPI)
       e.preventDefault();
 
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
@@ -131,7 +129,6 @@ $.getJSON(noosferoAPI)
       e.preventDefault();
 
       var $link = $(this);
-      var item = $link.data('target');
 
       // Update URL and Navigate
       updateHash($link.attr('href'));
@@ -176,7 +173,7 @@ $.getJSON(noosferoAPI)
         url: host + '/api/v1/articles/' + proposal_id + '/children',
         data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + guid()
       })
-      .done(function( data ) {
+      .done(function( /*data*/ ) {
         form.reset();
         $form.hide();
         $form.siblings('.success-sent').show();
@@ -231,7 +228,7 @@ function loadRandomProposal(topic_id, private_token) {
           value: $(this).data('vote-value'),
           private_token: private_token
         }
-      }).done(function( data ) {
+      }).done(function( /*data*/ ) {
         loadRandomProposal(topic_id, private_token);
       });
       e.preventDefault();
@@ -267,20 +264,40 @@ function loadRandomProposal(topic_id, private_token) {
         $('.experience-proposal-container').show();
         $('.talk-proposal-container').show();
       }
-      
+
       e.preventDefault();
     });
   });
 }
 
-jQuery(document).ready(function($) {
+$(document).ready(function($) {
   if($.cookie('_dialoga_session')) {
     var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
-    $.getJSON(url).done(function( data ) {
+    $.getJSON(url).done(function( /*data*/ ) {
       logged_in = true;
       private_token = $.cookie('_dialoga_session');
     });
   }
+
+  $(document).on('click', '.login-action', function(e) {
+    var message = $('.login .message');
+    message.hide();
+    message.text('');
+    $.ajax({
+      type: 'post',
+      url: host + '/api/v1/login',
+      data: $(this).parents('.login').serialize(),
+      xhrFields: {
+        //withCredentials: true
+      }
+    }).done(function(data) {
+      loginCallback(true, data.private_token);
+    }).fail(function( /*data*/ ) {
+      message.show();
+      message.text('Não foi possível logar');
+    });
+    e.preventDefault();
+  });
 });
 
 function loginCallback(loggedIn, token) {
@@ -301,31 +318,9 @@ function loginCallback(loggedIn, token) {
   }
 }
 
-function oauthPluginHandleLoginResult(loggedIn, token) {
-  loginCallback(loggedIn, token);
-}
-
-jQuery(document).ready(function($) {
-  $(document).on('click', '.login-action', function(e) {
-    var message = $('.login .message');
-    message.hide();
-    message.text('');
-    $.ajax({
-      type: 'post',
-      url: host + '/api/v1/login',
-      data: $(this).parents('.login').serialize(),
-      xhrFields: {
-        //withCredentials: true
-      }
-    }).done(function(data) {
-      loginCallback(true, data.private_token);
-    }).fail(function(data) {
-      message.show();
-      message.text('Não foi possível logar');
-    });
-    e.preventDefault();
-  });
-});
+// function oauthPluginHandleLoginResult(loggedIn, token) {
+//   loginCallback(loggedIn, token);
+// }
 
 function guid() {
   function s4() {
