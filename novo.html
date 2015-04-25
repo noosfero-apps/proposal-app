@@ -6,14 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/hover.custom.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Asap:400,700">
-    <link rel="stylesheet" href="novo.css">
-
-    <script type='text/javascript'>
+    <script type="text/javascript">
       function removeUrlParameters(full_url){
         var url_base = full_url.split('#').shift();
         return url_base;
@@ -28,10 +21,10 @@
         return base + filename;
       }
       function makeCSSLink(filename){
-        var fileref=document.createElement("link");
-        fileref.setAttribute("rel", "stylesheet");
-        fileref.setAttribute("type", "text/css");
-        fileref.setAttribute("href",  addBaseUrl(filename));
+        var fileref=document.createElement('link');
+        fileref.setAttribute('rel', 'stylesheet');
+        fileref.setAttribute('type', 'text/css');
+        fileref.setAttribute('href',  addBaseUrl(filename));
         return fileref;
       }
       function loadCSSFiles(){
@@ -40,10 +33,9 @@
           'css/hover.custom.css', 
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
-          'http://fonts.googleapis.com/css?family=Asap:400,700', 
-          'style.css'
+          'http://fonts.googleapis.com/css?family=Asap:400,700'
         ];
-        head = document.getElementsByTagName("head")[0]
+        head = document.getElementsByTagName('head')[0]
         for(i = 0; i < css_files.length; i++){
           head.appendChild(makeCSSLink(css_files[i]));
         }
@@ -55,20 +47,20 @@
       }
 
       function loadJavaScriptSync(file_path){
-          var head = document.getElementsByTagName("head")[0];
-          var script_element = document.createElement("script");
-          script_element.type = "text/javascript";
+          var head = document.getElementsByTagName('head')[0];
+          var script_element = document.createElement('script');
+          script_element.type = 'text/javascript';
           var req = new XMLHttpRequest();
-          req.open("GET", file_path, false); // 'false': synchronous.
+          req.open('GET', file_path, false); // 'false': synchronous.
           req.send(null);
           script_element.text = req.responseText;
           head.appendChild(script_element);
       }
 
       function loadJavaScriptAsync(file_path){
-          var head = document.getElementsByTagName("head")[0];
-          var script_element = document.createElement("script");
-          script_element.type = "text/javascript";
+          var head = document.getElementsByTagName('head')[0];
+          var script_element = document.createElement('script');
+          script_element.type = 'text/javascript';
           script_element.src = file_path;
           head.appendChild(script_element);
       }
@@ -98,45 +90,46 @@
       }
 
       loadCSSFiles();
-
     </script>
+
+    <link rel="stylesheet" href="novo.css">
 
   </head>
   <body>
 
-    <div id='proposal-result'></div>
+    <div id="proposal-result"></div>
  
-    <script id='proposal-template' type='text/x-handlebars-template'>
+    <script id="proposal-template" type="text/x-handlebars-template">
       <header>
         <h1><a href="#">{{article.title}}</a></h1>
-        <a id='display-contrast' href='#'>Alto Contraste</a>
+        <a id="display-contrast" href="#">Alto Contraste</a>
       </header>
   
       <div id="content">
         <p>{{{article.body}}}</p>
       </div>
   
-      <nav>
-        <ul>
-          <li id='nav-proposal-categories'>
-            <a href="#/temas" class="active">Temas</a>
+      <nav role="tabpanel">
+        <ul role="tablist">
+          <li id="nav-proposal-categories" role="presentation">
+            <a href="#/temas" class="active" role="tab" aria-controls="proposal-categories">Temas</a>
           </li>
-          <li id='nav-proposal-group'>
-            <a href="#/programas">Programas</a>
+          <li id="nav-proposal-group" role="presentation">
+            <a href="#/programas" role="tab" aria-controls="proposal-group">Programas</a>
           </li>
         </ul>
       </nav>
 
-      <ul id="proposal-categories">
+      <div id="proposal-categories">
         <div id="proposal-categories-container">
           {{#each article.categories}}
-            <li id='proposal-category-{{slug}}' class="proposal-category" data-category="{{slug}}">
+            <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
               <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
               <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
           {{#each article.categories}}
-            <div id='proposal-item-{{id}}' class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
+            <div id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
               <div class="header">
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
@@ -149,15 +142,14 @@
             </div>
           {{/each}}
         </div>
-      </ul>
+      </div>
 
-      <div id="proposal-group" class='hide'>
+      <div id="proposal-group" class="hide">        
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
         </div>
         <ul>
-
           {{#list_proposal article.children}}
             {{#link title id}}{{/link}}
           {{/list_proposal}}
@@ -165,11 +157,11 @@
       </div>
 
       {{#each article.children}}
-        <div class='proposal-detail hide' id="proposal-item-{{id}}">
-          <div class='categories {{#each categories}}{{slug}} {{/each}}'>
+        <div class="proposal-detail hide" id="proposal-item-{{id}}">
+          <div class="categories {{#each categories}}{{slug}} {{/each}}">
             <ul class="select">
               {{#each categories}}
-                <li class='category proposal-category' data-category="{{slug}}">
+                <li class="category proposal-category" data-category="{{slug}}">
                   <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                   <button class="go-back btn btn-default pull-right">
                     VOLTAR
@@ -180,96 +172,98 @@
               {{/each}}
             </ul>
 
-            <div class='proposal-header'>
-              <div class='abstract'>
+            <div class="proposal-header">
+              <div class="abstract">
                 <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
               </div>
-              <div class='title'>{{title}}</div>
-              <div class='abstract'>{{{abstract}}}</div>
-              <div class='show_body'>
-                <a href='#/programas/{{id}}/sobre-o-programa'><span>Conheça o Programa</span></a>
+              <div class="title">{{title}}</div>
+              <div class="abstract">{{{abstract}}}</div>
+              <div class="show_body">
+                <a href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o Programa</span></a>
               </div>
             </div>
 
-            <div class='body proposal-detail-base hide'>
+            <div class="body proposal-detail-base hide">
               {{{body}}}
-              <div class='go-to-proposal-button'>
-                <a href="#/programas/{{id}}" data-target='proposal-item-{{id}}'>
-                  <span class='fa fa-reply'></span>
+              <div class="go-to-proposal-button">
+                <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
+                  <span class="fa fa-reply"></span>
                   Agora contribua para a melhoria desse programa
                 </a>
-              </div>
-              
+              </div>              
             </div>
-            <div class='make-proposal-container'>
-              <div class='make-proposal'>
-                <div class='container-title'>Faça Uma Proposta</div>
-                <div class='subtitle'>Qual a sua sugestão para melhorar este programa?</div>
-                <div class='info'>Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
-                <div class='send-proposal-button send-button'><a href='#'><span>Envie Sua Proposta</span></a></div>
+
+            <div class="make-proposal-container">
+              <div class="make-proposal">
+                <div class="container-title">Faça Uma Proposta</div>
+                <div class="subtitle">Qual a sua sugestão para melhorar este programa?</div>
+                <div class="info">Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
+                <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
                 <div class="login-container hide">Login</div>
-                <form class='make-proposal-form save-article-form hide' id='make-proposal-form-{{id}}'>
+                <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}">
                   <div class="message hide"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
                   </div>
-                  <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Proposal' type='hidden'>
-                  <input type='submit' id='make-proposal-button' class='make-proposal-button'  name='make-proposal-button' value='Enviar'>
+                  <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Proposal">
+                  <input type="submit" id="make-proposal-button" name="make-proposal-button" class="make-proposal-button" value="Enviar">
                 </form>
-                <div class='success-proposal-sent success-sent hide send-button'>
+                <div class="success-proposal-sent success-sent hide send-button">
                   <p>Sua proposta foi encaminhada com sucesso!</p>
-                  <a href='#'>Encaminhar Nova Proposta</a>
+                  <a href="#">Encaminhar Nova Proposta</a>
                 </div>
                 <br style="clear: both;" />
               </div>
             </div>
-            <div class='support-proposal-container'>
-              <div class='support-proposal'>
-                <div class='container-title'> Apoie outras propostas</div>
-                <div class='subtitle'> Propostas da sociedade</div>
+            <div class="support-proposal-container">
+              <div class="support-proposal">
+                <div class="container-title"> Apoie outras propostas</div>
+                <div class="subtitle"> Propostas da sociedade</div>
                 <div class="random-proposal"></div>
                 <div class="loading">Carregando...</div>
                 <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
               </div>
             </div>
-            <div class='results-container hide'></div>
-            <div class='experience-proposal-container'>
-              <div class='experience-proposal'>
-                <div class='container-title'>Conte sua experiência</div>
+            <div class="results-container hide"></div>
+            <div class="experience-proposal-container">
+              <div class="experience-proposal">
+                <div class="container-title">Conte sua experiência</div>
                 <p>Adoraríamos que você nos contasse a sua experiência com este programa ou a de alguém que você conhece.</p>
                 <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada.</p>
-                <div class='send-experience-button send-button'><a href='#'><span>Envie Sua Experiência</span></a></div>
+                <div class="send-experience-button send-button"><a href="#"><span>Envie Sua Experiência</span></a></div>
                 <div class="login-container hide">Login</div>
-                <form class='make-experience-form save-article-form hide' id='make-experience-form-{{id}}'>
+                <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}">
                   <div class="message hide"></div>
                   <div>
-                    <div><label for="article_abstract">Descrição</label></div>
+                    <div>
+                      <label for="article_abstract">Descrição</label>
+                    </div>
                     <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="5000"></textarea>
                   </div>
-                  <input id='content_type' name='content_type' value='ProposalsDiscussionPlugin::Story' type='hidden'>
-                  <input type='submit' id='make-experience-button' class='make-experience-button'  name='make-experience-button' value='Enviar'>
+                  <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Story">
+                  <input type="submit" id="make-experience-button" name="make-experience-button" class="make-experience-button" value="Enviar">
                 </form>
-                <div class='success-experience-sent success-sent hide send-button'>
+                <div class="success-experience-sent success-sent hide send-button">
                   <p>Sua experiência foi encaminhada com sucesso!</p>
-                  <a href='#'>Encaminhar Nova Experiência</a>
+                  <a href="#">Encaminhar Nova Experiência</a>
                 </div>
               </div>
             </div>
-            <div class='talk-proposal-container'>
-              <div class='talk-proposal'>
-                <div class='container-title'>Fale com os ministros</div>
+            <div class="talk-proposal-container">
+              <div class="talk-proposal">
+                <div class="container-title">Fale com os ministros</div>
                 <p>Confira as datas e horários disponíveis:</p>
-                <ul class='calendar'>
+                <ul class="calendar">
                   <li>
                     <span>Arthur Chioro</span>
                     <span>Saúde</span>
-                    <div class='date'><i class="fa fa-calendar"></i> 22/04/2015</div><div class='time'><i class="fa fa-clock-o"></i> 09:00</div>
+                    <div class="date"><i class="fa fa-calendar"></i> 22/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 09:00</div>
                   </li>
                   <li>
                     <span>Teresa Campello</span>
                     <span>Desenvolvimento Social</span>
-                    <div class='date'><i class="fa fa-calendar"></i> 22/04/2015</div><div class='time'><i class="fa fa-clock-o"></i> 09:00</div>
+                    <div class="date"><i class="fa fa-calendar"></i> 22/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 09:00</div>
                   </li>
                 </ul>
               </div>
@@ -279,8 +273,10 @@
       {{/each}}
     </script>
 
-    <script id='support-proposal-template' type='text/x-handlebars-template'>
-      <div class='abstract'><p>"{{trimString abstract 200}}"</p></div>
+    <script id="support-proposal-template" type="text/x-handlebars-template">
+      <div class="abstract">
+        <p>{{trimString abstract 200}}</p>
+      </div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>
@@ -289,7 +285,7 @@
       </div>
     </script>
 
-    <script id="results" type='text/x-handlebars-template'>
+    <script id="results" type="text/x-handlebars-template">
       <div class="loading">Carregando...</div>
       <div class="results-content hide">
         <a href="#" class="vote-result">Fechar</a>
@@ -312,7 +308,7 @@
       </div>
     </script>
 
-    <script id='login' type='text/x-handlebars-template'>
+    <script id="login" type="text/x-handlebars-template">
       <form id="login-form" class="login">
         <div class="message hide"></div>
         <div class="username">
@@ -336,15 +332,9 @@
       </form>
     </script>
 
-    <script src='js/jquery-2.1.3.min.js'></script>
-    <script src='js/jquery-ui-1.11.4.custom/jquery-ui.min.js'></script>
-    <script src='js/jquery.cookie.js'></script>
-    <script src='js/handlebars-v3.0.1.js'></script>
-    <script src='js/handlebars-helpers.js'></script>
-    <script src='js/jquery.dotdotdot.min.js'></script>
-    <script src='js/jquery.maxlength.min.js'></script>
-    <script src='js/layout.js'></script>
-    <script src='js/main.js'></script>
+    <script type="text/javascript">
+      loadJSFiles();
+    </script>
 
   </body>
 

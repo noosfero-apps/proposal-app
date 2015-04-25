@@ -49,22 +49,22 @@ nav ul {
 
 .proposal-category-items-saude .description:before {
   color: #fff;
-  content: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) atende a todos os brasileiros. Ele é universal, integral e de responsabilidade do Governo Federal, dos estados e dos municípios.";
+  content: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.";
   font-size: 14px; }
 
 .proposal-category-items-seguranca .description:before {
   color: #fff;
-  content: "A segurança pública é um direito fundamental, dever do Estado e responsabilidade de todos. Tem na proteção da vida, na disseminação da cultura de paz e na integração dos órgãos e instituições seus maiores compromissos.";
+  content: "A Segurança Pública é um direito fundamental, dever do Estado e responsabilidade de todos. A proteção da vida, a disseminação da cultura de paz e a integração dos órgãos e instituições são os maiores compromissos desta política pública.";
   font-size: 14px; }
 
 .proposal-category-items-educacao .description:before {
   color: #fff;
-  content: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis. Agora, o Plano Nacional de Educação (PNE) definiu metas quantitativas e qualitativas para os próximos 10 anos.";
+  content: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis ‐ da creche à pós‐graduação. Com o Plano Nacional de Educação (PNE) para os próximos 10 anos, o Brasil consolida um caminho de oportunidades, por meio da educação, para todos os brasileiros.";
   font-size: 14px; }
 
 .proposal-category-items-reducao-da-pobreza .description:before {
   color: #fff;
-  content: "Este governo escolheu como prioridade combater a pobreza e reduzir as desigualdades sociais. Por isso, o Brasil saiu do Mapa da Fome das Nações Unidas";
+  content: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, na última década, 36 milhões de pessoas superaram a miséria e o país saiu do Mapa da Fome das Nações Unidas.";
   font-size: 14px; }
 
 #proposal-categories {
@@ -212,6 +212,10 @@ nav ul {
   height: 500px;
   padding: 20px; }
 
+.categories {
+  display: table;
+  width: 100%; }
+
 .category {
   background-color: #000;
   border-top: 0;
@@ -268,7 +272,7 @@ nav ul {
     background: url("images/white-line.png") left center repeat-x;
     color: #fff;
     display: block;
-    font-size: 38px;
+    font-size: 30px;
     font-weight: 700;
     margin: auto;
     text-align: center;
@@ -279,7 +283,7 @@ nav ul {
 
 .container-title {
   color: #000;
-  font-size: 38px;
+  font-size: 30px;
   margin-bottom: 20px; }
 
 .subtitle {
@@ -309,16 +313,40 @@ nav ul {
     background-repeat: no-repeat; }
 
 .make-proposal {
-  margin-right: 10px; }
+  border: 1px solid #000;
+  height: 500px;
+  margin-right: 10px;
+  padding: 20px; }
+  .make-proposal-container {
+    float: left;
+    width: 50%; }
 
 .support-proposal {
-  margin-left: 10px; }
+  border: 1px solid #000;
+  height: 500px;
+  margin-left: 10px;
+  padding: 20px; }
+  .support-proposal-container {
+    float: left;
+    width: 50%; }
 
 .experience-proposal {
-  margin-right: 10px; }
+  border: 1px solid #000;
+  height: 500px;
+  margin-right: 10px;
+  padding: 20px; }
+  .experience-proposal-container {
+    float: left;
+    width: 50%; }
 
 .talk-proposal {
-  margin-left: 10px; }
+  border: 1px solid #000;
+  height: 500px;
+  margin-left: 10px;
+  padding: 20px; }
+  .talk-proposal-container {
+    float: left;
+    width: 50%; }
 
 #proposal-category-saude .proposal-link {
   background-color: #00a9bd;
@@ -357,6 +385,18 @@ li.category-saude {
   color: #00a9bd; }
 .saude .send-button a {
   background-color: #00a9bd; }
+.saude .title {
+  background-color: #00a9bd; }
+.saude .abstract p {
+  background-color: #00a9bd; }
+.saude .make-proposal {
+  border-color: #00a9bd; }
+.saude .support-proposal {
+  border-color: #00a9bd; }
+.saude .experience-proposal {
+  border-color: #00a9bd; }
+.saude .talk-proposal {
+  border-color: #00a9bd; }
 
 #proposal-category-seguranca .proposal-link {
   background-color: #e34748;
@@ -395,6 +435,18 @@ li.category-seguranca {
   color: #e34748; }
 .seguranca .send-button a {
   background-color: #e34748; }
+.seguranca .title {
+  background-color: #e34748; }
+.seguranca .abstract p {
+  background-color: #e34748; }
+.seguranca .make-proposal {
+  border-color: #e34748; }
+.seguranca .support-proposal {
+  border-color: #e34748; }
+.seguranca .experience-proposal {
+  border-color: #e34748; }
+.seguranca .talk-proposal {
+  border-color: #e34748; }
 
 #proposal-category-educacao .proposal-link {
   background-color: #ffb400;
@@ -433,6 +485,18 @@ li.category-educacao {
   color: #ffb400; }
 .educacao .send-button a {
   background-color: #ffb400; }
+.educacao .title {
+  background-color: #ffb400; }
+.educacao .abstract p {
+  background-color: #ffb400; }
+.educacao .make-proposal {
+  border-color: #ffb400; }
+.educacao .support-proposal {
+  border-color: #ffb400; }
+.educacao .experience-proposal {
+  border-color: #ffb400; }
+.educacao .talk-proposal {
+  border-color: #ffb400; }
 
 #proposal-category-reducao-da-pobreza .proposal-link {
   background-color: #51d0b3;
@@ -471,3 +535,17 @@ li.category-reducao-da-pobreza {
   color: #51d0b3; }
 .reducao-da-pobreza .send-button a {
   background-color: #51d0b3; }
+.reducao-da-pobreza .title {
+  background-color: #51d0b3; }
+.reducao-da-pobreza .abstract p {
+  background-color: #51d0b3; }
+.reducao-da-pobreza .make-proposal {
+  border-color: #51d0b3; }
+.reducao-da-pobreza .support-proposal {
+  border-color: #51d0b3; }
+.reducao-da-pobreza .experience-proposal {
+  border-color: #51d0b3; }
+.reducao-da-pobreza .talk-proposal {
+  border-color: #51d0b3; }
+
+/*# sourceMappingURL=novo.css.map */

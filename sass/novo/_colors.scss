@@ -69,5 +69,33 @@
         }
       }
     }
+    .title {
+      background-color: $color;
+    }
+    .abstract {
+      p {
+        background-color: $color;
+      }
+    }
+    .make {
+      &-proposal {
+        border-color: $color;
+      }
+    }
+    .support {
+      &-proposal {
+        border-color: $color;
+      }
+    }
+    .experience {
+      &-proposal {
+        border-color: $color;
+      }
+    }
+    .talk {
+      &-proposal {
+        border-color: $color;
+      }
+    }
   }
 }

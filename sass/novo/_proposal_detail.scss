@@ -37,6 +37,10 @@
     padding: $default-spacing-size;
   }
 }
+.categories {
+  display: table;
+  width: 100%;
+}
 .category {
   background-color: #000;
   border-top: 0;
@@ -148,21 +152,49 @@
 }
 .make {
   &-proposal {
-    margin-right: $default-spacing-size - 10;
+    border: 1px solid #000;
+    height: 500px;
+    margin-right: $default-spacing-size / 2;
+    padding: $default-spacing-size;
+    &-container {
+      float: left;
+      width: 50%;
+    }
   }
 }
 .support {
   &-proposal {
-    margin-left: $default-spacing-size - 10;
+    border: 1px solid #000;
+    height: 500px;
+    margin-left: $default-spacing-size / 2;
+    padding: $default-spacing-size;
+    &-container {
+      float: left;
+      width: 50%;
+  }
   }
 }
 .experience {
   &-proposal {
-    margin-right: $default-spacing-size - 10;
+    border: 1px solid #000;
+    height: 500px;
+    margin-right: $default-spacing-size / 2;
+    padding: $default-spacing-size;
+    &-container {
+      float: left;
+      width: 50%;
+    }
   }
 }
 .talk {
   &-proposal {
-    margin-left: $default-spacing-size - 10;
+    border: 1px solid #000;
+    height: 500px;
+    margin-left: $default-spacing-size / 2;
+    padding: $default-spacing-size;
+    &-container {
+      float: left;
+      width: 50%;
+    }
   }
 }
