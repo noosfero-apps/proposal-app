@@ -664,6 +664,10 @@
       height: auto !important;
       margin: 0 !important;
       min-height: 0 !important;
+
+      .info {
+        max-height: none !important;
+      }
     }
     .send-proposal-button {
       text-align: center !important;

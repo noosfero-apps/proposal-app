@@ -12,10 +12,14 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
 
   var ret = "";
   for(var i=0, j=proposals.length; i<j; i++) {
-    element = "<li class='proposal-item'><div class='item'>";
+    var proposal = proposals[i];
+    
+    element = '<li class="proposal-item">' + 
+      '<a href="#/programas/'+proposal.id+'" data-target="proposal-item-'+proposal.id+'" class="proposal-link">' +
+        '<div class="item">' +
+          '' + proposal.title;
     category = "<ul class='category'>";
     
-    var proposal = proposals[i];
     
     for(var x=0, y=proposal.categories.length; x<y; x++) {
       if((options.hash['category'] != null) && (options.hash['category'] != proposal.categories[x].slug)){
@@ -28,11 +32,11 @@ Handlebars.registerHelper('list_proposal', function(proposals, options) {
       continue;
     }
     category =  category + '</ul>';
-    element = element + options.fn(proposal);
+    // element = element + options.fn(proposal);
     element = element + (proposal.abstract ? proposal.abstract : '');
 
     element = element + category;
-    ret = ret + element + '</div></li>';
+    ret = ret + element + '</div></a></li>';
   }
   return ret;
 });

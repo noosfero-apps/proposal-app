@@ -421,9 +421,53 @@ function display_proposal_by_category(item){
   }
 }
 
+var BARRA_ADDED = false;
+function addBarraDoGoverno(){
+  console.log('add barra');
+  
+  if( BARRA_ADDED ) { return; }
+
+  var HTML_BODY_PREPEND = '' +
+    '<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> ' +
+      '<ul id="menu-barra-temp" style="list-style:none;">' +
+        '<li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li> ' +
+        '<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>' +
+      '</ul>' +
+    '</div>';
+
+  var HTML_BODY_APPEND = ''+
+    '<div id="footer-brasil"></div>' +
+    '<script defer="defer" src="//barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
+
+  var STYLE_TEMA_AZUL = '' +
+    '<style>'+
+      '#footer-brasil {'+
+       'background: none repeat scroll 0% 0% #0042b1;'+
+       'padding: 1em 0px;'+
+       'max-width: 100%;'+
+       'margin-top: 40px;'+
+      '}'+
+      '#barra-brasil ul {'+
+        'width: auto;'+
+      '}'+
+    '<style>';
+
+  var $body = $(document.body);
+  $body.prepend(HTML_BODY_PREPEND);
+  $body.append(HTML_BODY_APPEND);
+  $body.append(STYLE_TEMA_AZUL);
+
+  BARRA_ADDED = true;
+}
+
 function updateHash(hash){
   var id = hash.replace(/^.*#/, '');
   var elem = document.getElementById(id);
+
+  // preserve the query param
+  // if (HIDE_BARRA_DO_GOVERNO && (hash.indexOf('?barra=false') === -1)){
+  //   hash += '?barra=false';
+  // }
 
   if ( !elem ) {
     window.location.hash = hash;
@@ -436,13 +480,25 @@ function updateHash(hash){
 }
 
 function locationHashChanged(){
-  var hash = location.hash;
+  var hash = window.location.hash;
   navigateTo(hash);
 }
 
+var HIDE_BARRA_DO_GOVERNO = false;
 function navigateTo(hash){
   var regexProposals = /#\/programas/;
   var regexCategory = /#\/temas/;
+  var regexHideBarra = /barra=false$/;
+  
+  if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
+    addBarraDoGoverno();
+  }else{
+    HIDE_BARRA_DO_GOVERNO = true;
+  }
+
+  // remove query params
+  hash = hash.split('?')[0];
+
   var parts = hash.split('/');
   
   var isProposal = regexProposals.exec(hash) !== null;
