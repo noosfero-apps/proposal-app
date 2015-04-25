@@ -132,3 +132,10 @@ form {
 .ui-helper-hidden-accessible{
   display: none;
 }
+
+// shame hack for issue #72
+@media (max-width: 992px) {
+  .col-md-6 > img {
+    margin-bottom: 20px;
+  }
+}
