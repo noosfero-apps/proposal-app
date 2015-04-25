@@ -13,6 +13,9 @@
 @import 'proposal_detail/urgencia-e-emergencia';
 @import 'proposal_detail/mais-medicos';
 
+// Prevent text size change on orientation change.
+html { -webkit-text-size-adjust: 100%; }
+
 html, body {
   margin: 0;
   padding: 0;
