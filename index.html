@@ -135,21 +135,9 @@
                 <div class="description"></div>
               </div>
               <ul class="proposal-list">
-                {{#each ../article.children}}
-                  <li class='proposal-item'>
-                    <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}" class="proposal-link">
-                      <div class='item'>
-                        {{title}}
-                        {{{abstract}}}
-                        <ul class='category'>
-                          {{#each categories}}
-                            <li class="category-{{slug}}">{{name}}</li>
-                          {{/each}}
-                        </ul>
-                      </div>
-                    </a>
-                  </li>
-                {{/each}}
+                {{#list_proposal ../article.children category=slug}}
+                  {{#link title id}}{{/link}}
+                {{/list_proposal}}
               </ul>
             </div>
           {{/each}}
