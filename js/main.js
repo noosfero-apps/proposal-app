@@ -3,20 +3,20 @@ define(['handlebars'], function(Handlebars){
   /* global Handlebars, $ */
   // The template code
   var templateSource = document.getElementById('proposal-template').innerHTML;
-  
+
   // compile the template
   var template = Handlebars.compile(templateSource);
   var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
   var loginTemplate = Handlebars.compile(document.getElementById('login').innerHTML);
   var resultsTemplate = Handlebars.compile(document.getElementById('results').innerHTML);
-  
+
   // The div/container that we are going to display the results in
   var resultsPlaceholder = document.getElementById('proposal-result');
-  
+
   var logged_in = false;
-  
+
   var loginButton;
-  
+
   var participa = true;
   if(participa){
     var host = 'http://www.participa.br';
@@ -29,10 +29,10 @@ define(['handlebars'], function(Handlebars){
     var proposal_discussion = '632'; //local serpro
     //var proposal_discussion = '401'; //casa
   }
-  
+
   // Load data from localhost when it is dev env.
   var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
-  
+
   $.getJSON(noosferoAPI)
     .done(function( data ) {
       data.host = host;
@@ -40,66 +40,66 @@ define(['handlebars'], function(Handlebars){
       resultsPlaceholder.innerHTML = template(data);
       $('.login-container').html(loginTemplate());
       $('.countdown').maxlength({text: '%left caracteres restantes'});
-  
+
       navigateTo(window.location.hash);
-  
+
       //Actions for links
       $( '#nav-proposal-categories a' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var $link = $(this);
-  
+
         // Update URL and Navigate
         updateHash($link.attr('href'));
       });
-  
+
       $( '#nav-proposal-group a' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var $link = $(this);
-  
+
         // Update URL and Navigate
         updateHash($link.attr('href'));
       });
-  
+
       $( '.proposal-item a' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var $link = $(this);
-  
+
         // Update URL and Navigate
         updateHash($link.attr('href'));
       });
-  
+
       $( '.proposal-category a' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var $link = $(this);
-  
+
         // Update URL and Navigate
         updateHash($link.attr('href'));
       });
-  
+
       $( '.proposal-category .go-back' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var oldHash = window.location.hash;
         var regexSubpages = /sobre-o-programa$/;
         var isSubpage = regexSubpages.exec(oldHash) !== null;
         var newHash = '#/temas'; // default page
-  
+
         if(isSubpage){
           // return to proposal page
           newHash = oldHash.split('/sobre-o-programa')[0];
         }
-  
+
         // Update URL and Navigate
         updateHash(newHash);
       });
-  
+
       $( '.send-button a' ).on('click touchstart', function(e){
         e.preventDefault();
-        
+
         //display form to send proposal (or login form for non-logged users)
         var $this = $(this);
         loginButton = $this.parents('.send-button');
@@ -107,41 +107,41 @@ define(['handlebars'], function(Handlebars){
         $this.parents('.success-proposal-sent').hide();
         loginCallback(logged_in);
       });
-  
+
       $( '#display-contrast' ).on('click touchstart', function(e){
         e.preventDefault();
         $('#proposal-result').toggleClass('contrast');
       });
-  
+
       $( '.show_body a' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var $link = $(this);
-  
+
         // Update URL and Navigate
         updateHash($link.attr('href'));
       });
-  
+
       $( '.go-to-proposal-button a' ).on('click touchstart', function(e){
         e.preventDefault();
-  
+
         var $link = $(this);
-  
+
         // Update URL and Navigate
         updateHash($link.attr('href'));
       });
-  
+
       $( '.proposal-selection' ).change(function(e){
         e.preventDefault();
-  
+
         display_proposal('proposal-item-' + this.value);
       });
-  
+
       var availableTags = [ ];
       $('#proposal-group li a').each(function(){
         availableTags.push({ label: $(this).text(), value: $(this).attr('href')});
       });
-  
+
       $( '#search-input' ).autocomplete({
         source: availableTags,
         minLength: 3,
@@ -155,8 +155,8 @@ define(['handlebars'], function(Handlebars){
           results: function() {}
         }
       });
-  
-  
+
+
       $('.save-article-form').submit(function (e) {
         e.preventDefault();
         var proposal_id = this.id.split('-').pop();
@@ -182,33 +182,33 @@ define(['handlebars'], function(Handlebars){
           message.text('Não foi possível enviar.');
          });
       });
-  
+
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ', ' + error;
       console.log( 'Request Failed: ' + err );
     });
-  
+
   function loadRandomProposal(topic_id, private_token) {
     var $noProposals = $('.no-proposals');
     var $loading = $('.loading');
     var $randomProposal = $('.random-proposal');
     var $body = $(document.body);
-    
+
     // reset view
     $noProposals.hide();
     $loading.show();
     $randomProposal.html('');
-  
+
     var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
     $.getJSON(url).done(function( data ) {
       $loading.hide();
-  
+
       if(data.articles.length === 0) {
         $noProposals.show();
         return;
       }
-  
+
       var article = data.articles[0];
       $randomProposal.html(supportProposalTemplate(article));
       $body.off('click', '.vote-actions .skip');
@@ -230,30 +230,30 @@ define(['handlebars'], function(Handlebars){
         });
         e.preventDefault();
       });
-  
+
       $body.off('click', '.vote-result');
       $body.on('click', '.vote-result', function(e) {
-  
+
         var $this = $(this);
         var $proposalDetail = $this.parents('.proposal-detail');
         var $resultsContainer = $proposalDetail.find('.results-container');
-        
+
         // $resultsContainer.toggle();
         // $resultsContainer.toggleClass('hide');
-  
+
         if($resultsContainer.css('display') === 'none') {
-          
+
           $resultsContainer.find('.loading').show();
           $resultsContainer.find('.results-content').hide();
-  
+
           var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
           $.getJSON(url).done(function( data ) {
-            
+
             $resultsContainer.html(resultsTemplate(data));
             $resultsContainer.find('.loading').hide();
             $resultsContainer.find('.results-content').show();
             $resultsContainer.show();
-  
+
             // scroll to the end
             $('html, body').animate({
               scrollTop: $(document).height()
@@ -266,12 +266,12 @@ define(['handlebars'], function(Handlebars){
           $('.talk-proposal-container').show();
           $resultsContainer.hide();
         }
-  
+
         e.preventDefault();
       });
     });
   }
-  
+
   $(document).ready(function($) {
     if($.cookie('_dialoga_session')) {
       var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
@@ -280,7 +280,7 @@ define(['handlebars'], function(Handlebars){
         private_token = $.cookie('_dialoga_session');
       });
     }
-  
+
     $(document).on('click', '.login-action', function(e) {
       var message = $('.login .message');
       message.hide();
@@ -301,11 +301,11 @@ define(['handlebars'], function(Handlebars){
       e.preventDefault();
     });
   });
-  
+
   function loginCallback(loggedIn, token) {
     logged_in = loggedIn;
     $('.login .message').text('');
-  
+
     if(logged_in) {
       if(token){
         private_token = token;
@@ -323,7 +323,7 @@ define(['handlebars'], function(Handlebars){
   function oauthPluginHandleLoginResult(loggedIn, token) {
     loginCallback(loggedIn, token);
   }
-  
+
   function guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -331,7 +331,7 @@ define(['handlebars'], function(Handlebars){
         .substring(1);
     }
   }
-  
+
   function display_category_tab(){
     $('#proposal-group').hide();
     $('#proposal-categories').show();
@@ -340,22 +340,22 @@ define(['handlebars'], function(Handlebars){
     $('.proposal-category-items').hide();
     $('.proposal-category .arrow-box').hide();
     $('.proposal-detail').hide();
-  
+
     $('#content').show();
     $('nav').show();
   }
-  
+
   function display_proposals_tab(){
     $('#proposal-categories').hide();
     $('#proposal-group').show();
     $('#nav-proposal-group a').addClass('active');
     $('#nav-proposal-categories a').removeClass('active');
     $('.proposal-item p').dotdotdot();
-  
+
     $('#content').show();
     $('nav').show();
   }
-  
+
   function display_proposal(proposal_id){
     $('#proposal-categories').hide();
     $('#proposal-group').hide();
@@ -364,7 +364,7 @@ define(['handlebars'], function(Handlebars){
     $('.make-proposal-form').hide();
     $('.login-container').hide();
     $('.proposal-detail').hide();
-  
+
     $('.proposal-detail-base').hide();
     $('#' + proposal_id).show();
     $('.proposal-header').show();
@@ -375,11 +375,11 @@ define(['handlebars'], function(Handlebars){
     $('.results-container .results-content').hide();
     $('.experience-proposal-container').show();
     $('.talk-proposal-container').show();
-  
+
     var topic_id = proposal_id.split('-').pop();
     loadRandomProposal(topic_id, private_token);
   }
-  
+
   function display_proposal_detail(){
     $('#proposal-categories').hide();
     $('#proposal-group').hide();
@@ -392,13 +392,13 @@ define(['handlebars'], function(Handlebars){
     $('.results-container').hide();
     $('.experience-proposal-container').hide();
     $('.talk-proposal-container').hide();
-  
+
     $('.body').show();
   }
-  
+
   function display_proposal_by_category(item){
     var $item = $('#' + item);
-    
+
     if($item.hasClass('proposal-category-items')){
       //Display Topics or Discussion by category
       $('nav').show();
@@ -415,13 +415,13 @@ define(['handlebars'], function(Handlebars){
       $('#proposal-category-' + categorySlug).find('.arrow-box').show();
     }
   }
-  
+
   var BARRA_ADDED = false;
   function addBarraDoGoverno(){
     console.log('add barra');
-    
+
     if( BARRA_ADDED ) { return; }
-  
+
     var HTML_BODY_PREPEND = '' +
       '<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> ' +
         '<ul id="menu-barra-temp" style="list-style:none;">' +
@@ -429,11 +429,11 @@ define(['handlebars'], function(Handlebars){
           '<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>' +
         '</ul>' +
       '</div>';
-  
+
     var HTML_BODY_APPEND = ''+
       '<div id="footer-brasil"></div>' +
       '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
-  
+
     var STYLE_TEMA_AZUL = '' +
       '<style>'+
         '#footer-brasil {'+
@@ -446,88 +446,88 @@ define(['handlebars'], function(Handlebars){
           'width: auto;'+
         '}'+
       '<style>';
-  
+
     var $body = $(document.body);
     $body.prepend(HTML_BODY_PREPEND);
     $body.append(HTML_BODY_APPEND);
     $body.append(STYLE_TEMA_AZUL);
-  
+
     BARRA_ADDED = true;
   }
-  
+
   function updateHash(hash){
     var id = hash.replace(/^.*#/, '');
     var elem = document.getElementById(id);
-  
+
     // preserve the query param
     // if (HIDE_BARRA_DO_GOVERNO && (hash.indexOf('?barra=false') === -1)){
     //   hash += '?barra=false';
     // }
-  
+
     if ( !elem ) {
       window.location.hash = hash;
       return;
     }
-  
+
     elem.id = id+'-tmp';
     window.location.hash = hash;
     elem.id = id;
   }
-  
+
   function locationHashChanged(){
     var hash = window.location.hash;
     navigateTo(hash);
   }
-  
+
   var HIDE_BARRA_DO_GOVERNO = false;
   function navigateTo(hash){
     var regexProposals = /#\/programas/;
     var regexCategory = /#\/temas/;
     var regexHideBarra = /barra=false$/;
-    
+
     if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
       addBarraDoGoverno();
     }else{
       HIDE_BARRA_DO_GOVERNO = true;
     }
-  
+
     // remove query params
     hash = hash.split('?')[0];
-  
+
     var parts = hash.split('/');
-    
+
     var isProposal = regexProposals.exec(hash) !== null;
     var isCategory = regexCategory.exec(hash) !== null;
-  
+
     if( isProposal ){
-      
-      // go to proposal 
+
+      // go to proposal
       var proposalId = parts[2];
       navigateToProposal(proposalId);
     }
-  
+
     if( isCategory ){
-      
-      // go to category 
+
+      // go to category
       var categoryId = parts[3];
       navigateToCategory(categoryId);
     }
-  
+
     // default
     if( !isProposal && !isCategory ){
       // show the 'index' -> category tab
       display_category_tab();
     }
-  
+
     $('html, body').animate({ scrollTop: 0 }, 'fast');
   }
-  
-  function navigateToProposal(proposalId){  
+
+  function navigateToProposal(proposalId){
     if(proposalId === undefined){
       display_proposals_tab();
     }else{
       display_proposal('proposal-item-' + proposalId);
-  
+
       // show sub-page
       var regexSubpages = /sobre-o-programa$/;
       var m;
@@ -536,7 +536,7 @@ define(['handlebars'], function(Handlebars){
       }
     }
   }
-  
+
   function navigateToCategory(categoryId){
     if(categoryId === undefined){
       display_category_tab();
@@ -544,7 +544,7 @@ define(['handlebars'], function(Handlebars){
       display_proposal_by_category('proposal-item-' + categoryId);
     }
   }
-  
+
   if('onhashchange' in window){
     window.onhashchange = locationHashChanged;
   }else{
