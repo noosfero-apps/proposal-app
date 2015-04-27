@@ -218,6 +218,13 @@ define(['handlebars'], function(Handlebars){
       });
       $body.off('click', '.vote-actions .like');
       $body.on('click', '.vote-actions .like', function(e) {
+        //Helps to prevent more than one vote per proposal
+        if(hasProposalbeenVoted(article.id)){
+          console.log("Proposta " + article.id + " já havia sido votada");
+          loadRandomProposal(topic_id, private_token);
+          e.preventDefault();
+          return;
+        }
         $.ajax({
           type: 'post',
           url: host + '/api/v1/articles/' + article.id + '/vote',
@@ -226,6 +233,7 @@ define(['handlebars'], function(Handlebars){
             private_token: private_token
           }
         }).done(function( /*data*/ ) {
+          addVotedProposal(article.id);
           loadRandomProposal(topic_id, private_token);
         });
         e.preventDefault();
@@ -543,6 +551,28 @@ define(['handlebars'], function(Handlebars){
     }else{
       display_proposal_by_category('proposal-item-' + categoryId);
     }
+  }
+
+  function addVotedProposal(id) {
+    var votedProposals;
+    if (typeof($.cookie("votedProposals")) == "undefined"){
+      votedProposals = [];
+    }
+    else{
+      votedProposals = JSON.parse($.cookie("votedProposals"));
+    }
+    if (votedProposals.indexOf(id)==-1){
+      votedProposals.push(id);
+    }
+    $.cookie("votedProposals", JSON.stringify(votedProposals), {expires : 999 }) ;
+  }
+
+  function hasProposalbeenVoted(id) {
+    if (typeof($.cookie("votedProposals")) == "undefined") {
+      return false;
+    }
+    votedProposals = JSON.parse($.cookie("votedProposals"));
+    return votedProposals.indexOf(id)!=-1;
   }
 
   if('onhashchange' in window){
