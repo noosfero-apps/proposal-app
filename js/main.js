@@ -167,7 +167,7 @@ define(['handlebars'], function(Handlebars){
         message.text('');
         $.ajax({
           type: 'post',
-          url: host + '/api/v1/articles/' + proposal_id + '/children',
+          url: host + $form.attr('action'),
           data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + guid()
         })
         .done(function( /*data*/ ) {
@@ -338,6 +338,7 @@ define(['handlebars'], function(Handlebars){
         .toString(16)
         .substring(1);
     }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
 
   function display_category_tab(){
