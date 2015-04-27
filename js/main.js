@@ -31,7 +31,7 @@ define(['handlebars'], function(Handlebars){
   }
 
   // Load data from localhost when it is dev env.
-  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,body,title,image,url';
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url';
 
   $.getJSON(noosferoAPI)
     .done(function( data ) {
@@ -388,7 +388,7 @@ define(['handlebars'], function(Handlebars){
     loadRandomProposal(topic_id, private_token);
   }
 
-  function display_proposal_detail(){
+  function display_proposal_detail(proposal_id){
     $('#proposal-categories').hide();
     $('#proposal-group').hide();
     $('nav').hide();
@@ -400,10 +400,17 @@ define(['handlebars'], function(Handlebars){
     $('.results-container').hide();
     $('.experience-proposal-container').hide();
     $('.talk-proposal-container').hide();
-
     $('.body').show();
-  }
 
+    var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+    $.getJSON(url).done(function( data ) {
+      $('.body-content').replaceWith(data.article.body);
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+      var err = textStatus + ', ' + error;
+      console.log( 'Request Failed: ' + err );
+    });
+  }
   function display_proposal_by_category(item){
     var $item = $('#' + item);
 
@@ -540,7 +547,7 @@ define(['handlebars'], function(Handlebars){
       var regexSubpages = /sobre-o-programa$/;
       var m;
       if((m = regexSubpages.exec(window.location.hash)) !== null ){
-        display_proposal_detail();
+        display_proposal_detail(proposalId);
       }
     }
   }
