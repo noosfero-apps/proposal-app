@@ -11,6 +11,7 @@ base = removeUrlParameters(base);
 
 requirejs.config({
     baseUrl: ( base + '/js/'),
+    waitSeconds: 0,
     paths: {
         jquery: 'jquery-2.1.3.min',
         jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min', 
