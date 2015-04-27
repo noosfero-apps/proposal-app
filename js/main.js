@@ -433,8 +433,7 @@ define(['handlebars'], function(Handlebars){
 
   var BARRA_ADDED = false;
   function addBarraDoGoverno(){
-    console.log('add barra');
-
+    
     if( BARRA_ADDED ) { return; }
 
     var HTML_BODY_PREPEND = '' +
