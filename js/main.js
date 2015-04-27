@@ -319,10 +319,10 @@ define(['handlebars'], function(Handlebars){
       loginButton.siblings('.login-container').show();
     }
   }
-  
-  // function oauthPluginHandleLoginResult(loggedIn, token) {
-  //   loginCallback(loggedIn, token);
-  // }
+
+  function oauthPluginHandleLoginResult(loggedIn, token) {
+    loginCallback(loggedIn, token);
+  }
   
   function guid() {
     function s4() {
@@ -330,8 +330,6 @@ define(['handlebars'], function(Handlebars){
         .toString(16)
         .substring(1);
     }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
   }
   
   function display_category_tab(){
