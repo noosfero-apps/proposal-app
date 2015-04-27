@@ -86,12 +86,18 @@
 
   .proposal-item {
     width: 48%;
-    min-height: 200px;
+    // min-height: 200px;
     margin: 0.5%;
     background: #fff;
     border-radius: 5px;
     vertical-align: top;
     border: 1px solid #03316f;
+    .proposal-link {
+      min-height: 200px;
+      p {
+        font-weight: 400;
+      }
+    }
   }
 
   .proposal-item:hover {
@@ -184,6 +190,9 @@
   p, .description, label, .info, h2 small{
     font-size: 18px !important;
   }
+  .bloco-destaque {
+    background-image: url("transparent");
+  }
 }
 @media only screen and (max-width: 630px) {
   .proposal-detail .categories select{
@@ -194,5 +203,8 @@
 @media only screen and (max-width: 768px) {
   .proposal-item {
     width: 95% !important;
+  }
+  .bloco-destaque {
+    background-image: none !important;
   }
 }

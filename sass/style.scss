@@ -13,6 +13,9 @@
 @import 'proposal_detail/urgencia-e-emergencia';
 @import 'proposal_detail/mais-medicos';
 
+// Prevent text size change on orientation change.
+html { -webkit-text-size-adjust: 100%; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -45,15 +48,17 @@ h1 {
 
 #content {
   padding-bottom: 50px;
-  /*background: transparent url(./images/header.png) center bottom no-repeat;*/
   p {
+    
+    text-align: justify;
+    margin: 20px;
+    line-height: 1.5em;
+    font-size: 1.2em;
+
     font{
       weight: lighter;
       size: 14px;
     }
-    text-align: justify;
-    margin: 20px;
-    line-height: 1.5em;
   }
 }
 
@@ -131,4 +136,11 @@ form {
 
 .ui-helper-hidden-accessible{
   display: none;
+}
+
+// shame hack for issue #72
+@media (max-width: 992px) {
+  .col-md-6 > img {
+    margin-bottom: 20px;
+  }
 }
