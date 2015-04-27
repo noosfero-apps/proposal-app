@@ -305,11 +305,13 @@
       var base = window.location.href;
       var host = window.location.host;
       var regex = new RegExp(".*" + host + '/', "g");
+
       if(host){
         base = base.replace(regex,'');
       }else{
         base = base.replace('index.html','');
       }
+      base = removeUrlParameters(base);
     
       require.config({
           baseUrl: ( base + '/js/'),
