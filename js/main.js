@@ -358,8 +358,6 @@ define(['handlebars'], function(Handlebars){
     $('#proposal-group').show();
     $('#nav-proposal-group a').addClass('active');
     $('#nav-proposal-categories a').removeClass('active');
-    $('.proposal-item p').dotdotdot();
-
     $('#content').show();
     $('nav').show();
   }
@@ -424,7 +422,6 @@ define(['handlebars'], function(Handlebars){
       $('.proposal-category-items').hide();
       $('.proposal-detail').hide();
       $item.toggle( 'blind', 1000 );
-      $('.proposal-item p').dotdotdot();
       $('.proposal-category .arrow-box').hide();
       var categorySlug = $item.data('category');
       $('#proposal-category-' + categorySlug).find('.arrow-box').show();

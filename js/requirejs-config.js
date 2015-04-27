@@ -17,7 +17,6 @@ requirejs.config({
         jquery_cookie: 'jquery.cookie', 
         handlebars: 'handlebars-v3.0.1',
         handlebars_helpers: 'handlebars-helpers',
-        dotdotdot: 'jquery.dotdotdot.min',
         jquery_maxlength: 'jquery.maxlength.min',
         layout: 'layout',
         main: 'main'    
@@ -28,9 +27,6 @@ requirejs.config({
         exports: 'Handlebars'
       },
       'jquery_ui': {
-        deps: ['jquery']
-      },
-      'dotdotdot': {
         deps: ['jquery']
       },
       'layout': {
@@ -46,4 +42,4 @@ requirejs.config({
 });
 
 requirejs(['jquery', 'jquery_ui', 'jquery_cookie', 'handlebars', 'handlebars_helpers']);
-requirejs(['dotdotdot', 'jquery_maxlength', 'layout', 'main']);
+requirejs(['jquery_maxlength', 'layout', 'main']);
