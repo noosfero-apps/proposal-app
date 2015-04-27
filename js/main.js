@@ -323,9 +323,9 @@ function loginCallback(loggedIn, token) {
   }
 }
 
-// function oauthPluginHandleLoginResult(loggedIn, token) {
-//   loginCallback(loggedIn, token);
-// }
+function oauthPluginHandleLoginResult(loggedIn, token) {
+  loginCallback(loggedIn, token);
+}
 
 function guid() {
   function s4() {
