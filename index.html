@@ -47,17 +47,6 @@
         return url;
       }
 
-      function loadJavaScriptSync(file_path){
-          var head = document.getElementsByTagName('head')[0];
-          var script_element = document.createElement('script');
-          script_element.type = 'text/javascript';
-          var req = new XMLHttpRequest();
-          req.open('GET', file_path, false); // 'false': synchronous.
-          req.send(null);
-          script_element.text = req.responseText;
-          head.appendChild(script_element);
-      }
-
       function loadJavaScriptAsync(file_path){
           var head = document.getElementsByTagName('head')[0];
           var script_element = document.createElement('script');
@@ -66,30 +55,10 @@
           head.appendChild(script_element);
       }
 
-      function loadJSFiles(){
-        var js_files = [
-          'js/jquery-2.1.3.min.js', 
-          'js/jquery-ui-1.11.4.custom/jquery-ui.min.js', 
-          'js/jquery.cookie.js', 
-          'js/handlebars-v3.0.1.js',
-          'js/handlebars-helpers.js',
-          'js/jquery.dotdotdot.min.js',
-          'js/jquery.maxlength.min.js',
-          'js/layout.js',
-          'js/main.js'    
-        ];
-
-        var file_path = '';
-        for(i = 0; i < js_files.length; i++){
-          file_path = makeJSURL(js_files[i]);
-          if(file_path.match('layout.js') || file_path.match('main.js')){
-            loadJavaScriptAsync(file_path);
-          }else{
-            loadJavaScriptSync(file_path);
-          }
-        }
+      function loadRequireJS(){
+        loadJavaScriptAsync(makeJSURL('js/require.js'));
       }
-
+      loadRequireJS();
       loadCSSFiles();
     </script>
 
@@ -332,8 +301,50 @@
       </form>
     </script>
 
-    <script type="text/javascript">
-      loadJSFiles();
+    <script type='text/javascript'>
+      var base = window.location.href;
+      var host = window.location.host;
+      var regex = new RegExp(".*" + host + '/', "g");
+      if(host){
+        base = base.replace(regex,'');
+      }else{
+        base = base.replace('index.html','');
+      }
+    
+      require.config({
+          baseUrl: ( base + '/js/'),
+          paths: {
+              jquery: 'jquery-2.1.3.min',
+              jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min', 
+              jquery_cookie: 'jquery.cookie', 
+              handlebars: 'handlebars-v3.0.1',
+              handlebars_helpers: 'handlebars-helpers',
+              dotdotdot: 'jquery.dotdotdot.min',
+              jquery_maxlength: 'jquery.maxlength.min',
+              layout: 'layout',
+              main: 'main'    
+          },
+          shim: {
+            'jquery_ui': {
+              deps: ['jquery']
+            },
+            'dotdotdot': {
+              deps: ['jquery']
+            },
+            'layout': {
+              deps: ['jquery']
+            },
+            'jquery_maxlength': {
+              deps: ['jquery']
+            },
+            'handlebars_helpers':{
+              deps: ['handlebars']
+            }
+          }
+      });
+      
+      requirejs(['jquery', 'jquery_ui', 'jquery_cookie', 'handlebars', 'handlebars_helpers']);
+      requirejs(['dotdotdot', 'jquery_maxlength', 'layout', 'main']);
     </script>
 
   </body>
