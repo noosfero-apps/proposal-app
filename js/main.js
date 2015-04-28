@@ -1,9 +1,9 @@
-define(['handlebars'], function(Handlebars){
+define(['handlebars','handlebars_helpers','jquery'], function(Handlebars){
 
 
   /* global Handlebars, $ */
   // The template code
-  var templateSource = document.getElementById('proposal-template').innerHTML;
+  var templateSource = $('#proposal-template').html();
 
   // compile the template
   var template = Handlebars.compile(templateSource);
@@ -529,6 +529,7 @@ define(['handlebars'], function(Handlebars){
              votedProposals.push(id);
            }
            $.cookie("votedProposals", JSON.stringify(votedProposals), {expires : 999 }) ;
+           return votedProposals;
          },
          hasProposalbeenVoted: function(id) {
            if (typeof($.cookie("votedProposals")) == "undefined") {
@@ -571,29 +572,14 @@ define(['handlebars'], function(Handlebars){
     });
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
   if('onhashchange' in window){
 
     window.onhashchange = function(){
       Main.locationHashChanged.apply(Main);
     }
-
   }else{
     console.log('The browser not supports the hashchange event!');
   }
 
-
-
-
+  return Main;
 });

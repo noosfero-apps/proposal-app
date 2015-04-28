@@ -1,8 +1,9 @@
-define(["model/main"],function(){
+define(["model/main"],function(Main){
 
   describe("addVotedProposal", function(){
     it("Should register a voted id", function(){
-        addVotedProposal(1).toEqual(true);
+        expect(Main.addVotedProposal(1)).toContain(1);
+
     });
   });
 });
