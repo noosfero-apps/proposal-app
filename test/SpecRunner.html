@@ -14,12 +14,47 @@
   <script src="lib/jasmine-2.2.0/jasmine-html.js"></script>
   <script src="lib/jasmine-2.2.0/boot.js"></script>
 
-  <!-- include source files here... -->
-  <script src="../js/main.js"></script>
+  <script type="text/javascript">
 
+        var require = {
+            paths: {
+                "domReady": "lib/requirejs-plugins/domReady",
+                "model": "../js"
+            }
+        };
+
+    </script>
+
+  <!-- include source files here... -->
+  <!-- <script src="../js/main.js"></script> -->
 
   <!-- include spec files here... -->
-  <script src="spec/MainSpec.js"></script>
+
+  <script type="text/javascript">
+
+        require(
+            [
+                "domReady!",
+                "spec/MainSpec"
+            ],
+            function( document ){
+
+                // Set up the HTML reporter - this is reponsible for
+                // aggregating the results reported by Jasmine as the
+                // tests and suites are executed.
+                jasmine.getEnv().addReporter(
+                    new jasmine.HtmlReporter()
+                );
+
+                // Run all the loaded test specs.
+                jasmine.getEnv().execute();
+
+            }
+        );
+
+    </script>
+
+  <!-- // <script src="spec/MainSpec.js"></script> -->
 
 </head>
 
