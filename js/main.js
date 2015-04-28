@@ -399,11 +399,12 @@ define(['handlebars'], function(Handlebars){
     $('.results-container').hide();
     $('.experience-proposal-container').hide();
     $('.talk-proposal-container').hide();
-    $('.body').show();
+    $('#proposal-item-' + proposal_id + '.proposal-detail').show();
+    $('#proposal-item-' + proposal_id +' .body').show();
 
     var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
     $.getJSON(url).done(function( data ) {
-      $('.body-content').replaceWith(data.article.body);
+      $('#proposal-item-' + proposal_id +' .body-content').html(data.article.body);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ', ' + error;
@@ -535,17 +536,13 @@ define(['handlebars'], function(Handlebars){
   }
 
   function navigateToProposal(proposalId){
+    var regexSubpages = /sobre-o-programa$/;
     if(proposalId === undefined){
       display_proposals_tab();
-    }else{
+    }else if(regexSubpages.exec(window.location.hash) == null){
       display_proposal('proposal-item-' + proposalId);
-
-      // show sub-page
-      var regexSubpages = /sobre-o-programa$/;
-      var m;
-      if((m = regexSubpages.exec(window.location.hash)) !== null ){
-        display_proposal_detail(proposalId);
-      }
+    }else{
+      display_proposal_detail(proposalId);
     }
   }
 
