@@ -25,7 +25,7 @@ define(['handlebars'], function(Handlebars){
   }else{
     var host = 'http://noosfero.com:3000';
     //var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
-    var private_token = '04c9b36cf0afba52915fe86f182e741c'; //local serpro
+    var private_token = 'aae32bf5031e895b00a20a529d763b31'; //local serpro
     var proposal_discussion = '632'; //local serpro
     //var proposal_discussion = '401'; //casa
   }
@@ -328,7 +328,7 @@ define(['handlebars'], function(Handlebars){
     }
   }
 
-  function oauthPluginHandleLoginResult(loggedIn, token) {
+  window.oauthPluginHandleLoginResult = function(loggedIn, token) {
     loginCallback(loggedIn, token);
   }
 
