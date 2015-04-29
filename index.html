@@ -7,33 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script type="text/javascript">
-      function removeUrlParameters(full_url){
-        var url_base = full_url.split('#').shift();
-        return url_base;
-      }
-      function addBaseUrl(filename){
-        var base = window.location.href;
-        if(base.match(/file:/) || filename.match(/http:/)){
-          base = '';
-        }else{
-          base = removeUrlParameters(base) + '/';
+      /**
+      * The Url created with module pattern
+      *
+      * @todo Moves the module to another single js file
+      */
+      var Url = (function(){
+
+        return {
+
+          initBase: function(){
+            var base = window.location.href;
+            var host = window.location.host;
+            var regex = new RegExp(".*" + host + '/', "g");
+
+            if(host){
+              base = base.replace(regex,'');
+            }else{
+              base = base.replace('index.html','');
+            }
+            return base
+          },
+          removeUrlParameters: function(full_url){
+            var url_base = full_url.split('#').shift();
+            return url_base;
+          },
+           addBaseUrl: function(filename){
+            var base = window.location.href;
+            if(base.match(/file:/) || filename.match(/http:/)){
+              base = '';
+            }else{
+              base = this.removeUrlParameters(base) + '/';
+            }
+            return base + filename;
+          }
         }
-        return base + filename;
-      }
+
+      })();
+
       function makeCSSLink(filename){
         var fileref=document.createElement('link');
         fileref.setAttribute('rel', 'stylesheet');
         fileref.setAttribute('type', 'text/css');
-        fileref.setAttribute('href',  addBaseUrl(filename));
+        fileref.setAttribute('href',  Url.addBaseUrl(filename));
         return fileref;
       }
       function loadCSSFiles(){
         var css_files = [
-          'css/bootstrap.min.css', 
-          'css/hover.custom.css', 
-          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
-          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
-          'http://fonts.googleapis.com/css?family=Asap:400,700', 
+          'css/bootstrap.min.css',
+          'css/hover.custom.css',
+          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
+          'http://fonts.googleapis.com/css?family=Asap:400,700',
           'style.css'
         ];
         head = document.getElementsByTagName('head')[0]
@@ -42,8 +67,8 @@
         }
       }
       function makeJSURL(filename){
-        var url = addBaseUrl(filename);
-       
+        var url = Url.addBaseUrl(filename);
+
         return url;
       }
 
@@ -66,17 +91,17 @@
 
     <div id="proposal-result"></div>
     <div class="clearfix"></div>
- 
+
     <script id="proposal-template" type="text/x-handlebars-template">
       <header>
         <h1><a href="#">{{article.title}}</a></h1>
         <a id="display-contrast" href="#">Alto Contraste</a>
       </header>
-  
+
       <div id="content">
         {{{article.body}}}
       </div>
-  
+
       <nav role="tabpanel">
         <ul role="tablist">
           <li id="nav-proposal-categories" role="presentation">
@@ -112,7 +137,7 @@
         </div>
       </div>
 
-      <div id="proposal-group" class="hide">        
+      <div id="proposal-group" class="hide">
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
@@ -160,7 +185,7 @@
                   <span class="fa fa-reply"></span>
                   Agora contribua para a melhoria desse programa
                 </a>
-              </div>              
+              </div>
             </div>
 
             <div class="make-proposal-container">
@@ -303,7 +328,7 @@
     </script>
 
     <script type='text/javascript'	>
-loadRequireJS();
+      loadRequireJS();
     </script>
 
 

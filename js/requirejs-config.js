@@ -1,26 +1,23 @@
-var base = window.location.href;
-var host = window.location.host;
-var regex = new RegExp(".*" + host + '/', "g");
-
-if(host){
-  base = base.replace(regex,'');
+if(window.Url){
+  var base = Url.initBase();
+  base = Url.removeUrlParameters(base) + '/js/';
 }else{
-  base = base.replace('index.html','');
+  base = '../js'
 }
-base = removeUrlParameters(base);
 
 requirejs.config({
-    baseUrl: ( base + '/js/'),
+    baseUrl: base,
     waitSeconds: 0,
     paths: {
         jquery: 'jquery-2.1.3.min',
-        jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min', 
-        jquery_cookie: 'jquery.cookie', 
+        jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min',
+        jquery_cookie: 'jquery.cookie',
         handlebars: 'handlebars-v3.0.1',
         handlebars_helpers: 'handlebars-helpers',
         jquery_maxlength: 'jquery.maxlength.min',
         layout: 'layout',
-        main: 'main'    
+        main: 'main',
+        proposal_app: 'proposal-app'
     },
     shim: {
       'handlebars':{
@@ -38,9 +35,13 @@ requirejs.config({
       },
       'handlebars_helpers':{
         deps: ['handlebars']
+      },
+      'proposal_app' :{
+        deps: ['jquery'],
+        exports: 'ProposalApp'
       }
     }
 });
 
-requirejs(['jquery', 'jquery_ui', 'jquery_cookie', 'handlebars', 'handlebars_helpers']);
-requirejs(['jquery_maxlength', 'layout', 'main']);
+requirejs(['jquery', 'proposal_app', 'jquery_ui','handlebars_helpers']);
+requirejs(['jquery_maxlength', 'layout','main']);

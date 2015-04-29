@@ -1,4 +1,4 @@
-define(['handlebars','handlebars_helpers','jquery'], function(Handlebars){
+define(['handlebars','handlebars_helpers'], function(Handlebars){
 
 
   /* global Handlebars, $ */
@@ -227,7 +227,7 @@ define(['handlebars','handlebars_helpers','jquery'], function(Handlebars){
               $body.off('click', '.vote-actions .like');
               $body.on('click', '.vote-actions .like', function(e) {
                 //Helps to prevent more than one vote per proposal
-                if(contextMain.hasProposalbeenVoted(article.id)){
+                if(ProposalApp.hasProposalbeenVoted(article.id)){
                   console.log("Proposta " + article.id + " já havia sido votada");
                   contextMain.loadRandomProposal(topic_id, private_token);
                   e.preventDefault();
@@ -241,7 +241,7 @@ define(['handlebars','handlebars_helpers','jquery'], function(Handlebars){
                     private_token: private_token
                   }
                 }).done(function( /*data*/ ) {
-                  contextMain.addVotedProposal(article.id);
+                  ProposalApp.addVotedProposal(article.id);
                   contextMain.loadRandomProposal(topic_id, private_token);
                 });
                 e.preventDefault();
@@ -516,28 +516,7 @@ define(['handlebars','handlebars_helpers','jquery'], function(Handlebars){
             }else{
               this.display_proposal_by_category('proposal-item-' + categoryId);
             }
-          },
-          addVotedProposal: function(id) {
-           var votedProposals;
-           if (typeof($.cookie("votedProposals")) == "undefined"){
-             votedProposals = [];
-           }
-           else{
-             votedProposals = JSON.parse($.cookie("votedProposals"));
-           }
-           if (votedProposals.indexOf(id)==-1){
-             votedProposals.push(id);
-           }
-           $.cookie("votedProposals", JSON.stringify(votedProposals), {expires : 999 }) ;
-           return votedProposals;
-         },
-         hasProposalbeenVoted: function(id) {
-           if (typeof($.cookie("votedProposals")) == "undefined") {
-             return false;
-           }
-           votedProposals = JSON.parse($.cookie("votedProposals"));
-           return votedProposals.indexOf(id)!=-1;
-         }
+          }
       }
     })();
 
