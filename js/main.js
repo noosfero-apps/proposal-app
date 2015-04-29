@@ -314,6 +314,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
                 .toString(16)
                 .substring(1);
             }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
           },
           display_category_tab: function(){
             $('#proposal-group').hide();
