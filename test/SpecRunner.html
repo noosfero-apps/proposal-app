@@ -7,27 +7,44 @@
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.2.0/jasmine_favicon.png">
   <link rel="stylesheet" href="lib/jasmine-2.2.0/jasmine.css">
 
-
-
-  <script src="lib/jasmine-2.2.0/jasmine.js"></script>
-  <script src="lib/jasmine-2.2.0/jasmine-html.js"></script>
+  <!-- // <script src="lib/jasmine-2.2.0/jasmine.js"></script>
+  // <script src="lib/jasmine-2.2.0/jasmine-html.js"></script> -->
   <!-- // <script src="lib/jasmine-2.2.0/boot.js"></script> -->
 
   <script type="text/javascript">
 
-        // var require = {
-        //     paths: {
-        //         "domReady": "lib/requirejs-plugins/domReady",
-        //         "model": "../js",
-        //         "handlebars": '../js/handlebars-v3.0.1',
-        //         "handlebars_helpers": '../js/handlebars-helpers',
-        //         "jquery":'../js/jquery-2.1.3.min'
-        //     }
-        // };
+        var require = {
+            paths: {
+                "domReady": "lib/requirejs-plugins/domReady",
+                "model": "../js",
+                "handlebars": '../js/handlebars-v3.0.1',
+                "handlebars_helpers": '../js/handlebars-helpers',
+                "jquery":'../js/jquery-2.1.3.min',
+                "jquery_cookie":'../js/jquery.cookie',
+                "jasmine":'lib/jasmine-2.2.0/jasmine',
+                "jasmine-html":'lib/jasmine-2.2.0/jasmine-html',
+                "jasmine-jquery":'lib/jasmine-plugins/jasmine-jquery',
+                "jasmine-boot":'lib/jasmine-2.2.0/boot'
+            },
+            shim:{
+              jasmine:{
+                exports: 'jasmine'
+              },
+              'jasmine-html':{
+                deps:['jasmine'],
+                exports: 'jasmine'
+              },
+              'jasmine-boot':{
+                deps:['jasmine-html','jasmine'],
+                exports:'jasmine'
+              }
+            }
+        };
 
     </script>
 
-  <script src="../js/require.js" data-main="../js/requirejs-config.js" ></script>
+  <script src="../js/require.js"></script>
+
   <!-- // <script src="../js/handlebars-v3.0.1.js"></script> -->
   <!-- // <script src="../js/handlebars-helpers.js"></script> -->
 
@@ -43,18 +60,36 @@
                 "domReady!",
                 "spec/MainSpec"
             ],
-            function( document ){
+            function( jasmine ){
+
+              // window.jasmine = jasmineRequire.core(jasmineRequire);
+              //
+              // jasmineRequire.html(jasmine);
+              //
+              // var jasmineEnv = jasmine.getEnv();
+              // jasmineEnv.updateInterval = 1000;
+              //
+              // var htmlReporter = new jasmine.HtmlReporter();
+              //
+              // jasmineEnv.addReporter(htmlReporter);
+              //
+              // jasmineEnv.specFilter = function (spec) {
+              //     return htmlReporter.specFilter(spec);
+              // };
+
 
                 // Set up the HTML reporter - this is reponsible for
                 // aggregating the results reported by Jasmine as the
                 // tests and suites are executed.
-                jasmine.getEnv().addReporter(
-                    new jasmine.HtmlReporter()
-                );
-
-                // Run all the loaded test specs.
-                jasmine.getEnv().execute();
-
+                // jasmine.getEnv().addReporter(
+                //     new jasmine.HtmlReporter()
+                // );
+                //
+                // // Run all the loaded test specs.
+                // jasmine.getEnv().execute();
+                if(typeof window.onload == 'function'){
+                  window.onload();
+                }
             }
         );
 

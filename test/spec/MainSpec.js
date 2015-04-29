@@ -1,9 +1,16 @@
-define(["model/main"],function(Main){
+define(['jasmine-boot', 'model/proposal-app'],function(jasmine, ProposalApp){
 
-  describe("addVotedProposal", function(){
-    it("Should register a voted id", function(){
-        expect(Main.addVotedProposal(1)).toContain(1);
-
+  describe("Limit proposal voting to one per browser", function(){
+    it("Should register a proposal id", function(){
+      expect(ProposalApp.addVotedProposal(99)).toContain(99);
     });
+
+    it("Should find a voted proposal", function(){
+      ProposalApp.addVotedProposal(3);
+      expect(ProposalApp.hasProposalbeenVoted(3)).toBe(true);
+    });
+
   });
+
+
 });
