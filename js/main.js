@@ -31,7 +31,7 @@ define(['handlebars'], function(Handlebars){
   }
 
   // Load data from localhost when it is dev env.
-  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url';
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url,setting';
 
   $.getJSON(noosferoAPI)
     .done(function( data ) {
