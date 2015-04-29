@@ -74,12 +74,20 @@ define(['handlebars'], function(Handlebars){
     ret += '</select>';
     return ret;
   });
-  
+
   Handlebars.registerHelper('trimString', function(passedString, endstring) {
     var theString = passedString.substring(0, endstring);
     return new Handlebars.SafeString(theString)
   });
-  
+
+  Handlebars.registerHelper('proposal_action', function(discussion, target) {
+    if(discussion.setting && discussion.setting.moderate_proposals) {
+      return '/api/v1/articles/'+target.id+'/children/suggest';
+    } else {
+      return '/api/v1/articles/'+target.id+'/children';
+    }
+  });
+
   function proposal_has_category(proposal, category_slug) {
     for(var i=0; i<proposal.categories.length; i++) {
       if(proposal.categories[i].slug == category_slug)

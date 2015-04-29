@@ -195,7 +195,7 @@
                 <div class="info">Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
                 <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
                 <div class="login-container hide">Login</div>
-                <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="/api/v1/articles/{{id}}/children/suggest">
+                <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}">
                   <div class="message hide"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
