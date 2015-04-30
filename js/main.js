@@ -1,6 +1,5 @@
 define(['handlebars','handlebars_helpers'], function(Handlebars){
 
-
   /* global Handlebars, $ */
   // The template code
   var templateSource = $('#proposal-template').html();
@@ -170,7 +169,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         $.ajax({
           type: 'post',
           url: host + $form.attr('action'),
-          data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + guid()
+          data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + Main.guid()
         })
         .done(function( /*data*/ ) {
           form.reset();
@@ -194,7 +193,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
     var BARRA_ADDED = false;
     var HIDE_BARRA_DO_GOVERNO = false;
 
-    var Main = (function(){
+    Main = (function(){
 
       return {
         loadRandomProposal: function (topic_id, private_token) {
@@ -305,9 +304,6 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
               loginButton.siblings('.save-article-form').hide();
               loginButton.siblings('.login-container').show();
             }
-          },
-          oauthPluginHandleLoginResult: function(loggedIn, token) {
-            loginCallback(loggedIn, token);
           },
           guid: function() {
             function s4() {
@@ -544,7 +540,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
           //withCredentials: true
         }
       }).done(function(data) {
-        loginCallback(true, data.private_token);
+        Main.loginCallback(true, data.private_token);
       }).fail(function( /*data*/ ) {
         message.show();
         message.text('Não foi possível logar');
@@ -552,6 +548,10 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
       e.preventDefault();
     });
   });
+
+  window.oauthPluginHandleLoginResult = function(loggedIn, token) {
+    Main.loginCallback(loggedIn, token);
+  }
 
   if('onhashchange' in window){
 
