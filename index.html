@@ -28,14 +28,7 @@
         return fileref;
       }
       function loadCSSFiles(){
-        var css_files = [
-          'css/bootstrap.min.css', 
-          'css/hover.custom.css', 
-          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
-          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
-          'http://fonts.googleapis.com/css?family=Asap:400,700', 
-          'style.css'
-        ];
+        var css_files = [];
         head = document.getElementsByTagName('head')[0]
         for(i = 0; i < css_files.length; i++){
           head.appendChild(makeCSSLink(css_files[i]));
@@ -61,6 +54,12 @@
       loadCSSFiles();
     </script>
 
+    <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href='css/hover.custom.css' rel='stylesheet' type='text/css'> 
+    <link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css'>
+    <link href='novo.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
 
@@ -90,12 +89,14 @@
 
       <div id="proposal-categories">
         <div id="proposal-categories-container">
-          {{#each article.categories}}
-            <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
-              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
-              <div class="arrow-box" style="display: none"></div>
-            </li>
-          {{/each}}
+          <ul>
+            {{#each article.categories}}
+              <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
+                <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
+                <div class="arrow-box" style="display: none"></div>
+              </li>
+            {{/each}}
+          </ul>
           {{#each article.categories}}
             <div id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
               <div class="header">
@@ -127,18 +128,18 @@
       {{#each article.children}}
         <div class="proposal-detail hide" id="proposal-item-{{id}}">
           <div class="categories {{#each categories}}{{slug}} {{/each}}">
-            <ul class="select">
+            <div class="select">
               {{#each categories}}
-                <li class="category proposal-category" data-category="{{slug}}">
+                <div class="category proposal-category" data-category="{{slug}}">
                   <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                   <button class="go-back btn btn-default pull-right">
                     VOLTAR
                     <span class="fa fa-reply"></span>
                   </button>
                   {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
-                </li>
+                </div>
               {{/each}}
-            </ul>
+            </div>
 
             <div class="proposal-header">
               <div class="abstract">
@@ -305,7 +306,6 @@
     <script type='text/javascript'	>
 loadRequireJS();
     </script>
-
 
   </body>
 
