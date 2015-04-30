@@ -86,6 +86,9 @@
 
   @each $category, $color in $categories {
     .#{$category}{
+      .slick-prev:before, .slick-next:before {
+        color: $color;
+      }
       .select {
         li {
           background: $color;
