@@ -11,7 +11,12 @@ define(['handlebars'], function(Handlebars){
   });
   
   Handlebars.registerHelper('list_proposal', function(proposals, options) {
-  
+
+    proposals = proposals.sort(function(p1, p2) {
+      var v1 = p1.title.toLowerCase();
+      var v2 = p2.title.toLowerCase();
+      return v1 < v2 ? -1 : (v1 > v2 ? 1 : 0);
+    });
     var ret = "";
     for(var i=0, j=proposals.length; i<j; i++) {
       var proposal = proposals[i];
