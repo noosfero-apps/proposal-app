@@ -134,7 +134,8 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
       $( '.proposal-selection' ).change(function(e){
         e.preventDefault();
 
-        Main.display_proposal('proposal-item-' + this.value);
+        // Update URL and Navigate
+        Main.updateHash('#/programas/' + this.value);
       });
 
       var availableTags = [ ];
@@ -366,11 +367,11 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
             $('.results-container').hide();
             $('.experience-proposal-container').hide();
             $('.talk-proposal-container').hide();
-            $('.body').show();
+            $('#proposal-item-' + proposal_id + ' .body').show();
 
             var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
             $.getJSON(url).done(function( data ) {
-              $('.body-content').replaceWith(data.article.body);
+              $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
             })
             .fail(function( jqxhr, textStatus, error ) {
               var err = textStatus + ', ' + error;
