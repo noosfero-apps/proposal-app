@@ -33,10 +33,6 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
   // Load data from localhost when it is dev env.
   var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url,setting';
 
-  window.oauthPluginHandleLoginResult = function(loggedIn, token) {
-    loginCallback(loggedIn, token);
-  }
-
   $.getJSON(noosferoAPI)
     .done(function( data ) {
       data.host = host;
@@ -557,8 +553,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
   }
 
   if('onhashchange' in window){
-
-    window.onhashchange = function(){
+      window.onhashchange = function(){
       Main.locationHashChanged.apply(Main);
     }
   }else{
