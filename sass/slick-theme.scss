@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+// Default Variables
+
+$slick-opacity-default: 0.75 !default;
+$slick-opacity-on-hover: 1 !default;
+$slick-opacity-not-active: 0.25 !default;
+
+/* Arrows */
+
+.slick-prev,
+.slick-next {
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 14px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    color: transparent;
+    top: 22%;
+    margin-top: -10px;
+    padding: 0;
+    border: none;
+    outline: none;
+    line-height: 1;
+    opacity: $slick-opacity-default;
+    &:hover, &:focus {
+        outline: none;
+        color: transparent;
+        opacity: $slick-opacity-on-hover;
+    }
+    &.slick-disabled {
+        opacity: $slick-opacity-not-active;
+    }
+}
+
+.slick-prev {
+    left: -25px;
+    background: url(images/arrow_left.jpg) no-repeat;
+}
+
+.slick-next {
+    right: -25px;
+    background: url(images/arrow_right.jpg) no-repeat;
+}
