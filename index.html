@@ -88,8 +88,9 @@
 
   </head>
   <body>
-
-    <div id="proposal-result"></div>
+    <div class="container">
+      <div id="proposal-result"></div>
+    </div>
     <div class="clearfix"></div>
 
     <script id="proposal-template" type="text/x-handlebars-template">
@@ -150,131 +151,133 @@
       </div>
 
       {{#each article.children}}
-        <div class="proposal-detail hide" id="proposal-item-{{id}}">
-          <div class="categories {{#each categories}}{{slug}} {{/each}}">
-            <ul class="select">
-              {{#each categories}}
-                <li class="category proposal-category" data-category="{{slug}}">
-                  <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
-                  <button class="go-back btn btn-default pull-right">
-                    VOLTAR
+        {{!-- <div class="container"> --}}
+          <div class="proposal-detail hide" id="proposal-item-{{id}}">
+            <div class="categories {{#each categories}}{{slug}} {{/each}}">
+              <ul class="select">
+                {{#each categories}}
+                  <li class="category proposal-category" data-category="{{slug}}">
+                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
+                    <button class="go-back btn btn-default pull-right">
+                      VOLTAR
+                      <span class="fa fa-reply"></span>
+                    </button>
+                    {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
+                  </li>
+                {{/each}}
+              </ul>
+
+              <div class="proposal-header">
+                <div class="abstract">
+                  <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
+                </div>
+                <div class="title">{{title}}</div>
+                <div class="abstract">{{{abstract}}}</div>
+                <div class="show_body">
+                  <a href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o Programa</span></a>
+                </div>
+              </div>
+
+              <div class="body proposal-detail-base hide">
+                <div class='body-content'>
+                  {{{body}}}
+                </div>
+                <div class="go-to-proposal-button">
+                  <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
                     <span class="fa fa-reply"></span>
-                  </button>
-                  {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
-                </li>
-              {{/each}}
-            </ul>
-
-            <div class="proposal-header">
-              <div class="abstract">
-                <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
-              </div>
-              <div class="title">{{title}}</div>
-              <div class="abstract">{{{abstract}}}</div>
-              <div class="show_body">
-                <a href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o Programa</span></a>
-              </div>
-            </div>
-
-            <div class="body proposal-detail-base hide">
-              <div class='body-content'>
-                {{{body}}}
-              </div>
-              <div class="go-to-proposal-button">
-                <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
-                  <span class="fa fa-reply"></span>
-                  Agora contribua para a melhoria desse programa
-                </a>
-              </div>
-            </div>
-
-            <div class="make-proposal-container">
-              <div class="make-proposal">
-                <div class="container-title">Faça Uma Proposta</div>
-                <div class="subtitle">Qual a sua sugestão para melhorar este programa?</div>
-                <div class="info">Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
-                <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
-                <div class="login-container hide">Login</div>
-                <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}">
-                  <div class="message hide"></div>
-                  <div>
-                    <div><label for="article_abstract">Descrição</label></div>
-                    <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
-                  </div>
-                  <input type="hidden" id="type" name="article[type]" value="ProposalsDiscussionPlugin::Proposal">
-                  <input type="submit" id="make-proposal-button" name="make-proposal-button" class="make-proposal-button" value="Enviar">
-                </form>
-                <div class="success-proposal-sent success-sent hide send-button">
-                  <p>Sua proposta foi encaminhada com sucesso!</p>
-                  <a href="#">Encaminhar Nova Proposta</a>
+                    Agora contribua para a melhoria desse programa
+                  </a>
                 </div>
-                <br style="clear: both;" />
               </div>
-            </div>
-            <div class="support-proposal-container">
-              <div class="support-proposal">
-                <div class="container-title"> Apoie outras propostas</div>
-                <div class="subtitle"> Propostas da sociedade</div>
-                <div class="random-proposal"></div>
-                <div class="loading">Carregando...</div>
-                <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
-              </div>
-            </div>
-            <div class="results-container hide"></div>
-            <div class="experience-proposal-container">
-              <div class="experience-proposal">
-                <div class="container-title">Conte sua experiência</div>
-                <p>Adoraríamos que você nos contasse a sua experiência com este programa ou a de alguém que você conhece.</p>
-                <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada.</p>
-                <div class="send-experience-button send-button"><a href="#"><span>Envie Sua Experiência</span></a></div>
-                <div class="login-container hide">Login</div>
-                <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}" action="/api/v1/articles/{{id}}/children">
-                  <div class="message hide"></div>
-                  <div>
+
+              <div class="make-proposal-container">
+                <div class="make-proposal">
+                  <div class="container-title">Faça Uma Proposta</div>
+                  <div class="subtitle">Qual a sua sugestão para melhorar este programa?</div>
+                  <div class="info">Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
+                  <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
+                  <div class="login-container hide">Login</div>
+                  <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}">
+                    <div class="message hide"></div>
                     <div>
-                      <label for="article_abstract">Descrição</label>
+                      <div><label for="article_abstract">Descrição</label></div>
+                      <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
                     </div>
-                    <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="5000"></textarea>
+                    <input type="hidden" id="type" name="article[type]" value="ProposalsDiscussionPlugin::Proposal">
+                    <input type="submit" id="make-proposal-button" name="make-proposal-button" class="make-proposal-button" value="Enviar">
+                  </form>
+                  <div class="success-proposal-sent success-sent hide send-button">
+                    <p>Sua proposta foi encaminhada com sucesso!</p>
+                    <a href="#">Encaminhar Nova Proposta</a>
                   </div>
-                  <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Story">
-                  <input type="submit" id="make-experience-button" name="make-experience-button" class="make-experience-button" value="Enviar">
-                </form>
-                <div class="success-experience-sent success-sent hide send-button">
-                  <p>Sua experiência foi encaminhada com sucesso!</p>
-                  <a href="#">Encaminhar Nova Experiência</a>
+                  <br style="clear: both;" />
                 </div>
               </div>
-            </div>
-            <div class="talk-proposal-container">
-              <div class="talk-proposal">
-                <div class="container-title">Fale com os ministros</div>
-                <p>Confira as datas e horários disponíveis:</p>
-                <ul class="calendar" data-slick='{"infinite": false, "rows": 2}'>
-                  <li>
-                    <span>Arthur Chioro</span>
-                    <span>Saúde</span>
-                    <div class="date"><i class="fa fa-calendar"></i> 17/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                  </li>
-                  <li>
-                    <span>Teresa Campello</span>
-                    <span>Desenvolvimento Social</span>
-                    <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                  </li>
-                  <li>
-                    <span>Renato Janine Ribeiro</span>
-                    <span>Educação</span>
-                    <div class="date"><i class="fa fa-calendar"></i> 24/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                  </li>
-                  <li>
-                    <span>José Eduardo Cardozo</span>
-                    <span>Justiça</span>
-                    <div class="date"><i class="fa fa-calendar"></i> 25/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                  </li>
-                </ul>
+              <div class="support-proposal-container">
+                <div class="support-proposal">
+                  <div class="container-title"> Apoie outras propostas</div>
+                  <div class="subtitle"> Propostas da sociedade</div>
+                  <div class="random-proposal"></div>
+                  <div class="loading">Carregando...</div>
+                  <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                </div>
+              </div>
+              <div class="results-container hide"></div>
+              <div class="experience-proposal-container">
+                <div class="experience-proposal">
+                  <div class="container-title">Conte sua experiência</div>
+                  <p>Adoraríamos que você nos contasse a sua experiência com este programa ou a de alguém que você conhece.</p>
+                  <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada.</p>
+                  <div class="send-experience-button send-button"><a href="#"><span>Envie Sua Experiência</span></a></div>
+                  <div class="login-container hide">Login</div>
+                  <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}" action="/api/v1/articles/{{id}}/children">
+                    <div class="message hide"></div>
+                    <div>
+                      <div>
+                        <label for="article_abstract">Descrição</label>
+                      </div>
+                      <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="5000"></textarea>
+                    </div>
+                    <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Story">
+                    <input type="submit" id="make-experience-button" name="make-experience-button" class="make-experience-button" value="Enviar">
+                  </form>
+                  <div class="success-experience-sent success-sent hide send-button">
+                    <p>Sua experiência foi encaminhada com sucesso!</p>
+                    <a href="#">Encaminhar Nova Experiência</a>
+                  </div>
+                </div>
+              </div>
+              <div class="talk-proposal-container">
+                <div class="talk-proposal">
+                  <div class="container-title">Fale com os ministros</div>
+                  <p>Confira as datas e horários disponíveis:</p>
+                  <ul class="calendar" data-slick='{"infinite": false, "rows": 2}'>
+                    <li>
+                      <span>Arthur Chioro</span>
+                      <span>Saúde</span>
+                      <div class="date"><i class="fa fa-calendar"></i> 17/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                    </li>
+                    <li>
+                      <span>Teresa Campello</span>
+                      <span>Desenvolvimento Social</span>
+                      <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                    </li>
+                    <li>
+                      <span>Renato Janine Ribeiro</span>
+                      <span>Educação</span>
+                      <div class="date"><i class="fa fa-calendar"></i> 24/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                    </li>
+                    <li>
+                      <span>José Eduardo Cardozo</span>
+                      <span>Justiça</span>
+                      <div class="date"><i class="fa fa-calendar"></i> 25/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        {{!-- </div> --}}
       {{/each}}
     </script>
 
