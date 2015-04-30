@@ -355,6 +355,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
             $('.results-container .results-content').hide();
             $('.experience-proposal-container').show();
             $('.talk-proposal-container').show();
+            $('.calendar').slick();
             var topic_id = proposal_id.split('-').pop();
             this.loadRandomProposal(topic_id, private_token);
           },
