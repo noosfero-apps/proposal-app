@@ -7,33 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script type="text/javascript">
-      function removeUrlParameters(full_url){
-        var url_base = full_url.split('#').shift();
-        return url_base;
-      }
-      function addBaseUrl(filename){
-        var base = window.location.href;
-        if(base.match(/file:/) || filename.match(/http:/)){
-          base = '';
-        }else{
-          base = removeUrlParameters(base) + '/';
+      /**
+      * The Url created with module pattern
+      *
+      * @todo Moves the module to another single js file
+      */
+      var Url = (function(){
+
+        return {
+
+          initBase: function(){
+            var base = window.location.href;
+            var host = window.location.host;
+            var regex = new RegExp(".*" + host + '/', "g");
+
+            if(host){
+              base = base.replace(regex,'');
+            }else{
+              base = base.replace('index.html','');
+            }
+            return base
+          },
+          removeUrlParameters: function(full_url){
+            var url_base = full_url.split('#').shift();
+            return url_base;
+          },
+           addBaseUrl: function(filename){
+            var base = window.location.href;
+            if(base.match(/file:/) || filename.match(/http:/)){
+              base = '';
+            }else{
+              base = this.removeUrlParameters(base) + '/';
+            }
+            return base + filename;
+          }
         }
-        return base + filename;
-      }
+
+      })();
+
       function makeCSSLink(filename){
         var fileref=document.createElement('link');
         fileref.setAttribute('rel', 'stylesheet');
         fileref.setAttribute('type', 'text/css');
-        fileref.setAttribute('href',  addBaseUrl(filename));
+        fileref.setAttribute('href',  Url.addBaseUrl(filename));
         return fileref;
       }
       function loadCSSFiles(){
         var css_files = [
-          'css/bootstrap.min.css', 
-          'css/hover.custom.css', 
-          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', 
-          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', 
-          'http://fonts.googleapis.com/css?family=Asap:400,700', 
+          'css/bootstrap.min.css',
+          'css/hover.custom.css',
+          'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
+          'http://fonts.googleapis.com/css?family=Asap:400,700',
           'style.css'
         ];
         head = document.getElementsByTagName('head')[0]
@@ -42,54 +67,22 @@
         }
       }
       function makeJSURL(filename){
-        var url = addBaseUrl(filename);
-       
+        var url = Url.addBaseUrl(filename);
+
         return url;
       }
 
-      function loadJavaScriptSync(file_path){
-          var head = document.getElementsByTagName('head')[0];
-          var script_element = document.createElement('script');
-          script_element.type = 'text/javascript';
-          var req = new XMLHttpRequest();
-          req.open('GET', file_path, false); // 'false': synchronous.
-          req.send(null);
-          script_element.text = req.responseText;
-          head.appendChild(script_element);
-      }
-
       function loadJavaScriptAsync(file_path){
-          var head = document.getElementsByTagName('head')[0];
-          var script_element = document.createElement('script');
-          script_element.type = 'text/javascript';
-          script_element.src = file_path;
-          head.appendChild(script_element);
       }
 
-      function loadJSFiles(){
-        var js_files = [
-          'js/jquery-2.1.3.min.js', 
-          'js/jquery-ui-1.11.4.custom/jquery-ui.min.js', 
-          'js/jquery.cookie.js', 
-          'js/handlebars-v3.0.1.js',
-          'js/handlebars-helpers.js',
-          'js/jquery.dotdotdot.min.js',
-          'js/jquery.maxlength.min.js',
-          'js/layout.js',
-          'js/main.js'    
-        ];
-
-        var file_path = '';
-        for(i = 0; i < js_files.length; i++){
-          file_path = makeJSURL(js_files[i]);
-          if(file_path.match('layout.js') || file_path.match('main.js')){
-            loadJavaScriptAsync(file_path);
-          }else{
-            loadJavaScriptSync(file_path);
-          }
-        }
+      function loadRequireJS(){
+        var head = document.getElementsByTagName('head')[0];
+        var script_element = document.createElement('script');
+        script_element.type = 'text/javascript';
+        script_element.src = makeJSURL('js/require.js');
+        script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js'));
+        head.appendChild(script_element);
       }
-
       loadCSSFiles();
     </script>
 
@@ -98,17 +91,17 @@
 
     <div id="proposal-result"></div>
     <div class="clearfix"></div>
- 
+
     <script id="proposal-template" type="text/x-handlebars-template">
       <header>
         <h1><a href="#">{{article.title}}</a></h1>
         <a id="display-contrast" href="#">Alto Contraste</a>
       </header>
-  
+
       <div id="content">
-        {{{article.body}}}
+        {{{article.abstract}}}
       </div>
-  
+
       <nav role="tabpanel">
         <ul role="tablist">
           <li id="nav-proposal-categories" role="presentation">
@@ -144,7 +137,7 @@
         </div>
       </div>
 
-      <div id="proposal-group" class="hide">        
+      <div id="proposal-group" class="hide">
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
@@ -184,13 +177,15 @@
             </div>
 
             <div class="body proposal-detail-base hide">
-              {{{body}}}
+              <div class='body-content'>
+                {{{body}}}
+              </div>
               <div class="go-to-proposal-button">
                 <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
                   <span class="fa fa-reply"></span>
                   Agora contribua para a melhoria desse programa
                 </a>
-              </div>              
+              </div>
             </div>
 
             <div class="make-proposal-container">
@@ -200,13 +195,13 @@
                 <div class="info">Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
                 <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
                 <div class="login-container hide">Login</div>
-                <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}">
+                <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}">
                   <div class="message hide"></div>
                   <div>
                     <div><label for="article_abstract">Descrição</label></div>
                     <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
                   </div>
-                  <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Proposal">
+                  <input type="hidden" id="type" name="article[type]" value="ProposalsDiscussionPlugin::Proposal">
                   <input type="submit" id="make-proposal-button" name="make-proposal-button" class="make-proposal-button" value="Enviar">
                 </form>
                 <div class="success-proposal-sent success-sent hide send-button">
@@ -233,7 +228,7 @@
                 <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada.</p>
                 <div class="send-experience-button send-button"><a href="#"><span>Envie Sua Experiência</span></a></div>
                 <div class="login-container hide">Login</div>
-                <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}">
+                <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}" action="/api/v1/articles/{{id}}/children">
                   <div class="message hide"></div>
                   <div>
                     <div>
@@ -332,9 +327,10 @@
       </form>
     </script>
 
-    <script type="text/javascript">
-      loadJSFiles();
+    <script type='text/javascript'	>
+      loadRequireJS();
     </script>
+
 
   </body>
 
