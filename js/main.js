@@ -43,6 +43,11 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
 
       Main.navigateTo(window.location.hash);
 
+      $('.oauth-login').on('click touchstart', function(e) {
+        Main.oauthClientAction($(this).attr('href'));
+        e.preventDefault();
+      });
+
       //Actions for links
       $( '#nav-proposal-categories a' ).on('click touchstart', function(e){
         e.preventDefault();
@@ -515,6 +520,23 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
             }else{
               this.display_proposal_by_category('proposal-item-' + categoryId);
             }
+          },
+          oauthClientAction: function(url) {
+            var child = window.open(url, "_blank");
+            var interval = setInterval(function() {
+                try {
+                  if(!child.closed) {
+                      child.postMessage({ message: "requestOauthClientPluginResult" }, "*");
+                  }
+                }
+                catch(e) {
+                    // we're here when the child window has been navigated away or closed
+                    if (child.closed) {
+                        clearInterval(interval);
+                        return;
+                    }
+                }
+            }, 300);
           }
       }
     })();
@@ -550,9 +572,12 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
     });
   });
 
-  window.oauthPluginHandleLoginResult = function(loggedIn, token) {
-    Main.loginCallback(loggedIn, token);
-  }
+  window.addEventListener("message", function(ev) {
+    if (ev.data.message === "oauthClientPluginResult") {
+      Main.loginCallback(ev.data.logged_in, ev.data.private_token);
+      ev.source.close();
+    }
+  });
 
   if('onhashchange' in window){
       window.onhashchange = function(){
