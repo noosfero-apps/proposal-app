@@ -17,9 +17,12 @@
 @import 'proposal_detail/brasil-sem-miseria';
 
 // Prevent text size change on orientation change.
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 html, body {
+  color: #000;
   margin: 0;
   padding: 0;
   height: 100%;
