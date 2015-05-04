@@ -25,16 +25,22 @@ nav li a {
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
-  background: #03316f;
+  color: #000;
+  background: #efefef;
   padding: 20px 5px;
   text-transform: uppercase;
-  border-color: #03316f;
-  border-style: solid;
-  border-width: 1px 1px 0;
+  border-bottom: 1px solid #03316f;
+
+
 }
 
 nav li a.active {
   background: #fff;
   color: #03316f;
+  border: 1px solid #03316f;
+  border-bottom: none;
+
+  &:hover{
+    cursor: default;
+  }
 }

@@ -176,12 +176,17 @@
 .contrast .category-educacao,
 .contrast .category-seguranca-publica,
 .contrast #proposal-categories .proposal-item .item, 
-.contrast #proposal-group .proposal-item .item,
+// .contrast #proposal-group .proposal-item .item,
 .contrast .make-proposal,
 .contrast .support-proposal,
 .contrast .experience-proposal,
 .contrast .talk-proposal{
-	border: 1px solid #fff !important;
+  border: 1px solid #000 !important;
+}
+
+.contrast #proposal-categories,
+.contrast #proposal-group {
+  border-top: 1px solid #fff !important;
 }
 
 .contrast #proposal-categories ul.category, 
@@ -190,9 +195,8 @@
 }
 
 .contrast nav li a.active{
-	border-top: 1px solid #fff;
-	border-left: 1px solid #fff;
-	border-right: 1px solid #fff;
+	border: 1px solid #000;
+  border-bottom: 1px solid #fff;
 }
 
 .contrast .saude .proposal-detail-base blockquote,
