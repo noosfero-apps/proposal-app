@@ -9,6 +9,7 @@ requirejs.config({
     waitSeconds: 0,
     paths: {
         jquery: 'jquery-2.1.3.min',
+        jquery_xdomainrequest: 'jquery.xdomainrequest.min',
         jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min',
         jquery_cookie: 'jquery.cookie',
         handlebars: 'handlebars-v3.0.1',
@@ -23,6 +24,9 @@ requirejs.config({
       'handlebars':{
         deps: ['jquery'],
         exports: 'Handlebars'
+      },
+      'jquery_xdomainrequest': {
+        deps: ['jquery']
       },
       'jquery_ui': {
         deps: ['jquery']
@@ -46,5 +50,5 @@ requirejs.config({
     }
 });
 
-requirejs(['jquery', 'proposal_app', 'jquery_ui','handlebars_helpers']);
+requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest', 'handlebars_helpers']);
 requirejs(['slick', 'jquery_maxlength', 'layout','main']);
