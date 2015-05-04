@@ -202,14 +202,14 @@
           background: $color;
           // background: $color url(images/black-alpha.png);
           // border-top: 5px solid $color;
-          transition: box-shadow .2s;
+          transition: background .2s;
         
           &:hover,
           &:focus {
             background-color: saturate( lighten($color, 5%), 10% );
-            -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.5);
-            -moz-box-shadow: 0 2px 5px rgba(0,0,0,.5);
-            box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            // -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            // -moz-box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            // box-shadow: 0 2px 5px rgba(0,0,0,.5);
 
             span {
               background-color: saturate( lighten($color, 5%), 10% );
@@ -223,6 +223,7 @@
           span {
             background: $color;
             // background: $color url(images/black-alpha.png);
+            transition: background .2s;
           }
         }
       }
