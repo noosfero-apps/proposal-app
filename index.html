@@ -15,29 +15,15 @@
       var Url = (function(){
 
         return {
-
           initBase: function(){
-            var base = window.location.href;
-            var host = window.location.host;
-            var regex = new RegExp(".*" + host + '/', "g");
-
-            if(host){
-              base = base.replace(regex,'');
-            }else{
-              base = base.replace('index.html','');
-            }
-            return base
+            return "//" + window.location.host + window.location.pathname.replace('/index.html','');
           },
-          removeUrlParameters: function(full_url){
-            var url_base = full_url.split('#').shift();
-            return url_base;
-          },
-           addBaseUrl: function(filename){
+          addBaseUrl: function(filename){
             var base = window.location.href;
             if(base.match(/file:/) || filename.match(/http:/)){
               base = '';
             }else{
-              base = this.removeUrlParameters(base) + '/';
+              base = this.initBase() + '/';
             }
             return base + filename;
           }

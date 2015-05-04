@@ -1,6 +1,5 @@
 if(window.Url){
-  var base = Url.initBase();
-  base = Url.removeUrlParameters(base) + '/js/';
+  var base = Url.initBase() + '/js/';
 }else{
   base = '../js'
 }
