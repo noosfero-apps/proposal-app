@@ -480,10 +480,9 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
       });
 
       $( '.proposal-selection' ).change(function(e){
-        e.preventDefault();
-
         // Update URL and Navigate
         Main.updateHash('#/programas/' + this.value);
+        $(this).val($(this).data("proposal")).trigger("chosen:updated");
       });
 
       var availableTags = [ ];

@@ -67,7 +67,7 @@ define(['handlebars'], function(Handlebars){
   
   Handlebars.registerHelper('select_proposal', function(proposals, category_slug, selected_id) {
     var ret = '<label for="proposal-selection" class="sr-only">Selecione o programa</label>'
-    ret =  ret + '<select id="proposal-selection" name="proposal-selection" title="Selecione o programa" class="proposal-selection">';
+    ret =  ret + '<select id="proposal-selection" name="proposal-selection" data-proposal="'+selected_id+'" title="Selecione o programa" class="proposal-selection">';
   
     for(var i=0; i<proposals.length; i++) {
       if(!proposal_has_category(proposals[i], category_slug)) continue;
