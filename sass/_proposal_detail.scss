@@ -202,7 +202,7 @@
           background: $color;
           // background: $color url(images/black-alpha.png);
           // border-top: 5px solid $color;
-          transition: background .2s;
+          transition: background-color .2s;
         
           &:hover,
           &:focus {
@@ -223,7 +223,7 @@
           span {
             background: $color;
             // background: $color url(images/black-alpha.png);
-            transition: background .2s;
+            transition: background-color .2s;
           }
         }
       }
