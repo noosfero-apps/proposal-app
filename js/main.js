@@ -461,10 +461,10 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         $('#proposal-result').toggleClass('contrast');
       });
 
-      $( '.show_body a' ).on('click touchstart', function(e){
+      $( '.show_body' ).on('click touchstart', function(e){
         e.preventDefault();
 
-        var $link = $(this);
+        var $link = $(this).find('a');
 
         // Update URL and Navigate
         Main.updateHash($link.attr('href'));

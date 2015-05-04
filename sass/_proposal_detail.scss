@@ -64,6 +64,11 @@
         padding: 30px 0;
         margin: 10px auto;
         text-align: center;
+        cursor: pointer;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+
 
         a {
           display: inline-block;
@@ -121,6 +126,8 @@
             color: gray;
             border: none;
             margin: 10px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
             border-radius: 6px;
             text-align: center;
             text-decoration: none;
@@ -192,15 +199,30 @@
           background: $color;
         }
         .show_body {
-          background: $color url(images/black-alpha.png);
-          border-top: 5px solid $color;
+          background: $color;
+          // background: $color url(images/black-alpha.png);
+          // border-top: 5px solid $color;
+          transition: box-shadow .2s;
+        
+          &:hover,
+          &:focus {
+            background-color: saturate( lighten($color, 5%), 10% );
+            -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            -moz-box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            box-shadow: 0 2px 5px rgba(0,0,0,.5);
+
+            span {
+              background-color: saturate( lighten($color, 5%), 10% );
+            }
+          }
 
           a {
             background: transparent url(images/white-line.png) left center repeat-x;
           }
 
           span {
-            background: $color url(images/black-alpha.png);
+            background: $color;
+            // background: $color url(images/black-alpha.png);
           }
         }
       }
@@ -246,6 +268,9 @@
         border-color: #ebccd1;
         font-weight:bold;
         color: #a94442;
+
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
         border-radius: 5px;
       }
       input, textarea {
@@ -265,6 +290,8 @@
         width: 60%;
         border: none;
         margin: 10px auto;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
         border-radius: 6px;
         text-align: center;
         text-decoration: none;
@@ -374,6 +401,8 @@
             width: 60%;
             border: none;
             margin: 0;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
             border-radius: 6px;
             text-align: center;
             text-decoration: none;
@@ -511,6 +540,8 @@
 
     .actions > a.login-action{
         background: $color;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
         border-radius: 7px;
         color: #fff;
         display: block;
@@ -521,6 +552,8 @@
 
     form .oauth .new-user{
         background: $color;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
         border-radius: 7px;
         color: #fff;
         padding: 10px 15px;
