@@ -287,13 +287,17 @@
             <td class="abstract-text">Propostas</td>
             <td class="votes-for"></td>
             <td class="votes-against"></td>
-            <td class="score">Pontuação</td>
+            <td class="apoio">Apoio</td>
+            <td class="participacao">Participacao</td>
+            <td class="score"></td>
           </tr>
           {{#each articles}}
             <tr>
               <td class="abstract-text"><div class="truncate"><p class="truncated">{{abstract}}</p></div></td>
               <td class="votes-for">{{votes_for}}</td>
               <td class="votes-against">{{votes_against}}</td>
+              <td class="apoio">{{#apoio .}}{{/apoio}}</td>
+              <td class="participacao">{{#participacao .}}{{/participacao}}</td>
               <td class="score">{{#score .}}{{/score}}</td>
             </tr>
           {{/each}}
