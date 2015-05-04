@@ -99,6 +99,11 @@
             width: auto;
           }
         }
+        &:after {
+          content:"";
+          display:table;
+          clear:both;
+        }
       }
       .results-container {
         &:before {
