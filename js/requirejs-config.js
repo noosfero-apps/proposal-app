@@ -1,9 +1,9 @@
 var base,test = '';
 
 if(window.Url){
-  var base = Url.initBase().removeUrlParameters()+'/js/';
+  base = Url.initBase() + '/js/';
 }else{
-  base = '../js'
+  base = '../js';
   test = window.location.href.replace(/\/\w*\.html/g,'');
 }
 
@@ -45,13 +45,13 @@ requirejs.config({
       'jquery_maxlength':{
         deps: ['jquery']
       },
-      'jquery_cookie':{
-        deps: ['jquery']
-      },
       'jquery_slick': {
         deps: ['jquery']
       },
-      'proposal_app' :{
+      'jquery_cookie':{
+         deps: ['jquery']
+       },
+      'proposal_app': {
         deps: ['jquery'],
         exports: 'ProposalApp'
       }

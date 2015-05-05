@@ -19,16 +19,8 @@
         return {
 
           initBase: function(){
-            _base = window.location.href;
-            var host = window.location.host;
-            var regex = new RegExp(".*" + host + '/', "g");
-
-            if(host){
-              _base = _base.replace(regex,'');
-            }else{
-              _base = _base.replace('index.html','');
-            }
-            return this;
+            _base = "//" + window.location.host + window.location.pathname.replace('/index.html','');
+            return _base;
           },
           getBase: function(){
             if(!_base){
@@ -37,17 +29,16 @@
 
             return _base;
           },
-          removeUrlParameters: function(full_url){
-            full_url = full_url || _base;
-            var url_base = full_url.split('#').shift();
-            return url_base;
+          getPath: function(){
+
+            return window.location.pathname.replace(/\/\w*\.html/g,'');
           },
            addBaseUrl: function(filename){
             base = window.location.href;
             if(base.match(/file:/) || filename.match(/http:/)){
               base = '';
             }else{
-              base = this.removeUrlParameters(base) + '/';
+              base = this.initBase() + '/';
             }
             return base + filename;
           },
@@ -93,16 +84,16 @@
         var script_element = document.createElement('script');
         script_element.type = 'text/javascript';
         script_element.src = makeJSURL('js/require.js');
-        // script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js'));
+
         if(onLoad instanceof Function){
           script_element.onreadystatechange = function(){
             if (this.readyState == 'complete'){
               onload();
             }
+
           }
           script_element.addEventListener('load', onLoad);
         }
-
         head.appendChild(script_element);
       }
       loadCSSFiles();
@@ -245,6 +236,7 @@
                 </div>
               </div>
               <div class="results-container hide"></div>
+
               <div class="experience-proposal-container">
                 <div class="experience-proposal">
                   <div class="container-title">Conte sua experiência</div>
@@ -297,6 +289,8 @@
                   </ul>
                 </div>
               </div>
+
+              <div class="clearfix"></div>
             </div>
           </div>
         {{!-- </div> --}}
@@ -363,13 +357,15 @@
     </script>
 
     <script type='text/javascript'>
+
       loadRequireJS(function(){
 
-        require([ Url.getBase()+'/js/requirejs-config' ], function(){
+        require([Url.getPath()+'/js/requirejs-config.js' ], function(){
           requirejs(['proposal_app','main']);
         });
 
       });
+
     </script>
 
   </body>

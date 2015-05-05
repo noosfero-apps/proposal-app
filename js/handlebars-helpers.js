@@ -3,13 +3,13 @@ define(['handlebars'], function(Handlebars){
   Handlebars.registerHelper('link', function(text, url) {
     text = Handlebars.Utils.escapeExpression(text);
     url  = Handlebars.Utils.escapeExpression(url);
-  
+
     // Exemplo: <a href="#/programas/{{id}}" class="proposal-link" data-target="">{{name}}</a>
     var result = '<a href="#/programas/' + url + '" data-target="proposal-item-' + url + '" class="proposal-link">' + text + '</a>';
-  
+
     return new Handlebars.SafeString(result);
   });
-  
+
   Handlebars.registerHelper('list_proposal', function(proposals, options) {
 
     proposals = proposals.sort(function(p1, p2) {
@@ -18,19 +18,19 @@ define(['handlebars'], function(Handlebars){
     var ret = "";
     for(var i=0, j=proposals.length; i<j; i++) {
       var proposal = proposals[i];
-      
-      element = '<li class="proposal-item">' + 
+
+      element = '<li class="proposal-item">' +
         '<a href="#/programas/'+proposal.id+'" data-target="proposal-item-'+proposal.id+'" class="proposal-link">' +
           '<div class="item">' +
             '' + proposal.title;
       category = "<ul class='category'>";
-      
-      
+
+
       for(var x=0, y=proposal.categories.length; x<y; x++) {
         if((options.hash['category'] != null) && (options.hash['category'] != proposal.categories[x].slug)){
           element = '';
           continue;
-        }      
+        }
         category = category + '<li class="category-'+proposal.categories[x].slug+'">' + proposal.categories[x].name + '</li>';
       }
       if(element == ''){
@@ -39,13 +39,13 @@ define(['handlebars'], function(Handlebars){
       category =  category + '</ul>';
       // element = element + options.fn(proposal);
       element = element + (proposal.abstract ? proposal.abstract : '');
-  
+
       element = element + category;
       ret = ret + element + '</div></a></li>';
     }
     return ret;
   });
-  
+
   Handlebars.registerHelper('proposal_detail', function(proposals, options) {
     var ret = "";
     for(var i=0, j=proposals.length; i<j; i++) {
@@ -56,29 +56,29 @@ define(['handlebars'], function(Handlebars){
     }
     return ret;
   });
-  
+
   Handlebars.registerHelper('replace', function(string, to_replace, replacement) {
     return (string || '').replace(new RegExp(to_replace, 'g'), replacement);
   });
-  
+
   Handlebars.registerHelper('score', function(article) {
     return article.votes_for - article.votes_against;
   });
-  
+
   Handlebars.registerHelper('apoio', function(article) {
     // return (article.votes_for - article.votes_against)/(article.countViews);
     return 0;
   });
-  
+
   Handlebars.registerHelper('participacao', function(article) {
     // return (article.votes_for + article.votes_against)/(article.countViews);
     return 0;
   });
-  
+
   Handlebars.registerHelper('select_proposal', function(proposals, category_slug, selected_id) {
     var ret = '<label for="proposal-selection" class="sr-only">Selecione o programa</label>'
     ret =  ret + '<select id="proposal-selection" name="proposal-selection" data-proposal="'+selected_id+'" title="Selecione o programa" class="proposal-selection">';
-  
+
     for(var i=0; i<proposals.length; i++) {
       if(!proposal_has_category(proposals[i], category_slug)) continue;
       var selected = proposals[i].id===selected_id ? "selected" : "";
@@ -108,5 +108,7 @@ define(['handlebars'], function(Handlebars){
     }
     return false;
   }
+
+  return Handlebars;
 
 });
