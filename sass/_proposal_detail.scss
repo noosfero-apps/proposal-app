@@ -299,6 +299,12 @@
         padding: 20px;
         display: block;
 
+        transition: background-color .2s;
+        
+        &:hover,
+        &:focus {
+          background-color: saturate( lighten($color, 5%), 10% );
+        }
         span {
           padding-left: 20px;
           background: transparent url(images/airplane.png) left center no-repeat;
@@ -413,6 +419,13 @@
             bottom: 40px;
             left: 50%;
             margin-left: -30%;
+
+            transition: background-color .2s;
+            
+            &:hover,
+            &:focus {
+              background-color: saturate( lighten($color, 5%), 10% );
+            }
           }
           .vote-result {
             font-size: 14px;
@@ -429,6 +442,11 @@
             left: 0;
             text-decoration: none;
             color: $color;
+
+            &:hover,
+            &:focus {
+              text-decoration: underline;
+            }
           }
         }
       }
