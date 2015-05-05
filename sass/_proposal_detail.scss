@@ -623,6 +623,8 @@
     overflow-y: auto;
     max-height: 190px;
     margin-bottom: 10px;
+    word-break: break-word;
+    word-wrap: break-word;
 
     @media only screen and (max-width: 1048px) {
       max-height: 140px;
