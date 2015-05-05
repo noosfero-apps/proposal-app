@@ -1,4 +1,4 @@
-define(['jquery','jquery_cookie'],function($){
+define(['jquery_cookie'],function(){
 
 
   ProposalApp = (function (){

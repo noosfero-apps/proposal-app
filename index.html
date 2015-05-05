@@ -14,32 +14,46 @@
       */
       var Url = (function(){
 
+        var _base = '';
+
         return {
 
           initBase: function(){
-            var base = window.location.href;
+            _base = window.location.href;
             var host = window.location.host;
             var regex = new RegExp(".*" + host + '/', "g");
 
             if(host){
-              base = base.replace(regex,'');
+              _base = _base.replace(regex,'');
             }else{
-              base = base.replace('index.html','');
+              _base = _base.replace('index.html','');
             }
-            return base
+            return this;
+          },
+          getBase: function(){
+            
+            if(!_base){
+              this.initBase();
+            }
+
+            return _base;
           },
           removeUrlParameters: function(full_url){
+            full_url = full_url || _base;
             var url_base = full_url.split('#').shift();
             return url_base;
           },
            addBaseUrl: function(filename){
-            var base = window.location.href;
+            base = window.location.href;
             if(base.match(/file:/) || filename.match(/http:/)){
               base = '';
             }else{
               base = this.removeUrlParameters(base) + '/';
             }
             return base + filename;
+          },
+          toString: function(){
+            return this.getBase();
           }
         }
 
@@ -75,12 +89,21 @@
       function loadJavaScriptAsync(file_path){
       }
 
-      function loadRequireJS(){
+      function loadRequireJS(onLoad){
         var head = document.getElementsByTagName('head')[0];
         var script_element = document.createElement('script');
         script_element.type = 'text/javascript';
         script_element.src = makeJSURL('js/require.js');
-        script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js'));
+        // script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js'));
+        if(onLoad instanceof Function){
+          script_element.onreadystatechange = function(){
+            if (this.readyState == 'complete'){
+              onload();
+            }
+          }
+          script_element.addEventListener('load', onLoad);
+        }
+
         head.appendChild(script_element);
       }
       loadCSSFiles();
@@ -197,7 +220,7 @@
                   <div class="info">Ela se tornará pública em até 24 horas após o envio e poderá ser apoiada por outros participantes.</div>
                   <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
                   <div class="login-container hide">Login</div>
-                  <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
+                  <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}">
                     <div class="message hide"></div>
                     <div>
                       <div><label for="article_abstract">Descrição</label></div>
@@ -230,7 +253,7 @@
                   <p>Esta história pode nos ajudar a melhorar a nossa ação e não será divulgada.</p>
                   <div class="send-experience-button send-button"><a href="#"><span>Envie Sua Experiência</span></a></div>
                   <div class="login-container hide">Login</div>
-                  <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}" action="/api/v1/articles/{{id}}/children" method="post">
+                  <form class="make-experience-form save-article-form hide" id="make-experience-form-{{id}}" action="/api/v1/articles/{{id}}/children">
                     <div class="message hide"></div>
                     <div>
                       <div>
@@ -258,7 +281,7 @@
                       <div class="date"><i class="fa fa-calendar"></i> 17/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
                     <li>
-                      <span>Tereza Campello</span>
+                      <span>Teresa Campello</span>
                       <span>Desenvolvimento Social</span>
                       <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
@@ -333,17 +356,22 @@
         </div>
         <div class="oauth">
           <div class="label">Acessar com:</div>
-          <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login">Facebook</a>
-          <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login">Google +</a>
+          <a href="/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook">Facebook</a>
+          <a href="/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google">Google +</a>
           <a href="http://www.participa.br/account/signup" target="_blank" class="new-user">Cadastrar</a>
         </div>
       </form>
     </script>
 
-    <script type='text/javascript'	>
-      loadRequireJS();
-    </script>
+    <script type='text/javascript'>
+      loadRequireJS(function(){
 
+        require([ Url.getBase()+'/js/requirejs-config' ], function(){
+          requirejs(['proposal_app','main']);
+        });
+
+      });
+    </script>
 
   </body>
 
