@@ -104,7 +104,9 @@
     }
     .go-to-proposal-button a {
       background: $color;
-      border-radius: 3px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
       color: #fff;
       display: block;
       padding: 1em;
@@ -113,6 +115,12 @@
       text-transform: uppercase;
       .fa-reply {
         margin-right: .7em;
+      }
+
+      transition: background-color .2s;
+      &:hover,
+      &:focus {
+        background-color: saturate( lighten($color, 5%), 10% );
       }
     }
     .row {

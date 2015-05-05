@@ -64,6 +64,11 @@
         padding: 30px 0;
         margin: 10px auto;
         text-align: center;
+        cursor: pointer;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+
 
         a {
           display: inline-block;
@@ -99,6 +104,11 @@
             width: auto;
           }
         }
+        &:after {
+          content:"";
+          display:table;
+          clear:both;
+        }
       }
       .results-container {
         &:before {
@@ -116,6 +126,8 @@
             color: gray;
             border: none;
             margin: 10px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
             border-radius: 6px;
             text-align: center;
             text-decoration: none;
@@ -181,21 +193,37 @@
 
       .proposal-header {
         .title {
-          background: $color;
+          background: darken($color, 15%);
         }
         .abstract p {
-          background: $color;
+          background: darken($color, 15%);
         }
         .show_body {
-          background: $color url(images/black-alpha.png);
-          border-top: 5px solid $color;
+          background: $color;
+          // background: $color url(images/black-alpha.png);
+          // border-top: 5px solid $color;
+          transition: background-color .2s;
+        
+          &:hover,
+          &:focus {
+            background-color: saturate( lighten($color, 5%), 10% );
+            // -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            // -moz-box-shadow: 0 2px 5px rgba(0,0,0,.5);
+            // box-shadow: 0 2px 5px rgba(0,0,0,.5);
+
+            span {
+              background-color: saturate( lighten($color, 5%), 10% );
+            }
+          }
 
           a {
             background: transparent url(images/white-line.png) left center repeat-x;
           }
 
           span {
-            background: $color url(images/black-alpha.png);
+            background: $color;
+            // background: $color url(images/black-alpha.png);
+            transition: background-color .2s;
           }
         }
       }
@@ -241,6 +269,9 @@
         border-color: #ebccd1;
         font-weight:bold;
         color: #a94442;
+
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
         border-radius: 5px;
       }
       input, textarea {
@@ -260,12 +291,20 @@
         width: 60%;
         border: none;
         margin: 10px auto;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
         border-radius: 6px;
         text-align: center;
         text-decoration: none;
         padding: 20px;
         display: block;
 
+        transition: background-color .2s;
+        
+        &:hover,
+        &:focus {
+          background-color: saturate( lighten($color, 5%), 10% );
+        }
         span {
           padding-left: 20px;
           background: transparent url(images/airplane.png) left center no-repeat;
@@ -369,6 +408,8 @@
             width: 60%;
             border: none;
             margin: 0;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
             border-radius: 6px;
             text-align: center;
             text-decoration: none;
@@ -378,6 +419,13 @@
             bottom: 40px;
             left: 50%;
             margin-left: -30%;
+
+            transition: background-color .2s;
+            
+            &:hover,
+            &:focus {
+              background-color: saturate( lighten($color, 5%), 10% );
+            }
           }
           .vote-result {
             font-size: 14px;
@@ -394,6 +442,11 @@
             left: 0;
             text-decoration: none;
             color: $color;
+
+            &:hover,
+            &:focus {
+              text-decoration: underline;
+            }
           }
         }
       }
@@ -506,6 +559,8 @@
 
     .actions > a.login-action{
         background: $color;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
         border-radius: 7px;
         color: #fff;
         display: block;
@@ -516,6 +571,8 @@
 
     form .oauth .new-user{
         background: $color;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
         border-radius: 7px;
         color: #fff;
         padding: 10px 15px;
@@ -566,6 +623,8 @@
     overflow-y: auto;
     max-height: 190px;
     margin-bottom: 10px;
+    word-break: break-word;
+    word-wrap: break-word;
 
     @media only screen and (max-width: 1048px) {
       max-height: 140px;

@@ -12,6 +12,7 @@ requirejs.config({
     waitSeconds: 0,
     paths: {
         jquery: 'jquery-2.1.3.min',
+        jquery_xdomainrequest: 'jquery.xdomainrequest.min',
         jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min',
         jquery_cookie: 'jquery.cookie',
         handlebars: 'handlebars-v3.0.1',
@@ -31,6 +32,9 @@ requirejs.config({
       'handlebars_helpers':{
         deps: ['handlebars'],
         exports: 'Handlebars'
+      },
+      'jquery_xdomainrequest': {
+        deps: ['jquery']
       },
       'jquery_ui': {
         deps: ['jquery']

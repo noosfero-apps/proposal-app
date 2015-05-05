@@ -65,9 +65,19 @@ define(['handlebars'], function(Handlebars){
     return article.votes_for - article.votes_against;
   });
   
+  Handlebars.registerHelper('apoio', function(article) {
+    // return (article.votes_for - article.votes_against)/(article.countViews);
+    return 0;
+  });
+  
+  Handlebars.registerHelper('participacao', function(article) {
+    // return (article.votes_for + article.votes_against)/(article.countViews);
+    return 0;
+  });
+  
   Handlebars.registerHelper('select_proposal', function(proposals, category_slug, selected_id) {
     var ret = '<label for="proposal-selection" class="sr-only">Selecione o programa</label>'
-    ret =  ret + '<select id="proposal-selection" name="proposal-selection" title="Selecione o programa" class="proposal-selection">';
+    ret =  ret + '<select id="proposal-selection" name="proposal-selection" data-proposal="'+selected_id+'" title="Selecione o programa" class="proposal-selection">';
   
     for(var i=0; i<proposals.length; i++) {
       if(!proposal_has_category(proposals[i], category_slug)) continue;
