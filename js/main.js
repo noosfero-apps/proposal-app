@@ -439,6 +439,9 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         if(isSubpage){
           // return to proposal page
           newHash = oldHash.split('/sobre-o-programa')[0];
+        }else{
+          $link = $(this).siblings('.proposal-link');
+          newHash = $link.attr('href');
         }
 
         // Update URL and Navigate
