@@ -497,7 +497,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         source: availableTags,
         minLength: 3,
         select: function( event, ui ) {
-          updateHash(ui.item.value);
+          Main.updateHash(ui.item.value);
           return false;
         },
         appendTo: '#search-input-container',
