@@ -1,4 +1,4 @@
-define(['jasmine-boot', 'model/proposal-app'],function(jasmine, ProposalApp){
+define(['jasmine-boot', 'proposal_app'],function(jasmine, ProposalApp){
 
   describe("Limit proposal voting to one per browser", function(){
     it("Should register a proposal id", function(){
@@ -11,6 +11,5 @@ define(['jasmine-boot', 'model/proposal-app'],function(jasmine, ProposalApp){
     });
 
   });
-
 
 });
