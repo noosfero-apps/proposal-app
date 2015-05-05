@@ -178,20 +178,23 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
           $('#proposal-group').hide();
           $('nav').hide();
           $('#content').hide();
-          $('.make-proposal-form').hide();
-          $('.login-container').hide();
-          $('.proposal-detail').hide();
-          $('.proposal-detail-base').hide();
-          $('#' + proposal_id).show();
-          $('.proposal-header').show();
-          $('.make-proposal-container').show();
-          $('.support-proposal-container').show();
-          $('.results-container').hide();
-          $('.results-container .loading').hide();
-          $('.results-container .results-content').hide();
-          $('.experience-proposal-container').show();
-          $('.talk-proposal-container').show();
-          $('.calendar').slick();
+          // $('.make-proposal-form').hide();
+          // $('.login-container').hide();
+          $('.proposal-detail').hide(); // hide all proposals
+          // $('.proposal-detail-base').hide();
+          $proposal = $('#' + proposal_id);
+          $proposal.find('.proposal-detail-base').hide();
+          $proposal.show();
+          $proposal.find('.proposal-header').show();
+          $proposal.find('.make-proposal-container').show();
+          $proposal.find('.support-proposal-container').show();
+          $proposal.find('.results-container').hide();
+          $proposal.find('.results-container .loading').hide();
+          $proposal.find('.results-container .results-content').hide();
+          $proposal.find('.experience-proposal-container').show();
+          $proposal.find('.talk-proposal-container').show();
+          $proposal.find('.calendar').slick();
+
           var topic_id = proposal_id.split('-').pop();
           this.loadRandomProposal(topic_id, private_token);
         },
@@ -200,15 +203,16 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
           $('#proposal-group').hide();
           $('nav').hide();
           $('#content').hide();
-          $('.make-proposal-form').hide();
-          $('.proposal-header').hide();
-          $('.make-proposal-container').hide();
-          $('.support-proposal-container').hide();
-          $('.results-container').hide();
-          $('.experience-proposal-container').hide();
-          $('.talk-proposal-container').hide();
-          $('#proposal-item-' + proposal_id + '.proposal-detail').show();
-          $('#proposal-item-' + proposal_id + ' .body').show();
+          $proposal = $('#proposal-item-' + proposal_id);
+          $proposal.find('.make-proposal-form').hide();
+          $proposal.find('.proposal-header').hide();
+          $proposal.find('.make-proposal-container').hide();
+          $proposal.find('.support-proposal-container').hide();
+          $proposal.find('.results-container').hide();
+          $proposal.find('.experience-proposal-container').hide();
+          $proposal.find('.talk-proposal-container').hide();
+          $proposal.find('.body').show();
+          $proposal.show();
 
           var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
           $.getJSON(url).done(function( data ) {
@@ -456,6 +460,9 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         loginButton = $this.parents('.send-button');
         loginButton.hide();
         $this.parents('.success-proposal-sent').hide();
+        $wrapper = $this.parents('.make-proposal');
+        $wrapper.find('.subtitle').show();
+        $wrapper.find('.info').show();
         Main.loginCallback(logged_in);
       });
 
@@ -525,6 +532,8 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
           form.reset();
           $form.hide();
           $form.siblings('.success-sent').show();
+          $form.siblings('.subtitle').hide();
+          $form.siblings('.info').hide();
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
