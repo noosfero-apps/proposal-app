@@ -193,10 +193,10 @@
 
       .proposal-header {
         .title {
-          background: $color;
+          background: darken($color, 15%);
         }
         .abstract p {
-          background: $color;
+          background: darken($color, 15%);
         }
         .show_body {
           background: $color;
