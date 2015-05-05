@@ -731,7 +731,8 @@
         max-height: none !important;
       }
     }
-    .send-proposal-button {
+    .send-proposal-button,
+    .success-proposal-sent {
       text-align: center !important;
       a {
         position: relative !important;
@@ -792,6 +793,13 @@
         margin: 20px auto !important;
         bottom: inherit !important;
       }
+    }
+    
+    .success-experience-sent a {
+      position: relative !important;
+      left: inherit !important;
+      margin: 20px auto !important;
+      bottom: inherit !important;
     }
   }
   .talk-proposal-container {
