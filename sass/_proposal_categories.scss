@@ -9,10 +9,12 @@
   border-bottom: 1px solid #03316f;
   border-left: 1px solid #03316f;
   border-right: 1px solid #03316f;    
+  
   li {
     list-style: none;
     display: inline-block;
   }
+  
   .proposal-category {
     a {
       text-decoration: none;
@@ -57,33 +59,8 @@
     padding-top: 10px;
   }
 
-  .proposal-item p {
-    font-size: 14px;
-    color: #172938;
-    margin: 0;
-    padding-top: 5px;
-    margin-bottom: 10px;
-    text-align: left;
-  }
-
-  .proposal-item .item {
-    padding: 15px;
-  }
-
-  .proposal-item .proposal-link {
-    padding-top: 10px;
-    display: block;
-    margin: 0;
-    color: #335277;
-    text-align: left;
-    font-family: 'Asap';
-    font-weight: 700;
-    font-size: 18pt;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
   .proposal-item {
+
     width: 48%;
     // min-height: 200px;
     margin: 0.5%;
@@ -91,21 +68,48 @@
     border-radius: 5px;
     vertical-align: top;
     border: 1px solid #03316f;
+    
+    &:hover {
+      background: #eeeff1;
+    }
+
+    p {
+      font-size: 14px;
+      color: #172938;
+      margin: 0;
+      padding-top: 5px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .item {
+      padding: 15px;
+    }
+
     .proposal-link {
+      padding-top: 10px;
+      display: block;
+      margin: 0;
+      color: #335277;
+      text-align: left;
+      font-family: 'Asap';
+      font-weight: 700;
+      font-size: 18pt;
+      text-decoration: none;
+      cursor: pointer;
       min-height: 200px;
+      
       p {
         font-weight: 400;
       }
     }
-  }
 
-  .proposal-item:hover {
-    background: #eeeff1;
   }
 
   .proposal-category-items {
     text-align: left;
     border-radius: 6px;
+    
     .proposal-list {
       padding-left: 20px;
       padding-bottom: 20px;
@@ -121,6 +125,7 @@
     color: white;
     padding: 10px 30px;
     text-align: left;
+    
     .name {
       font-weight: bold;
       border-bottom: 2px solid white;
@@ -137,11 +142,13 @@
   .proposal-category-items-#{$category} {
     background-color: $color;
   }
+
   #proposal-category-#{$category} a {
     background-image: url(./images/icons/#{$category}.png?3);
     background-color: $color;
     border-color: $color;
   }
+
   #proposal-category-#{$category} .arrow-box:after {
     border-bottom-color: $color;
   }
@@ -155,6 +162,7 @@
     background-position-x: 3px;
   }
 }
+
 @each $category, $description in $categories-descriptions {
   .proposal-category-items-#{$category} .header .description:before {
     content: "#{$description}";
