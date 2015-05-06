@@ -3,7 +3,7 @@
     a {
       text-decoration: none;
       text-transform: uppercase;
-      padding: 15px 35px;
+      padding: 15px 15px 15px 50px;
       margin: 0;
       width: 30%;
       min-width: 210px;
@@ -540,7 +540,7 @@
           background-image: url(./images/icons/#{$category}.png);
           background: {
             color: $color;
-            position: center left;
+            position: 10px 50%;
             repeat: no-repeat;
           }
         }
