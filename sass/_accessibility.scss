@@ -231,6 +231,7 @@
 .contrast .talk-proposal .container-title,
 .contrast .make-proposal .subtitle,
 .contrast .support-proposal .subtitle,
+.contrast .support-proposal .random-proposal .abstract *,
 .contrast .experience-proposal .subtitle,
 .contrast .talk-proposal .subtitle,
 .contrast .make-proposal .info,
@@ -455,10 +456,10 @@
 
 /*----------------------------------- IMAGENS --------------------------------- */
 
-.contrast .proposal-detail .saude .support-proposal-container .vote-actions .dislike,
-.contrast .proposal-detail .educacao .support-proposal-container .vote-actions .dislike,
-.contrast .proposal-detail .seguranca-publica .support-proposal-container .vote-actions .dislike,
-.contrast .proposal-detail .reducao-da-pobreza .support-proposal-container .vote-actions .dislike{
+.contrast .proposal-detail .saude .support-proposal-container .vote-actions .like.dislike,
+.contrast .proposal-detail .educacao .support-proposal-container .vote-actions .like.dislike,
+.contrast .proposal-detail .seguranca-publica .support-proposal-container .vote-actions .like.dislike,
+.contrast .proposal-detail .reducao-da-pobreza .support-proposal-container .vote-actions .like.dislike{
 	background-image: url("images/dislike-contrast.png") !important;
 }
 
