@@ -16,6 +16,7 @@ requirejs.config({
         handlebars_helpers: 'handlebars-helpers',
         jquery_maxlength: 'jquery.maxlength.min',
         slick: 'slick.min',
+        fastclick: 'fastclick.min',
         layout: 'layout',
         main: 'main',
         proposal_app: 'proposal-app'
@@ -40,6 +41,9 @@ requirejs.config({
       'slick': {
         deps: ['jquery']
       },
+      'fastclick': {
+        deps: ['jquery']
+      },
       'handlebars_helpers':{
         deps: ['handlebars']
       },
@@ -51,4 +55,4 @@ requirejs.config({
 });
 
 requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest', 'handlebars_helpers']);
-requirejs(['slick', 'jquery_maxlength', 'layout','main']);
+requirejs(['slick', 'fastclick', 'jquery_maxlength', 'layout','main']);

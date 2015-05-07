@@ -1,4 +1,4 @@
-define(['handlebars','handlebars_helpers'], function(Handlebars){
+define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, FastClick){
 
   /* global Handlebars, $ */
   // The template code
@@ -390,13 +390,13 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
 
       Main.navigateTo(window.location.hash);
 
-      $('.oauth-login').on('click touchstart', function(e) {
+      $('.oauth-login').on('click', function(e) {
         Main.oauthClientAction($(this).attr('href'));
         e.preventDefault();
       });
 
       //Actions for links
-      $( '#nav-proposal-categories a' ).on('click touchstart', function(e){
+      $( '#nav-proposal-categories a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
@@ -405,7 +405,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.updateHash($link.attr('href'));
       });
 
-      $( '#nav-proposal-group a' ).on('click touchstart', function(e){
+      $( '#nav-proposal-group a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
@@ -414,7 +414,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-item a' ).on('click touchstart', function(e){
+      $( '.proposal-item a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
@@ -423,7 +423,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-category a' ).on('click touchstart', function(e){
+      $( '.proposal-category a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
@@ -432,7 +432,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-category .go-back' ).on('click touchstart', function(e){
+      $( '.proposal-category .go-back' ).on('click', function(e){
         e.preventDefault();
 
         var oldHash = window.location.hash;
@@ -452,7 +452,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.updateHash(newHash);
       });
 
-      $( '.send-button a' ).on('click touchstart', function(e){
+      $( '.send-button a' ).on('click', function(e){
         e.preventDefault();
 
         //display form to send proposal (or login form for non-logged users)
@@ -466,12 +466,12 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.loginCallback(logged_in);
       });
 
-      $( '#display-contrast' ).on('click touchstart', function(e){
+      $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
         $('#proposal-result').toggleClass('contrast');
       });
 
-      $( '.show_body' ).on('click touchstart', function(e){
+      $( '.show_body' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this).find('a');
@@ -480,7 +480,7 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
         Main.updateHash($link.attr('href'));
       });
 
-      $( '.go-to-proposal-button a' ).on('click touchstart', function(e){
+      $( '.go-to-proposal-button a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
@@ -549,8 +549,15 @@ define(['handlebars','handlebars_helpers'], function(Handlebars){
       console.log( 'Request Failed: ' + err );
     });
 
+  // window.addEventListener('load', function() {
+  //   new FastClick(document.body);
+  // }, false);
+
 
   $(document).ready(function($) {
+    
+    FastClick.attach(document.body);
+
     if($.cookie('_dialoga_session')) {
       var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
       $.getJSON(url).done(function( /*data*/ ) {
