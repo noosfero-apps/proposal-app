@@ -12,6 +12,8 @@ requirejs.config({
         jquery_xdomainrequest: 'jquery.xdomainrequest.min',
         jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min',
         jquery_cookie: 'jquery.cookie',
+        jquery_timeago: 'jquery.timeago',
+        jquery_timeago_pt: 'jquery.timeago.pt-br',
         handlebars: 'handlebars-v3.0.1',
         handlebars_helpers: 'handlebars-helpers',
         jquery_maxlength: 'jquery.maxlength.min',
@@ -28,6 +30,12 @@ requirejs.config({
       },
       'jquery_xdomainrequest': {
         deps: ['jquery']
+      },
+      'jquery_timeago': {
+        deps: ['jquery']
+      },
+      'jquery_timeago_pt': {
+        deps: ['jquery_timeago']
       },
       'jquery_ui': {
         deps: ['jquery']
@@ -54,5 +62,5 @@ requirejs.config({
     }
 });
 
-requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest', 'handlebars_helpers']);
+requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest', 'jquery_timeago_pt', 'handlebars_helpers']);
 requirejs(['slick', 'fastclick', 'jquery_maxlength', 'layout','main']);

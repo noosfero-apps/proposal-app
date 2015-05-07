@@ -135,10 +135,18 @@
             display: block;
             float: right;
           }
+          .updated-at {
+            font-size: 12px;
+            color: gray;
+            float: right;
+          }
         }
         table {
           clear: both;
           margin-top: 20px;
+          td {
+            padding: 0 5px;
+          }
           tbody tr:nth-child(odd) {
             background-color: #e5e5e5;
           }
@@ -146,18 +154,12 @@
           .abstract-text {
             width: 80%;
           }
-          .votes-for {
+          .value {
             width: 10%;
             text-align: center;
           }
-          .votes-against {
-            @extend .votes-for;
-          }
-          .score {
-            @extend .votes-for;
-          }
           .header {
-            line-height: 32px;
+            line-height: 22px;
             font-weight: bold;
             text-align: center;
             color: rgb(68, 68, 68);
@@ -168,10 +170,8 @@
               background-position: center;
             }
             .votes-against {
+              @extend .votes-for;
               background-image: url(./images/result-dislike.png);
-            }
-            .score {
-              background-image: none;
             }
           }
 

@@ -60,21 +60,7 @@ define(['handlebars'], function(Handlebars){
   Handlebars.registerHelper('replace', function(string, to_replace, replacement) {
     return (string || '').replace(new RegExp(to_replace, 'g'), replacement);
   });
-  
-  Handlebars.registerHelper('score', function(article) {
-    return article.votes_for - article.votes_against;
-  });
-  
-  Handlebars.registerHelper('apoio', function(article) {
-    // return (article.votes_for - article.votes_against)/(article.countViews);
-    return 0;
-  });
-  
-  Handlebars.registerHelper('participacao', function(article) {
-    // return (article.votes_for + article.votes_against)/(article.countViews);
-    return 0;
-  });
-  
+
   Handlebars.registerHelper('select_proposal', function(proposals, category_slug, selected_id) {
     var ret = '<label for="proposal-selection" class="sr-only">Selecione o programa</label>'
     ret =  ret + '<select id="proposal-selection" name="proposal-selection" data-proposal="'+selected_id+'" title="Selecione o programa" class="proposal-selection">';
@@ -99,6 +85,10 @@ define(['handlebars'], function(Handlebars){
     } else {
       return '/api/v1/articles/'+target.id+'/children';
     }
+  });
+
+  Handlebars.registerHelper('round', function(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
   });
 
   function proposal_has_category(proposal, category_slug) {
