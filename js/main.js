@@ -368,9 +368,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             this.display_category_tab();
 
             
-            if(navOffset){
-              scrollTop = navOffset.top;
-            }
+            // if(navOffset){
+            //   scrollTop = navOffset.top;
+            // }
           }
 
           $('html, body').animate({ scrollTop: scrollTop }, 'fast');
