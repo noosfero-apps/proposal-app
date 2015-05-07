@@ -300,6 +300,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           this.navigateTo(hash);
         },
         navigateTo: function(hash){
+          var scrollTop = 0;
           var regexProposals = /#\/programas/;
           var regexCategory = /#\/temas/;
           var regexHideBarra = /barra=false$/;
@@ -323,6 +324,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             // go to proposal
             var proposalId = parts[2];
             this.navigateToProposal(proposalId);
+
+            var $proposal = $('#proposal-item-' + proposalId);
+            var offset = $proposal.offset();
+            if(offset){
+              scrollTop = offset.top;
+            }
           }
 
           if( isCategory ){
@@ -330,15 +337,27 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             // go to category
             var categoryId = parts[3];
             this.navigateToCategory(categoryId);
+
+            var $category = $('#proposal-item-' + categoryId);
+            var offset = $category.offset();
+            if(offset){
+              scrollTop = offset.top;
+            }
           }
 
           // default
           if( !isProposal && !isCategory ){
             // show the 'index' -> category tab
             this.display_category_tab();
+
+            var $nav = $('nav[role="tabpanel"]');
+            var offset = $nav.offset();
+            if(offset){
+              scrollTop = offset.top;
+            }
           }
 
-          $('html, body').animate({ scrollTop: 0 }, 'fast');
+          $('html, body').animate({ scrollTop: scrollTop }, 'fast');
         },
         navigateToProposal: function(proposalId){
           var regexSubpages = /sobre-o-programa$/;
