@@ -235,10 +235,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $('#nav-proposal-group a').removeClass('active');
             $('.proposal-category-items').hide();
             $('.proposal-detail').hide();
-            $item.toggle( 'blind', 1000 );
+            $item.toggle( 'blind', 200, function () {
+              var itemOffset = $item.offset();
+              if(itemOffset){
+                $('html, body').animate({ scrollTop: itemOffset.top }, 'fast');
+              }
+            } );
             $('.proposal-category .arrow-box').hide();
             var categorySlug = $item.data('category');
             $('#proposal-category-' + categorySlug).find('.arrow-box').show();
+
           }
         },
         addBarraDoGoverno: function(){
@@ -301,6 +307,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         },
         navigateTo: function(hash){
           var scrollTop = 0;
+          var $nav = $('nav[role="tabpanel"]');
+          var navOffset = $nav.offset();
+
           var regexProposals = /#\/programas/;
           var regexCategory = /#\/temas/;
           var regexHideBarra = /barra=false$/;
@@ -326,9 +335,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             this.navigateToProposal(proposalId);
 
             var $proposal = $('#proposal-item-' + proposalId);
-            var offset = $proposal.offset();
-            if(offset){
-              scrollTop = offset.top;
+            var proposalOffset = $proposal.offset();
+            if(proposalOffset){
+              scrollTop = proposalOffset.top;
+            }else{
+              if(navOffset){
+                scrollTop = navOffset.top;
+              }
             }
           }
 
@@ -339,9 +352,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             this.navigateToCategory(categoryId);
 
             var $category = $('#proposal-item-' + categoryId);
-            var offset = $category.offset();
-            if(offset){
-              scrollTop = offset.top;
+            var categoryOffset = $category.offset();
+            if(categoryOffset){
+              scrollTop = categoryOffset.top;
+            }else{
+              if(navOffset){
+                scrollTop = navOffset.top;
+              }
             }
           }
 
@@ -350,10 +367,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             // show the 'index' -> category tab
             this.display_category_tab();
 
-            var $nav = $('nav[role="tabpanel"]');
-            var offset = $nav.offset();
-            if(offset){
-              scrollTop = offset.top;
+            
+            if(navOffset){
+              scrollTop = navOffset.top;
             }
           }
 
