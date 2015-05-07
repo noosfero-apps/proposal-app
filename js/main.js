@@ -301,6 +301,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         },
         navigateTo: function(hash){
           var scrollTop = 0;
+          var $nav = $('nav[role="tabpanel"]');
+          var navOffset = $nav.offset();
+
           var regexProposals = /#\/programas/;
           var regexCategory = /#\/temas/;
           var regexHideBarra = /barra=false$/;
@@ -326,9 +329,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             this.navigateToProposal(proposalId);
 
             var $proposal = $('#proposal-item-' + proposalId);
-            var offset = $proposal.offset();
-            if(offset){
-              scrollTop = offset.top;
+            var proposalOffset = $proposal.offset();
+            if(proposalOffset){
+              scrollTop = proposalOffset.top;
+            }else{
+              if(navOffset){
+                scrollTop = navOffset.top;
+              }
             }
           }
 
@@ -339,9 +346,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             this.navigateToCategory(categoryId);
 
             var $category = $('#proposal-item-' + categoryId);
-            var offset = $category.offset();
-            if(offset){
-              scrollTop = offset.top;
+            var categoryOffset = $category.offset();
+            if(categoryOffset){
+              scrollTop = categoryOffset.top;
+            }else{
+              if(navOffset){
+                scrollTop = navOffset.top;
+              }
             }
           }
 
@@ -350,10 +361,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             // show the 'index' -> category tab
             this.display_category_tab();
 
-            var $nav = $('nav[role="tabpanel"]');
-            var offset = $nav.offset();
-            if(offset){
-              scrollTop = offset.top;
+            
+            if(navOffset){
+              scrollTop = navOffset.top;
             }
           }
 
