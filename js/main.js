@@ -17,7 +17,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
-  var participa = true;
+  var participa = false;
   if(participa){
     var host = 'http://www.participa.br';
     var private_token = '375bee7e17d0021af7160ce664874618';  //participa
@@ -102,12 +102,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                 $resultsContainer.find('.loading').show();
                 $resultsContainer.find('.results-content').hide();
 
-                var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
+                var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + private_token + '&limit=10';
                 $.getJSON(url).done(function( data ) {
 
                   $resultsContainer.html(resultsTemplate(data));
                   $resultsContainer.find('.loading').hide();
                   $resultsContainer.find('.results-content').show();
+                  $(".timeago").timeago();
                   $resultsContainer.show();
 
                   // scroll to the end

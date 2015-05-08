@@ -298,21 +298,23 @@
             <td class="abstract-text">Propostas</td>
             <td class="votes-for"></td>
             <td class="votes-against"></td>
-            {{!-- <td class="apoio">Apoio</td> --}}
-            {{!-- <td class="participacao">Participacao</td> --}}
-            <td class="score">Pontuação</td>
+            <td class="views">Exibições</td>
+            <td class="support">Apoio</td>
           </tr>
-          {{#each articles}}
+          {{#each proposals}}
             <tr>
               <td class="abstract-text"><div class="truncate"><p class="truncated">{{abstract}}</p></div></td>
-              <td class="votes-for">{{votes_for}}</td>
-              <td class="votes-against">{{votes_against}}</td>
-              {{!-- <td class="apoio">{{#apoio .}}{{/apoio}}</td> --}}
-              {{!-- <td class="participacao">{{#participacao .}}{{/participacao}}</td> --}}
-              <td class="score">{{#score .}}{{/score}}</td>
+              <td class="votes-for value">{{votes_for}}</td>
+              <td class="votes-against value">{{votes_against}}</td>
+              <td class="views value">{{hits}}</td>
+              <td class="support value">{{#round effective_support}}{{/round}}</td>
             </tr>
           {{/each}}
         </table>
+        <div class="updated-at">
+          <span>Atualizado </span>
+          <span class="timeago" title="{{updated_at}}"></span>
+        </div>
       </div>
     </script>
 
