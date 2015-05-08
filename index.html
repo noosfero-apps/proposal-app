@@ -298,16 +298,16 @@
             <td class="abstract-text">Propostas</td>
             <td class="votes-for"></td>
             <td class="votes-against"></td>
+            <td class="views">Exibições</td>
             <td class="support">Apoio</td>
-            <td class="participation">Participação</td>
           </tr>
           {{#each proposals}}
             <tr>
               <td class="abstract-text"><div class="truncate"><p class="truncated">{{abstract}}</p></div></td>
               <td class="votes-for value">{{votes_for}}</td>
               <td class="votes-against value">{{votes_against}}</td>
+              <td class="views value">{{hits}}</td>
               <td class="support value">{{#round effective_support}}{{/round}}</td>
-              <td class="participation value">{{#round effective_participation}}{{/round}}</td>
             </tr>
           {{/each}}
         </table>
