@@ -17,7 +17,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
-  var participa = false;
+  var participa = true;
   if(participa){
     var host = 'http://www.participa.br';
     var private_token = '375bee7e17d0021af7160ce664874618';  //participa
