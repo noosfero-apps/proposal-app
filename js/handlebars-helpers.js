@@ -75,8 +75,11 @@ define(['handlebars'], function(Handlebars){
   });
 
   Handlebars.registerHelper('trimString', function(passedString, endstring) {
-    var theString = passedString.substring(0, endstring);
-    return new Handlebars.SafeString(theString)
+    return passedString.substring(0, endstring);
+  });
+
+  Handlebars.registerHelper('stripTags', function(passedString) {
+    return $("<div/>").html(passedString).text();
   });
 
   Handlebars.registerHelper('proposal_action', function(discussion, target) {

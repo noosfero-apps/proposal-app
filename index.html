@@ -279,7 +279,7 @@
 
     <script id="support-proposal-template" type="text/x-handlebars-template">
       <div class="abstract">
-        <p>{{trimString abstract 200}}</p>
+        <p>{{stripTags (trimString abstract 200)}}</p>
       </div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
@@ -303,7 +303,7 @@
           </tr>
           {{#each proposals}}
             <tr>
-              <td class="abstract-text"><div class="truncate"><p class="truncated">{{abstract}}</p></div></td>
+              <td class="abstract-text"><div class="truncate"><p class="truncated">{{stripTags abstract}}</p></div></td>
               <td class="votes-for value">{{votes_for}}</td>
               <td class="votes-against value">{{votes_against}}</td>
               <td class="views value">{{hits}}</td>
