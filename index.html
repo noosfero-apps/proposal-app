@@ -292,6 +292,7 @@
     <script id="results" type="text/x-handlebars-template">
       <div class="loading">Carregando...</div>
       <div class="results-content hide">
+        <span class="total">Total de votos: <span class="value">{{pagination.total}}</span></span>
         <a href="#" class="vote-result">Fechar</a>
         <table>
           <tr class="header">
@@ -311,6 +312,7 @@
             </tr>
           {{/each}}
         </table>
+        <div class="paging"></div>
         <div class="updated-at">
           <span>Última atualização </span>
           <span class="timeago" title="{{updated_at}}"></span>

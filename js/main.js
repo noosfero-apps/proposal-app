@@ -17,7 +17,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
-  var participa = true;
+  var participa = false;
   if(participa){
     var host = 'http://www.participa.br';
     var private_token = '375bee7e17d0021af7160ce664874618';  //participa
@@ -89,44 +89,63 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
             $body.off('click', '.vote-result');
             $body.on('click', '.vote-result', function(e) {
-
               var $this = $(this);
               var $proposalDetail = $this.parents('.proposal-detail');
               var $resultsContainer = $proposalDetail.find('.results-container');
 
-              // $resultsContainer.toggle();
-              // $resultsContainer.toggleClass('hide');
-
               if($resultsContainer.css('display') === 'none') {
-
-                $resultsContainer.find('.loading').show();
-                $resultsContainer.find('.results-content').hide();
-
-                var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + private_token + '&limit=10';
-                $.getJSON(url).done(function( data ) {
-
-                  $resultsContainer.html(resultsTemplate(data));
-                  $resultsContainer.find('.loading').hide();
-                  $resultsContainer.find('.results-content').show();
-                  $(".timeago").timeago();
-                  $resultsContainer.show();
-
-                  // scroll to the end
-                  $('html, body').animate({
-                    scrollTop: $(document).height()
-                  }, 'fast');
-                });
-                $('.experience-proposal-container').hide();
-                $('.talk-proposal-container').hide();
+                Main.loadRanking($resultsContainer, topic_id, 1);
               } else {
                 $('.experience-proposal-container').show();
                 $('.talk-proposal-container').show();
                 $resultsContainer.hide();
               }
-
               e.preventDefault();
             });
           });
+        },
+
+        loadRanking: function($resultsContainer, topic_id, page) {
+          $resultsContainer.find('.loading').show();
+          $resultsContainer.find('.results-content').hide();
+
+          var per_page = 10;
+          var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + private_token + '&per_page='+per_page+'&page='+page;
+          $.getJSON(url).done(function( data, stats, xhr ) {
+            data.pagination = {
+              total: parseInt(xhr.getResponseHeader('Total')),
+              per_page: parseInt(xhr.getResponseHeader('Per-Page')),
+              page: page,
+            };
+
+            $resultsContainer.html(resultsTemplate(data));
+            $resultsContainer.find('.loading').hide();
+            $resultsContainer.find('.results-content').show();
+            $(".timeago").timeago();
+            $resultsContainer.show();
+
+            if(data.pagination.total > data.pagination.per_page) {
+              $resultsContainer.find('.paging').pagination({
+                items: data.pagination.total,
+                itemsOnPage: data.pagination.per_page,
+                currentPage: data.pagination.page,
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                cssStyle: 'compact-theme',
+                onPageClick: function(page, e) {
+                  Main.loadRanking($resultsContainer, topic_id, page);
+                  e.preventDefault();
+                }
+              });
+            }
+
+            // scroll to the end
+            $('html, body').animate({
+              scrollTop: $(document).height()
+            }, 'fast');
+          });
+          $('.experience-proposal-container').hide();
+          $('.talk-proposal-container').hide();
         },
 
         loginCallback: function(loggedIn, token) {
