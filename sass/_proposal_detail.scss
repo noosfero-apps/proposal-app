@@ -125,7 +125,7 @@
             text-transform: uppercase;
             color: gray;
             border: none;
-            margin: 10px;
+            margin: 10px 0 0 10px;
             -webkit-border-radius: 6px;
             -moz-border-radius: 6px;
             border-radius: 6px;
@@ -136,9 +136,10 @@
             float: right;
           }
           .updated-at {
-            font-size: 12px;
+            font-size: 14px;
             color: gray;
             float: right;
+            margin-right: 8px;
           }
           .total {
             padding: 10px;

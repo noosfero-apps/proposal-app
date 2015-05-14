@@ -293,8 +293,14 @@
     <script id="results" type="text/x-handlebars-template">
       <div class="loading">Carregando...</div>
       <div class="results-content hide">
-        <span class="total">Total de propostas: <span class="value">{{pagination.total}}</span></span>
-        <a href="#" class="vote-result">Fechar</a>
+        <div class="clearfix">
+          <span class="total">Total de propostas: <span class="value">{{pagination.total}}</span></span>
+          <a href="#" class="vote-result">Fechar</a>
+        </div>
+        <div class="updated-at">
+          <span>Última atualização </span>
+          <span class="timeago" title="{{updated_at}}"></span>
+        </div>
         <table>
           <tr class="header">
             <td class="abstract-text">Propostas</td>
@@ -314,10 +320,6 @@
           {{/each}}
         </table>
         <div class="paging"></div>
-        <div class="updated-at">
-          <span>Última atualização </span>
-          <span class="timeago" title="{{updated_at}}"></span>
-        </div>
       </div>
     </script>
 
