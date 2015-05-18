@@ -602,6 +602,35 @@
         width: 50%;
     }
 
+    form.signup {
+      .password, .password-confirmation {
+        width: 47%;
+        display: inline-block;
+      }
+      .password {
+        margin-left: 15px;
+      }
+      .actions {
+        margin: 20px 0 0 0;
+        float: none;
+        width: 100%;
+        .confirm-signup {
+          background: #00a9bd;
+          border-radius: 7px;
+          color: #fff;
+          padding: 10px 15px;
+          margin: 0 0 0 8px;
+        }
+        .cancel-signup {
+          @extend .confirm-signup;
+        }
+        .message {
+          float: left;
+          margin-top: -8px;
+        }
+      }
+    }
+
     .actions > a.login-action{
         background: $color;
         -webkit-border-radius: 7px;

@@ -342,10 +342,34 @@
           <div class="label">Acessar com:</div>
           <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login">Facebook</a>
           <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login">Google +</a>
-          <a href="http://www.participa.br/account/signup" target="_blank" class="new-user">Cadastrar</a>
+          <a href="#" class="new-user">Cadastrar</a>
+        </div>
+      </form>
+      <form id="signup-form" class="signup hide" autocomplete="off">
+        <div class="email">
+          <label for="user_email" class="label">E-mail:</label>
+          <input id="user_email" name="email" type="text" placeholder="E-mail">
+        </div>
+        <div class="username">
+          <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
+          <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
+        </div>
+        <div class="password">
+          <label for="user_password" class="label">Senha:</label>
+          <input id="user_password" name="password" type="password" placeholder="Senha">
+        </div>
+        <div class="password-confirmation">
+          <label for="user_password_confirmation" class="label">Confirme a senha:</label>
+          <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+        </div>
+        <div class="actions">
+          <div class="message hide"></div>
+          <a href="#" class="confirm-signup">Confirmar</a>
+          <a href="#" class="cancel-signup">Cancelar</a>
         </div>
       </form>
     </script>
+
 
     <script type='text/javascript'	>
       loadRequireJS();

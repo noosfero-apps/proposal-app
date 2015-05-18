@@ -640,6 +640,38 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       });
       e.preventDefault();
     });
+
+    $(document).on('click', '.new-user', function(e) {
+      var loginForm = $(this).parents('#login-form');
+      loginForm.hide();
+      loginForm.siblings('#signup-form').show();
+      loginForm.find('.message').hide();
+      e.preventDefault();
+    })
+
+    $(document).on('click', '.cancel-signup', function(e) {
+      var signupForm = $(this).parents('#signup-form');
+      signupForm.hide();
+      signupForm.siblings('#login-form').show();
+      e.preventDefault();
+    });
+
+    $(document).on('click', '.confirm-signup', function(e) {
+      var message = $('.signup .message');
+      message.hide();
+      message.text('');
+      $.ajax({
+        type: 'post',
+        url: host + '/api/v1/register',
+        data: $(this).parents('.signup').serialize(),
+      }).done(function(data) {
+        Main.loginCallback(true, data.private_token);
+      }).fail(function( /*data*/ ) {
+        message.show();
+        message.text('Não foi possível efetuar o cadastro');
+      });
+      e.preventDefault();
+    });
   });
 
   window.addEventListener("message", function(ev) {
