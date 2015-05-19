@@ -660,6 +660,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       var message = $('.signup .message');
       message.hide();
       message.text('');
+
+      var signup = $(this).parents('form.signup');
+      var loading = $('.login-container .loading');
+      loading.show();
+      signup.hide();
+
       $.ajax({
         type: 'post',
         url: host + '/api/v1/register',
@@ -669,6 +675,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       }).fail(function( /*data*/ ) {
         message.show();
         message.text('Não foi possível efetuar o cadastro');
+      }).always(function() {
+        loading.hide();
+        signup.show();
       });
       e.preventDefault();
     });
