@@ -59,6 +59,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
             var article = data.articles[0];
             $randomProposal.html(supportProposalTemplate(article));
+
+            captcha = Main.loadCaptcha($randomProposal.find('.captcha')[0]);
+
             $body.off('click', '.vote-actions .skip');
             $body.on('click', '.vote-actions .skip', function(e) {
               contextMain.loadRandomProposal(topic_id, private_token);
@@ -67,19 +70,22 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $body.off('click', '.vote-actions .like');
             $body.on('click', '.vote-actions .like', function(e) {
               //Helps to prevent more than one vote per proposal
+              /*
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 console.log("Proposta " + article.id + " já havia sido votada");
                 contextMain.loadRandomProposal(topic_id, private_token);
                 e.preventDefault();
                 return;
               }
+              */
               $.ajax({
                 type: 'post',
                 url: host + '/api/v1/articles/' + article.id + '/vote',
                 data: {
                   value: $(this).data('vote-value'),
-                  private_token: private_token
-                }
+                  private_token: private_token,
+                  captchaResponse: grecaptcha.getResponse(captcha)
+                },
               }).done(function( /*data*/ ) {
                 ProposalApp.addVotedProposal(article.id);
                 contextMain.loadRandomProposal(topic_id, private_token);
@@ -302,6 +308,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $body.append(STYLE_TEMA_AZUL);
 
           BARRA_ADDED = true;
+        },
+        loadCaptcha: function(element) {
+          return grecaptcha.render(element, {'sitekey': '6Lc4HAcTAAAAAGSpxDxbPiIX5lmIPSnPij-_mCYQ'});
         },
         updateHash: function(hash){
           var id = hash.replace(/^.*#/, '');
@@ -643,8 +652,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     $(document).on('click', '.new-user', function(e) {
       var loginForm = $(this).parents('#login-form');
+      var signupForm = loginForm.siblings('#signup-form');
       loginForm.hide();
-      loginForm.siblings('#signup-form').show();
+      signupForm.show();
       loginForm.find('.message').hide();
       e.preventDefault();
     })

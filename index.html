@@ -71,7 +71,7 @@
       }
       loadCSSFiles();
     </script>
-
+    <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR&render=explicit' async defer></script>
   </head>
   <body>
     <div class="container">
@@ -282,6 +282,7 @@
       <div class="abstract">
         <p>{{stripTags (trimString abstract 200)}}</p>
       </div>
+      <div class="captcha"></div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>
