@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="utf-8" />
@@ -5,6 +6,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Dialoga Brasil" />
 
     <script type="text/javascript">
       /**
@@ -74,6 +76,16 @@
 
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3&appId=301018783382906";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
     <div class="container">
       <div id="proposal-result"></div>
     </div>
@@ -83,6 +95,9 @@
       <header>
         <h1><a href="#">{{article.title}}</a></h1>
         <a id="display-contrast" href="#">Alto Contraste</a>
+        <div class="social">
+          <a href="#" class="fb-share" data-description="Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo">Compartilhar</a>
+        </div>
       </header>
 
       <div id="content">
@@ -153,6 +168,9 @@
                 {{/each}}
               </ul>
 
+              <div class="social">
+                <a href="#" class="fb-share" data-caption="{{title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
+              </div>
               <div class="proposal-header">
                 <div class="abstract">
                   <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
@@ -287,6 +305,9 @@
         <a href="#" class="like" data-vote-value="1"></a>
         <a href="#" class="skip">Pular</a>
         <a href="#" class="vote-result">Resultados</a>
+      </div>
+      <div class="social">
+        <a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
       </div>
     </script>
 
