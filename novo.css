@@ -1,551 +1,219 @@
-@charset "UTF-8";
-.hide {
-  display: none; }
-
-#proposal-result {
-  margin: 0 auto 40px;
-  width: 90%; }
-
 body {
-  color: #172938;
   font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
   font-weight: 400; }
-
-h1 {
-  border-bottom: 1px solid #d6dcd7;
-  font-size: 28px;
-  padding-bottom: 20px;
-  text-transform: uppercase; }
-  h1 a {
-    color: #03316f; }
-
-a {
-  color: #335277;
-  text-decoration: none; }
-
-nav ul {
-  font-size: 0;
-  list-style: none;
-  margin-bottom: 0;
-  padding: 0; }
-  nav ul li {
-    display: inline-block;
-    font-size: 16px;
-    text-align: center;
-    width: 50%; }
-    nav ul li a {
-      background-color: #03316f;
-      border-left: 1px solid #03316f;
-      border-right: 1px solid #03316f;
-      border-top: 1px solid #03316f;
-      color: #fff;
-      font-weight: 700;
-      display: block;
-      padding: 20px;
-      text-transform: uppercase; }
-      nav ul li a.active {
-        background-color: transparent;
-        color: #03316f; }
-
-.proposal-category-items-saude .description:before {
-  color: #fff;
-  content: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.";
-  font-size: 14px; }
-
-.proposal-category-items-seguranca .description:before {
-  color: #fff;
-  content: "A Segurança Pública é um direito fundamental, dever do Estado e responsabilidade de todos. A proteção da vida, a disseminação da cultura de paz e a integração dos órgãos e instituições são os maiores compromissos desta política pública.";
-  font-size: 14px; }
-
-.proposal-category-items-educacao .description:before {
-  color: #fff;
-  content: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis ‐ da creche à pós‐graduação. Com o Plano Nacional de Educação (PNE) para os próximos 10 anos, o Brasil consolida um caminho de oportunidades, por meio da educação, para todos os brasileiros.";
-  font-size: 14px; }
-
-.proposal-category-items-reducao-da-pobreza .description:before {
-  color: #fff;
-  content: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, na última década, 36 milhões de pessoas superaram a miséria e o país saiu do Mapa da Fome das Nações Unidas.";
-  font-size: 14px; }
 
 #proposal-categories {
   border-bottom: 1px solid #03316f;
   border-left: 1px solid #03316f;
-  border-right: 1px solid #03316f;
-  list-style: none;
-  padding: 0; }
-  #proposal-categories-container {
+  border-right: 1px solid #03316f; }
+#proposal-result {
+  margin: 10px; }
+  #proposal-result h1 {
+    border-bottom: 1px solid #d6dcd7;
+    padding-bottom: 20px;
+    text-transform: uppercase; }
+    #proposal-result h1 a {
+      color: #03316f;
+      font-family: 'Asap', sans-serif;
+      font-size: 28px; }
+  #proposal-result nav ul {
     font-size: 0;
-    padding-left: 20px;
-    padding-top: 20px;
-    text-align: center; }
-  #proposal-categories .category {
-    background: transparent;
-    border-top: 1px dotted #172938;
-    padding-top: 10px; }
-
-.proposal-category {
-  background-color: #000;
-  border-radius: 7px;
-  display: inline-block;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  position: relative;
-  text-align: center; }
-  .proposal-category .proposal-link {
-    color: #fff;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0; }
+  #proposal-result nav li {
+    margin: 0;
+    padding: 0;
     display: inline-block;
-    font-size: 14px;
-    font-weight: 700;
-    padding-top: 100px;
-    width: 150px; }
-  .proposal-category-items {
-    border-radius: 7px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    padding: 20px 20px 0;
-    text-align: left; }
-.proposal-list {
-  list-style: none;
-  margin-top: 20px;
-  padding: 0; }
-.proposal-item {
-  display: inline-block;
-  margin-bottom: 20px;
-  vertical-align: top;
-  width: 50%; }
-  .proposal-item:nth-child(odd) .item {
-    margin-right: 20px; }
-.proposal-link {
-  font-family: 'Asap', sans-serif;
-  font-size: 24px;
-  font-weight: 700; }
-
-.arrow-box {
-  border-bottom: 10px solid #000;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  bottom: -12px;
-  height: 0;
-  left: 50%;
-  margin-left: -7px;
-  position: absolute;
-  width: 0; }
-
-.name {
-  border-bottom: 2px solid #fff;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  padding: 10px 0; }
-
-.item {
-  background-color: #fff;
-  border: 1px solid #03316f;
-  border-radius: 7px;
-  font-size: 14px;
-  padding: 20px; }
-  .item p {
-    overflow: hidden;
-    min-height: 4em; }
-  .item:hover {
-    background-color: #eeeff1; }
-
-.category {
-  list-style: none;
-  padding-left: 0; }
-  .category li {
-    background-color: #000;
+    width: 50%; }
+  #proposal-result nav a {
+    background-color: #03316f;
+    border-left: 1px solid #03316f;
+    border-right: 1px solid #03316f;
+    border-top: 1px solid #03316f;
     color: #fff;
-    display: inline-block;
+    display: block;
     font-family: 'Asap', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    padding: 5px 12px 5px 32px; }
+    padding-bottom: 15px;
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+    padding-top: 15px;
+    text-transform: uppercase;
+    text-align: center; }
+    #proposal-result nav a.active {
+      background-color: #fff;
+      color: #03316f; }
 
-#proposal-group {
-  border-bottom: 1px solid #03316f;
-  border-left: 1px solid #03316f;
-  border-right: 1px solid #03316f;
-  padding: 20px 20px 0; }
-  #proposal-group ul {
-    margin-bottom: 0;
-    margin-top: 20px;
-    padding-left: 0; }
-  #proposal-group .item {
-    border: 0; }
-  #proposal-group .category {
-    background: transparent;
-    border-top: 1px dotted #172938;
-    padding-top: 10px; }
+.saude .abstract p {
+  background-color: #00a9bd; }
+.saude .category {
+  background: #00a9bd url(images/icons/saude.png) no-repeat left center;
+  background-size: 32px; }
+.saude .container-title {
+  color: #00a9bd; }
+.saude .send-button {
+  background-color: #00a9bd; }
+.saude .show_body {
+  border-top-color: #00a9bd;
+  background-color: #007280; }
+  .saude .show_body span {
+    background-color: #007280; }
+.saude .title {
+  background-color: #00a9bd; }
 
-#search-input-container {
-  margin-top: 10px; }
+.seguranca .abstract p {
+  background-color: #e34748; }
+.seguranca .category {
+  background: #e34748 url(images/icons/seguranca.png) no-repeat left center;
+  background-size: 32px; }
+.seguranca .container-title {
+  color: #e34748; }
+.seguranca .send-button {
+  background-color: #e34748; }
+.seguranca .show_body {
+  border-top-color: #e34748;
+  background-color: #ce1f20; }
+  .seguranca .show_body span {
+    background-color: #ce1f20; }
+.seguranca .title {
+  background-color: #e34748; }
 
-.proposal-detail .proposal-link {
-  border-radius: 0;
-  font-size: 19px;
-  padding: 15px 35px;
-  text-transform: uppercase;
-  vertical-align: middle;
-  width: auto; }
-.proposal-selection {
-  background-color: #EEEFF1;
-  border: 0;
-  float: right;
-  font-size: 16px;
-  font-weight: 300;
-  height: 57px;
-  margin: 0;
-  text-transform: uppercase;
-  width: 60%; }
-.proposal-header {
-  position: relative; }
-.proposal-container {
-  display: block;
-  float: left;
-  margin-bottom: 20px;
-  width: 50%; }
-.proposal-content {
-  border: 1px solid #000;
-  height: 500px;
-  padding: 20px; }
+.educacao .abstract p {
+  background-color: #ffb400; }
+.educacao .category {
+  background: #ffb400 url(images/icons/educacao.png) no-repeat left center;
+  background-size: 32px; }
+.educacao .container-title {
+  color: #ffb400; }
+.educacao .send-button {
+  background-color: #ffb400; }
+.educacao .show_body {
+  border-top-color: #ffb400;
+  background-color: #c28900; }
+  .educacao .show_body span {
+    background-color: #c28900; }
+.educacao .title {
+  background-color: #ffb400; }
 
-.categories {
-  display: table;
-  width: 100%; }
-
-.category {
-  background-color: #000;
-  border-top: 0;
-  display: block;
-  margin-bottom: 0;
-  margin-right: 0;
-  padding-top: 0;
-  text-align: left; }
-
-.select {
-  padding-left: 0; }
-
-.btn {
-  border: 1px solid #ccc;
-  display: inline-block;
-  font-size: 14px;
-  line-height: 3.1;
-  padding: 6px 12px; }
-  .btn-default {
-    background-color: #fff; }
+.reducao-da-pobreza .abstract p {
+  background-color: #51d0b3; }
+.reducao-da-pobreza .category {
+  background: #51d0b3 url(images/icons/reducao-da-pobreza.png) no-repeat left center;
+  background-size: 32px; }
+.reducao-da-pobreza .container-title {
+  color: #51d0b3; }
+.reducao-da-pobreza .send-button {
+  background-color: #51d0b3; }
+.reducao-da-pobreza .show_body {
+  border-top-color: #51d0b3;
+  background-color: #30b395; }
+  .reducao-da-pobreza .show_body span {
+    background-color: #30b395; }
+.reducao-da-pobreza .title {
+  background-color: #51d0b3; }
 
 .abstract img {
   width: 100%; }
 .abstract p {
-  background-color: #000;
-  bottom: 140px;
   color: #fff;
   font-size: 14px;
-  padding: 5px 20px 20px 20px;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  width: 50%; }
-
-.title {
-  background-color: #000;
-  bottom: 170px;
-  color: #fff;
-  font-size: 32px;
   font-weight: 700;
-  padding: 20px 20px 0;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  text-transform: uppercase;
-  width: 50%; }
-
-.show_body {
-  background: #000 url("images/black-alpha.png") no-repeat;
-  border-top: 5px solid;
-  padding: 30px 0;
-  margin: 10px auto; }
-  .show_body a {
-    background: url("images/white-line.png") left center repeat-x;
-    color: #fff;
-    display: block;
-    font-size: 30px;
-    font-weight: 700;
-    margin: auto;
-    text-align: center;
-    text-transform: uppercase;
-    width: 70%; }
-  .show_body span {
-    padding: 5px 15px; }
+  margin-bottom: 0;
+  padding-bottom: 5px;
+  text-align: center; }
 
 .container-title {
-  color: #000;
-  font-size: 30px;
-  margin-bottom: 20px; }
+  font-size: 30px; }
+
+.go-back {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  display: inline-block;
+  font-size: 14px;
+  height: 57px;
+  padding: 6px 12px; }
+
+.proposal-category {
+  height: 57px; }
+.proposal-link {
+  color: #fff;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  padding-bottom: 15px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 15px;
+  text-transform: uppercase; }
+  .proposal-link:hover {
+    color: #fff;
+    text-decoration: none; }
+.proposal-selection {
+  background-color: #EEEFF1;
+  border: 0;
+  cursor: pointer;
+  float: right;
+  font-size: 16px;
+  font-weight: 300;
+  height: 57px;
+  text-transform: uppercase;
+  width: 100%; }
+
+.send-button {
+  border-radius: 7px;
+  margin: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+  width: 70%; }
+  .send-button a {
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase; }
+    .send-button a:hover {
+      text-decoration: none; }
+  .send-button span {
+    background: url(images/airplane.png) no-repeat;
+    padding-left: 20px; }
+
+.show_body {
+  border-top: 5px solid;
+  margin-top: 5px;
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 20px; }
+  .show_body a {
+    background: url(images/white-line.png) repeat-x 50%;
+    color: #fff;
+    display: block;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-transform: uppercase; }
+    .show_body a:hover {
+      text-decoration: none; }
+  .show_body span {
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px; }
 
 .subtitle {
   color: #03316f;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 20px; }
+  font-size: 20px;
+  font-weight: 700; }
 
-.info {
-  font-size: 14px;
-  font-weight: 300; }
-
-.send-button a {
-  background-color: #000;
-  border-radius: 7px;
+.title {
   color: #fff;
-  display: block;
-  margin: auto;
-  padding: 20px 0;
+  font-size: 32px;
+  font-weight: 700;
+  padding-top: 10px;
   text-align: center;
-  text-transform: uppercase;
-  width: 60%; }
-  .send-button a span {
-    padding-left: 20px;
-    background-image: url("images/airplane.png");
-    background-position: 0 50%;
-    background-repeat: no-repeat; }
-
-.make-proposal {
-  border: 1px solid #000;
-  height: 500px;
-  margin-right: 10px;
-  padding: 20px; }
-  .make-proposal-container {
-    float: left;
-    width: 50%; }
-
-.support-proposal {
-  border: 1px solid #000;
-  height: 500px;
-  margin-left: 10px;
-  padding: 20px; }
-  .support-proposal-container {
-    float: left;
-    width: 50%; }
-
-.experience-proposal {
-  border: 1px solid #000;
-  height: 500px;
-  margin-right: 10px;
-  padding: 20px; }
-  .experience-proposal-container {
-    float: left;
-    width: 50%; }
-
-.talk-proposal {
-  border: 1px solid #000;
-  height: 500px;
-  margin-left: 10px;
-  padding: 20px; }
-  .talk-proposal-container {
-    float: left;
-    width: 50%; }
-
-#proposal-category-saude {
-  background-color: #00a9bd;
-  background-image: url(./images/icons/saude.png?3);
-  background-position: 50% 5px;
-  background-repeat: no-repeat; }
-  #proposal-category-saude .arrow-box {
-    border-bottom-color: #00a9bd; }
-
-.proposal-category-items-saude {
-  background-color: #00a9bd; }
-
-li.category-saude {
-  background-color: #00a9bd;
-  background-image: url(./images/icons/saude.png?1);
-  background-position: 3px center;
-  background-repeat: no-repeat;
-  background-size: 22px; }
-
-.saude .category {
-  background-color: #00a9bd; }
-.saude .proposal-link {
-  background-color: #00a9bd;
-  background-image: url(./images/icons/saude.png);
-  background-position: 0 50%;
-  background-repeat: no-repeat;
-  background-size: 32px; }
-.saude .proposal-content {
-  border-color: #00a9bd; }
-.saude .show_body {
-  background-color: #007280;
-  border-color: #00a9bd; }
-  .saude .show_body span {
-    background-color: #007280; }
-.saude .container-title {
-  color: #00a9bd; }
-.saude .send-button a {
-  background-color: #00a9bd; }
-.saude .title {
-  background-color: #00a9bd; }
-.saude .abstract p {
-  background-color: #00a9bd; }
-.saude .make-proposal {
-  border-color: #00a9bd; }
-.saude .support-proposal {
-  border-color: #00a9bd; }
-.saude .experience-proposal {
-  border-color: #00a9bd; }
-.saude .talk-proposal {
-  border-color: #00a9bd; }
-
-#proposal-category-seguranca {
-  background-color: #e34748;
-  background-image: url(./images/icons/seguranca.png?3);
-  background-position: 50% 5px;
-  background-repeat: no-repeat; }
-  #proposal-category-seguranca .arrow-box {
-    border-bottom-color: #e34748; }
-
-.proposal-category-items-seguranca {
-  background-color: #e34748; }
-
-li.category-seguranca {
-  background-color: #e34748;
-  background-image: url(./images/icons/seguranca.png?1);
-  background-position: 3px center;
-  background-repeat: no-repeat;
-  background-size: 22px; }
-
-.seguranca .category {
-  background-color: #e34748; }
-.seguranca .proposal-link {
-  background-color: #e34748;
-  background-image: url(./images/icons/seguranca.png);
-  background-position: 0 50%;
-  background-repeat: no-repeat;
-  background-size: 32px; }
-.seguranca .proposal-content {
-  border-color: #e34748; }
-.seguranca .show_body {
-  background-color: #ce1f20;
-  border-color: #e34748; }
-  .seguranca .show_body span {
-    background-color: #ce1f20; }
-.seguranca .container-title {
-  color: #e34748; }
-.seguranca .send-button a {
-  background-color: #e34748; }
-.seguranca .title {
-  background-color: #e34748; }
-.seguranca .abstract p {
-  background-color: #e34748; }
-.seguranca .make-proposal {
-  border-color: #e34748; }
-.seguranca .support-proposal {
-  border-color: #e34748; }
-.seguranca .experience-proposal {
-  border-color: #e34748; }
-.seguranca .talk-proposal {
-  border-color: #e34748; }
-
-#proposal-category-educacao {
-  background-color: #ffb400;
-  background-image: url(./images/icons/educacao.png?3);
-  background-position: 50% 5px;
-  background-repeat: no-repeat; }
-  #proposal-category-educacao .arrow-box {
-    border-bottom-color: #ffb400; }
-
-.proposal-category-items-educacao {
-  background-color: #ffb400; }
-
-li.category-educacao {
-  background-color: #ffb400;
-  background-image: url(./images/icons/educacao.png?1);
-  background-position: 3px center;
-  background-repeat: no-repeat;
-  background-size: 22px; }
-
-.educacao .category {
-  background-color: #ffb400; }
-.educacao .proposal-link {
-  background-color: #ffb400;
-  background-image: url(./images/icons/educacao.png);
-  background-position: 0 50%;
-  background-repeat: no-repeat;
-  background-size: 32px; }
-.educacao .proposal-content {
-  border-color: #ffb400; }
-.educacao .show_body {
-  background-color: #c28900;
-  border-color: #ffb400; }
-  .educacao .show_body span {
-    background-color: #c28900; }
-.educacao .container-title {
-  color: #ffb400; }
-.educacao .send-button a {
-  background-color: #ffb400; }
-.educacao .title {
-  background-color: #ffb400; }
-.educacao .abstract p {
-  background-color: #ffb400; }
-.educacao .make-proposal {
-  border-color: #ffb400; }
-.educacao .support-proposal {
-  border-color: #ffb400; }
-.educacao .experience-proposal {
-  border-color: #ffb400; }
-.educacao .talk-proposal {
-  border-color: #ffb400; }
-
-#proposal-category-reducao-da-pobreza {
-  background-color: #51d0b3;
-  background-image: url(./images/icons/reducao-da-pobreza.png?3);
-  background-position: 50% 5px;
-  background-repeat: no-repeat; }
-  #proposal-category-reducao-da-pobreza .arrow-box {
-    border-bottom-color: #51d0b3; }
-
-.proposal-category-items-reducao-da-pobreza {
-  background-color: #51d0b3; }
-
-li.category-reducao-da-pobreza {
-  background-color: #51d0b3;
-  background-image: url(./images/icons/reducao-da-pobreza.png?1);
-  background-position: 3px center;
-  background-repeat: no-repeat;
-  background-size: 22px; }
-
-.reducao-da-pobreza .category {
-  background-color: #51d0b3; }
-.reducao-da-pobreza .proposal-link {
-  background-color: #51d0b3;
-  background-image: url(./images/icons/reducao-da-pobreza.png);
-  background-position: 0 50%;
-  background-repeat: no-repeat;
-  background-size: 32px; }
-.reducao-da-pobreza .proposal-content {
-  border-color: #51d0b3; }
-.reducao-da-pobreza .show_body {
-  background-color: #30b395;
-  border-color: #51d0b3; }
-  .reducao-da-pobreza .show_body span {
-    background-color: #30b395; }
-.reducao-da-pobreza .container-title {
-  color: #51d0b3; }
-.reducao-da-pobreza .send-button a {
-  background-color: #51d0b3; }
-.reducao-da-pobreza .title {
-  background-color: #51d0b3; }
-.reducao-da-pobreza .abstract p {
-  background-color: #51d0b3; }
-.reducao-da-pobreza .make-proposal {
-  border-color: #51d0b3; }
-.reducao-da-pobreza .support-proposal {
-  border-color: #51d0b3; }
-.reducao-da-pobreza .experience-proposal {
-  border-color: #51d0b3; }
-.reducao-da-pobreza .talk-proposal {
-  border-color: #51d0b3; }
-
-/*# sourceMappingURL=novo.css.map */
+  text-transform: uppercase; }
