@@ -710,6 +710,9 @@
       font-size: 20px;
     }
   }
+  .support-proposal .send-button {
+    display: none !important;
+  }
 }
 
 @media only screen and (max-width: 992px) {

@@ -206,7 +206,7 @@
                   <div class="info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
                   <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
                   <div class="login-container hide">Login</div>
-                  <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
+                  <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                     <div class="message hide"></div>
                     <div>
                       <div><label for="article_abstract">Descrição</label></div>
@@ -227,9 +227,13 @@
               <div class="support-proposal-container">
                 <div class="support-proposal">
                   <div class="container-title"> Apoie outras propostas</div>
-                  <div class="random-proposal"></div>
-                  <div class="loading">Carregando...</div>
-                  <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                  <div class="support-proposal-content require-login">
+                    <div class="random-proposal"></div>
+                    <div class="loading">Carregando...</div>
+                    <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                  </div>
+                  <div class="login-container hide">Login</div>
+                  <div class="send-button"><a href="#"><span>Login</span></a></div>
                 </div>
               </div>
 

@@ -75,6 +75,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                 e.preventDefault();
                 return;
               }
+
+              if(!logged_in) {
+                $(this).closest('.support-proposal').find('.send-button a').click();
+                e.preventDefault();
+                return;
+              }
+
               $.ajax({
                 type: 'post',
                 url: host + '/api/v1/articles/' + article.id + '/vote',
@@ -158,12 +165,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             if(token){
               private_token = token;
             }
-            loginButton.siblings('.save-article-form').show();
-            loginButton.siblings('.save-article-form .message').show();
+            loginButton.siblings('.require-login').show();
+            loginButton.siblings('.require-login .message').show();
             loginButton.siblings('.login-container').hide();
             $.cookie('_dialoga_session', private_token);
           } else {
-            loginButton.siblings('.save-article-form').hide();
+            loginButton.siblings('.require-login').hide();
             loginButton.siblings('.login-container').show();
           }
         },
