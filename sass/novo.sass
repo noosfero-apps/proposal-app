@@ -10,10 +10,13 @@ $radius: 5px
 
 // tamanhos de fontes
 $font-size-base: 16px
+$font-size-big: $font-size-base + 2
+$font-size-small: $font-size-base - 2
 $font-size-h1: 28px
 $font-size-h2: 38px
 $font-size-h3: 28px
 $font-size-h4: 34px
+
 
 // dicionarios
 $categories: (saude: #00a9bd, seguranca: #e34748, educacao: #ffb400, reducao-da-pobreza: #51d0b3)
@@ -173,51 +176,158 @@ h4
       padding-top: $gutter * 0.25
       transition: all 200ms
 
-// fazer proposta
-.make-proposal
+// caixas dos programas
+.box
   height: 500px
   border: 1px solid
-  margin-bottom: $gutter
-  margin-left: 0
-  margin-right: $gutter * 0.5
-  margin-top: 0
-  &-container
-    float: left
-    height: 500px
-    position: relative
-    width: 50%
-  .container-title
-    font-weight: 500
+  margin-bottom: $gutter * 0.5
+  padding: $gutter
+  position: relative
+  &-title
     font-size: $font-size-h2
-    margin: $gutter
-  .subtitle
+    font-weight: 400
+    margin-bottom: $gutter
+  &-subtitle
     font-size: $font-size-base * 1.5
     font-weight: 700
-    margin: $gutter
-  .info
-    font-size: $font-size-base * 0.875
-    margin: $gutter
-  .send-proposal-button
-    a
-      background-color: #000
-      border-radius: $radius
-      bottom: 40px
-      color: #fff
-      display: block
-      font-size: $font-size-base * 0.875
+    line-height: 1.2
+    margin-bottom: $gutter
+  &-footer
+    position: absolute
+    bottom: 40px
+    margin-left: -30%
+    left: 50%
+    width: 60%
+  &-bottom
+    @extend .box-footer
+    bottom: 10px
+    color: #000
+    font-size: $font-size-small
+    font-weight: 700
+    text-align: center
+    &:hover, &:focus
+      color: #000
+  &-center
+    text-align: center
+
+// votacao
+.vote-actions
+  .like
+    background: url(images/like.png) no-repeat
+    display: inline-block
+    height: 72px
+    margin: 0 6%
+    width: 76px
+  .dislike
+    background-image: url(images/dislike.png)
+
+// lista de resultados
+.results-content
+  .total
+    float: left
+  .vote-result, .updated-at
+    float: right
+  table
+    clear: both
+    font-weight: 300
+    tr:nth-child(odd)
+      background: #e5e5e5
+    td
+      padding: 0 5px
+    .header
       font-weight: 700
-      left: 50%
-      margin-left: -30%
-      padding: $gutter 0
-      position: absolute
       text-align: center
-      text-transform: uppercase
-      transition: all 200ms
-      width: 60%
-      +hover(#000, 20%)
+    .abstract-text
+      width: 80%
+    .value
+      text-align: center
+      width: 10%
+    .truncate
+      display: table
+      table-layout: fixed
+      width: 100%
+    .truncated
+      overflow-x: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+// paginador
+.paging
+  padding: $gutter * 0.25
+  ul
+    display: table
+    list-style: none
+    margin: auto
+    padding: 0
+  li
+    float: left
+  span
+    @extend .page-link
+  .page-link
+    padding: 0 7px
+    font-size: $font-size-small
+    font-weight: 400
+    text-align: center
+    background-color: #000
+    color: #fff
+    display: inline-block
+    line-height: 24px
+  .current
+    background-color: lighten(#000, 20%)
+  .next
+    border-radius: 0 $radius $radius 0
+  .prev
+    border-radius:  $radius 0 0 $radius
+
+// calendario dos ministros
+.slick
+  &-slider
+    list-style: none
+    margin-bottom: 0
+    margin-left: auto
+    margin-right: auto
+    margin-top: $gutter * 2
+    padding: 0
+    position: relative
+    width: 80%
+    li
+      background-color: #eeeff1
+      margin-bottom: $gutter * 0.25
+      padding: $gutter * 0.5
     span
-      padding-left: $gutter
-      background: url(images/airplane.png) left center no-repeat
+      display: block
+    .date, .time
+      display: inline-block
+      margin-top: $gutter
+      width: 45%
+  &-list
+    overflow: hidden
+  &-slide
+    float: left
+  &-def
+    background-color: transparent
+    border: 0
+    color: #000
+    font-size: 0
+    position: absolute
+    top: 43%
+    width: 20px
+    &:before
+      color: #000
+      font-family: "FontAwesome"
+      font-size: 20px
+  &-prev
+    @extend .slick-def
+    left: -25px
+    &:before
+      content: "\f053"
+  &-next
+    @extend .slick-def
+    right: -25px
+    &:before
+      content: "\f054"
+  &-disabled
+    opacity: 0.25
 
 // lista sem bullets
 .list-unstyled
@@ -234,30 +344,47 @@ h4
 // elementos
 // ------------------------------------
 
-// botao voltar
-.btn
-  line-height: 3.1
-  border-radius: 0
-
-// botao participe
-.go-to-proposal-button a
+// botao padrao
+.button
   background-color: #000
   border-radius: $radius
   color: #fff
+  cursor: pointer
   display: block
-  padding-bottom: $gutter
-  padding-top: $gutter
+  font-size: $font-size-small
+  font-weight: 400
+  padding: $gutter 0
   text-align: center
   text-transform: uppercase
   transition: all 200ms
   +hover(#000, 20%)
-  .fa
-    margin-right: $gutter * 0.5
+  &:hover, &:focus
+    color: #fff
+  &-send
+    span
+      padding-left: $gutter * 1.5
+      background-image: url(images/airplane.png)
+      background-position: left center
+      background-repeat: no-repeat
+  &-participe
+    .fa
+      margin-right: $gutter * 0.5
+
+// botao voltar
+.btn
+  background-color: #fff
+  border-radius: 0
+  border: 1px solid #ccc
+  color: #000
+  line-height: 3.1
+  font-size: $font-size-small
+  padding: 6px 12px
 
 
 // ------------------------------------
 // modificadores
 // ------------------------------------
-
+.hide
+  display: none
 h3.titulo-destaque
   font-size: $font-size-h3 + 10

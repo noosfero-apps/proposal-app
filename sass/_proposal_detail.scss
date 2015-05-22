@@ -253,7 +253,7 @@
           // background: $color url(images/black-alpha.png);
           // border-top: 5px solid $color;
           transition: background-color .2s;
-        
+
           &:hover,
           &:focus {
             background-color: saturate( lighten($color, 5%), 10% );
@@ -350,7 +350,7 @@
         display: block;
 
         transition: background-color .2s;
-        
+
         &:hover,
         &:focus {
           background-color: saturate( lighten($color, 5%), 10% );
@@ -361,14 +361,14 @@
         }
       }
       .make-proposal-container{
-        
+
         .subtitle,
         .info,
         .success-proposal-sent {
           margin: 20px;
           color: #18376C;
         }
-        
+
         .subtitle,
         .success-proposal-sent {
           font-size: 24px;
@@ -471,7 +471,7 @@
             margin-left: -30%;
 
             transition: background-color .2s;
-            
+
             &:hover,
             &:focus {
               background-color: saturate( lighten($color, 5%), 10% );
@@ -535,7 +535,7 @@
         }
       }
       .talk-proposal-container{
-        width: 50%;
+        width: 100%;
         float: left;
         height: $container-height;
         min-height: $container-height;
@@ -545,7 +545,7 @@
           border: 1px solid $color;
           height: $container-height;
           min-height: $container-height;
-          margin: 20px 0 0 10px;
+          margin: 20px 0 0 0;
           text-align: left;
 
           span {
@@ -713,7 +713,7 @@
 }
 
 @media only screen and (max-width: 992px) {
-  
+
   .proposal-detail {
 
     .container-title {
@@ -722,7 +722,7 @@
     }
 
     .make-proposal-container {
-      
+
       .subtitle {
         margin: 5px 20px !important;
         font-size: 20px !important;
@@ -873,7 +873,7 @@
         bottom: inherit !important;
       }
     }
-    
+
     .success-experience-sent a {
       position: relative !important;
       left: inherit !important;

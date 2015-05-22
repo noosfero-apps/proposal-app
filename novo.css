@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
@@ -128,51 +129,145 @@ h4 {
       padding-top: 5px;
       transition: all 200ms; }
 
-.make-proposal {
+.box {
   height: 500px;
   border: 1px solid;
-  margin-bottom: 20px;
-  margin-left: 0;
-  margin-right: 10px;
-  margin-top: 0; }
-  .make-proposal-container {
-    float: left;
-    height: 500px;
-    position: relative;
-    width: 50%; }
-  .make-proposal .container-title {
-    font-weight: 500;
+  margin-bottom: 10px;
+  padding: 20px;
+  position: relative; }
+  .box-title {
     font-size: 38px;
-    margin: 20px; }
-  .make-proposal .subtitle {
+    font-weight: 400;
+    margin-bottom: 20px; }
+  .box-subtitle {
     font-size: 24px;
     font-weight: 700;
-    margin: 20px; }
-  .make-proposal .info {
-    font-size: 14px;
-    margin: 20px; }
-  .make-proposal .send-proposal-button a {
-    background-color: #000;
-    border-radius: 5px;
+    line-height: 1.2;
+    margin-bottom: 20px; }
+  .box-footer, .box-bottom {
+    position: absolute;
     bottom: 40px;
-    color: #fff;
-    display: block;
+    margin-left: -30%;
+    left: 50%;
+    width: 60%; }
+  .box-bottom {
+    bottom: 10px;
+    color: #000;
     font-size: 14px;
     font-weight: 700;
-    left: 50%;
-    margin-left: -30%;
-    padding: 20px 0;
-    position: absolute;
+    text-align: center; }
+    .box-bottom:hover, .box-bottom:focus {
+      color: #000; }
+  .box-center {
+    text-align: center; }
+
+.vote-actions .like {
+  background: url(images/like.png) no-repeat;
+  display: inline-block;
+  height: 72px;
+  margin: 0 6%;
+  width: 76px; }
+.vote-actions .dislike {
+  background-image: url(images/dislike.png); }
+
+.results-content .total {
+  float: left; }
+.results-content .vote-result, .results-content .updated-at {
+  float: right; }
+.results-content table {
+  clear: both;
+  font-weight: 300; }
+  .results-content table tr:nth-child(odd) {
+    background: #e5e5e5; }
+  .results-content table td {
+    padding: 0 5px; }
+  .results-content table .header {
+    font-weight: 700;
+    text-align: center; }
+  .results-content table .abstract-text {
+    width: 80%; }
+  .results-content table .value {
     text-align: center;
-    text-transform: uppercase;
-    transition: all 200ms;
-    width: 60%; }
-    .make-proposal .send-proposal-button a:hover {
-      background-color: #333333;
-      text-decoration: none; }
-  .make-proposal .send-proposal-button span {
-    padding-left: 20px;
-    background: url(images/airplane.png) left center no-repeat; }
+    width: 10%; }
+  .results-content table .truncate {
+    display: table;
+    table-layout: fixed;
+    width: 100%; }
+  .results-content table .truncated {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+
+.paging {
+  padding: 5px; }
+  .paging ul {
+    display: table;
+    list-style: none;
+    margin: auto;
+    padding: 0; }
+  .paging li {
+    float: left; }
+  .paging .page-link, .paging span {
+    padding: 0 7px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    line-height: 24px; }
+  .paging .current {
+    background-color: #333333; }
+  .paging .next {
+    border-radius: 0 5px 5px 0; }
+  .paging .prev {
+    border-radius: 5px 0 0 5px; }
+
+.slick-slider {
+  list-style: none;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  padding: 0;
+  position: relative;
+  width: 80%; }
+  .slick-slider li {
+    background-color: #eeeff1;
+    margin-bottom: 5px;
+    padding: 10px; }
+  .slick-slider span {
+    display: block; }
+  .slick-slider .date, .slick-slider .time {
+    display: inline-block;
+    margin-top: 20px;
+    width: 45%; }
+.slick-list {
+  overflow: hidden; }
+.slick-slide {
+  float: left; }
+.slick-def, .slick-prev, .slick-next {
+  background-color: transparent;
+  border: 0;
+  color: #000;
+  font-size: 0;
+  position: absolute;
+  top: 43%;
+  width: 20px; }
+  .slick-def:before, .slick-prev:before, .slick-next:before {
+    color: #000;
+    font-family: "FontAwesome";
+    font-size: 20px; }
+.slick-prev {
+  left: -25px; }
+  .slick-prev:before {
+    content: ""; }
+.slick-next {
+  right: -25px; }
+  .slick-next:before {
+    content: ""; }
+.slick-disabled {
+  opacity: 0.25; }
 
 .list-unstyled li {
   border-top: 1px solid;
@@ -182,25 +277,42 @@ h4 {
   .list-unstyled li:first-child {
     border-top: 0; }
 
-.btn {
-  line-height: 3.1;
-  border-radius: 0; }
-
-.go-to-proposal-button a {
+.button {
   background-color: #000;
   border-radius: 5px;
   color: #fff;
+  cursor: pointer;
   display: block;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 20px 0;
   text-align: center;
   text-transform: uppercase;
   transition: all 200ms; }
-  .go-to-proposal-button a:hover {
+  .button:hover {
     background-color: #333333;
     text-decoration: none; }
-  .go-to-proposal-button a .fa {
+  .button:hover, .button:focus {
+    color: #fff; }
+  .button-send span {
+    padding-left: 30px;
+    background-image: url(images/airplane.png);
+    background-position: left center;
+    background-repeat: no-repeat; }
+  .button-participe .fa {
     margin-right: 10px; }
+
+.btn {
+  background-color: #fff;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  color: #000;
+  line-height: 3.1;
+  font-size: 14px;
+  padding: 6px 12px; }
+
+.hide {
+  display: none; }
 
 h3.titulo-destaque {
   font-size: 38px; }
