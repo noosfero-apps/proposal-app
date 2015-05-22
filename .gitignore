@@ -14,4 +14,8 @@ bower.json
 sass/bootstrap.scss
 css/bootstrap.css
 html/
-novo.css.map
+novo.css
+novo.html
+sass/novo.scss
+sass/novo
+.bundle

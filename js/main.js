@@ -1,8 +1,8 @@
-define(['handlebars'], function(Handlebars){
+define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, FastClick){
 
   /* global Handlebars, $ */
   // The template code
-  var templateSource = document.getElementById('proposal-template').innerHTML;
+  var templateSource = $('#proposal-template').html();
 
   // compile the template
   var template = Handlebars.compile(templateSource);
@@ -25,13 +25,415 @@ define(['handlebars'], function(Handlebars){
   }else{
     var host = 'http://noosfero.com:3000';
     //var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
-    var private_token = '04c9b36cf0afba52915fe86f182e741c'; //local serpro
+    var private_token = 'aae32bf5031e895b00a20a529d763b31'; //local serpro
     var proposal_discussion = '632'; //local serpro
     //var proposal_discussion = '401'; //casa
   }
 
+  var BARRA_ADDED = false;
+  var HIDE_BARRA_DO_GOVERNO = false;
+
+  Main = (function(){
+
+    return {
+      loadRandomProposal: function (topic_id, private_token) {
+          var $noProposals = $('.no-proposals');
+          var $loading = $('.loading');
+          var $randomProposal = $('.random-proposal');
+          var $body = $(document.body);
+          var contextMain = this;
+
+          // reset view
+          $noProposals.hide();
+          $loading.show();
+          $randomProposal.html('');
+
+          var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          $.getJSON(url).done(function( data ) {
+            $loading.hide();
+
+            if(data.articles.length === 0) {
+              $noProposals.show();
+              return;
+            }
+
+            var article = data.articles[0];
+            $randomProposal.html(supportProposalTemplate(article));
+            $body.off('click', '.vote-actions .skip');
+            $body.on('click', '.vote-actions .skip', function(e) {
+              contextMain.loadRandomProposal(topic_id, private_token);
+              e.preventDefault();
+            });
+            $body.off('click', '.vote-actions .like');
+            $body.on('click', '.vote-actions .like', function(e) {
+              //Helps to prevent more than one vote per proposal
+              if(ProposalApp.hasProposalbeenVoted(article.id)){
+                console.log("Proposta " + article.id + " já havia sido votada");
+                contextMain.loadRandomProposal(topic_id, private_token);
+                e.preventDefault();
+                return;
+              }
+              $.ajax({
+                type: 'post',
+                url: host + '/api/v1/articles/' + article.id + '/vote',
+                data: {
+                  value: $(this).data('vote-value'),
+                  private_token: private_token
+                }
+              }).done(function( /*data*/ ) {
+                ProposalApp.addVotedProposal(article.id);
+                contextMain.loadRandomProposal(topic_id, private_token);
+              });
+              e.preventDefault();
+            });
+
+            $body.off('click', '.vote-result');
+            $body.on('click', '.vote-result', function(e) {
+              var $this = $(this);
+              var $proposalDetail = $this.parents('.proposal-detail');
+              var $resultsContainer = $proposalDetail.find('.results-container');
+
+              if($resultsContainer.css('display') === 'none') {
+                Main.loadRanking($resultsContainer, topic_id, 1);
+              } else {
+                $('.experience-proposal-container').show();
+                $('.talk-proposal-container').show();
+                $resultsContainer.hide();
+              }
+              e.preventDefault();
+            });
+          });
+        },
+
+        loadRanking: function($resultsContainer, topic_id, page) {
+          $resultsContainer.find('.loading').show();
+          $resultsContainer.find('.results-content').hide();
+
+          var per_page = 10;
+          var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + private_token + '&per_page='+per_page+'&page='+page;
+          $.getJSON(url).done(function( data, stats, xhr ) {
+            data.pagination = {
+              total: parseInt(xhr.getResponseHeader('Total')),
+              per_page: parseInt(xhr.getResponseHeader('Per-Page')),
+              page: page,
+            };
+
+            $resultsContainer.html(resultsTemplate(data));
+            $resultsContainer.find('.loading').hide();
+            $resultsContainer.find('.results-content').show();
+            $(".timeago").timeago();
+            $resultsContainer.show();
+
+            if(data.pagination.total > data.pagination.per_page) {
+              $resultsContainer.find('.paging').pagination({
+                items: data.pagination.total,
+                itemsOnPage: data.pagination.per_page,
+                currentPage: data.pagination.page,
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                cssStyle: 'compact-theme',
+                onPageClick: function(page, e) {
+                  Main.loadRanking($resultsContainer, topic_id, page);
+                  e.preventDefault();
+                }
+              });
+            }
+
+            // scroll to the end
+            $('html, body').animate({
+              scrollTop: $(document).height()
+            }, 'fast');
+          });
+          $('.experience-proposal-container').hide();
+          $('.talk-proposal-container').hide();
+        },
+
+        loginCallback: function(loggedIn, token) {
+          logged_in = loggedIn;
+          $('.login .message').text('');
+
+          if(logged_in) {
+            if(token){
+              private_token = token;
+            }
+            loginButton.siblings('.save-article-form').show();
+            loginButton.siblings('.save-article-form .message').show();
+            loginButton.siblings('.login-container').hide();
+            $.cookie('_dialoga_session', private_token);
+          } else {
+            loginButton.siblings('.save-article-form').hide();
+            loginButton.siblings('.login-container').show();
+          }
+        },
+        guid: function() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+        },
+        display_category_tab: function(){
+          $('#proposal-group').hide();
+          $('#proposal-categories').show();
+          $('#nav-proposal-categories a').addClass('active');
+          $('#nav-proposal-group a').removeClass('active');
+          $('.proposal-category-items').hide();
+          $('.proposal-category .arrow-box').hide();
+          $('.proposal-detail').hide();
+
+          $('#content').show();
+          $('nav').show();
+        },
+        display_proposals_tab: function(){
+          $('#proposal-categories').hide();
+          $('#proposal-group').show();
+          $('#nav-proposal-group a').addClass('active');
+          $('#nav-proposal-categories a').removeClass('active');
+          $('#content').show();
+          $('nav').show();
+        },
+        display_proposal: function(proposal_id){
+          $('#proposal-categories').hide();
+          $('#proposal-group').hide();
+          $('nav').hide();
+          $('#content').hide();
+          // $('.make-proposal-form').hide();
+          // $('.login-container').hide();
+          $('.proposal-detail').hide(); // hide all proposals
+          // $('.proposal-detail-base').hide();
+          $proposal = $('#' + proposal_id);
+          $proposal.find('.proposal-detail-base').hide();
+          $proposal.show();
+          $proposal.find('.proposal-header').show();
+          $proposal.find('.make-proposal-container').show();
+          $proposal.find('.support-proposal-container').show();
+          $proposal.find('.results-container').hide();
+          $proposal.find('.results-container .loading').hide();
+          $proposal.find('.results-container .results-content').hide();
+          $proposal.find('.experience-proposal-container').show();
+          $proposal.find('.talk-proposal-container').show();
+          $proposal.find('.calendar').slick();
+
+          var topic_id = proposal_id.split('-').pop();
+          this.loadRandomProposal(topic_id, private_token);
+        },
+        display_proposal_detail: function(proposal_id){
+          $('#proposal-categories').hide();
+          $('#proposal-group').hide();
+          $('nav').hide();
+          $('#content').hide();
+          $proposal = $('#proposal-item-' + proposal_id);
+          $proposal.find('.make-proposal-form').hide();
+          $proposal.find('.proposal-header').hide();
+          $proposal.find('.make-proposal-container').hide();
+          $proposal.find('.support-proposal-container').hide();
+          $proposal.find('.results-container').hide();
+          $proposal.find('.experience-proposal-container').hide();
+          $proposal.find('.talk-proposal-container').hide();
+          $proposal.find('.body').show();
+          $proposal.show();
+
+          var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+          $.getJSON(url).done(function( data ) {
+            $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
+          })
+          .fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ', ' + error;
+            console.log( 'Request Failed: ' + err );
+          });
+        },
+        display_proposal_by_category: function(item){
+          var $item = $('#' + item);
+
+          if($item.hasClass('proposal-category-items')){
+            //Display Topics or Discussion by category
+            $('nav').show();
+            $('#content').show();
+            $('#proposal-categories').show();
+            $('#nav-proposal-categories a').addClass('active');
+            $('#nav-proposal-group a').removeClass('active');
+            $('.proposal-category-items').hide();
+            $('.proposal-detail').hide();
+            $item.toggle( 'blind', 200, function () {
+              var itemOffset = $item.offset();
+              if(itemOffset){
+                $('html, body').animate({ scrollTop: itemOffset.top }, 'fast');
+              }
+            } );
+            $('.proposal-category .arrow-box').hide();
+            var categorySlug = $item.data('category');
+            $('#proposal-category-' + categorySlug).find('.arrow-box').show();
+
+          }
+        },
+        addBarraDoGoverno: function(){
+
+          if( BARRA_ADDED ) { return; }
+
+          var HTML_BODY_PREPEND = '' +
+            '<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> ' +
+              '<ul id="menu-barra-temp" style="list-style:none;">' +
+                '<li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li> ' +
+                '<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>' +
+              '</ul>' +
+            '</div>';
+
+          var HTML_BODY_APPEND = ''+
+            '<footer id="footer-brasil"></footer>' +
+            '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
+
+          var STYLE_TEMA_AZUL = '' +
+            '<style>'+
+              '#footer-brasil {'+
+               'background: none repeat scroll 0% 0% #0042b1;'+
+               'padding: 1em 0px;'+
+               'max-width: 100%;'+
+               'margin-top: 40px;'+
+              '}'+
+              '#barra-brasil ul {'+
+                'width: auto;'+
+              '}'+
+            '<style>';
+
+          var $body = $(document.body);
+          $body.prepend(HTML_BODY_PREPEND);
+          $body.append(HTML_BODY_APPEND);
+          $body.append(STYLE_TEMA_AZUL);
+
+          BARRA_ADDED = true;
+        },
+        updateHash: function(hash){
+          var id = hash.replace(/^.*#/, '');
+          var elem = document.getElementById(id);
+
+          // preserve the query param
+          // if (HIDE_BARRA_DO_GOVERNO && (hash.indexOf('?barra=false') === -1)){
+          //   hash += '?barra=false';
+          // }
+
+          if ( !elem ) {
+            window.location.hash = hash;
+            return;
+          }
+
+          elem.id = id+'-tmp';
+          window.location.hash = hash;
+          elem.id = id;
+        },
+        locationHashChanged: function(){
+          var hash = window.location.hash;
+          this.navigateTo(hash);
+        },
+        navigateTo: function(hash){
+          var scrollTop = 0;
+          var $nav = $('nav[role="tabpanel"]');
+          var navOffset = $nav.offset();
+
+          var regexProposals = /#\/programas/;
+          var regexCategory = /#\/temas/;
+          var regexHideBarra = /barra=false$/;
+
+          if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
+            this.addBarraDoGoverno();
+          }else{
+            HIDE_BARRA_DO_GOVERNO = true;
+          }
+
+          // remove query params
+          hash = hash.split('?')[0];
+
+          var parts = hash.split('/');
+
+          var isProposal = regexProposals.exec(hash) !== null;
+          var isCategory = regexCategory.exec(hash) !== null;
+
+          if( isProposal ){
+
+            // go to proposal
+            var proposalId = parts[2];
+            this.navigateToProposal(proposalId);
+
+            var $proposal = $('#proposal-item-' + proposalId);
+            var proposalOffset = $proposal.offset();
+            if(proposalOffset){
+              scrollTop = proposalOffset.top;
+            }else{
+              if(navOffset){
+                scrollTop = navOffset.top;
+              }
+            }
+          }
+
+          if( isCategory ){
+
+            // go to category
+            var categoryId = parts[3];
+            this.navigateToCategory(categoryId);
+
+            var $category = $('#proposal-item-' + categoryId);
+            var categoryOffset = $category.offset();
+            if(categoryOffset){
+              scrollTop = categoryOffset.top;
+            }else{
+              if(navOffset){
+                scrollTop = navOffset.top;
+              }
+            }
+          }
+
+          // default
+          if( !isProposal && !isCategory ){
+            // show the 'index' -> category tab
+            this.display_category_tab();
+
+            
+            // if(navOffset){
+            //   scrollTop = navOffset.top;
+            // }
+          }
+
+          $('html, body').animate({ scrollTop: scrollTop }, 'fast');
+        },
+        navigateToProposal: function(proposalId){
+          var regexSubpages = /sobre-o-programa$/;
+          if(proposalId === undefined){
+            this.display_proposals_tab();
+          }else if(regexSubpages.exec(window.location.hash) == null){
+            this.display_proposal('proposal-item-' + proposalId);
+          }else{
+            this.display_proposal_detail(proposalId);
+          }
+        },
+        navigateToCategory: function(categoryId){
+          if(categoryId === undefined){
+            this.display_category_tab();
+          }else{
+            this.display_proposal_by_category('proposal-item-' + categoryId);
+          }
+        },
+        oauthClientAction: function(url) {
+          var child = window.open(url, "_blank");
+          var interval = setInterval(function() {
+              try {
+                if(!child.closed) {
+                    child.postMessage({ message: "requestOauthClientPluginResult" }, "*");
+                }
+              }
+              catch(e) {
+                  // we're here when the child window has been navigated away or closed
+                  if (child.closed) {
+                      clearInterval(interval);
+                      return;
+                  }
+              }
+          }, 300);
+        }
+    }
+  })();
+
   // Load data from localhost when it is dev env.
-  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url';
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
 
   $.getJSON(noosferoAPI)
     .done(function( data ) {
@@ -41,46 +443,51 @@ define(['handlebars'], function(Handlebars){
       $('.login-container').html(loginTemplate());
       $('.countdown').maxlength({text: '%left caracteres restantes'});
 
-      navigateTo(window.location.hash);
+      Main.navigateTo(window.location.hash);
+
+      $('.oauth-login').on('click', function(e) {
+        Main.oauthClientAction($(this).attr('href'));
+        e.preventDefault();
+      });
 
       //Actions for links
-      $( '#nav-proposal-categories a' ).on('click touchstart', function(e){
+      $( '#nav-proposal-categories a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
 
         // Update URL and Navigate
-        updateHash($link.attr('href'));
+        Main.updateHash($link.attr('href'));
       });
 
-      $( '#nav-proposal-group a' ).on('click touchstart', function(e){
+      $( '#nav-proposal-group a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
 
         // Update URL and Navigate
-        updateHash($link.attr('href'));
+        Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-item a' ).on('click touchstart', function(e){
+      $( '.proposal-item a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
 
         // Update URL and Navigate
-        updateHash($link.attr('href'));
+        Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-category a' ).on('click touchstart', function(e){
+      $( '.proposal-category a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
 
         // Update URL and Navigate
-        updateHash($link.attr('href'));
+        Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-category .go-back' ).on('click touchstart', function(e){
+      $( '.proposal-category .go-back' ).on('click', function(e){
         e.preventDefault();
 
         var oldHash = window.location.hash;
@@ -91,13 +498,16 @@ define(['handlebars'], function(Handlebars){
         if(isSubpage){
           // return to proposal page
           newHash = oldHash.split('/sobre-o-programa')[0];
+        }else{
+          $link = $(this).siblings('.proposal-link');
+          newHash = $link.attr('href');
         }
 
         // Update URL and Navigate
-        updateHash(newHash);
+        Main.updateHash(newHash);
       });
 
-      $( '.send-button a' ).on('click touchstart', function(e){
+      $( '.send-button a' ).on('click', function(e){
         e.preventDefault();
 
         //display form to send proposal (or login form for non-logged users)
@@ -105,36 +515,39 @@ define(['handlebars'], function(Handlebars){
         loginButton = $this.parents('.send-button');
         loginButton.hide();
         $this.parents('.success-proposal-sent').hide();
-        loginCallback(logged_in);
+        $wrapper = $this.parents('.make-proposal');
+        $wrapper.find('.subtitle').show();
+        $wrapper.find('.info').show();
+        Main.loginCallback(logged_in);
       });
 
-      $( '#display-contrast' ).on('click touchstart', function(e){
+      $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
         $('#proposal-result').toggleClass('contrast');
       });
 
-      $( '.show_body a' ).on('click touchstart', function(e){
+      $( '.show_body' ).on('click', function(e){
         e.preventDefault();
 
-        var $link = $(this);
+        var $link = $(this).find('a');
 
         // Update URL and Navigate
-        updateHash($link.attr('href'));
+        Main.updateHash($link.attr('href'));
       });
 
-      $( '.go-to-proposal-button a' ).on('click touchstart', function(e){
+      $( '.go-to-proposal-button a' ).on('click', function(e){
         e.preventDefault();
 
         var $link = $(this);
 
         // Update URL and Navigate
-        updateHash($link.attr('href'));
+        Main.updateHash($link.attr('href'));
       });
 
       $( '.proposal-selection' ).change(function(e){
-        e.preventDefault();
-
-        display_proposal('proposal-item-' + this.value);
+        // Update URL and Navigate
+        Main.updateHash('#/programas/' + this.value);
+        $(this).val($(this).data("proposal")).trigger("chosen:updated");
       });
 
       var availableTags = [ ];
@@ -146,7 +559,7 @@ define(['handlebars'], function(Handlebars){
         source: availableTags,
         minLength: 3,
         select: function( event, ui ) {
-          updateHash(ui.item.value);
+          Main.updateHash(ui.item.value);
           return false;
         },
         appendTo: '#search-input-container',
@@ -167,13 +580,15 @@ define(['handlebars'], function(Handlebars){
         message.text('');
         $.ajax({
           type: 'post',
-          url: host + '/api/v1/articles/' + proposal_id + '/children',
-          data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + guid()
+          url: host + $form.attr('action'),
+          data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + Main.guid()
         })
         .done(function( /*data*/ ) {
           form.reset();
           $form.hide();
           $form.siblings('.success-sent').show();
+          $form.siblings('.subtitle').hide();
+          $form.siblings('.info').hide();
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
@@ -189,98 +604,15 @@ define(['handlebars'], function(Handlebars){
       console.log( 'Request Failed: ' + err );
     });
 
-  function loadRandomProposal(topic_id, private_token) {
-    var $noProposals = $('.no-proposals');
-    var $loading = $('.loading');
-    var $randomProposal = $('.random-proposal');
-    var $body = $(document.body);
+  // window.addEventListener('load', function() {
+  //   new FastClick(document.body);
+  // }, false);
 
-    // reset view
-    $noProposals.hide();
-    $loading.show();
-    $randomProposal.html('');
-
-    var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
-    $.getJSON(url).done(function( data ) {
-      $loading.hide();
-
-      if(data.articles.length === 0) {
-        $noProposals.show();
-        return;
-      }
-
-      var article = data.articles[0];
-      $randomProposal.html(supportProposalTemplate(article));
-      $body.off('click', '.vote-actions .skip');
-      $body.on('click', '.vote-actions .skip', function(e) {
-        loadRandomProposal(topic_id, private_token);
-        e.preventDefault();
-      });
-      $body.off('click', '.vote-actions .like');
-      $body.on('click', '.vote-actions .like', function(e) {
-        //Helps to prevent more than one vote per proposal
-        if(hasProposalbeenVoted(article.id)){
-          console.log("Proposta " + article.id + " já havia sido votada");
-          loadRandomProposal(topic_id, private_token);
-          e.preventDefault();
-          return;
-        }
-        $.ajax({
-          type: 'post',
-          url: host + '/api/v1/articles/' + article.id + '/vote',
-          data: {
-            value: $(this).data('vote-value'),
-            private_token: private_token
-          }
-        }).done(function( /*data*/ ) {
-          addVotedProposal(article.id);
-          loadRandomProposal(topic_id, private_token);
-        });
-        e.preventDefault();
-      });
-
-      $body.off('click', '.vote-result');
-      $body.on('click', '.vote-result', function(e) {
-
-        var $this = $(this);
-        var $proposalDetail = $this.parents('.proposal-detail');
-        var $resultsContainer = $proposalDetail.find('.results-container');
-
-        // $resultsContainer.toggle();
-        // $resultsContainer.toggleClass('hide');
-
-        if($resultsContainer.css('display') === 'none') {
-
-          $resultsContainer.find('.loading').show();
-          $resultsContainer.find('.results-content').hide();
-
-          var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=10&order=votes_score&fields=id,name,abstract,votes_for,votes_against&content_type=ProposalsDiscussionPlugin::Proposal';
-          $.getJSON(url).done(function( data ) {
-
-            $resultsContainer.html(resultsTemplate(data));
-            $resultsContainer.find('.loading').hide();
-            $resultsContainer.find('.results-content').show();
-            $resultsContainer.show();
-
-            // scroll to the end
-            $('html, body').animate({
-              scrollTop: $(document).height()
-            }, 'fast');
-          });
-          $('.experience-proposal-container').hide();
-          $('.talk-proposal-container').hide();
-        } else {
-          $('.experience-proposal-container').show();
-          $('.talk-proposal-container').show();
-          $resultsContainer.hide();
-        }
-
-        e.preventDefault();
-      });
-    });
-  }
 
   $(document).ready(function($) {
+    
+    FastClick.attach(document.body);
+
     if($.cookie('_dialoga_session')) {
       var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
       $.getJSON(url).done(function( /*data*/ ) {
@@ -301,290 +633,70 @@ define(['handlebars'], function(Handlebars){
           //withCredentials: true
         }
       }).done(function(data) {
-        loginCallback(true, data.private_token);
+        Main.loginCallback(true, data.private_token);
       }).fail(function( /*data*/ ) {
         message.show();
         message.text('Não foi possível logar');
       });
       e.preventDefault();
     });
+
+    $(document).on('click', '.new-user', function(e) {
+      var loginForm = $(this).parents('#login-form');
+      loginForm.hide();
+      loginForm.siblings('#signup-form').show();
+      loginForm.find('.message').hide();
+      e.preventDefault();
+    })
+
+    $(document).on('click', '.cancel-signup', function(e) {
+      var signupForm = $(this).parents('#signup-form');
+      signupForm.hide();
+      signupForm.siblings('#login-form').show();
+      e.preventDefault();
+    });
+
+    $(document).on('click', '.confirm-signup', function(e) {
+      var message = $('.signup .message');
+      message.hide();
+      message.text('');
+
+      var signup = $(this).parents('form.signup');
+      var loading = $('.login-container .loading');
+      loading.show();
+      signup.hide();
+
+      $.ajax({
+        type: 'post',
+        url: host + '/api/v1/register',
+        data: $(this).parents('.signup').serialize(),
+      }).done(function(data) {
+        Main.loginCallback(true, data.private_token);
+      }).fail(function( /*data*/ ) {
+        message.show();
+        message.text('Não foi possível efetuar o cadastro');
+      }).always(function() {
+        loading.hide();
+        signup.show();
+      });
+      e.preventDefault();
+    });
   });
 
-  function loginCallback(loggedIn, token) {
-    logged_in = loggedIn;
-    $('.login .message').text('');
-
-    if(logged_in) {
-      if(token){
-        private_token = token;
-      }
-      loginButton.siblings('.save-article-form').show();
-      loginButton.siblings('.save-article-form .message').show();
-      loginButton.siblings('.login-container').hide();
-      $.cookie('_dialoga_session', private_token);
-    } else {
-      loginButton.siblings('.save-article-form').hide();
-      loginButton.siblings('.login-container').show();
+  window.addEventListener("message", function(ev) {
+    if (ev.data.message === "oauthClientPluginResult") {
+      Main.loginCallback(ev.data.logged_in, ev.data.private_token);
+      ev.source.close();
     }
-  }
-
-  function oauthPluginHandleLoginResult(loggedIn, token) {
-    loginCallback(loggedIn, token);
-  }
-
-  function guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-  }
-
-  function display_category_tab(){
-    $('#proposal-group').hide();
-    $('#proposal-categories').show();
-    $('#nav-proposal-categories a').addClass('active');
-    $('#nav-proposal-group a').removeClass('active');
-    $('.proposal-category-items').hide();
-    $('.proposal-category .arrow-box').hide();
-    $('.proposal-detail').hide();
-
-    $('#content').show();
-    $('nav').show();
-  }
-
-  function display_proposals_tab(){
-    $('#proposal-categories').hide();
-    $('#proposal-group').show();
-    $('#nav-proposal-group a').addClass('active');
-    $('#nav-proposal-categories a').removeClass('active');
-    $('.proposal-item p').dotdotdot();
-
-    $('#content').show();
-    $('nav').show();
-  }
-
-  function display_proposal(proposal_id){
-    $('#proposal-categories').hide();
-    $('#proposal-group').hide();
-    $('nav').hide();
-    $('#content').hide();
-    $('.make-proposal-form').hide();
-    $('.login-container').hide();
-    $('.proposal-detail').hide();
-
-    $('.proposal-detail-base').hide();
-    $('#' + proposal_id).show();
-    $('.proposal-header').show();
-    $('.make-proposal-container').show();
-    $('.support-proposal-container').show();
-    $('.results-container').hide();
-    $('.results-container .loading').hide();
-    $('.results-container .results-content').hide();
-    $('.experience-proposal-container').show();
-    $('.talk-proposal-container').show();
-
-    var topic_id = proposal_id.split('-').pop();
-    loadRandomProposal(topic_id, private_token);
-  }
-
-  function display_proposal_detail(proposal_id){
-    $('#proposal-categories').hide();
-    $('#proposal-group').hide();
-    $('nav').hide();
-    $('#content').hide();
-    $('.make-proposal-form').hide();
-    $('.proposal-header').hide();
-    $('.make-proposal-container').hide();
-    $('.support-proposal-container').hide();
-    $('.results-container').hide();
-    $('.experience-proposal-container').hide();
-    $('.talk-proposal-container').hide();
-    $('.body').show();
-
-    var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
-    $.getJSON(url).done(function( data ) {
-      $('.body-content').replaceWith(data.article.body);
-    })
-    .fail(function( jqxhr, textStatus, error ) {
-      var err = textStatus + ', ' + error;
-      console.log( 'Request Failed: ' + err );
-    });
-  }
-  function display_proposal_by_category(item){
-    var $item = $('#' + item);
-
-    if($item.hasClass('proposal-category-items')){
-      //Display Topics or Discussion by category
-      $('nav').show();
-      $('#content').show();
-      $('#proposal-categories').show();
-      $('#nav-proposal-categories a').addClass('active');
-      $('#nav-proposal-group a').removeClass('active');
-      $('.proposal-category-items').hide();
-      $('.proposal-detail').hide();
-      $item.toggle( 'blind', 1000 );
-      $('.proposal-item p').dotdotdot();
-      $('.proposal-category .arrow-box').hide();
-      var categorySlug = $item.data('category');
-      $('#proposal-category-' + categorySlug).find('.arrow-box').show();
-    }
-  }
-
-  var BARRA_ADDED = false;
-  function addBarraDoGoverno(){
-    
-    if( BARRA_ADDED ) { return; }
-
-    var HTML_BODY_PREPEND = '' +
-      '<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> ' +
-        '<ul id="menu-barra-temp" style="list-style:none;">' +
-          '<li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li> ' +
-          '<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>' +
-        '</ul>' +
-      '</div>';
-
-    var HTML_BODY_APPEND = ''+
-      '<div id="footer-brasil"></div>' +
-      '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
-
-    var STYLE_TEMA_AZUL = '' +
-      '<style>'+
-        '#footer-brasil {'+
-         'background: none repeat scroll 0% 0% #0042b1;'+
-         'padding: 1em 0px;'+
-         'max-width: 100%;'+
-         'margin-top: 40px;'+
-        '}'+
-        '#barra-brasil ul {'+
-          'width: auto;'+
-        '}'+
-      '<style>';
-
-    var $body = $(document.body);
-    $body.prepend(HTML_BODY_PREPEND);
-    $body.append(HTML_BODY_APPEND);
-    $body.append(STYLE_TEMA_AZUL);
-
-    BARRA_ADDED = true;
-  }
-
-  function updateHash(hash){
-    var id = hash.replace(/^.*#/, '');
-    var elem = document.getElementById(id);
-
-    // preserve the query param
-    // if (HIDE_BARRA_DO_GOVERNO && (hash.indexOf('?barra=false') === -1)){
-    //   hash += '?barra=false';
-    // }
-
-    if ( !elem ) {
-      window.location.hash = hash;
-      return;
-    }
-
-    elem.id = id+'-tmp';
-    window.location.hash = hash;
-    elem.id = id;
-  }
-
-  function locationHashChanged(){
-    var hash = window.location.hash;
-    navigateTo(hash);
-  }
-
-  var HIDE_BARRA_DO_GOVERNO = false;
-  function navigateTo(hash){
-    var regexProposals = /#\/programas/;
-    var regexCategory = /#\/temas/;
-    var regexHideBarra = /barra=false$/;
-
-    if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
-      addBarraDoGoverno();
-    }else{
-      HIDE_BARRA_DO_GOVERNO = true;
-    }
-
-    // remove query params
-    hash = hash.split('?')[0];
-
-    var parts = hash.split('/');
-
-    var isProposal = regexProposals.exec(hash) !== null;
-    var isCategory = regexCategory.exec(hash) !== null;
-
-    if( isProposal ){
-
-      // go to proposal
-      var proposalId = parts[2];
-      navigateToProposal(proposalId);
-    }
-
-    if( isCategory ){
-
-      // go to category
-      var categoryId = parts[3];
-      navigateToCategory(categoryId);
-    }
-
-    // default
-    if( !isProposal && !isCategory ){
-      // show the 'index' -> category tab
-      display_category_tab();
-    }
-
-    $('html, body').animate({ scrollTop: 0 }, 'fast');
-  }
-
-  function navigateToProposal(proposalId){
-    if(proposalId === undefined){
-      display_proposals_tab();
-    }else{
-      display_proposal('proposal-item-' + proposalId);
-
-      // show sub-page
-      var regexSubpages = /sobre-o-programa$/;
-      var m;
-      if((m = regexSubpages.exec(window.location.hash)) !== null ){
-        display_proposal_detail(proposalId);
-      }
-    }
-  }
-
-  function navigateToCategory(categoryId){
-    if(categoryId === undefined){
-      display_category_tab();
-    }else{
-      display_proposal_by_category('proposal-item-' + categoryId);
-    }
-  }
-
-  function addVotedProposal(id) {
-    var votedProposals;
-    if (typeof($.cookie("votedProposals")) == "undefined"){
-      votedProposals = [];
-    }
-    else{
-      votedProposals = JSON.parse($.cookie("votedProposals"));
-    }
-    if (votedProposals.indexOf(id)==-1){
-      votedProposals.push(id);
-    }
-    $.cookie("votedProposals", JSON.stringify(votedProposals), {expires : 999 }) ;
-  }
-
-  function hasProposalbeenVoted(id) {
-    if (typeof($.cookie("votedProposals")) == "undefined") {
-      return false;
-    }
-    votedProposals = JSON.parse($.cookie("votedProposals"));
-    return votedProposals.indexOf(id)!=-1;
-  }
+  });
 
   if('onhashchange' in window){
-    window.onhashchange = locationHashChanged;
+      window.onhashchange = function(){
+      Main.locationHashChanged.apply(Main);
+    }
   }else{
     console.log('The browser not supports the hashchange event!');
   }
 
+  return Main;
 });

@@ -8,15 +8,21 @@
 @import 'login';
 @import 'footer';
 @import 'accessibility';
+@import 'slick';
+@import 'slick-theme';
 
 @import 'proposal_detail/proposal-detail-base';
 @import 'proposal_detail/urgencia-e-emergencia';
 @import 'proposal_detail/mais-medicos';
+@import 'proposal_detail/brasil-sem-miseria';
 
 // Prevent text size change on orientation change.
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 html, body {
+  color: #000;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -41,10 +47,10 @@ h1 {
   }
 }
 
-#proposal-result {
-  width: 90%;
-  margin: 0 auto 40px auto;
-}
+// #proposal-result {
+//   width: 90%;
+//   margin: 0 auto 40px auto;
+// }
 
 #content {
   padding-bottom: 50px;
@@ -81,7 +87,7 @@ form {
   }
 
   input, textarea {
-    color: #333;
+    color: #000;
     border: 1px solid #18376C;
   }
 
@@ -92,7 +98,7 @@ form {
   a {
     font-size: 14px;
     font-weight: bold;
-    color: #333;
+    color: #000;
     font-weight: bold;
     text-decoration: none;
     margin: 10px 20px;
@@ -129,7 +135,7 @@ form {
 }
 
 .btn-default {
-  color: #333;
+  color: #000;
   background-color: #fff;
   border-color: #ccc;
 }

@@ -1,0 +1,263 @@
+// ------------------------------------
+// variaveis
+// ------------------------------------
+
+// espacamento
+$gutter: 20px
+
+// arredondamento
+$radius: 5px
+
+// tamanhos de fontes
+$font-size-base: 16px
+$font-size-h1: 28px
+$font-size-h2: 38px
+$font-size-h3: 28px
+$font-size-h4: 34px
+
+// dicionarios
+$categories: (saude: #00a9bd, seguranca: #e34748, educacao: #ffb400, reducao-da-pobreza: #51d0b3)
+$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca: "A Segurança Pública é um direito fundamental, dever do Estado e responsabilidade de todos. A proteção da vida, a disseminação da cultura de paz e a integração dos órgãos e instituições são os maiores compromissos desta política pública.", educacao: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis ‐ da creche à pós‐graduação. Com o Plano Nacional de Educação (PNE) para os próximos 10 anos, o Brasil consolida um caminho de oportunidades, por meio da educação, para todos os brasileiros.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, na última década, 36 milhões de pessoas superaram a miséria e o país saiu do Mapa da Fome das Nações Unidas.")
+
+
+// ------------------------------------
+// mixins
+// ------------------------------------
+
+// hover
+=hover($color, $amount)
+  &:hover
+    background-color: lighten($color, $amount)
+    text-decoration: none
+
+
+// ------------------------------------
+// base
+// ------------------------------------
+
+body
+  font-family: 'Open Sans', sans-serif
+  font-size: $font-size-base
+  font-weight: 300
+h1
+  font-family: asap, sans
+  font-size: $font-size-h1
+  font-weight: 500
+  text-transform: uppercase
+h2
+  border-bottom: 1px solid
+  font-size: $font-size-h2
+  font-weight: 300
+  margin-bottom: $gutter * 2
+  padding-bottom: $gutter
+  text-transform: uppercase
+  small
+    display: block
+    font-size: 16px
+    text-transform: none
+h3
+  font-size: $font-size-h3
+  font-weight: 300
+  text-transform: uppercase
+h4
+  font-size: $font-size-h4
+  font-weight: 500
+
+
+// ------------------------------------
+// grid
+// ------------------------------------
+
+.container, .row
+  margin-bottom: $gutter
+
+
+// ------------------------------------
+// blocos
+// ------------------------------------
+
+// header do programa
+.select
+  background-color: #000
+  margin-bottom: $gutter * 0.5
+  .proposal
+    &-link
+      color: #fff
+      display: inline-block
+      font-size: $font-size-base + 3
+      font-weight: 700
+      padding-bottom: $gutter * 0.75
+      padding-left: $gutter * 2.5
+      padding-right: $gutter * 0.75
+      padding-top: $gutter * 0.75
+      text-transform: uppercase
+    &-selection
+      background-color: #fff
+      border: 0
+      float: right
+      height: 57px
+      width: 60%
+
+// imagem destaque do programa, titulo, descricao e botao de acesso
+.proposal-header
+  position: relative
+  img
+    width: 100%
+  p
+    background-color: #000
+    bottom: 140px
+    color: #fff
+    font-size: $font-size-base - 2
+    font-weight: 700
+    padding-bottom: $gutter
+    padding-left: $gutter
+    padding-right: $gutter
+    padding-top: $gutter * 0.25
+    position: absolute
+    right: 0
+    text-align: center
+    width: 50%
+    vertical-align: middle
+  .title
+    background-color: #000
+    bottom: 170px
+    color: #fff
+    font-size: $font-size-base * 2
+    font-weight: 700
+    margin-bottom: $gutter * 1.25
+    margin-left: 0
+    margin-right: 0
+    margin-top: $gutter * 1.25
+    padding: $gutter
+    position: absolute
+    right: 0
+    text-align: center
+    text-transform: uppercase
+    width: 50%
+    vertical-align: middle
+  .show_body
+    background-color: #000
+    border-radius: $radius
+    cursor: pointer
+    margin-bottom: $gutter * 0.5
+    margin-left: auto
+    margin-right: auto
+    margin-top: $gutter * 0.5
+    padding-bottom: $gutter * 1.5
+    padding-left: 0
+    padding-right: 0
+    padding-top: $gutter * 1.5
+    text-align: center
+    transition: all 200ms
+    width: 100%
+    +hover(#000, 20%)
+    &:hover
+      span
+        background-color: lighten(#000, 20%)
+    a
+      background: url(images/white-line.png) left center repeat-x
+      color: #fff
+      display: inline-block
+      font-size: $font-size-h2
+      font-weight: 700
+      margin: 0 auto
+      text-transform: uppercase
+      width: 70%
+      &:hover
+        text-decoration: none
+    span
+      background-color: #000
+      padding-bottom: $gutter * 0.25
+      padding-left: $gutter * 0.75
+      padding-right: $gutter * 0.75
+      padding-top: $gutter * 0.25
+      transition: all 200ms
+
+// fazer proposta
+.make-proposal
+  height: 500px
+  border: 1px solid
+  margin-bottom: $gutter
+  margin-left: 0
+  margin-right: $gutter * 0.5
+  margin-top: 0
+  &-container
+    float: left
+    height: 500px
+    position: relative
+    width: 50%
+  .container-title
+    font-weight: 500
+    font-size: $font-size-h2
+    margin: $gutter
+  .subtitle
+    font-size: $font-size-base * 1.5
+    font-weight: 700
+    margin: $gutter
+  .info
+    font-size: $font-size-base * 0.875
+    margin: $gutter
+  .send-proposal-button
+    a
+      background-color: #000
+      border-radius: $radius
+      bottom: 40px
+      color: #fff
+      display: block
+      font-size: $font-size-base * 0.875
+      font-weight: 700
+      left: 50%
+      margin-left: -30%
+      padding: $gutter 0
+      position: absolute
+      text-align: center
+      text-transform: uppercase
+      transition: all 200ms
+      width: 60%
+      +hover(#000, 20%)
+    span
+      padding-left: $gutter
+      background: url(images/airplane.png) left center no-repeat
+
+// lista sem bullets
+.list-unstyled
+  li
+    border-top: 1px solid
+    font-size: $font-size-base + 2
+    font-weight: 700
+    padding: $gutter
+    &:first-child
+      border-top: 0
+
+
+// ------------------------------------
+// elementos
+// ------------------------------------
+
+// botao voltar
+.btn
+  line-height: 3.1
+  border-radius: 0
+
+// botao participe
+.go-to-proposal-button a
+  background-color: #000
+  border-radius: $radius
+  color: #fff
+  display: block
+  padding-bottom: $gutter
+  padding-top: $gutter
+  text-align: center
+  text-transform: uppercase
+  transition: all 200ms
+  +hover(#000, 20%)
+  .fa
+    margin-right: $gutter * 0.5
+
+
+// ------------------------------------
+// modificadores
+// ------------------------------------
+
+h3.titulo-destaque
+  font-size: $font-size-h3 + 10
