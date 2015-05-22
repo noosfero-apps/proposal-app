@@ -58,6 +58,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             }
 
             var article = data.articles[0];
+            var parentTitle = $('#proposal-item-'+topic_id).find('.proposal-header .title').text();
+            article.parent = {id: topic_id, title: parentTitle};
             $randomProposal.html(supportProposalTemplate(article));
             $body.off('click', '.vote-actions .skip');
             $body.on('click', '.vote-actions .skip', function(e) {
@@ -638,6 +640,23 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         message.show();
         message.text('Não foi possível logar');
       });
+      e.preventDefault();
+    });
+
+    $(document).on('click', '.social .fb-share', function(e) {
+      var link = $(this).attr('href');
+      if(link==='#' || link ==='') {
+        link = window.location.href;
+      } else {
+        link = 'http:'+Url.addBaseUrl(link);
+      }
+      FB.ui({
+          method: 'feed',
+          link: link,
+          name: $(this).data('name') || 'Dialoga Brasil',
+          caption: $(this).data('caption') || 'dialoga.gov.br',
+          description: $(this).data('description'),
+      }, function(response){});
       e.preventDefault();
     });
 
