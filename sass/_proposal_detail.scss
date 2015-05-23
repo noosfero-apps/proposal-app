@@ -7,17 +7,18 @@
   li {
     a {
       text-decoration: none;
-      text-transform: uppercase;
-      padding: 15px 15px 15px 50px;
+      // text-transform: uppercase;
+      padding: 0 0 0 45px;
       margin: 0;
       width: 30%;
       min-width: 210px;
       display: inline-block;
+      vertical-align: middle;
       span {
         padding-left: 40px;
       }
       font: {
-        size: larger;
+        size: 24px;
         weight: bold;
       }
       background-size: 32px;
@@ -27,13 +28,16 @@
 
   .categories {
     select {
-      height: 57px;
+      // height: 57px;
       width: 60%;
       margin: 0;
       text-transform: uppercase;
       border: 0;
-      background: #EEEFF1;
+      background: #fff;
       float: right;
+      vertical-align: middle;
+      margin: 4px;
+      border-radius: 3px;
     }
 
     .proposal-header {
@@ -103,7 +107,7 @@
         li {
           background: $color;
           list-style: none;
-          padding: 0;
+          padding: 5px;
           a {
             min-width: 0;
             width: auto;
@@ -604,7 +608,7 @@
           background-image: url(./images/icons/#{$category}.png);
           background: {
             color: $color;
-            position: 10px 50%;
+            position: 5px 50%;
             repeat: no-repeat;
           }
           border-left: 1px solid lighten($color, 10%)
