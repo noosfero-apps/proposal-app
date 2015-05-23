@@ -1,7 +1,24 @@
 .social {
-	margin-top: 45px;
 	position: relative;
 	z-index: 1;
+	&.top {
+		margin-top: 45px;
+	}
+	&.right {
+		padding-top: 10px;
+		span {
+			display: inline-block;
+			font-size: 12px;
+			font-weight: 300;
+			padding-right: 10px;
+			text-align: right;
+			vertical-align: middle;
+		}
+		ul {
+			display: inline-block;
+			vertical-align: middle
+		}
+	}
 	span {
 		display: block;
 		margin-bottom: 10px;
@@ -19,6 +36,7 @@
 		background-repeat: no-repeat;
 		background-position: 50% !important;
 		background-size: auto !important;
+		border: 0 !important;
 		display: inline-block;
 		height: 36px;
 		min-width: 0 !important;
