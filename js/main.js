@@ -34,12 +34,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
     return {
       private_token: '375bee7e17d0021af7160ce664874618',
       getProposalId: function() {
-        var regexProposals = /\d.*\/propostas\/\d.*/;
+        var regexProposals = /\d.*\/propostas\/*.*/;
         var proposalId = 0;
 
         var hasProposal = regexProposals.test(location.hash);
         if( hasProposal ){
-          var regexExtractProposal = /propostas\/\d.*/;
+          var regexExtractProposal = /propostas\/*.*/;
           proposalId = regexExtractProposal.exec(location.hash)[0].split('/')[1];
 
         }
@@ -69,6 +69,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
+            $('.support-proposal .alert').hide();
 
             data.articles = data.articles || [data.article];
             if(data.articles.length === 0) {
@@ -130,6 +131,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
               e.preventDefault();
             });
+          }).fail(function(){
+            $loading.hide();
+            $('.support-proposal .alert').show();
           });
         },
 
