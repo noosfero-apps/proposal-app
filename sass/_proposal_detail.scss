@@ -433,6 +433,7 @@
           min-height: $container-height;
           position: relative;
           margin: 0 0 20px 10px;
+          overflow: auto;
         }
         .subtitle {
           color: #000;
@@ -497,6 +498,12 @@
             &:focus {
               text-decoration: underline;
             }
+          }
+        }
+        .social {
+          span {
+            color: $color;
+            font-weight: 700;
           }
         }
       }
