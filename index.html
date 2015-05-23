@@ -291,7 +291,13 @@
         <a href="#" class="vote-result">Resultados</a>
       </div>
       <div class="social">
-        <a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
+        <span>Compartilhe esta proposta</span>
+          <ul>
+            <li><a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share icon icon-facebook" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar no Facebook</a></li>
+            <li><a class="tw-share disabled icon icon-twitter">Compartilhar no Twitter</a></li>
+            <li><a class="gp-share disabled icon icon-gplus">Compartilhar no Google Plus</a></li>
+            <li><a class="ws-share disabled icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
+          </ul>
       </div>
     </script>
 
