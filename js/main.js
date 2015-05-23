@@ -36,6 +36,20 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   Main = (function(){
 
     return {
+      getProposalId: function(){
+        var regexProposals = /\d.*\/propostas\/\d.*/;
+        var proposalId = 0;
+
+        var hasProposal = regexProposals.test(location.hash);
+        if( hasProposal ){
+          var regexExtractProposal = /propostas\/\d.*/;
+          proposalId = regexExtractProposal.exec(location.hash)[0].split('/')[1];
+
+        }
+
+        return proposalId;
+      },
+
       loadRandomProposal: function (topic_id, private_token) {
           var $noProposals = $('.no-proposals');
           var $loading = $('.loading');
@@ -48,10 +62,18 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $loading.show();
           $randomProposal.html('');
 
-          var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          var url = host + '/api/v1/articles/' + topic_id + '/children';
+          var childId = this.getProposalId();
+
+          if(childId != 0){
+            url += '/'+childId;
+          }
+          url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+
           $.getJSON(url).done(function( data ) {
             $loading.hide();
 
+            data.articles = data.articles || [data.article];
             if(data.articles.length === 0) {
               $noProposals.show();
               return;
@@ -387,7 +409,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             // show the 'index' -> category tab
             this.display_category_tab();
 
-            
+
             // if(navOffset){
             //   scrollTop = navOffset.top;
             // }
@@ -610,7 +632,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
 
   $(document).ready(function($) {
-    
+
     FastClick.attach(document.body);
 
     if($.cookie('_dialoga_session')) {
