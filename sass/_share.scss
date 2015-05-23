@@ -1,0 +1,45 @@
+.social {
+	margin-top: 45px;
+	position: relative;
+	z-index: 1;
+	ul {
+		list-style: none;
+		padding-left: 0;
+	}
+	li {
+		display: inline-block;
+		padding: 0 2px;
+	}
+	.icon {
+		background-repeat: no-repeat;
+		background-position: 50%;
+		display: inline-block;
+		height: 36px;
+		text-indent: -999999px;
+		width: 36px;
+		&-facebook {
+			background-image: url(images/icons/icon-facebook.png);
+			&.disabled {
+				background-image: url(images/icons/icon-facebook-disabled.png);
+			}
+		}
+		&-twitter {
+			background-image: url(images/icons/icon-twitter.png);
+			&.disabled {
+				background-image: url(images/icons/icon-twitter-disabled.png);
+			}
+		}
+		&-gplus {
+			background-image: url(images/icons/icon-gplus.png);
+			&.disabled {
+				background-image: url(images/icons/icon-gplus-disabled.png);
+			}
+		}
+		&-whatsapp {
+			background-image: url(images/icons/icon-whatsapp.png);
+			&.disabled {
+				background-image: url(images/icons/icon-whatsapp-disabled.png);
+			}
+		}
+	}
+}
