@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="utf-8" />
@@ -114,7 +115,7 @@
         </ul>
       </nav>
 
-      <div id="proposal-categories">
+      <article id="proposal-categories">
         <div id="proposal-categories-container">
           <nav>
             <ul>
@@ -127,12 +128,12 @@
             </ul>
           </nav>
           {{#each article.categories}}
-            <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
+            <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container" data-category="{{slug}}">
               <div class="header">
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
               </div>
-              <ul class="proposal-list">
+              <ul class="proposal-list row">
                 {{#list_proposal ../article.children category=slug}}
                   {{#link title id}}{{/link}}
                 {{/list_proposal}}
@@ -140,19 +141,19 @@
             </section>
           {{/each}}
         </div>
-      </div>
+      </article>
 
-      <div id="proposal-group" class="hide">
+      <article id="proposal-group" class="hide">
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
         </div>
-        <ul>
+        <ul class="proposal-list row">
           {{#list_proposal article.children}}
             {{#link title id}}{{/link}}
           {{/list_proposal}}
         </ul>
-      </div>
+      </article>
 
       {{#each article.children}}
         {{!-- <div class="container"> --}}
@@ -204,7 +205,7 @@
 
               <div class="row">
                 <div class="make-proposal-container col-sm-6">
-                  <div class="make-proposal box">
+                  <section class="make-proposal box box-propostas">
                     <div class="container-title box-title">Faça Uma Proposta</div>
                     <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
                     <div class="info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
@@ -225,23 +226,23 @@
                       <a href="#">Faça nova proposta</a>
                     </div>
                     <div class="clearfix"></div>
-                  </div>
+                  </section>
                 </div>
                 <div class="support-proposal-container col-sm-6">
-                  <div class="support-proposal box box-center">
+                  <section class="support-proposal box box-propostas box-center">
                     <div class="container-title box-title"> Apoie outras propostas</div>
                     <div class="random-proposal"></div>
                     <div class="loading">Carregando...</div>
                     <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
-                  </div>
+                  </section>
                 </div>
               </div>
 
-              <div class="results-container hide box"></div>
+              <div class="results-container hide boxbox-propostas "></div>
 
               <div class="row">
-                <div class="talk-proposal-container col-sm-12">
-                  <div class="talk-proposal box">
+                <section class="talk-proposal-container col-sm-12">
+                  <div class="talk-proposal box box-propostas">
                     <div class="container-title box-title">Bate-papo com os ministros</div>
                     <p>Confira as datas e horários:</p>
                     <ul class="calendar" data-slick='{"infinite": false, "rows": 2}'>
@@ -267,7 +268,7 @@
                       </li>
                     </ul>
                   </div>
-                </div>
+                </section>
               </div>
 
             </div>

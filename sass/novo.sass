@@ -16,6 +16,9 @@ $font-size-h1: 28px
 $font-size-h2: 38px
 $font-size-h3: 28px
 $font-size-h4: 34px
+$theme-size-title: 19px
+$theme-size-header: 24px
+$proposal-title: 32px
 
 
 // dicionarios
@@ -76,8 +79,157 @@ h4
 
 
 // ------------------------------------
+// elementos
+// ------------------------------------
+
+// botao padrao
+.button
+  background-color: #000
+  border-radius: $radius
+  color: #fff
+  cursor: pointer
+  display: block
+  font-size: $font-size-small
+  font-weight: 400
+  padding: $gutter 0
+  text-align: center
+  text-transform: uppercase
+  transition: all 200ms
+  +hover(#000, 20%)
+  &:hover, &:focus
+    color: #fff
+  &-send
+    span
+      padding-left: $gutter * 1.5
+      background-image: url(images/airplane.png)
+      background-position: left center
+      background-repeat: no-repeat
+  &-participe
+    .fa
+      margin-right: $gutter * 0.5
+
+// botao voltar
+.btn
+  background-color: #fff
+  border-radius: 0
+  border: 1px solid #ccc
+  color: #000
+  line-height: 3.1
+  font-size: $font-size-small
+  padding: 6px 12px
+
+
+// ------------------------------------
 // blocos
 // ------------------------------------
+
+// listagem
+#proposal
+  &-categories
+    border-bottom: 1px solid #000
+    border-left: 1px solid #000
+    border-right: 1px solid #000
+    padding: $gutter $gutter 0
+    ul
+      list-style: none
+      padding-left: 0
+  &-group
+    @extend #proposal-categories
+
+// programas por temas
+.proposal
+  &-container
+    background-color: #ccc
+    border-radius: $radius
+    padding-bottom: $gutter * 0.5
+    padding-left: $gutter
+    padding-right: $gutter
+    padding-top: $gutter
+    .name
+      color: #000
+      border-bottom: 1px solid #000
+      font-family: asap, sans
+      font-size: $theme-size-header
+      font-weight: 700
+      padding-bottom: $gutter * 0.75
+  &-list
+    list-style: none
+    padding-left: 0
+  &-group
+    ul
+      list-style: none
+      padding-left: 0
+
+// blocos dos programas
+.box
+  background-color: #fff
+  border: 1px solid gray
+  border-radius: $radius
+  color: #000
+  display: block
+  height: 200px
+  margin-top: $gutter * 1.5
+  padding: $gutter
+  transition: all 200ms
+  &:hover
+    background-color: darken(#fff, 10%)
+    color: #000
+    text-decoration: none
+  p
+    border-bottom: 1px dotted #000
+    font-family: asap, sans
+    font-size: $font-size-small
+    font-weight: 400
+    padding-bottom: $gutter * 0.75
+  &-propostas
+    height: 500px
+    border: 1px solid
+    margin-bottom: $gutter * 0.5
+    padding: $gutter
+    position: relative
+  &-header
+    font-family: asap, sans
+    font-size: $theme-size-header
+    font-weight: 700
+  &-category
+    font-size: $font-size-base
+    font-weight: 700
+    list-style: none
+    padding-left: 0
+    li
+      background-color: #000
+      color: #fff
+      display: inline-block
+      padding-bottom: $gutter * 0.25
+      padding-left: $gutter * 1.5
+      padding-right: $gutter * 0.5
+      padding-top: $gutter * 0.25
+  &-title
+    font-size: $font-size-h2
+    font-weight: 400
+    margin-bottom: $gutter
+  &-subtitle
+    font-size: $theme-size-header
+    font-weight: 700
+    line-height: 1.2
+    margin-bottom: $gutter
+  &-footer
+    position: absolute
+    bottom: 40px
+    margin-left: -30%
+    left: 50%
+    width: 60%
+  &-bottom
+    @extend .box-footer
+    bottom: 10px
+    color: #000
+    font-size: $font-size-small
+    font-weight: 700
+    text-align: center
+    &:hover, &:focus
+      color: #000
+  &-center
+    text-align: center
 
 // header do programa
 .select
@@ -87,7 +239,7 @@ h4
     &-link
       color: #fff
       display: inline-block
-      font-size: $font-size-base + 3
+      font-size: $theme-size-title
       font-weight: 700
       padding-bottom: $gutter * 0.75
       padding-left: $gutter * 2.5
@@ -104,28 +256,11 @@ h4
 // imagem destaque do programa, titulo, descricao e botao de acesso
 .proposal-header
   position: relative
-  img
-    width: 100%
-  p
-    background-color: #000
-    bottom: 140px
-    color: #fff
-    font-size: $font-size-base - 2
-    font-weight: 700
-    padding-bottom: $gutter
-    padding-left: $gutter
-    padding-right: $gutter
-    padding-top: $gutter * 0.25
-    position: absolute
-    right: 0
-    text-align: center
-    width: 50%
-    vertical-align: middle
   .title
     background-color: #000
     bottom: 170px
     color: #fff
-    font-size: $font-size-base * 2
+    font-size: $proposal-title
     font-weight: 700
     margin-bottom: $gutter * 1.25
     margin-left: 0
@@ -175,40 +310,15 @@ h4
       padding-right: $gutter * 0.75
       padding-top: $gutter * 0.25
       transition: all 200ms
-
-// caixas dos programas
-.box
-  height: 500px
-  border: 1px solid
-  margin-bottom: $gutter * 0.5
-  padding: $gutter
-  position: relative
-  &-title
-    font-size: $font-size-h2
-    font-weight: 400
-    margin-bottom: $gutter
-  &-subtitle
-    font-size: $font-size-base * 1.5
-    font-weight: 700
-    line-height: 1.2
-    margin-bottom: $gutter
-  &-footer
-    position: absolute
-    bottom: 40px
-    margin-left: -30%
-    left: 50%
-    width: 60%
-  &-bottom
-    @extend .box-footer
-    bottom: 10px
-    color: #000
+  img
+    width: 100%
+  p
+    @extend .title
+    bottom: 140px
     font-size: $font-size-small
-    font-weight: 700
-    text-align: center
-    &:hover, &:focus
-      color: #000
-  &-center
-    text-align: center
+    margin-bottom: $gutter * 0.5
+    padding-top: $gutter * 0.25
+    text-transform: none
 
 // votacao
 .vote-actions
@@ -333,52 +443,11 @@ h4
 .list-unstyled
   li
     border-top: 1px solid
-    font-size: $font-size-base + 2
+    font-size: $font-size-big
     font-weight: 700
     padding: $gutter
     &:first-child
       border-top: 0
-
-
-// ------------------------------------
-// elementos
-// ------------------------------------
-
-// botao padrao
-.button
-  background-color: #000
-  border-radius: $radius
-  color: #fff
-  cursor: pointer
-  display: block
-  font-size: $font-size-small
-  font-weight: 400
-  padding: $gutter 0
-  text-align: center
-  text-transform: uppercase
-  transition: all 200ms
-  +hover(#000, 20%)
-  &:hover, &:focus
-    color: #fff
-  &-send
-    span
-      padding-left: $gutter * 1.5
-      background-image: url(images/airplane.png)
-      background-position: left center
-      background-repeat: no-repeat
-  &-participe
-    .fa
-      margin-right: $gutter * 0.5
-
-// botao voltar
-.btn
-  background-color: #fff
-  border-radius: 0
-  border: 1px solid #ccc
-  color: #000
-  line-height: 3.1
-  font-size: $font-size-small
-  padding: 6px 12px
 
 
 // ------------------------------------
