@@ -164,11 +164,11 @@
               <ul class="select">
                 {{#each categories}}
                   <li class="category proposal-category" data-category="{{slug}}">
-                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
-                    <button class="go-back btn btn-default pull-left">
+                    <button class="go-back btn btn-default">
                       <span class="fa fa-reply"></span>
                       Voltar
                     </button>
+                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                     {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
                   </li>
                 {{/each}}
