@@ -94,6 +94,11 @@ define(['handlebars'], function(Handlebars){
     return +(Math.round(num + "e+2")  + "e-2");
   });
 
+  Handlebars.registerHelper('social_share', function(title, description, url) {
+    var template = Handlebars.compile($('#social-share').html());
+    return template();
+  });
+
   function proposal_has_category(proposal, category_slug) {
     for(var i=0; i<proposal.categories.length; i++) {
       if(proposal.categories[i].slug == category_slug)
