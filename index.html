@@ -297,7 +297,7 @@
       </div>
       <div class="social">
         <span>Compartilhe esta proposta</span>
-        {{#social_share parent.title abstract "#/programas/{{parent.id}}/propostas/{{id}}"}}{{/social_share}}
+        {{{social_share parent.title abstract (proposal_url parent.id id)}}}
       </div>
     </script>
 
@@ -384,10 +384,10 @@
 
     <script id="social-share" type="text/x-handlebars-template">
       <ul>
-        <li><a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share icon icon-facebook" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar no Facebook</a></li>
-        <li><a href="https://twitter.com/intent/tweet?text={{stripTags abstract}}" class="tw-share icon icon-twitter popup">Compartilhar no Twitter</a></li>
-        <li><a href="https://plus.google.com/share?url=http://dialoga.gov.br" class="gp-share icon icon-gplus popup">Compartilhar no Google Plus</a></li>
-        <li><a class="ws-share disabled icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
+        <li><a href="{{url}}" class="fb-share icon icon-facebook" data-caption="{{title}}" data-description="{{stripTags description}}">Compartilhar no Facebook</a></li>
+        <li><a href="https://twitter.com/intent/tweet?url={{encodeURI url}}&text={{stripTags description}}" class="tw-share icon icon-twitter popup">Compartilhar no Twitter</a></li>
+        <li><a href="https://plus.google.com/share?url={{encodeURI url}}" class="gp-share icon icon-gplus popup">Compartilhar no Google Plus</a></li>
+        <li><a href="whatsapp://send" data-text="{{stripTags description}}" data-href="{{url}}" class="ws-share icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
       </ul>
     </script>
 
