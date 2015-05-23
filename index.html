@@ -43,6 +43,7 @@
       function loadCSSFiles(){
         var css_files = [
           'css/bootstrap.min.css',
+          'css/bootstrap-alert.min.css',
           'css/hover.custom.css',
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
@@ -227,6 +228,9 @@
               <div class="support-proposal-container">
                 <div class="support-proposal">
                   <div class="container-title"> Apoie outras propostas</div>
+                  <div class="alert alert-warning hide" role="alert">
+                    <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
+                  </div>
                   <div class="support-proposal-content require-login">
                     <div class="random-proposal"></div>
                     <div class="loading">Carregando...</div>
@@ -238,7 +242,7 @@
               </div>
 
               <div class="results-container hide"></div>
-              
+
               <div class="talk-proposal-container">
                 <div class="talk-proposal">
                   <div class="container-title">Bate-papo com os ministros</div>

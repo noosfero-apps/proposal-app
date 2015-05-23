@@ -433,6 +433,13 @@
           min-height: $container-height;
           position: relative;
           margin: 0 0 20px 10px;
+          .alert{
+            width: 95%;
+            margin: 0 auto;
+            strong{
+              margin-left: 5px;
+            }
+          }
         }
         .subtitle {
           color: #000;
