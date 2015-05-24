@@ -152,3 +152,57 @@ form {
     margin-bottom: 20px;
   }
 }
+
+@media (max-width: 480px) {
+  header {
+    height: auto;
+    h1 {
+      border-bottom: 0;
+      padding-bottom: 15px;
+      padding-top: 50px;
+      position: relative;
+      margin-bottom: 0;
+    }
+    #display-contrast {
+      position: absolute;
+      top: 10px;
+    }
+  }
+  .social {
+    &.top {
+      float: none;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+  .select {
+    .proposal-category {
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+    }
+    .proposal-selection {
+      float: none;
+      margin: 4px 0 0 !important;
+      width: auto;
+    }
+  }
+  .proposal-header {
+    .show_body {
+      a {
+        display: block !important;
+        line-height: 1;
+      }
+      span {
+        display: inline !important;
+      }
+    }
+    .abstract {
+      p {
+        padding-bottom: 5px !important;
+      }
+    }
+  }
+}
