@@ -10,6 +10,7 @@
 @import 'accessibility';
 @import 'slick';
 @import 'slick-theme';
+@import 'share';
 
 @import 'proposal_detail/proposal-detail-base';
 @import 'proposal_detail/urgencia-e-emergencia';
@@ -114,11 +115,11 @@ form {
 // TO_REFACT:
 .btn {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 0 12px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
-  line-height: 3.1;
+  // line-height: 3.1;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -130,13 +131,14 @@ form {
   -ms-user-select: none;
   user-select: none;
   background-image: none;
-  border: 1px solid transparent;
+  border: 0;
+  vertical-align: middle;
   /* border-radius: 4px; */
 }
 
 .btn-default {
-  color: #000;
-  background-color: #fff;
+  color: #fff;
+  background-color: transparent;
   border-color: #ccc;
 }
 

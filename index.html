@@ -43,6 +43,7 @@
       function loadCSSFiles(){
         var css_files = [
           'css/bootstrap.min.css',
+          'css/bootstrap-alert.min.css',
           'css/hover.custom.css',
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
@@ -88,15 +89,15 @@
 
 
     <div class="container">
-      <div id="proposal-result" class="row"></div>
+      <div id="proposal-result"></div>
     </div>
 
     <script id="proposal-template" type="text/x-handlebars-template">
       <header>
         <h1><a href="#">{{article.title}}</a></h1>
         <a id="display-contrast" href="#">Alto Contraste</a>
-        <div class="social">
-          <a href="#" class="fb-share" data-description="Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo">Compartilhar</a>
+        <div class="social top">
+          {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
         </div>
       </header>
 
@@ -104,7 +105,7 @@
         {{{article.abstract}}}
       </div>
 
-      <nav role="tabpanel">
+      <nav class="tab" role="tabpanel">
         <ul role="tablist">
           <li id="nav-proposal-categories" role="presentation">
             <a href="#/temas" class="active" role="tab" aria-controls="proposal-categories">Por Temas</a>
@@ -118,10 +119,10 @@
       <article id="proposal-categories">
         <div id="proposal-categories-container">
           <nav>
-            <ul>
+            <ul class="themes">
             {{#each article.categories}}
               <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
-                <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
+                <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow " data-target="proposal-item-{{id}}">{{name}}</a>
                 <div class="arrow-box" style="display: none"></div>
               </li>
             {{/each}}
@@ -162,27 +163,24 @@
               <header class="select">
                 {{#each categories}}
                   <div class="category proposal-category" data-category="{{slug}}">
-                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
-                    <button class="go-back btn btn-default pull-right">
-                      VOLTAR
+                    <button class="go-back btn btn-default">
                       <span class="fa fa-reply"></span>
+                      Voltar
                     </button>
+                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                     {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
                   </div>
                 {{/each}}
               </header>
 
-              <div class="social">
-                <a href="#" class="fb-share" data-caption="{{title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
-              </div>
               <div class="proposal-header">
                 <div class="abstract">
                   <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
                 </div>
                 <div class="title">{{title}}</div>
                 <div class="abstract">{{{abstract}}}</div>
-                <div class="show_body">
-                  <a href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o Programa</span></a>
+                <div class="show_body row">
+                  <a class="col-sm-6 col-sm-offset-3" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
                 </div>
               </div>
 
@@ -192,12 +190,20 @@
                 </div>
 
                 <div class="container">
-                  <div class="col-sm-4 col-sm-offset-4">
-                    <div class="go-to-proposal-button">
-                      <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}" class="button button-participe">
-                        <span class="fa fa-reply"></span>
-                        Participe
-                      </a>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="go-to-proposal-button">
+                        <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}" class="button button-participe">
+                          <span class="fa fa-reply"></span>
+                          Participe
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <div class="social right">
+                        <span>COMPARTILHE<br>ESTE PROGRAMA</span>
+                        {{#social_share title abstract '#'}}{{/social_share}}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -208,10 +214,10 @@
                   <section class="make-proposal box box-propostas">
                     <div class="container-title box-title">Faça Uma Proposta</div>
                     <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
-                    <div class="info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
-                    <div class="send-proposal-button send-button box-footer"><a href="#" class="button button-send"><span>Envie Sua Proposta</span></a></div>
+                    <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
+                    <div class="send-proposal-button send-button box-footer"><a href="#" class="button button-send"><span>Envie sua proposta</span></a></div>
                     <div class="login-container hide">Login</div>
-                    <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
+                    <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                       <div class="message hide"></div>
                       <div>
                         <div><label for="article_abstract">Descrição</label></div>
@@ -230,15 +236,22 @@
                 </div>
                 <div class="support-proposal-container col-sm-6">
                   <section class="support-proposal box box-propostas box-center">
-                    <div class="container-title box-title"> Apoie outras propostas</div>
-                    <div class="random-proposal"></div>
-                    <div class="loading">Carregando...</div>
-                    <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                    <div class="container-title box-title">Apoie outras propostas</div>
+                    <div class="alert alert-warning hide" role="alert">
+                      <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
+                    </div>
+                    <div class="support-proposal-content require-login">
+                      <div class="random-proposal"></div>
+                      <div class="loading">Carregando...</div>
+                      <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                    </div>
+                    <div class="login-container hide">Login</div>
+                    <div class="send-button"><a href="#"><span>Login</span></a></div>
                   </section>
                 </div>
               </div>
 
-              <div class="results-container hide boxbox-propostas "></div>
+              <div class="results-container hide box box-propostas "></div>
 
               <div class="row">
                 <section class="talk-proposal-container col-sm-12">
@@ -288,7 +301,8 @@
         <a href="#" class="vote-result box-bottom">Resultados</a>
       </div>
       <div class="social">
-        <a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
+        <span>Compartilhe esta proposta</span>
+        {{{social_share parent.title abstract (proposal_url parent.id id)}}}
       </div>
     </script>
 
@@ -329,6 +343,12 @@
       <div class="loading">Carregando...</div>
       <form id="login-form" class="login">
         <div class="message hide"></div>
+        <div class="row">
+          <div class="col-sm-4">
+            <a href="#" class="new-user button">Cadastre-se</a>
+          </div>
+        </div>
+        <p>Ou acesse:</p>
         <div class="username">
           <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
@@ -337,15 +357,16 @@
           <label for="user_password" class="label">Senha:</label>
           <input id="user_password" name="password" type="password" placeholder="Senha">
         </div>
-        <div class="actions">
-          <input type="submit" class="login-action" value="Acessar"/>
-          <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
-        </div>
-        <div class="oauth">
-          <div class="label">Acessar com:</div>
-          <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login">Facebook</a>
-          <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login">Google +</a>
-          <a href="#" class="new-user">Cadastrar</a>
+        <div class="row">
+          <div class="actions col-sm-4">
+            <input type="submit" class="login-action button col-sm-12" value="Acessar"/>
+            <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
+          </div>
+          <div class="oauth col-sm-8">
+            <span class="label">Ou acesse usando <i>&raquo;</i></span>
+            <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login icon icon-facebook">Facebook</a>
+            <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login icon icon-gplus">Google +</a>
+          </div>
         </div>
       </form>
       <form id="signup-form" class="signup hide" autocomplete="off">
@@ -373,6 +394,14 @@
       </form>
     </script>
 
+    <script id="social-share" type="text/x-handlebars-template">
+      <ul>
+        <li><a href="{{url}}" class="fb-share icon icon-facebook" data-caption="{{title}}" data-description="{{stripTags description}}">Compartilhar no Facebook</a></li>
+        <li><a href="https://twitter.com/intent/tweet?url={{encodeURI url}}&text={{stripTags description}}" class="tw-share icon icon-twitter popup">Compartilhar no Twitter</a></li>
+        <li><a href="https://plus.google.com/share?url={{encodeURI url}}" class="gp-share icon icon-gplus popup">Compartilhar no Google Plus</a></li>
+        <li><a href="whatsapp://send?text={{stripTags description}}" class="ws-share icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
+      </ul>
+    </script>
 
     <script type='text/javascript'	>
       loadRequireJS();

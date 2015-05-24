@@ -6,7 +6,7 @@
 $gutter: 20px
 
 // arredondamento
-$radius: 5px
+$radius: 6px
 
 // tamanhos de fontes
 $font-size-base: 16px
@@ -16,7 +16,6 @@ $font-size-h1: 28px
 $font-size-h2: 38px
 $font-size-h3: 28px
 $font-size-h4: 34px
-$theme-size-title: 19px
 $theme-size-header: 24px
 $proposal-title: 32px
 
@@ -32,6 +31,7 @@ $categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado.
 
 // hover
 =hover($color, $amount)
+  transition: all 400ms
   &:hover
     background-color: lighten($color, $amount)
     text-decoration: none
@@ -46,10 +46,16 @@ body
   font-size: $font-size-base
   font-weight: 300
 h1
+  border-bottom: 1px solid #000
+  bottom: 0
   font-family: asap, sans
   font-size: $font-size-h1
   font-weight: 500
+  margin: 0
+  padding: $gutter 0
+  position: absolute
   text-transform: uppercase
+  width: 100%
 h2
   border-bottom: 1px solid
   font-size: $font-size-h2
@@ -68,6 +74,9 @@ h3
 h4
   font-size: $font-size-h4
   font-weight: 500
+header
+  position: relative
+  height: 100px
 
 
 // ------------------------------------
@@ -82,9 +91,19 @@ h4
 // elementos
 // ------------------------------------
 
+// conteudo
+#content
+  p
+    font-family: asap, sans
+    margin-bottom: $gutter * 3
+    margin-left: $gutter
+    margin-right: $gutter
+    margin-top: $gutter
+
 // botao padrao
 .button
   background-color: #000
+  border: 0
   border-radius: $radius
   color: #fff
   cursor: pointer
@@ -94,7 +113,6 @@ h4
   padding: $gutter 0
   text-align: center
   text-transform: uppercase
-  transition: all 200ms
   +hover(#000, 20%)
   &:hover, &:focus
     color: #fff
@@ -110,18 +128,133 @@ h4
 
 // botao voltar
 .btn
-  background-color: #fff
-  border-radius: 0
-  border: 1px solid #ccc
-  color: #000
-  line-height: 3.1
+  background-color: transparent
+  border: 0
+  color: #fff
   font-size: $font-size-small
-  padding: 6px 12px
+  padding-bottom: 0
+  padding-left: $gutter * 0.5
+  padding-right: $gutter * 0.5
+  padding-top: 0
+  vertical-align: middle
+
+// icones
+.icon
+  background-color: transparent !important
+  background-repeat: no-repeat
+  background-position: 50% !important
+  background-size: auto !important
+  border: 0 !important
+  display: inline-block
+  height: 36px
+  min-width: 0 !important
+  padding: 0 !important
+  text-align: left
+  text-indent: -999999px
+  width: 36px
+  &-facebook
+    background-image: url(images/icons/icon-facebook.png) !important
+    &.disabled
+      background-image: url(images/icons/icon-facebook-disabled.png) !important
+  &-twitter
+    background-image: url(images/icons/icon-twitter.png) !important
+    &.disabled
+      background-image: url(images/icons/icon-twitter-disabled.png) !important
+  &-gplus
+    background-image: url(images/icons/icon-gplus.png) !important
+    &.disabled
+      background-image: url(images/icons/icon-gplus-disabled.png) !important
+  &-whatsapp
+    background-image: url(images/icons/icon-whatsapp.png) !important
+    &.disabled
+      background-image: url(images/icons/icon-whatsapp-disabled.png) !important
 
 
 // ------------------------------------
 // blocos
 // ------------------------------------
+
+// compartilhar
+.social
+  position: relative
+  z-index: 1
+  &.top
+    margin-top: 45px
+    float: right
+  &.right
+    padding-top: 10px
+    span
+      display: inline-block
+      font-size: 12px
+      font-weight: 300
+      padding-right: 10px
+      text-align: right
+      vertical-align: middle
+    ul
+      display: inline-block
+      vertical-align: middle
+  span
+    display: block
+    margin-bottom: 10px
+  ul
+    list-style: none
+    padding-left: 0
+  li
+    display: inline-block
+    padding: 0 2px !important
+
+// tabs de temas e programas
+.tab
+  margin-top: $gutter
+  ul
+    font-size: 0
+    list-style: none
+    margin-bottom: 0
+    padding-left: 0
+  li
+    display: inline-block
+    font-size: $font-size-base
+    width: 50%
+  a
+    background-color: #efefef
+    border-bottom: 1px solid #000
+    color: #000
+    display: block
+    font-weight: 700
+    padding-bottom: $gutter
+    padding-left: $gutter * 0.25
+    padding-right: $gutter * 0.25
+    padding-top: $gutter
+    text-align: center
+    text-transform: uppercase
+  .active
+    background-color: #fff
+    border-bottom: 1px solid #fff
+    border-left: 1px solid #000
+    border-right: 1px solid #000
+    border-top: 1px solid #000
+
+// blocos dos temas
+.themes
+  font-size: 0
+  text-align: center
+  li
+    display: inline-block
+    font-size: $font-size-base
+    width: 140px
+    margin: $gutter * 0.5
+  a
+    background-color: #000
+    border-radius: $radius
+    color: #fff
+    display: block
+    font-family: asap, sans
+    font-size: $font-size-small
+    font-weight: 700
+    padding-bottom: $gutter * 0.25
+    padding-top: $gutter * 5.5
+    &:hover
+      text-decoration: none
 
 // listagem
 #proposal
@@ -129,7 +262,10 @@ h4
     border-bottom: 1px solid #000
     border-left: 1px solid #000
     border-right: 1px solid #000
-    padding: $gutter $gutter 0
+    padding-bottom: 0
+    padding-left: $gutter
+    padding-right: $gutter
+    padding-top: $gutter * 0.5
     ul
       list-style: none
       padding-left: 0
@@ -160,7 +296,7 @@ h4
       list-style: none
       padding-left: 0
 
-// blocos dos programas
+// box dos programas
 .box
   background-color: #fff
   border: 1px solid gray
@@ -169,8 +305,9 @@ h4
   display: block
   height: 200px
   margin-top: $gutter * 1.5
+  overflow: auto
   padding: $gutter
-  transition: all 200ms
+  transition: all 400ms
   &:hover
     background-color: darken(#fff, 10%)
     color: #000
@@ -185,8 +322,15 @@ h4
     height: 500px
     border: 1px solid
     margin-bottom: $gutter * 0.5
+    margin-top: 0
     padding: $gutter
     position: relative
+    &:hover
+      background-color: #fff
+    p
+      @extend .box-subtitle
+      border-bottom: 0
+      padding-bottom: inherit
   &-header
     font-family: asap, sans
     font-size: $theme-size-header
@@ -213,18 +357,23 @@ h4
     font-weight: 700
     line-height: 1.2
     margin-bottom: $gutter
+  &-info
+    margin-bottom: $gutter
   &-footer
-    position: absolute
-    bottom: 40px
-    margin-left: -30%
-    left: 50%
-    width: 60%
+    margin-bottom: $gutter * 0.25
+    margin-left: auto
+    margin-right: auto
+    margin-top: $gutter
+    width: 40%
   &-bottom
     @extend .box-footer
     bottom: 10px
     color: #000
+    display: inline-block
     font-size: $font-size-small
     font-weight: 700
+    margin-bottom: $gutter * 0.75
+    margin-top: 0
     text-align: center
     &:hover, &:focus
       color: #000
@@ -235,23 +384,26 @@ h4
 .select
   background-color: #000
   margin-bottom: $gutter * 0.5
+  padding: $gutter * 0.25
   .proposal
     &-link
       color: #fff
       display: inline-block
-      font-size: $theme-size-title
+      font-size: $theme-size-header
       font-weight: 700
-      padding-bottom: $gutter * 0.75
-      padding-left: $gutter * 2.5
-      padding-right: $gutter * 0.75
-      padding-top: $gutter * 0.75
-      text-transform: uppercase
+      padding-bottom: 0
+      padding-left: $gutter * 2.25
+      padding-right: 0
+      padding-top: 0
+      vertical-align: middle
     &-selection
       background-color: #fff
       border: 0
+      border-radius: 3px
       float: right
-      height: 57px
+      margin: 4px
       width: 60%
+      vertical-align: middle
 
 // imagem destaque do programa, titulo, descricao e botao de acesso
 .proposal-header
@@ -274,42 +426,20 @@ h4
     width: 50%
     vertical-align: middle
   .show_body
-    background-color: #000
-    border-radius: $radius
-    cursor: pointer
-    margin-bottom: $gutter * 0.5
-    margin-left: auto
-    margin-right: auto
-    margin-top: $gutter * 0.5
-    padding-bottom: $gutter * 1.5
-    padding-left: 0
-    padding-right: 0
-    padding-top: $gutter * 1.5
-    text-align: center
-    transition: all 200ms
-    width: 100%
-    +hover(#000, 20%)
-    &:hover
-      span
-        background-color: lighten(#000, 20%)
+    margin-bottom: $gutter
+    margin-top: $gutter
     a
-      background: url(images/white-line.png) left center repeat-x
+      background-color: #000
+      border-radius: $radius
       color: #fff
-      display: inline-block
       font-size: $font-size-h2
       font-weight: 700
-      margin: 0 auto
-      text-transform: uppercase
-      width: 70%
-      &:hover
-        text-decoration: none
-    span
-      background-color: #000
-      padding-bottom: $gutter * 0.25
-      padding-left: $gutter * 0.75
-      padding-right: $gutter * 0.75
-      padding-top: $gutter * 0.25
-      transition: all 200ms
+      padding-bottom: $gutter * 0.5
+      padding-left: 0
+      padding-right: 0
+      padding-top: $gutter * 0.5
+      text-align: center
+      +hover(#000, 20%)
   img
     width: 100%
   p
@@ -319,6 +449,29 @@ h4
     margin-bottom: $gutter * 0.5
     padding-top: $gutter * 0.25
     text-transform: none
+
+// login form
+.login
+  text-align: left
+  input
+    display: block
+    margin-bottom: $gutter
+    width: 100%
+    &.button
+      margin-bottom: $gutter * 0.25
+  .label
+    vertical-align: middle
+  .icon
+    vertical-align: middle
+  .oauth
+    margin-top: $gutter * 0.5
+    text-align: right
+  .forgot-password
+    display: block
+    font-size: $font-size-small
+    text-align: center
+  i
+    font-style: normal
 
 // votacao
 .vote-actions
