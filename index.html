@@ -353,7 +353,7 @@
             <a href="#" class="new-user button">Cadastre-se</a>
           </div>
         </div>
-        <p>Ou acesse:</p>
+        <p class="box-subtitle">Ou acesse:</p>
         <div class="username">
           <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
@@ -375,6 +375,8 @@
         </div>
       </form>
       <form id="signup-form" class="signup hide" autocomplete="off">
+        <div class="message hide"></div>
+        <p class="box-subtitle">Cadastre-se</p>
         <div class="email">
           <label for="user_email" class="label">E-mail:</label>
           <input id="user_email" name="email" type="text" placeholder="E-mail">
@@ -383,18 +385,25 @@
           <label for="user_name" class="label">Nome de Usuário</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário">
         </div>
-        <div class="password">
-          <label for="user_password" class="label">Senha:</label>
-          <input id="user_password" name="password" type="password" placeholder="Senha">
-        </div>
-        <div class="password-confirmation">
-          <label for="user_password_confirmation" class="label">Confirme a senha:</label>
-          <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+        <div class="row">
+          <div class="password col-sm-6">
+            <label for="user_password" class="label">Senha:</label>
+            <input id="user_password" name="password" type="password" placeholder="Senha">
+          </div>
+          <div class="password-confirmation col-sm-6">
+            <label for="user_password_confirmation" class="label">Confirme a senha:</label>
+            <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+          </div>
         </div>
         <div class="actions">
-          <div class="message hide"></div>
-          <a href="#" class="confirm-signup">Confirmar</a>
-          <a href="#" class="cancel-signup">Cancelar</a>
+          <div class="row">
+            <div class="col-sm-4">
+              <a href="#" class="confirm-signup button">Confirmar</a>
+            </div>
+            <div class="col-sm-4">
+              <a href="#" class="cancel-signup button button-cancela">Cancelar</a>
+            </div>
+          </div>
         </div>
       </form>
     </script>

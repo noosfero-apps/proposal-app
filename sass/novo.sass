@@ -86,12 +86,13 @@ body
   font-weight: 400
 h1
   border-bottom: 1px solid #d6dcd7
-  color: $header-color
   font-family: asap, sans
   font-size: $font-size-h1
   font-weight: 500
   padding-bottom: $gutter
   text-transform: uppercase
+  a
+    color: $header-color
 h2
   border-bottom: 1px solid #eeeff1
   font-size: $font-size-h2
@@ -138,7 +139,10 @@ p,ul,select
   display: block
   font-size: $font-size-base
   font-weight: 700
-  padding: $gutter 0
+  padding-bottom: $gutter * 0.75
+  padding-left: 0
+  padding-right: 0
+  padding-top: $gutter * 0.75
   text-align: center
   +hover(#000, 15%)
   &:hover, &:focus
@@ -147,6 +151,8 @@ p,ul,select
     display: inline-block
     padding-bottom: $gutter * 0.5 !important
     padding-top: $gutter * 0.5 !important
+  &-cancela
+    @extend .button
   &-send
     span
       padding-left: $gutter * 1.5
@@ -363,9 +369,6 @@ p,ul,select
     text-decoration: none
   p
     border-bottom: 1px dotted #000
-    font-family: asap, sans
-    font-size: $font-size-small
-    font-weight: 400
     padding-bottom: $gutter * 0.75
   &-propostas
     height: 500px
@@ -378,7 +381,6 @@ p,ul,select
       background-color: #fff
     p
       border-bottom: 0
-      font-size: $font-size-small
       padding-bottom: inherit
   &-apoie
     p
@@ -407,6 +409,7 @@ p,ul,select
     font-weight: 400
     margin-bottom: $gutter
   &-subtitle
+    color: $link-color
     font-size: $theme-size-header
     font-weight: 700
     line-height: 1.2
@@ -509,14 +512,32 @@ p,ul,select
     text-transform: none
 
 // 6.9 - login form
-.login
+.login,.signup
   text-align: left
+  .message
+    background: #fcc
+    border: 1px solid #b00
+    border-radius: $radius
+    color: #b00
+    font-weight: 700
+    padding-bottom: $gutter * 0.25
+    padding-left: $gutter * 0.5
+    padding-right: $gutter * 0.5
+    padding-top: $gutter * 0.25
+    margin-bottom: $gutter
   input
+    border: 1px solid
     display: block
     margin-bottom: $gutter
+    padding-bottom: $gutter * 0.25
+    padding-left: $gutter * 0.5
+    padding-right: $gutter * 0.5
+    padding-top: $gutter * 0.25
     width: 100%
     &.button
+      @extend .button
       margin-bottom: $gutter * 0.25
+
   .label
     vertical-align: middle
   .icon
@@ -530,6 +551,12 @@ p,ul,select
     text-align: center
   i
     font-style: normal
+    font-weight: 700
+    padding-left: $gutter * 0.25
+    padding-right: $gutter * 0.25
+  .row
+    input
+      margin-bottom: 0
 
 // 6.10 - votacao
 .vote-actions
@@ -707,7 +734,7 @@ h3.titulo-destaque
     .box
       &-propostas
         border-color: $color
-      &-title
+      &-title,&-bottom
         color: $color
       &-category
         li
@@ -718,6 +745,13 @@ h3.titulo-destaque
       &-slider
         .date,.time
           color: $color
+    .login,.signup
+      input
+        border-color: $color
+        &.button
+          +hover($color, 15%)
+      i
+        color: $color
   section.#{$category}
     background-color: $color
   .category-#{$category}

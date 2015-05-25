@@ -6,12 +6,13 @@ body {
 
 h1 {
   border-bottom: 1px solid #d6dcd7;
-  color: #03316f;
   font-family: asap, sans;
   font-size: 28px;
   font-weight: 500;
   padding-bottom: 20px;
   text-transform: uppercase; }
+  h1 a {
+    color: #03316f; }
 
 h2 {
   border-bottom: 1px solid #eeeff1;
@@ -41,7 +42,7 @@ p, ul, select {
 .container, .row {
   margin-bottom: 20px; }
 
-.button {
+.button, .button-cancela, .login input.button, .signup input.button {
   border-bottom: 3px solid #000;
   border-left: 0;
   border-right: 0;
@@ -52,13 +53,16 @@ p, ul, select {
   display: block;
   font-size: 16px;
   font-weight: 700;
-  padding: 20px 0;
+  padding-bottom: 15px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 15px;
   text-align: center;
   transition: all 400ms; }
-  .button:hover {
+  .button:hover, .button-cancela:hover, .login input.button:hover, .signup input.button:hover {
     background-color: black;
     text-decoration: none; }
-  .button:hover, .button:focus {
+  .button:hover, .button-cancela:hover, .login input.button:hover, .signup input.button:hover, .button:focus, .button-cancela:focus, .login input.button:focus, .signup input.button:focus {
     color: #fff; }
   .button-inline {
     display: inline-block;
@@ -260,9 +264,6 @@ p, ul, select {
     text-decoration: none; }
   .box p {
     border-bottom: 1px dotted #000;
-    font-family: asap, sans;
-    font-size: 14px;
-    font-weight: 400;
     padding-bottom: 15px; }
   .box-propostas {
     height: 500px;
@@ -275,7 +276,6 @@ p, ul, select {
       background-color: #fff; }
     .box-propostas p {
       border-bottom: 0;
-      font-size: 14px;
       padding-bottom: inherit; }
   .box-apoie p {
     border-bottom: 0;
@@ -302,6 +302,7 @@ p, ul, select {
     font-weight: 400;
     margin-bottom: 20px; }
   .box-subtitle, .box-apoie p {
+    color: #335277;
     font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
@@ -401,27 +402,48 @@ p, ul, select {
     padding-top: 5px;
     text-transform: none; }
 
-.login {
+.login, .signup {
   text-align: left; }
-  .login input {
+  .login .message, .signup .message {
+    background: #fcc;
+    border: 1px solid #b00;
+    border-radius: 6px;
+    color: #b00;
+    font-weight: 700;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin-bottom: 20px; }
+  .login input, .signup input {
+    border: 1px solid;
     display: block;
     margin-bottom: 20px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
     width: 100%; }
-    .login input.button {
+    .login input.button-cancela, .login input.button, .signup input.button-cancela, .signup input.button {
       margin-bottom: 5px; }
-  .login .label {
+  .login .label, .signup .label {
     vertical-align: middle; }
-  .login .icon {
+  .login .icon, .signup .icon {
     vertical-align: middle; }
-  .login .oauth {
+  .login .oauth, .signup .oauth {
     margin-top: 10px;
     text-align: right; }
-  .login .forgot-password {
+  .login .forgot-password, .signup .forgot-password {
     display: block;
     font-size: 14px;
     text-align: center; }
-  .login i {
-    font-style: normal; }
+  .login i, .signup i {
+    font-style: normal;
+    font-weight: 700;
+    padding-left: 5px;
+    padding-right: 5px; }
+  .login .row input, .signup .row input {
+    margin-bottom: 0; }
 
 .vote-actions .like {
   background: url(images/like.png) no-repeat;
@@ -585,11 +607,11 @@ section.reducao-da-pobreza .description {
 
 .saude {
   color: #00a9bd; }
-  .saude .button, .saude .show_body a {
+  .saude .button, .saude .button-cancela, .saude .login input.button, .login .saude input.button, .saude .signup input.button, .signup .saude input.button, .saude .show_body a {
     background-color: #00a9bd;
     border-color: #006571;
     transition: all 400ms; }
-    .saude .button:hover, .saude .show_body a:hover {
+    .saude .button:hover, .saude .button-cancela:hover, .saude .show_body a:hover {
       background-color: #006571;
       text-decoration: none; }
   .saude .select {
@@ -598,13 +620,22 @@ section.reducao-da-pobreza .description {
     background-color: #006571; }
   .saude .box-propostas {
     border-color: #00a9bd; }
-  .saude .box-title {
+  .saude .box-title, .saude .box-bottom {
     color: #00a9bd; }
   .saude .box-category li {
     background-color: #00a9bd; }
   .saude .slick-prev, .saude .slick-next {
     color: #00a9bd; }
   .saude .slick-slider .date, .saude .slick-slider .time {
+    color: #00a9bd; }
+  .saude .login input, .saude .signup input {
+    border-color: #00a9bd; }
+    .saude .login input.button-cancela, .saude .login input.button, .saude .signup input.button-cancela, .saude .signup input.button {
+      transition: all 400ms; }
+      .saude .login input.button-cancela:hover, .saude .login input.button:hover, .saude .signup input.button-cancela:hover, .saude .signup input.button:hover {
+        background-color: #006571;
+        text-decoration: none; }
+  .saude .login i, .saude .signup i {
     color: #00a9bd; }
 
 section.saude {
@@ -632,11 +663,11 @@ section.saude {
 
 .seguranca-publica {
   color: #e34748; }
-  .seguranca-publica .button, .seguranca-publica .show_body a {
+  .seguranca-publica .button, .seguranca-publica .button-cancela, .seguranca-publica .login input.button, .login .seguranca-publica input.button, .seguranca-publica .signup input.button, .signup .seguranca-publica input.button, .seguranca-publica .show_body a {
     background-color: #e34748;
     border-color: #c01d1e;
     transition: all 400ms; }
-    .seguranca-publica .button:hover, .seguranca-publica .show_body a:hover {
+    .seguranca-publica .button:hover, .seguranca-publica .button-cancela:hover, .seguranca-publica .show_body a:hover {
       background-color: #c01d1e;
       text-decoration: none; }
   .seguranca-publica .select {
@@ -645,13 +676,22 @@ section.saude {
     background-color: #c01d1e; }
   .seguranca-publica .box-propostas {
     border-color: #e34748; }
-  .seguranca-publica .box-title {
+  .seguranca-publica .box-title, .seguranca-publica .box-bottom {
     color: #e34748; }
   .seguranca-publica .box-category li {
     background-color: #e34748; }
   .seguranca-publica .slick-prev, .seguranca-publica .slick-next {
     color: #e34748; }
   .seguranca-publica .slick-slider .date, .seguranca-publica .slick-slider .time {
+    color: #e34748; }
+  .seguranca-publica .login input, .seguranca-publica .signup input {
+    border-color: #e34748; }
+    .seguranca-publica .login input.button-cancela, .seguranca-publica .login input.button, .seguranca-publica .signup input.button-cancela, .seguranca-publica .signup input.button {
+      transition: all 400ms; }
+      .seguranca-publica .login input.button-cancela:hover, .seguranca-publica .login input.button:hover, .seguranca-publica .signup input.button-cancela:hover, .seguranca-publica .signup input.button:hover {
+        background-color: #c01d1e;
+        text-decoration: none; }
+  .seguranca-publica .login i, .seguranca-publica .signup i {
     color: #e34748; }
 
 section.seguranca-publica {
@@ -679,11 +719,11 @@ section.seguranca-publica {
 
 .educacao {
   color: #ffb400; }
-  .educacao .button, .educacao .show_body a {
+  .educacao .button, .educacao .button-cancela, .educacao .login input.button, .login .educacao input.button, .educacao .signup input.button, .signup .educacao input.button, .educacao .show_body a {
     background-color: #ffb400;
     border-color: #b37e00;
     transition: all 400ms; }
-    .educacao .button:hover, .educacao .show_body a:hover {
+    .educacao .button:hover, .educacao .button-cancela:hover, .educacao .show_body a:hover {
       background-color: #b37e00;
       text-decoration: none; }
   .educacao .select {
@@ -692,13 +732,22 @@ section.seguranca-publica {
     background-color: #b37e00; }
   .educacao .box-propostas {
     border-color: #ffb400; }
-  .educacao .box-title {
+  .educacao .box-title, .educacao .box-bottom {
     color: #ffb400; }
   .educacao .box-category li {
     background-color: #ffb400; }
   .educacao .slick-prev, .educacao .slick-next {
     color: #ffb400; }
   .educacao .slick-slider .date, .educacao .slick-slider .time {
+    color: #ffb400; }
+  .educacao .login input, .educacao .signup input {
+    border-color: #ffb400; }
+    .educacao .login input.button-cancela, .educacao .login input.button, .educacao .signup input.button-cancela, .educacao .signup input.button {
+      transition: all 400ms; }
+      .educacao .login input.button-cancela:hover, .educacao .login input.button:hover, .educacao .signup input.button-cancela:hover, .educacao .signup input.button:hover {
+        background-color: #b37e00;
+        text-decoration: none; }
+  .educacao .login i, .educacao .signup i {
     color: #ffb400; }
 
 section.educacao {
@@ -726,11 +775,11 @@ section.educacao {
 
 .reducao-da-pobreza {
   color: #51d0b3; }
-  .reducao-da-pobreza .button, .reducao-da-pobreza .show_body a {
+  .reducao-da-pobreza .button, .reducao-da-pobreza .button-cancela, .reducao-da-pobreza .login input.button, .login .reducao-da-pobreza input.button, .reducao-da-pobreza .signup input.button, .signup .reducao-da-pobreza input.button, .reducao-da-pobreza .show_body a {
     background-color: #51d0b3;
     border-color: #2da78b;
     transition: all 400ms; }
-    .reducao-da-pobreza .button:hover, .reducao-da-pobreza .show_body a:hover {
+    .reducao-da-pobreza .button:hover, .reducao-da-pobreza .button-cancela:hover, .reducao-da-pobreza .show_body a:hover {
       background-color: #2da78b;
       text-decoration: none; }
   .reducao-da-pobreza .select {
@@ -739,13 +788,22 @@ section.educacao {
     background-color: #2da78b; }
   .reducao-da-pobreza .box-propostas {
     border-color: #51d0b3; }
-  .reducao-da-pobreza .box-title {
+  .reducao-da-pobreza .box-title, .reducao-da-pobreza .box-bottom {
     color: #51d0b3; }
   .reducao-da-pobreza .box-category li {
     background-color: #51d0b3; }
   .reducao-da-pobreza .slick-prev, .reducao-da-pobreza .slick-next {
     color: #51d0b3; }
   .reducao-da-pobreza .slick-slider .date, .reducao-da-pobreza .slick-slider .time {
+    color: #51d0b3; }
+  .reducao-da-pobreza .login input, .reducao-da-pobreza .signup input {
+    border-color: #51d0b3; }
+    .reducao-da-pobreza .login input.button-cancela, .reducao-da-pobreza .login input.button, .reducao-da-pobreza .signup input.button-cancela, .reducao-da-pobreza .signup input.button {
+      transition: all 400ms; }
+      .reducao-da-pobreza .login input.button-cancela:hover, .reducao-da-pobreza .login input.button:hover, .reducao-da-pobreza .signup input.button-cancela:hover, .reducao-da-pobreza .signup input.button:hover {
+        background-color: #2da78b;
+        text-decoration: none; }
+  .reducao-da-pobreza .login i, .reducao-da-pobreza .signup i {
     color: #51d0b3; }
 
 section.reducao-da-pobreza {
