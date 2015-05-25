@@ -1,14 +1,51 @@
 // ------------------------------------
-// variaveis
+// Organização da folha de estilo:
+// 
+// 1 - Variaveis
+//   1.1 - espacamento
+//   1.2 - arredondamento
+//   1.3 - tamanhos de fontes
+//   1.4 - dicionarios
+//   1.5 - cores
+// 2 - Mixins
+//   2.1 - hover
+// 3 - Base
+// 4 - Grid
+// 5 - Elementos reusaveis
+//   5.1 - botao padrao
+//   5.2 - botao voltar
+//   5.3 - icones de compartilhamento
+// 6 - Blocos de elementos
+//   6.1 - compartilhar
+//   6.2 - texto do Dialoga Brasil
+//   6.3 - tabs de temas e programas
+//   6.4 - blocos dos temas
+//   6.5 - listagem dos programas
+//   6.6 - blocos dos programas
+//   6.7 - header do programa e select box
+//   6.8 - imagem destaque do programa, titulo, descricao e botao de acesso
+//   6.9 - login form
+//   6.10 - votacao
+//   6.11 - lista de resultados
+//   6.12 - paginador
+//   6.13 - calendario dos ministros
+//   6.14 - listas
+// 7 - Modificadores
+// 8 - Cores do Temas
 // ------------------------------------
 
-// espacamento
+
+// ------------------------------------
+// 1 - Variaveis
+// ------------------------------------
+
+// 1.1 - espacamento
 $gutter: 20px
 
-// arredondamento
+// 1.2 - arredondamento
 $radius: 6px
 
-// tamanhos de fontes
+// 1.3 - tamanhos de fontes
 $font-size-base: 16px
 $font-size-big: $font-size-base + 2
 $font-size-small: $font-size-base - 2
@@ -19,45 +56,44 @@ $font-size-h4: 34px
 $theme-size-header: 24px
 $proposal-title: 32px
 
+// 1.4 - dicionarios
+$categories: (saude: #00a9bd, seguranca-publica: #e34748, educacao: #ffb400, reducao-da-pobreza: #51d0b3)
+$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A Segurança Pública é um direito fundamental, dever do Estado e responsabilidade de todos. A proteção da vida, a disseminação da cultura de paz e a integração dos órgãos e instituições são os maiores compromissos desta política pública.", educacao: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis ‐ da creche à pós‐graduação. Com o Plano Nacional de Educação (PNE) para os próximos 10 anos, o Brasil consolida um caminho de oportunidades, por meio da educação, para todos os brasileiros.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, na última década, 36 milhões de pessoas superaram a miséria e o país saiu do Mapa da Fome das Nações Unidas.")
 
-// dicionarios
-$categories: (saude: #00a9bd, seguranca: #e34748, educacao: #ffb400, reducao-da-pobreza: #51d0b3)
-$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca: "A Segurança Pública é um direito fundamental, dever do Estado e responsabilidade de todos. A proteção da vida, a disseminação da cultura de paz e a integração dos órgãos e instituições são os maiores compromissos desta política pública.", educacao: "O Brasil avançou na qualidade e ampliou o acesso à educação em todos os níveis ‐ da creche à pós‐graduação. Com o Plano Nacional de Educação (PNE) para os próximos 10 anos, o Brasil consolida um caminho de oportunidades, por meio da educação, para todos os brasileiros.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, na última década, 36 milhões de pessoas superaram a miséria e o país saiu do Mapa da Fome das Nações Unidas.")
+// 1.5 - cores
+$header-color: #03316f
+$link-color: #335277
 
 
 // ------------------------------------
-// mixins
+// 2 - Mixins
 // ------------------------------------
 
-// hover
+// 2.1 - hover
 =hover($color, $amount)
   transition: all 400ms
   &:hover
-    background-color: lighten($color, $amount)
+    background-color: darken($color, $amount)
     text-decoration: none
 
-
 // ------------------------------------
-// base
+// 3 - Base
 // ------------------------------------
 
 body
   font-family: 'Open Sans', sans-serif
   font-size: $font-size-base
-  font-weight: 300
+  font-weight: 400
 h1
-  border-bottom: 1px solid #000
-  bottom: 0
+  border-bottom: 1px solid #d6dcd7
+  color: $header-color
   font-family: asap, sans
   font-size: $font-size-h1
   font-weight: 500
-  margin: 0
-  padding: $gutter 0
-  position: absolute
+  padding-bottom: $gutter
   text-transform: uppercase
-  width: 100%
 h2
-  border-bottom: 1px solid
+  border-bottom: 1px solid #eeeff1
   font-size: $font-size-h2
   font-weight: 300
   margin-bottom: $gutter * 2
@@ -66,6 +102,7 @@ h2
   small
     display: block
     font-size: 16px
+    padding-top: $gutter * 0.25
     text-transform: none
 h3
   font-size: $font-size-h3
@@ -74,13 +111,11 @@ h3
 h4
   font-size: $font-size-h4
   font-weight: 500
-header
-  position: relative
-  height: 100px
-
+p,ul,select
+  color: #000
 
 // ------------------------------------
-// grid
+// 4 - Grid
 // ------------------------------------
 
 .container, .row
@@ -88,34 +123,30 @@ header
 
 
 // ------------------------------------
-// elementos
+// 5 - Elementos reusaveis
 // ------------------------------------
 
-// conteudo
-#content
-  p
-    font-family: asap, sans
-    margin-bottom: $gutter * 3
-    margin-left: $gutter
-    margin-right: $gutter
-    margin-top: $gutter
-
-// botao padrao
+// 5.1 - botao padrao
 .button
-  background-color: #000
-  border: 0
+  border-bottom: 3px solid #000
+  border-left: 0
+  border-right: 0
+  border-top: 0
   border-radius: $radius
   color: #fff
   cursor: pointer
   display: block
-  font-size: $font-size-small
-  font-weight: 400
+  font-size: $font-size-base
+  font-weight: 700
   padding: $gutter 0
   text-align: center
-  text-transform: uppercase
-  +hover(#000, 20%)
+  +hover(#000, 15%)
   &:hover, &:focus
     color: #fff
+  &-inline
+    display: inline-block
+    padding-bottom: $gutter * 0.5 !important
+    padding-top: $gutter * 0.5 !important
   &-send
     span
       padding-left: $gutter * 1.5
@@ -126,7 +157,7 @@ header
     .fa
       margin-right: $gutter * 0.5
 
-// botao voltar
+// 5.2 - botao voltar
 .btn
   background-color: transparent
   border: 0
@@ -138,7 +169,7 @@ header
   padding-top: 0
   vertical-align: middle
 
-// icones
+// 5.3 - icones de compartilhamento
 .icon
   background-color: transparent !important
   background-repeat: no-repeat
@@ -171,19 +202,20 @@ header
 
 
 // ------------------------------------
-// blocos
+// 6 - Blocos de elementos
 // ------------------------------------
 
-// compartilhar
+// 6.1 - compartilhar
 .social
   position: relative
   z-index: 1
   &.top
-    margin-top: 45px
+    margin-top: $gutter * 2
     float: right
   &.right
     padding-top: 10px
     span
+      color: #000
       display: inline-block
       font-size: 12px
       font-weight: 300
@@ -203,7 +235,16 @@ header
     display: inline-block
     padding: 0 2px !important
 
-// tabs de temas e programas
+// 6.2 - texto do Dialoga Brasil
+#content
+  p
+    font-family: asap, sans
+    margin-bottom: $gutter * 3
+    margin-left: $gutter
+    margin-right: $gutter
+    margin-top: $gutter
+
+// 6.3 - tabs de temas e programas
 .tab
   margin-top: $gutter
   ul
@@ -234,7 +275,7 @@ header
     border-right: 1px solid #000
     border-top: 1px solid #000
 
-// blocos dos temas
+// 6.4 - blocos dos temas
 .themes
   font-size: 0
   text-align: center
@@ -253,10 +294,22 @@ header
     font-weight: 700
     padding-bottom: $gutter * 0.25
     padding-top: $gutter * 5.5
-    &:hover
+    &:hover,&:focus
       text-decoration: none
+  .arrow-box
+    position: relative
+    top: $gutter
+    &:after
+      bottom: 100%
+      left: 50%
+      border: solid transparent
+      content: ""
+      position: absolute
+      border-bottom-color: #000
+      border-width: 8px
+      margin-left: -8px
 
-// listagem
+// 6.5 - listagem dos programas
 #proposal
   &-categories
     border-bottom: 1px solid #000
@@ -271,19 +324,15 @@ header
       padding-left: 0
   &-group
     @extend #proposal-categories
-
-// programas por temas
 .proposal
   &-container
     background-color: #ccc
     border-radius: $radius
-    padding-bottom: $gutter * 0.5
-    padding-left: $gutter
-    padding-right: $gutter
-    padding-top: $gutter
+    margin-bottom: $gutter
+    padding: $gutter $gutter 0
     .name
-      color: #000
-      border-bottom: 1px solid #000
+      color: #fff
+      border-bottom: 2px solid #fff
       font-family: asap, sans
       font-size: $theme-size-header
       font-weight: 700
@@ -296,7 +345,7 @@ header
       list-style: none
       padding-left: 0
 
-// box dos programas
+// 6.6 - blocos dos programas
 .box
   background-color: #fff
   border: 1px solid gray
@@ -328,10 +377,16 @@ header
     &:hover
       background-color: #fff
     p
+      border-bottom: 0
+      font-size: $font-size-small
+      padding-bottom: inherit
+  &-apoie
+    p
       @extend .box-subtitle
       border-bottom: 0
       padding-bottom: inherit
   &-header
+    color: $link-color
     font-family: asap, sans
     font-size: $theme-size-header
     font-weight: 700
@@ -341,7 +396,6 @@ header
     list-style: none
     padding-left: 0
     li
-      background-color: #000
       color: #fff
       display: inline-block
       padding-bottom: $gutter * 0.25
@@ -380,7 +434,7 @@ header
   &-center
     text-align: center
 
-// header do programa
+// 6.7 - header do programa e select box
 .select
   background-color: #000
   margin-bottom: $gutter * 0.5
@@ -405,7 +459,7 @@ header
       width: 60%
       vertical-align: middle
 
-// imagem destaque do programa, titulo, descricao e botao de acesso
+// 6.8 - imagem destaque do programa, titulo, descricao e botao de acesso
 .proposal-header
   position: relative
   .title
@@ -429,7 +483,11 @@ header
     margin-bottom: $gutter
     margin-top: $gutter
     a
-      background-color: #000
+      background-color: lighten(#000, 40%)
+      border-bottom: 5px solid #000
+      border-left: 0
+      border-right: 0
+      border-top: 0
       border-radius: $radius
       color: #fff
       font-size: $font-size-h2
@@ -439,7 +497,7 @@ header
       padding-right: 0
       padding-top: $gutter * 0.5
       text-align: center
-      +hover(#000, 20%)
+      +hover(#000, 15%)
   img
     width: 100%
   p
@@ -450,7 +508,7 @@ header
     padding-top: $gutter * 0.25
     text-transform: none
 
-// login form
+// 6.9 - login form
 .login
   text-align: left
   input
@@ -473,7 +531,7 @@ header
   i
     font-style: normal
 
-// votacao
+// 6.10 - votacao
 .vote-actions
   .like
     background: url(images/like.png) no-repeat
@@ -484,24 +542,29 @@ header
   .dislike
     background-image: url(images/dislike.png)
 
-// lista de resultados
+// 6.11 - lista de resultados
 .results-content
   .total
     float: left
-  .vote-result, .updated-at
+  .vote-result
     float: right
+  .updated-at
+    @extend .vote-result
+    margin-top: $gutter
   table
     clear: both
     font-weight: 300
     tr:nth-child(odd)
       background: #e5e5e5
     td
-      padding: 0 5px
+      padding: $gutter * 0.25
     .header
       font-weight: 700
       text-align: center
     .abstract-text
       width: 80%
+      p
+        margin: inherit
     .value
       text-align: center
       width: 10%
@@ -514,7 +577,7 @@ header
       text-overflow: ellipsis
       white-space: nowrap
 
-// paginador
+// 6.12 - paginador
 .paging
   padding: $gutter * 0.25
   ul
@@ -536,13 +599,13 @@ header
     display: inline-block
     line-height: 24px
   .current
-    background-color: lighten(#000, 20%)
+    background-color: lighten(#000, 15%)
   .next
     border-radius: 0 $radius $radius 0
   .prev
     border-radius:  $radius 0 0 $radius
 
-// calendario dos ministros
+// 6.13 - calendario dos ministros
 .slick
   &-slider
     list-style: none
@@ -576,7 +639,6 @@ header
     top: 43%
     width: 20px
     &:before
-      color: #000
       font-family: "FontAwesome"
       font-size: 20px
   &-prev
@@ -592,21 +654,85 @@ header
   &-disabled
     opacity: 0.25
 
-// lista sem bullets
-.list-unstyled
-  li
-    border-top: 1px solid
-    font-size: $font-size-big
-    font-weight: 700
-    padding: $gutter
-    &:first-child
-      border-top: 0
+// 6.14 - listas
+.list
+  &-unstyled
+    li
+      border-top: 1px solid
+      font-size: $font-size-big
+      font-weight: 700
+      padding: $gutter
+      &:first-child
+        border-top: 0
+  &-styled
+    margin-left: $gutter
+    padding-left: 0
 
 
 // ------------------------------------
-// modificadores
+// 7 - Modificadores
 // ------------------------------------
 .hide
   display: none
 h3.titulo-destaque
   font-size: $font-size-h3 + 10
+@each $category, $description in $categories-descriptions
+  section.#{$category}
+    .description
+      margin-top: $gutter
+      &:before
+        color: #fff
+        content: "#{$description}"
+        font-family: asap, sans
+        padding-top: $gutter
+
+
+// ------------------------------------
+// 8 - Cores do Temas
+// ------------------------------------
+
+@each $category, $color in $categories
+  .#{$category}
+    color: $color
+    .button,.show_body a
+      background-color: $color
+      border-color: darken($color, 15%)
+      +hover($color, 15%)
+    .select
+      background-color: $color
+    .proposal
+      &-header
+        .title,p
+          background-color: darken($color, 15%)
+    .box
+      &-propostas
+        border-color: $color
+      &-title
+        color: $color
+      &-category
+        li
+          background-color: $color
+    .slick
+      &-prev,&-next
+        color: $color
+      &-slider
+        .date,.time
+          color: $color
+  section.#{$category}
+    background-color: $color
+  .category-#{$category}
+    background-color: $color
+    background-image: url(images/icons/#{$category}.png)
+    background-position: 5px 50%
+    background-repeat: no-repeat
+    background-size: 22px
+    border-color: darken($color, 15%)
+    +hover($color, 15%)
+  #proposal-category-#{$category}
+    a
+      background-color: $color
+      background-image: url(images/icons/#{$category}.png)
+      background-position: 50% 10px
+      background-repeat: no-repeat
+    .arrow-box:after
+      border-bottom-color: $color

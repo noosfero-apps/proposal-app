@@ -31,7 +31,7 @@ define(['handlebars'], function(Handlebars){
           element = '';
           continue;
         }      
-        category = category + '<li class="category-'+proposal.categories[x].slug+'">' + proposal.categories[x].name + '</li>';
+        category = category + '<li class="category-'+proposal.categories[x].slug+' button button-inline">' + proposal.categories[x].name + '</li>';
       }
       if(element == ''){
         continue;
@@ -105,6 +105,10 @@ define(['handlebars'], function(Handlebars){
 
   Handlebars.registerHelper('proposal_url', function(parent_id, id) {
     return "#/programas/"+parent_id+"/propostas/"+id;
+  });
+
+  Handlebars.registerHelper('program_detail_url', function(id) {
+    return "#/programas/"+id+"/sobre-o-programa";
   });
 
   Handlebars.registerHelper('encodeURI', function(uri) {

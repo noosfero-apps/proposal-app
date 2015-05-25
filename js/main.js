@@ -20,7 +20,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   var participa = true;
   if(participa){
     var host = 'http://www.participa.br';
-    var proposal_discussion = '92856'; //participa
+    var proposal_discussion = '103358'; //participa
   }else{
     var host = 'http://noosfero.com:3000';
     var proposal_discussion = '632'; //local serpro
