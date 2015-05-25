@@ -81,6 +81,7 @@ p, ul, select {
   border: 0;
   color: #fff;
   font-size: 14px;
+  font-weight: 700;
   padding-bottom: 0;
   padding-left: 10px;
   padding-right: 10px;
@@ -872,11 +873,11 @@ section.reducao-da-pobreza {
 .contrast {
   background-color: #000;
   color: #fff; }
-  .contrast h2, .contrast h3, .contrast h4, .contrast a, .contrast p, .contrast li, .contrast label, .contrast .label, .contrast .login i {
+  .contrast .container h2, .contrast .container h3, .contrast .container h4, .contrast .container a, .contrast .container p, .contrast .container li, .contrast .container label, .contrast .container .label, .contrast .container .login i {
     color: #fff; }
-  .contrast a {
+  .contrast .container a {
     text-decoration: underline; }
-  .contrast small {
+  .contrast .container small {
     color: #999999; }
   .contrast .button, .contrast .button-cancela, .contrast .login input.button, .login .contrast input.button, .contrast .signup input.button, .signup .contrast input.button, .contrast .show_body a, .contrast .login input.button-cancela, .contrast .login input.button, .contrast .box-category li {
     background-color: #fff;
