@@ -18,22 +18,20 @@
       border-bottom: 1px solid #eeeff1;
       color: $color;
       font-size: 38px;
-      font-weight: 300;
+      font-weight: 500;
       padding-bottom: .5em;
-      text-transform: uppercase;
       small {
         display: block;
         font-size: 16px;
-        font-weight: 300;
-        margin-top: -.1em;
+        font-weight: 400;
+        margin-top: 5px;
         text-transform: none;
       }
     }
     h3 {
       color: $color;
       font-size: 28px;
-      font-weight: 300;
-      text-transform: uppercase;
+      font-weight: 500;
       .border {
         border-bottom: 1px solid #eeeff1;        
         padding-bottom: 20px;
@@ -41,12 +39,14 @@
     }
     h4 {
       font-size: 24px;
+      font-weight: 500;
       color: $color;
       text-transform: none;
     }
     h5 {
       color: $color;
       font-size: 22px;
+      font-weight: 500;
       margin-top: 15px;
     }
     img {
@@ -112,7 +112,7 @@
       display: block;
       padding: 1em;
       text-align: center;
-      font-weight: 500;
+      font-weight: 700;
       text-decoration: none;
       // text-transform: uppercase;
       .fa-reply {
