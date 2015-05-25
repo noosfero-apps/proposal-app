@@ -107,6 +107,10 @@ define(['handlebars'], function(Handlebars){
     return "#/programas/"+parent_id+"/propostas/"+id;
   });
 
+  Handlebars.registerHelper('program_detail_url', function(id) {
+    return "#/programas/"+id+"/sobre-o-programa";
+  });
+
   Handlebars.registerHelper('encodeURI', function(uri) {
     return encodeURIComponent(uri);
   });
