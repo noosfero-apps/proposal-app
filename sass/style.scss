@@ -10,6 +10,7 @@
 @import 'accessibility';
 @import 'slick';
 @import 'slick-theme';
+@import 'share';
 
 @import 'proposal_detail/proposal-detail-base';
 @import 'proposal_detail/urgencia-e-emergencia';
@@ -114,11 +115,11 @@ form {
 // TO_REFACT:
 .btn {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 0 12px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
-  line-height: 3.1;
+  // line-height: 3.1;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -130,13 +131,14 @@ form {
   -ms-user-select: none;
   user-select: none;
   background-image: none;
-  border: 1px solid transparent;
+  border: 0;
+  vertical-align: middle;
   /* border-radius: 4px; */
 }
 
 .btn-default {
-  color: #000;
-  background-color: #fff;
+  color: #fff;
+  background-color: transparent;
   border-color: #ccc;
 }
 
@@ -151,7 +153,61 @@ form {
   }
 }
 
-#captcha{
+@captcha{
   padding-left: 25px;
   padding-top: 20px;
+}
+
+@media (max-width: 480px) {
+  header {
+    height: auto;
+    h1 {
+      border-bottom: 0;
+      padding-bottom: 15px;
+      padding-top: 50px;
+      position: relative;
+      margin-bottom: 0;
+    }
+    #display-contrast {
+      position: absolute;
+      top: 10px;
+    }
+  }
+  .social {
+    &.top {
+      float: none;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+  .select {
+    .proposal-category {
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+    }
+    .proposal-selection {
+      float: none;
+      margin: 4px 0 0 !important;
+      width: auto;
+    }
+  }
+  .proposal-header {
+    .show_body {
+      a {
+        display: block !important;
+        line-height: 1;
+      }
+      span {
+        display: inline !important;
+      }
+    }
+    .abstract {
+      p {
+        padding-bottom: 5px !important;
+      }
+    }
+  }
 }

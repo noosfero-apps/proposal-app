@@ -1,0 +1,71 @@
+.social {
+	position: relative;
+	z-index: 1;
+	&.top {
+		margin-top: 45px;
+	}
+	&.right {
+		padding-top: 10px;
+		span {
+			display: inline-block;
+			font-size: 12px;
+			font-weight: 300;
+			padding-right: 10px;
+			text-align: right;
+			vertical-align: middle;
+		}
+		ul {
+			display: inline-block;
+			vertical-align: middle
+		}
+	}
+	span {
+		display: block;
+		margin-bottom: 10px;
+	}
+	ul {
+		list-style: none;
+		padding-left: 0;
+	}
+	li {
+		display: inline-block;
+		padding: 0 2px !important;
+	}
+	.icon {
+		background-color: transparent !important;
+		background-repeat: no-repeat;
+		background-position: 50% !important;
+		background-size: auto !important;
+		border: 0 !important;
+		display: inline-block;
+		height: 36px;
+		min-width: 0 !important;
+		padding: 0 !important;
+		text-indent: -999999px;
+		width: 36px;
+		&-facebook {
+			background-image: url(images/icons/icon-facebook.png) !important;
+			&.disabled {
+				background-image: url(images/icons/icon-facebook-disabled.png) !important;
+			}
+		}
+		&-twitter {
+			background-image: url(images/icons/icon-twitter.png) !important;
+			&.disabled {
+				background-image: url(images/icons/icon-twitter-disabled.png) !important;
+			}
+		}
+		&-gplus {
+			background-image: url(images/icons/icon-gplus.png) !important;
+			&.disabled {
+				background-image: url(images/icons/icon-gplus-disabled.png) !important;
+			}
+		}
+		&-whatsapp {
+			background-image: url(images/icons/icon-whatsapp.png) !important;
+			&.disabled {
+				background-image: url(images/icons/icon-whatsapp-disabled.png) !important;
+			}
+		}
+	}
+}

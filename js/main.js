@@ -20,14 +20,10 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   var participa = true;
   if(participa){
     var host = 'http://www.participa.br';
-    var private_token = '375bee7e17d0021af7160ce664874618';  //participa
-    var proposal_discussion = '92856'; //participa
+    var proposal_discussion = '103358'; //participa
   }else{
     var host = 'http://noosfero.com:3000';
-    //var private_token = 'bd8996155f5ea4354e42fee50b4b6891'; //casa
-    var private_token = 'aae32bf5031e895b00a20a529d763b31'; //local serpro
     var proposal_discussion = '632'; //local serpro
-    //var proposal_discussion = '401'; //casa
   }
 
   var BARRA_ADDED = false;
@@ -36,7 +32,22 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   Main = (function(){
 
     return {
-      loadRandomProposal: function (topic_id, private_token) {
+      private_token: '375bee7e17d0021af7160ce664874618',
+      getProposalId: function() {
+        var regexProposals = /\d.*\/propostas\/*.*/;
+        var proposalId = 0;
+
+        var hasProposal = regexProposals.test(location.hash);
+        if( hasProposal ){
+          var regexExtractProposal = /propostas\/*.*/;
+          proposalId = regexExtractProposal.exec(location.hash)[0].split('/')[1];
+
+        }
+
+        return proposalId;
+      },
+      loadRandomProposal: function (topic_id) {
+          var private_token = Main.private_token;
           var $noProposals = $('.no-proposals');
           var $loading = $('.loading');
           var $randomProposal = $('.random-proposal');
@@ -48,10 +59,19 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $loading.show();
           $randomProposal.html('');
 
-          var url = host + '/api/v1/articles/' + topic_id + '/children' + '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          var url = host + '/api/v1/articles/' + topic_id + '/children';
+          var childId = this.getProposalId();
+
+          if(childId != 0){
+            url += '/'+childId;
+          }
+          url += '?private_token=' + Main.private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+
           $.getJSON(url).done(function( data ) {
             $loading.hide();
+            $('.support-proposal .alert').hide();
 
+            data.articles = data.articles || [data.article];
             if(data.articles.length === 0) {
               $noProposals.show();
               return;
@@ -63,7 +83,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $randomProposal.html(supportProposalTemplate(article));
             $body.off('click', '.vote-actions .skip');
             $body.on('click', '.vote-actions .skip', function(e) {
-              contextMain.loadRandomProposal(topic_id, private_token);
+              contextMain.loadRandomProposal(topic_id);
               e.preventDefault();
             });
             $body.off('click', '.vote-actions .like');
@@ -71,20 +91,27 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               //Helps to prevent more than one vote per proposal
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 console.log("Proposta " + article.id + " já havia sido votada");
-                contextMain.loadRandomProposal(topic_id, private_token);
+                contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
                 return;
               }
+
+              if(!logged_in) {
+                $(this).closest('.support-proposal').find('.send-button a').click();
+                e.preventDefault();
+                return;
+              }
+
               $.ajax({
                 type: 'post',
                 url: host + '/api/v1/articles/' + article.id + '/vote',
                 data: {
                   value: $(this).data('vote-value'),
-                  private_token: private_token
+                  private_token: Main.private_token
                 }
               }).done(function( /*data*/ ) {
                 ProposalApp.addVotedProposal(article.id);
-                contextMain.loadRandomProposal(topic_id, private_token);
+                contextMain.loadRandomProposal(topic_id);
               });
               e.preventDefault();
             });
@@ -104,6 +131,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
               e.preventDefault();
             });
+          }).fail(function(){
+            $loading.hide();
+            $('.support-proposal .alert').show();
           });
         },
 
@@ -112,7 +142,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $resultsContainer.find('.results-content').hide();
 
           var per_page = 10;
-          var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + private_token + '&per_page='+per_page+'&page='+page;
+          var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + Main.private_token + '&per_page='+per_page+'&page='+page;
           $.getJSON(url).done(function( data, stats, xhr ) {
             data.pagination = {
               total: parseInt(xhr.getResponseHeader('Total')),
@@ -156,14 +186,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
           if(logged_in) {
             if(token){
-              private_token = token;
+              Main.private_token = token;
             }
-            loginButton.siblings('.save-article-form').show();
-            loginButton.siblings('.save-article-form .message').show();
+            loginButton.siblings('.require-login').show();
+            loginButton.siblings('.require-login .message').show();
             loginButton.siblings('.login-container').hide();
-            $.cookie('_dialoga_session', private_token);
+            $.cookie('_dialoga_session', Main.private_token);
           } else {
-            loginButton.siblings('.save-article-form').hide();
+            loginButton.siblings('.require-login').hide();
             loginButton.siblings('.login-container').show();
           }
         },
@@ -218,7 +248,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $proposal.find('.calendar').slick();
 
           var topic_id = proposal_id.split('-').pop();
-          this.loadRandomProposal(topic_id, private_token);
+          this.loadRandomProposal(topic_id);
         },
         display_proposal_detail: function(proposal_id){
           $('#proposal-categories').hide();
@@ -236,7 +266,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $proposal.find('.body').show();
           $proposal.show();
 
-          var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+          var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + Main.private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
           $.getJSON(url).done(function( data ) {
             $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
           })
@@ -389,7 +419,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             // show the 'index' -> category tab
             this.display_category_tab();
 
-            
+
             // if(navOffset){
             //   scrollTop = navOffset.top;
             // }
@@ -435,12 +465,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   })();
 
   // Load data from localhost when it is dev env.
-  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + Main.private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
 
   $.getJSON(noosferoAPI)
     .done(function( data ) {
       data.host = host;
-      data.private_token = private_token;
+      data.private_token = Main.private_token;
       resultsPlaceholder.innerHTML = template(data);
       $('.login-container').html(loginTemplate());
       $('.countdown').maxlength({text: '%left caracteres restantes'});
@@ -583,7 +613,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         $.ajax({
           type: 'post',
           url: host + $form.attr('action'),
-          data: $('#'+this.id).serialize() + '&private_token=' + private_token + '&fields=id&article[name]=article_' + Main.guid()
+          data: $('#'+this.id).serialize() + '&private_token=' + Main.private_token + '&fields=id&article[name]=article_' + Main.guid()
         })
         .done(function( /*data*/ ) {
           form.reset();
@@ -612,14 +642,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
 
   $(document).ready(function($) {
-    
+
     FastClick.attach(document.body);
 
     if($.cookie('_dialoga_session')) {
       var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
       $.getJSON(url).done(function( /*data*/ ) {
         logged_in = true;
-        private_token = $.cookie('_dialoga_session');
+        Main.private_token = $.cookie('_dialoga_session');
       });
     }
 
@@ -645,11 +675,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     $(document).on('click', '.social .fb-share', function(e) {
       var link = $(this).attr('href');
-      if(link==='#' || link ==='') {
-        link = window.location.href;
-      } else {
-        link = 'http:'+Url.addBaseUrl(link);
-      }
       FB.ui({
           method: 'feed',
           link: link,
@@ -698,6 +723,30 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         loading.hide();
         signup.show();
       });
+      e.preventDefault();
+    });
+
+    var popupCenter = function(url, title, w, h) {
+      var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+      var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+
+      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+      var top = ((height / 3) - (h / 3)) + dualScreenTop;
+
+      var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+      // Puts focus on the newWindow
+      if (window.focus) {
+        newWindow.focus();
+      }
+    };
+
+    $(document).on('click', '.social a.popup', {}, function popUp(e) {
+      var self = $(this);
+      popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
       e.preventDefault();
     });
   });

@@ -25,7 +25,10 @@
             if(base.match(/file:/) || filename.match(/http:/)){
               base = '';
             }else{
-              base = this.initBase() + '/';
+              base = this.initBase();
+              if(base.indexOf('/', base.length - 1) === -1) {
+                base = base + '/';
+              }
             }
             return base + filename;
           }
@@ -43,6 +46,7 @@
       function loadCSSFiles(){
         var css_files = [
           'css/bootstrap.min.css',
+          'css/bootstrap-alert.min.css',
           'css/hover.custom.css',
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
@@ -95,8 +99,8 @@
       <header>
         <h1><a href="#">{{article.title}}</a></h1>
         <a id="display-contrast" href="#">Alto Contraste</a>
-        <div class="social">
-          <a href="#" class="fb-share" data-description="Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo">Compartilhar</a>
+        <div class="social top">
+          {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
         </div>
       </header>
 
@@ -158,27 +162,27 @@
               <ul class="select">
                 {{#each categories}}
                   <li class="category proposal-category" data-category="{{slug}}">
-                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
-                    <button class="go-back btn btn-default pull-right">
-                      VOLTAR
+                    <button class="go-back btn btn-default">
                       <span class="fa fa-reply"></span>
+                      Voltar
                     </button>
+                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                     {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
                   </li>
                 {{/each}}
               </ul>
 
-              <div class="social">
-                <a href="#" class="fb-share" data-caption="{{title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
-              </div>
-              <div class="proposal-header">
-                <div class="abstract">
+
+              <div class="proposal-header ">
+                <div class="abstract ">
                   <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
                 </div>
-                <div class="title">{{title}}</div>
-                <div class="abstract">{{{abstract}}}</div>
-                <div class="show_body">
-                  <a href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o Programa</span></a>
+                <a href="#/programas/{{id}}/sobre-o-programa">
+                  <div class="title ">{{title}}</div>
+                  <div class="abstract ">{{{abstract}}}</div>
+                </a>
+                <div class="show_body row">
+                  <a class="col-sm-6 col-sm-offset-3" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
                 </div>
               </div>
 
@@ -188,12 +192,20 @@
                 </div>
 
                 <div class="container">
-                  <div class="col-sm-4 col-sm-offset-4">
-                    <div class="go-to-proposal-button">
-                      <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
-                        <span class="fa fa-reply"></span>
-                        Participe
-                      </a>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="go-to-proposal-button">
+                        <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
+                          <span class="fa fa-reply"></span>
+                          Participe
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <div class="social right">
+                        <span>COMPARTILHE<br>ESTE PROGRAMA</span>
+                        {{{social_share title abstract (program_detail_url id)}}}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -204,9 +216,9 @@
                   <div class="container-title">Faça Uma Proposta</div>
                   <div class="subtitle">Qual a sua sugestão para melhorar este programa?</div>
                   <div class="info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
-                  <div class="send-proposal-button send-button"><a href="#"><span>Envie Sua Proposta</span></a></div>
+                  <div class="send-proposal-button send-button"><a href="#"><span>Envie sua proposta</span></a></div>
                   <div class="login-container hide">Login</div>
-                  <form class="make-proposal-form save-article-form hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
+                  <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                     <div class="message hide"></div>
                     <div>
                       <div><label for="article_abstract">Descrição</label></div>
@@ -227,9 +239,16 @@
               <div class="support-proposal-container">
                 <div class="support-proposal">
                   <div class="container-title"> Apoie outras propostas</div>
-                  <div class="random-proposal"></div>
-                  <div class="loading">Carregando...</div>
-                  <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                  <div class="alert alert-warning hide" role="alert">
+                    <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
+                  </div>
+                  <div class="support-proposal-content require-login">
+                    <div class="random-proposal"></div>
+                    <div class="loading">Carregando...</div>
+                    <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                  </div>
+                  <div class="login-container hide">Login</div>
+                  <div class="send-button"><a href="#"><span>Login</span></a></div>
                 </div>
               </div>
 
@@ -282,7 +301,8 @@
         <a href="#" class="vote-result">Resultados</a>
       </div>
       <div class="social">
-        <a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar</a>
+        <span>Compartilhe esta proposta</span>
+        {{{social_share parent.title abstract (proposal_url parent.id id)}}}
       </div>
     </script>
 
@@ -364,13 +384,21 @@
           <a href="#" class="confirm-signup">Confirmar</a>
           <a href="#" class="cancel-signup">Cancelar</a>
         </div>
-        <div id="captcha">
+        <div class="captcha">
             <div class="g-recaptcha" data-sitekey="6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i"></div>
             <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR' async defer></script>
         </div>
       </form>
     </script>
 
+    <script id="social-share" type="text/x-handlebars-template">
+      <ul>
+        <li><a href="{{url}}" class="fb-share icon icon-facebook" data-caption="{{title}}" data-description="{{stripTags description}}">Compartilhar no Facebook</a></li>
+        <li><a href="https://twitter.com/intent/tweet?url={{encodeURI url}}&text={{stripTags description}}" class="tw-share icon icon-twitter popup">Compartilhar no Twitter</a></li>
+        <li><a href="https://plus.google.com/share?url={{encodeURI url}}" class="gp-share icon icon-gplus popup">Compartilhar no Google Plus</a></li>
+        <li><a href="whatsapp://send?text={{stripTags description}} {{encodeURI url}}" class="ws-share icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
+      </ul>
+    </script>
 
     <script type='text/javascript'	>
       loadRequireJS();
