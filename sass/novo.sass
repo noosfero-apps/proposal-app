@@ -32,6 +32,7 @@
 //   6.14 - listas
 // 7 - Modificadores
 // 8 - Cores do Temas
+// 9 - Alto Contraste
 // ------------------------------------
 
 
@@ -96,7 +97,7 @@ h1
 h2
   border-bottom: 1px solid #eeeff1
   font-size: $font-size-h2
-  font-weight: 300
+  font-weight: 500
   margin-bottom: $gutter * 2
   padding-bottom: $gutter
   text-transform: uppercase
@@ -107,7 +108,7 @@ h2
     text-transform: none
 h3
   font-size: $font-size-h3
-  font-weight: 300
+  font-weight: 500
   text-transform: uppercase
 h4
   font-size: $font-size-h4
@@ -149,8 +150,8 @@ p,ul,select
     color: #fff
   &-inline
     display: inline-block
-    padding-bottom: $gutter * 0.5 !important
-    padding-top: $gutter * 0.5 !important
+    padding-bottom: $gutter * 0.25 !important
+    padding-top: $gutter * 0.25 !important
   &-cancela
     @extend .button
   &-send
@@ -392,6 +393,8 @@ p,ul,select
     font-family: asap, sans
     font-size: $theme-size-header
     font-weight: 700
+    p
+      font-size: $font-size-small
   &-category
     font-size: $font-size-base
     font-weight: 700
@@ -703,6 +706,11 @@ p,ul,select
   display: none
 h3.titulo-destaque
   font-size: $font-size-h3 + 10
+.bloco-destaque
+  padding: $gutter * 1.75
+  border-radius: $radius
+  h4
+    margin-bottom: $gutter * 3
 @each $category, $description in $categories-descriptions
   section.#{$category}
     .description
@@ -752,6 +760,14 @@ h3.titulo-destaque
           +hover($color, 15%)
       i
         color: $color
+    .bloco-destaque
+      background-color: $color
+      background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png)
+      background-repeat: no-repeat
+      background-position: 100% 100%
+      color: #fff
+      p
+        color: #fff
   section.#{$category}
     background-color: $color
   .category-#{$category}
@@ -770,3 +786,76 @@ h3.titulo-destaque
       background-repeat: no-repeat
     .arrow-box:after
       border-bottom-color: $color
+
+
+// ------------------------------------
+// 9 - Alto Contraste
+// ------------------------------------
+
+.contrast
+  background-color: #000
+  color: #fff
+  h2,h3,h4,a,p,li,label,.label,.login i
+    color: #fff
+  a
+    text-decoration: underline
+  small
+    color: darken(#fff, 40%)
+  .button,.show_body a,.login input.button,.box-category li
+    background-color: #fff
+    border-color: darken(#fff, 40%)
+    color: #000
+    text-decoration: none
+    +hover(#fff, 40%)
+  .icon
+    &-facebook
+      background-image: url(images/icons/icon-facebook-contrast.png) !important
+    &-twitter
+      background-image: url(images/icons/icon-twitter-contrast.png) !important
+    &-gplus
+      background-image: url(images/icons/icon-gplus-contrast.png) !important
+    &-whatsapp
+      background-image: url(images/icons/icon-whatsapp-contrast.png) !important
+  .tab
+    a
+      background-color: darken(#fff, 85%)
+      border-bottom-color: #fff
+    .active
+      background-color: #000
+      border-color: #fff
+      border-bottom-color: #000
+  #proposal-categories,#proposal-group
+    border-color: #fff
+  .proposal-category
+    a
+      background-color: darken(#fff, 85%) !important
+    .arrow-box:after
+      border-bottom-color: darken(#fff, 85%) !important
+  .select
+    background-color: darken(#fff, 85%)
+  section
+    background-color: darken(#fff, 85%)
+    &:hover
+      background-color: darken(#fff, 85%)
+    .box
+      background-color: #000
+  .proposal-header
+    .title, p
+      background-color: darken(#fff, 85%)
+  .box
+    background-color: darken(#fff, 85%)
+    text-decoration: none
+    &-propostas
+      border-color: #fff
+    &-title,&-subtitle,&-info,&-bottom,.social span,&-header
+      color: #fff
+  .slick
+    &-prev,&-next
+      color: #fff
+    &-slider
+      li
+        background-color: #000
+      .date,.time
+        color: #fff
+  .bloco-destaque
+    background: darken(#fff, 85%)

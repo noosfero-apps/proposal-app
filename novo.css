@@ -17,7 +17,7 @@ h1 {
 h2 {
   border-bottom: 1px solid #eeeff1;
   font-size: 38px;
-  font-weight: 300;
+  font-weight: 500;
   margin-bottom: 40px;
   padding-bottom: 20px;
   text-transform: uppercase; }
@@ -29,7 +29,7 @@ h2 {
 
 h3 {
   font-size: 28px;
-  font-weight: 300;
+  font-weight: 500;
   text-transform: uppercase; }
 
 h4 {
@@ -66,8 +66,8 @@ p, ul, select {
     color: #fff; }
   .button-inline {
     display: inline-block;
-    padding-bottom: 10px !important;
-    padding-top: 10px !important; }
+    padding-bottom: 5px !important;
+    padding-top: 5px !important; }
   .button-send span {
     padding-left: 30px;
     background-image: url(images/airplane.png);
@@ -285,6 +285,8 @@ p, ul, select {
     font-family: asap, sans;
     font-size: 24px;
     font-weight: 700; }
+    .box-header p {
+      font-size: 14px; }
   .box-category {
     font-size: 16px;
     font-weight: 700;
@@ -573,6 +575,12 @@ p, ul, select {
 h3.titulo-destaque {
   font-size: 38px; }
 
+.bloco-destaque {
+  padding: 35px;
+  border-radius: 6px; }
+  .bloco-destaque h4 {
+    margin-bottom: 60px; }
+
 section.saude .description {
   margin-top: 20px; }
   section.saude .description:before {
@@ -637,6 +645,14 @@ section.reducao-da-pobreza .description {
         text-decoration: none; }
   .saude .login i, .saude .signup i {
     color: #00a9bd; }
+  .saude .bloco-destaque {
+    background-color: #00a9bd;
+    background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    color: #fff; }
+    .saude .bloco-destaque p {
+      color: #fff; }
 
 section.saude {
   background-color: #00a9bd; }
@@ -693,6 +709,14 @@ section.saude {
         text-decoration: none; }
   .seguranca-publica .login i, .seguranca-publica .signup i {
     color: #e34748; }
+  .seguranca-publica .bloco-destaque {
+    background-color: #e34748;
+    background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    color: #fff; }
+    .seguranca-publica .bloco-destaque p {
+      color: #fff; }
 
 section.seguranca-publica {
   background-color: #e34748; }
@@ -749,6 +773,14 @@ section.seguranca-publica {
         text-decoration: none; }
   .educacao .login i, .educacao .signup i {
     color: #ffb400; }
+  .educacao .bloco-destaque {
+    background-color: #ffb400;
+    background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    color: #fff; }
+    .educacao .bloco-destaque p {
+      color: #fff; }
 
 section.educacao {
   background-color: #ffb400; }
@@ -805,6 +837,14 @@ section.educacao {
         text-decoration: none; }
   .reducao-da-pobreza .login i, .reducao-da-pobreza .signup i {
     color: #51d0b3; }
+  .reducao-da-pobreza .bloco-destaque {
+    background-color: #51d0b3;
+    background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    color: #fff; }
+    .reducao-da-pobreza .bloco-destaque p {
+      color: #fff; }
 
 section.reducao-da-pobreza {
   background-color: #51d0b3; }
@@ -828,3 +868,68 @@ section.reducao-da-pobreza {
   background-repeat: no-repeat; }
 #proposal-category-reducao-da-pobreza .arrow-box:after {
   border-bottom-color: #51d0b3; }
+
+.contrast {
+  background-color: #000;
+  color: #fff; }
+  .contrast h2, .contrast h3, .contrast h4, .contrast a, .contrast p, .contrast li, .contrast label, .contrast .label, .contrast .login i {
+    color: #fff; }
+  .contrast a {
+    text-decoration: underline; }
+  .contrast small {
+    color: #999999; }
+  .contrast .button, .contrast .button-cancela, .contrast .login input.button, .login .contrast input.button, .contrast .signup input.button, .signup .contrast input.button, .contrast .show_body a, .contrast .login input.button-cancela, .contrast .login input.button, .contrast .box-category li {
+    background-color: #fff;
+    border-color: #999999;
+    color: #000;
+    text-decoration: none;
+    transition: all 400ms; }
+    .contrast .button:hover, .contrast .button-cancela:hover, .contrast .show_body a:hover, .contrast .login input.button-cancela:hover, .contrast .login input.button:hover, .contrast .box-category li:hover {
+      background-color: #999999;
+      text-decoration: none; }
+  .contrast .icon-facebook {
+    background-image: url(images/icons/icon-facebook-contrast.png) !important; }
+  .contrast .icon-twitter {
+    background-image: url(images/icons/icon-twitter-contrast.png) !important; }
+  .contrast .icon-gplus {
+    background-image: url(images/icons/icon-gplus-contrast.png) !important; }
+  .contrast .icon-whatsapp {
+    background-image: url(images/icons/icon-whatsapp-contrast.png) !important; }
+  .contrast .tab a {
+    background-color: #262626;
+    border-bottom-color: #fff; }
+  .contrast .tab .active {
+    background-color: #000;
+    border-color: #fff;
+    border-bottom-color: #000; }
+  .contrast #proposal-categories, .contrast #proposal-group, .contrast #proposal-group {
+    border-color: #fff; }
+  .contrast .proposal-category a {
+    background-color: #262626 !important; }
+  .contrast .proposal-category .arrow-box:after {
+    border-bottom-color: #262626 !important; }
+  .contrast .select {
+    background-color: #262626; }
+  .contrast section {
+    background-color: #262626; }
+    .contrast section:hover {
+      background-color: #262626; }
+    .contrast section .box {
+      background-color: #000; }
+  .contrast .proposal-header .title, .contrast .proposal-header p, .contrast .proposal-header p {
+    background-color: #262626; }
+  .contrast .box {
+    background-color: #262626;
+    text-decoration: none; }
+    .contrast .box-propostas {
+      border-color: #fff; }
+    .contrast .box-title, .contrast .box-subtitle, .contrast .box-apoie p, .box-apoie .contrast p, .contrast .box-info, .contrast .box-bottom, .contrast .box .social span, .contrast .box-header {
+      color: #fff; }
+  .contrast .slick-prev, .contrast .slick-next {
+    color: #fff; }
+  .contrast .slick-slider li {
+    background-color: #000; }
+  .contrast .slick-slider .date, .contrast .slick-slider .time {
+    color: #fff; }
+  .contrast .bloco-destaque {
+    background: #262626; }
