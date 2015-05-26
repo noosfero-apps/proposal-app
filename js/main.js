@@ -689,11 +689,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     $(document).on('click', '.social .fb-share', function(e) {
       var link = $(this).attr('href');
-      if(link==='#' || link ==='') {
-        link = window.location.href;
-      } else {
-        link = 'http:'+Url.addBaseUrl(link);
-      }
       FB.ui({
           method: 'feed',
           link: link,

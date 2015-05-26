@@ -96,7 +96,23 @@ define(['handlebars'], function(Handlebars){
 
   Handlebars.registerHelper('social_share', function(title, description, url) {
     var template = Handlebars.compile($('#social-share').html());
-    return template();
+    if(url==='#') {
+      url = '';
+    }
+    url = 'http:'+Url.addBaseUrl(url);
+    return template({title: title, description: description, url: url});
+  });
+
+  Handlebars.registerHelper('proposal_url', function(parent_id, id) {
+    return "#/programas/"+parent_id+"/propostas/"+id;
+  });
+
+  Handlebars.registerHelper('program_detail_url', function(id) {
+    return "#/programas/"+id+"/sobre-o-programa";
+  });
+
+  Handlebars.registerHelper('encodeURI', function(uri) {
+    return encodeURIComponent(uri);
   });
 
   function proposal_has_category(proposal, category_slug) {

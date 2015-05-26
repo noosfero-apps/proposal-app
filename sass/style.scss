@@ -56,7 +56,7 @@ h1 {
 #content {
   padding-bottom: 50px;
   p {
-    
+
     text-align: justify;
     margin: 20px;
     line-height: 1.5em;
@@ -79,8 +79,8 @@ h1 {
 }
 
 form {
-  label, input, div.label, textarea {
-    width: 90%;
+  input, div.label, textarea {
+    // width: 90%;
     margin: 0 auto;
     font-size: 14px;
     display: block;
@@ -90,6 +90,8 @@ form {
   input, textarea {
     color: #000;
     border: 1px solid #18376C;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   textarea {
@@ -102,13 +104,13 @@ form {
     color: #000;
     font-weight: bold;
     text-decoration: none;
-    margin: 10px 20px;
+    // margin: 10px 20px;
   }
 
   .actions, .oauth {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 10px;
+    // text-align: center;
+    // font-size: 12px;
+    // margin-top: 10px;
   }
 }
 
@@ -150,5 +152,64 @@ form {
 @media (max-width: 992px) {
   .col-md-6 > img {
     margin-bottom: 20px;
+  }
+}
+
+.captcha{
+  // padding-left: 25px;
+  // padding-top: 20px;
+}
+
+@media (max-width: 480px) {
+  header {
+    height: auto;
+    h1 {
+      border-bottom: 0;
+      padding-bottom: 15px;
+      padding-top: 50px;
+      position: relative;
+      margin-bottom: 0;
+    }
+    #display-contrast {
+      position: absolute;
+      top: 10px;
+    }
+  }
+  .social {
+    &.top {
+      float: none;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+  .select {
+    .proposal-category {
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+    }
+    .proposal-selection {
+      float: none;
+      margin: 4px 0 0 !important;
+      width: auto;
+    }
+  }
+  .proposal-header {
+    .show_body {
+      a {
+        display: block !important;
+        line-height: 1;
+      }
+      span {
+        display: inline !important;
+      }
+    }
+    .abstract {
+      p {
+        padding-bottom: 5px !important;
+      }
+    }
   }
 }

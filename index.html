@@ -25,7 +25,10 @@
             if(base.match(/file:/) || filename.match(/http:/)){
               base = '';
             }else{
-              base = this.initBase() + '/';
+              base = this.initBase();
+              if(base.indexOf('/', base.length - 1) === -1) {
+                base = base + '/';
+              }
             }
             return base + filename;
           }
@@ -169,13 +172,15 @@
                 {{/each}}
               </ul>
 
-              
+
               <div class="proposal-header ">
                 <div class="abstract ">
                   <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
                 </div>
-                <div class="title ">{{title}}</div>
-                <div class="abstract ">{{{abstract}}}</div>
+                <a href="#/programas/{{id}}/sobre-o-programa">
+                  <div class="title ">{{title}}</div>
+                  <div class="abstract ">{{{abstract}}}</div>
+                </a>
                 <div class="show_body row">
                   <a class="col-sm-6 col-sm-offset-3" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
                 </div>
@@ -199,7 +204,7 @@
                     <div class="col-sm-4 col-sm-offset-4">
                       <div class="social right">
                         <span>COMPARTILHE<br>ESTE PROGRAMA</span>
-                        {{#social_share title abstract '#'}}{{/social_share}}
+                        {{{social_share title abstract (program_detail_url id)}}}
                       </div>
                     </div>
                   </div>
@@ -303,7 +308,7 @@
       </div>
       <div class="social">
         <span>Compartilhe esta proposta</span>
-        {{#social_share parent.title abstract "#/programas/{{parent.id}}/propostas/{{id}}"}}{{/social_share}}
+        {{{social_share parent.title abstract (proposal_url parent.id id)}}}
       </div>
     </script>
 
@@ -344,6 +349,12 @@
       <div class="loading">Carregando...</div>
       <form id="login-form" class="login">
         <div class="message hide"></div>
+        <div class="row">
+          <div class="col-sm-4">
+            <a href="#" class="new-user button">Cadastre-se</a>
+          </div>
+        </div>
+        <p class="box-subtitle">Ou acesse:</p>
         <div class="username">
           <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
@@ -352,18 +363,21 @@
           <label for="user_password" class="label">Senha:</label>
           <input id="user_password" name="password" type="password" placeholder="Senha">
         </div>
-        <div class="actions">
-          <input type="submit" class="login-action" value="Acessar"/>
-          <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
-        </div>
-        <div class="oauth">
-          <div class="label">Acessar com:</div>
-          <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login">Facebook</a>
-          <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login">Google +</a>
-          <a href="#" class="new-user">Cadastrar</a>
+        <div class="row">
+          <div class="actions col-sm-4">
+            <input type="submit" class="login-action button col-sm-12" value="Acessar"/>
+            <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
+          </div>
+          <div class="oauth col-sm-8">
+            <span class="label">Ou acesse usando <i>&raquo;</i></span>
+            <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login icon icon-facebook">Facebook</a>
+            <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login icon icon-gplus">Google +</a>
+          </div>
         </div>
       </form>
       <form id="signup-form" class="signup hide" autocomplete="off">
+        <div class="message hide"></div>
+        <p class="box-subtitle">Cadastre-se</p>
         <div class="email">
           <label for="user_email" class="label">E-mail:</label>
           <input id="user_email" name="email" type="text" placeholder="E-mail">
@@ -372,28 +386,39 @@
           <label for="user_name" class="label">Nome de Usuário</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário">
         </div>
-        <div class="password">
-          <label for="user_password" class="label">Senha:</label>
-          <input id="user_password" name="password" type="password" placeholder="Senha">
-        </div>
-        <div class="password-confirmation">
-          <label for="user_password_confirmation" class="label">Confirme a senha:</label>
-          <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+        <div class="row">
+          <div class="password col-sm-6">
+            <label for="user_password" class="label">Senha:</label>
+            <input id="user_password" name="password" type="password" placeholder="Senha">
+          </div>
+          <div class="password-confirmation col-sm-6">
+            <label for="user_password_confirmation" class="label">Confirme a senha:</label>
+            <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+          </div>
         </div>
         <div class="actions">
-          <div class="message hide"></div>
-          <a href="#" class="confirm-signup">Confirmar</a>
-          <a href="#" class="cancel-signup">Cancelar</a>
+          <div class="row">
+            <div class="col-sm-4">
+              <a href="#" class="confirm-signup button">Confirmar</a>
+            </div>
+            <div class="col-sm-4">
+              <a href="#" class="cancel-signup button button-cancela">Cancelar</a>
+            </div>
+          </div>
+        </div>
+        <div class="captcha">
+            <div class="g-recaptcha" data-sitekey="6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i"></div>
+            <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR' async defer></script>
         </div>
       </form>
     </script>
 
     <script id="social-share" type="text/x-handlebars-template">
       <ul>
-        <li><a href="#/programas/{{parent.id}}/propostas/{{id}}" class="fb-share icon icon-facebook" data-caption="{{parent.title}}" data-description="{{stripTags abstract}}">Compartilhar no Facebook</a></li>
-        <li><a href="https://twitter.com/intent/tweet?text={{stripTags abstract}}" class="tw-share icon icon-twitter popup">Compartilhar no Twitter</a></li>
-        <li><a href="https://plus.google.com/share?url=http://dialoga.gov.br" class="gp-share icon icon-gplus popup">Compartilhar no Google Plus</a></li>
-        <li><a class="ws-share disabled icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
+        <li><a href="{{url}}" class="fb-share icon icon-facebook" data-caption="{{title}}" data-description="{{stripTags description}}">Compartilhar no Facebook</a></li>
+        <li><a href="https://twitter.com/intent/tweet?url={{encodeURI url}}&text={{stripTags description}}" class="tw-share icon icon-twitter popup">Compartilhar no Twitter</a></li>
+        <li><a href="https://plus.google.com/share?url={{encodeURI url}}" class="gp-share icon icon-gplus popup">Compartilhar no Google Plus</a></li>
+        <li><a href="whatsapp://send?text={{stripTags description}} {{encodeURI url}}" class="ws-share icon icon-whatsapp">Compartilhar no WhatsApp</a></li>
       </ul>
     </script>
 
