@@ -1,5 +1,45 @@
+.login .row input,
+.signup .row input {
+  margin-bottom: 0;
+}
+
+@each $category, $color in $categories {
+  .#{$category} {
+    .button {
+      background-color: $color;
+      border-radius: 6px;
+      border-bottom: 3px solid darken($color, 15%);
+      color: #fff;
+      font-weight: 400;
+      font-size: 16px;
+      padding: 20px 0;
+      display: block;
+      margin: 0;
+      text-align: center;
+      transition: all 200ms;
+      &:hover {
+        background-color: darken($color, 15%);
+        text-decoration: none;
+      }
+    }
+    input.button {
+      @extend .button;
+      margin: 0 !important;
+      padding: 20px 0 !important;
+      width: 100% !important;
+    }
+  }
+}
+.box-subtitle {
+  color: #18376c;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .proposal-detail {
   .login-container {
+    margin: 0 20px;
+    text-align: left;
     .loading {
       text-align: center;
     }
@@ -299,8 +339,8 @@
           text-align: left;
       }
       .message {
-        margin: 10px 35px;
-        padding: 10px 25px;
+        margin: 10px 0;
+        padding: 10px 20px;
         font-size: 12px;
         background-color: #f2dede;
         border-color: #ebccd1;
@@ -378,6 +418,7 @@
           border: 1px solid $color;
           height: $container-height;
           min-height: $container-height;
+          overflow: auto;
           margin: 0 10px 20px 0;
         }
         .make-proposal-button{
@@ -399,7 +440,7 @@
           height: 15%;
         }
         label {
-          color: gray;
+          color: #333;
         }
       }
       .support-proposal-container{
@@ -599,23 +640,24 @@
       }
     /*------------------ formulario ---------------- */
     form .oauth {
-        margin-top: 10px;
-        float: left;
-        width: 50%;
+        margin-top: 15px;
+        // float: left;
+        // width: 50%;
     }
 
     form .actions {
-        float: right;
-        width: 50%;
+        // float: right;
+        // width: 50%;
     }
 
     form.signup {
+      text-align: left;
       .password, .password-confirmation {
-        width: 47%;
+        // width: 47%;
         display: inline-block;
       }
       .password {
-        margin-left: 15px;
+        // margin-left: 15px;
       }
       .actions {
         margin: 20px 0 0 0;
@@ -626,7 +668,7 @@
           border-radius: 7px;
           color: #fff;
           padding: 10px 15px;
-          margin: 0 0 0 8px;
+          // margin: 0 0 0 8px;
         }
         .cancel-signup {
           @extend .confirm-signup;
@@ -702,13 +744,13 @@
 
   .support-proposal .abstract{
     overflow-y: auto;
-    max-height: 190px;
+    // max-height: 190px;
     margin-bottom: 10px;
     word-break: break-word;
     word-wrap: break-word;
 
     @media only screen and (max-width: 1048px) {
-      max-height: 140px;
+      // max-height: 140px;
       font-size: 20px;
     }
   }
@@ -735,7 +777,7 @@
 
       .info {
         margin: 0 20px !important;
-        max-height: 40px !important;
+        // max-height: 40px !important;
       }
     }
 
