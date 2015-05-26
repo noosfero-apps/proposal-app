@@ -250,12 +250,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           switch($proposal.find('.categories').attr('class')) {
             case 'categories saude':
               active_category = 'saude';
+              break;
             case 'categories educacao':
               active_category = 'educacao';
+              break;
             case 'categories seguranca-publica':
               active_category = 'seguranca-publica';
+              break;
             case 'categories reducao-da-pobreza':
               active_category = 'reducao-da-pobreza';
+              break;
           }        
 
           $proposal.find('.calendar.' + active_category).show();
