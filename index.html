@@ -108,7 +108,7 @@
         {{{article.abstract}}}
       </div>
 
-      <nav role="tabpanel">
+      <nav class="tab" role="tabpanel">
         <ul role="tablist">
           <li id="nav-proposal-categories" role="presentation">
             <a href="#/temas" class="active" role="tab" aria-controls="proposal-categories">Por Temas</a>
@@ -119,7 +119,7 @@
         </ul>
       </nav>
 
-      <div id="proposal-categories">
+      <article id="proposal-categories">
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
@@ -128,7 +128,7 @@
             </li>
           {{/each}}
           {{#each article.categories}}
-            <div id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
+            <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
               <div class="header">
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
@@ -138,12 +138,12 @@
                   {{#link title id}}{{/link}}
                 {{/list_proposal}}
               </ul>
-            </div>
+            </section>
           {{/each}}
         </div>
-      </div>
+      </article>
 
-      <div id="proposal-group" class="hide">
+      <article id="proposal-group" class="hide">
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
@@ -153,11 +153,11 @@
             {{#link title id}}{{/link}}
           {{/list_proposal}}
         </ul>
-      </div>
+      </article>
 
       {{#each article.children}}
         {{!-- <div class="container"> --}}
-          <div class="proposal-detail hide" id="proposal-item-{{id}}">
+          <article class="proposal-detail hide" id="proposal-item-{{id}}">
             <div class="categories {{#each categories}}{{slug}}{{/each}}">
               <ul class="select">
                 {{#each categories}}
@@ -172,14 +172,13 @@
                 {{/each}}
               </ul>
 
-
-              <div class="proposal-header ">
-                <div class="abstract ">
+              <div class="proposal-header">
+                <div class="abstract">
                   <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
                 </div>
                 <a href="#/programas/{{id}}/sobre-o-programa">
-                  <div class="title ">{{title}}</div>
-                  <div class="abstract ">{{{abstract}}}</div>
+                  <div class="title">{{title}}</div>
+                  <div class="abstract">{{{abstract}}}</div>
                 </a>
                 <div class="show_body row">
                   <a class="col-sm-6 col-sm-offset-3" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
@@ -195,7 +194,7 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="go-to-proposal-button">
-                        <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
+                        <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}" class="button button-participe">
                           <span class="fa fa-reply"></span>
                           Participe
                         </a>
@@ -291,20 +290,20 @@
 
               <div class="clearfix"></div>
             </div>
-          </div>
+          </article>
         {{!-- </div> --}}
       {{/each}}
     </script>
 
     <script id="support-proposal-template" type="text/x-handlebars-template">
       <div class="abstract">
-        <p>{{stripTags (trimString abstract 200)}}</p>
+        <p class="box-subtitle">{{stripTags (trimString abstract 200)}}</p>
       </div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>
-        <a href="#" class="skip">Pular</a>
-        <a href="#" class="vote-result">Resultados</a>
+        <a href="#" class="skip button box-footer">Pular</a>
+        <a href="#" class="vote-result box-bottom">Resultados</a>
       </div>
       <div class="social">
         <span>Compartilhe esta proposta</span>
