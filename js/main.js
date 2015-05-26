@@ -573,7 +573,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
       $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
-        $('#proposal-result').toggleClass('contrast');
+        $('body').toggleClass('contrast');
       });
 
       $( '.show_body' ).on('click', function(e){
