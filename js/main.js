@@ -330,7 +330,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             '</div>';
 
           var HTML_BODY_APPEND = ''+
-            '<div id="footer-brasil"></div>' +
+            '<footer id="footer-brasil"></footer>' +
             '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
 
           var STYLE_TEMA_AZUL = '' +
