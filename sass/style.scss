@@ -79,8 +79,8 @@ h1 {
 }
 
 form {
-  label, input, div.label, textarea {
-    width: 90%;
+  input, div.label, textarea {
+    // width: 90%;
     margin: 0 auto;
     font-size: 14px;
     display: block;
@@ -90,6 +90,8 @@ form {
   input, textarea {
     color: #000;
     border: 1px solid #18376C;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   textarea {
@@ -102,13 +104,13 @@ form {
     color: #000;
     font-weight: bold;
     text-decoration: none;
-    margin: 10px 20px;
+    // margin: 10px 20px;
   }
 
   .actions, .oauth {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 10px;
+    // text-align: center;
+    // font-size: 12px;
+    // margin-top: 10px;
   }
 }
 
@@ -154,8 +156,8 @@ form {
 }
 
 .captcha{
-  padding-left: 25px;
-  padding-top: 20px;
+  // padding-left: 25px;
+  // padding-top: 20px;
 }
 
 @media (max-width: 480px) {
