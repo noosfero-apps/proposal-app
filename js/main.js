@@ -20,7 +20,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   var participa = true;
   if(participa){
     var host = 'http://www.participa.br';
-    var proposal_discussion = '92856'; //participa
+    var proposal_discussion = '103358'; //participa
   }else{
     var host = 'http://noosfero.com:3000';
     var proposal_discussion = '632'; //local serpro
@@ -245,6 +245,20 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $proposal.find('.results-container .results-content').hide();
           $proposal.find('.experience-proposal-container').show();
           $proposal.find('.talk-proposal-container').show();
+          $proposal.find('.calendar').hide();
+          var active_category = '';
+          switch($proposal.find('.categories').attr('class')) {
+            case 'categories saude':
+              active_category = 'saude';
+            case 'categories educacao':
+              active_category = 'educacao';
+            case 'categories seguranca-publica':
+              active_category = 'seguranca-publica';
+            case 'categories reducao-da-pobreza':
+              active_category = 'reducao-da-pobreza';
+          }        
+
+          $proposal.find('.calendar.' + active_category).show();
           $proposal.find('.calendar').slick();
 
           var topic_id = proposal_id.split('-').pop();
