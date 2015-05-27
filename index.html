@@ -365,28 +365,27 @@
       <form id="signup-form" class="signup hide" autocomplete="off">
         <div class="email">
           <label for="user_email" class="label">E-mail:</label>
-          <input id="user_email" name="email" type="text" placeholder="E-mail">
+          <input id="user_email" name="email" type="email" required placeholder="E-mail">
         </div>
         <div class="username">
           <label for="user_name" class="label">Nome de Usuário</label>
-          <input id="user_name" name="login" type="text" placeholder="Nome do usuário">
+          <input id="user_name" name="login" type="text" required placeholder="Nome do usuário">
         </div>
         <div class="password">
           <label for="user_password" class="label">Senha:</label>
-          <input id="user_password" name="password" type="password" placeholder="Senha">
+          <input id="user_password" name="password" type="password" required placeholder="Senha">
         </div>
         <div class="password-confirmation">
           <label for="user_password_confirmation" class="label">Confirme a senha:</label>
-          <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+          <input id="user_password_confirmation" name="password_confirmation" type="password" required placeholder="Confirme a senha">
+        </div>
+        <div class="captcha">
+          <div id="g-recaptcha"></div>
         </div>
         <div class="actions">
           <div class="message hide"></div>
           <a href="#" class="confirm-signup">Confirmar</a>
           <a href="#" class="cancel-signup">Cancelar</a>
-        </div>
-        <div class="captcha">
-            <div class="g-recaptcha" data-sitekey="6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i"></div>
-            <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR' async defer></script>
         </div>
       </form>
     </script>
@@ -404,6 +403,7 @@
       loadRequireJS();
     </script>
 
+    <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR' async defer></script>
 
   </body>
 

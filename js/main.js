@@ -17,13 +17,15 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
-  var participa = true;
+  var participa = false;
   if(participa){
     var host = 'http://www.participa.br';
     var proposal_discussion = '103358'; //participa
+    window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
     var host = 'http://noosfero.com:3000';
-    var proposal_discussion = '632'; //local serpro
+    var proposal_discussion = '372'; //local serpro
+    window.recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-' //http://noosfero.com/
   }
 
   var BARRA_ADDED = false;
@@ -32,7 +34,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   Main = (function(){
 
     return {
-      private_token: '375bee7e17d0021af7160ce664874618',
+      private_token: 'db34efd2c7df703b61226c88b7b477c8',
       getProposalId: function() {
         var regexProposals = /\d.*\/propostas\/*.*/;
         var proposalId = 0;
@@ -687,9 +689,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     $(document).on('click', '.new-user', function(e) {
       var loginForm = $(this).parents('#login-form');
+      var signupForm = loginForm.siblings('#signup-form');
+      
       loginForm.hide();
-      loginForm.siblings('#signup-form').show();
+      signupForm.show();
       loginForm.find('.message').hide();
+      console.log(signupForm.find('#g-recaptcha')[0]);
+      grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
       e.preventDefault();
     })
 
@@ -697,6 +703,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       var signupForm = $(this).parents('#signup-form');
       signupForm.hide();
       signupForm.siblings('#login-form').show();
+      grecaptcha.reset();
       e.preventDefault();
     });
 
@@ -723,6 +730,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         loading.hide();
         signup.show();
       });
+      grecaptcha.reset();
       e.preventDefault();
     });
 
