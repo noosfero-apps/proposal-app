@@ -17,7 +17,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
-  var participa = false;
+  var participa = true;
   if(participa){
     var host = 'http://www.participa.br';
     var proposal_discussion = '103358'; //participa
