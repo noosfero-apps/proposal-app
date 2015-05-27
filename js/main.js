@@ -18,6 +18,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   var loginButton;
 
   var participa = true;
+
+  //Detects for localhost settings
+  var patt = new RegExp(":3000/");
+  if(patt.test(window.location.href))
+    participa = false;
+  
   if(participa){
     var host = 'http://www.participa.br';
     var proposal_discussion = '103358'; //participa
