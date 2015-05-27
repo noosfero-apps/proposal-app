@@ -121,12 +121,14 @@
 
       <article id="proposal-categories">
         <div id="proposal-categories-container">
+          <ul class="themes">
           {{#each article.categories}}
             <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
               <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
               <div class="arrow-box" style="display: none"></div>
             </li>
           {{/each}}
+          </ul>
           {{#each article.categories}}
             <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
               <div class="header">
@@ -148,7 +150,7 @@
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
         </div>
-        <ul>
+        <ul class="proposal-list">
           {{#list_proposal article.children}}
             {{#link title id}}{{/link}}
           {{/list_proposal}}
@@ -211,11 +213,11 @@
               </div>
 
               <div class="make-proposal-container">
-                <div class="make-proposal">
-                  <div class="container-title">Faça Uma Proposta</div>
-                  <div class="subtitle">Qual a sua sugestão para melhorar este programa?</div>
-                  <div class="info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
-                  <div class="send-proposal-button send-button"><a href="#"><span>Envie sua proposta</span></a></div>
+                <section class="make-proposal box box-propostas">
+                  <div class="container-title box-title">Faça Uma Proposta</div>
+                  <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
+                  <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
+                  <div class="send-proposal-button send-button box-footer"><a href="#"><span>Envie sua proposta</span></a></div>
                   <div class="login-container hide">Login</div>
                   <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                     <div class="message hide"></div>
@@ -232,12 +234,12 @@
                     <a href="#">Faça nova proposta</a>
                   </div>
                   <div class="clearfix"></div>
-                </div>
+                </section>
               </div>
 
               <div class="support-proposal-container">
-                <div class="support-proposal">
-                  <div class="container-title"> Apoie outras propostas</div>
+                <section class="support-proposal box box-propostas box-center box-apoie">
+                  <div class="container-title box-title"> Apoie outras propostas</div>
                   <div class="alert alert-warning hide" role="alert">
                     <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
                   </div>
@@ -248,13 +250,13 @@
                   </div>
                   <div class="login-container hide">Login</div>
                   <div class="send-button"><a href="#"><span>Login</span></a></div>
-                </div>
+                </section>
               </div>
 
-              <div class="results-container hide"></div>
+              <div class="results-container hide box box-propostas"></div>
 
               <div class="talk-proposal-container">
-                <div class="talk-proposal">
+                <section class="talk-proposal box box-propostas">
                   <div class="container-title">Bate-papo com os ministros</div>
                   <p>Confira as datas e horários:</p>
                   <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
@@ -285,7 +287,7 @@
                       <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
                   </ul>
-                </div>
+                </section>
               </div>
 
               <div class="clearfix"></div>
