@@ -247,6 +247,24 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $proposal.find('.results-container .results-content').hide();
           $proposal.find('.experience-proposal-container').show();
           $proposal.find('.talk-proposal-container').show();
+          $proposal.find('.calendar').hide();
+          var active_category = '';
+          switch($proposal.find('.categories').attr('class')) {
+            case 'categories saude':
+              active_category = 'saude';
+              break;
+            case 'categories educacao':
+              active_category = 'educacao';
+              break;
+            case 'categories seguranca-publica':
+              active_category = 'seguranca-publica';
+              break;
+            case 'categories reducao-da-pobreza':
+              active_category = 'reducao-da-pobreza';
+              break;
+          }        
+
+          $proposal.find('.calendar.' + active_category).show();
           $proposal.find('.calendar').slick();
 
           var topic_id = proposal_id.split('-').pop();
@@ -314,7 +332,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             '</div>';
 
           var HTML_BODY_APPEND = ''+
-            '<div id="footer-brasil"></div>' +
+            '<footer id="footer-brasil"></footer>' +
             '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
 
           var STYLE_TEMA_AZUL = '' +
@@ -557,7 +575,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
       $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
-        $('#proposal-result').toggleClass('contrast');
+        $('body').toggleClass('contrast');
       });
 
       $( '.show_body' ).on('click', function(e){

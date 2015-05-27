@@ -97,18 +97,18 @@
 
     <script id="proposal-template" type="text/x-handlebars-template">
       <header>
-        <h1><a href="#">{{article.title}}</a></h1>
         <a id="display-contrast" href="#">Alto Contraste</a>
         <div class="social top">
           {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
         </div>
+        <h1><a href="#">{{article.title}}</a></h1>
       </header>
 
       <div id="content">
         {{{article.abstract}}}
       </div>
 
-      <nav role="tabpanel">
+      <nav class="tab" role="tabpanel">
         <ul role="tablist">
           <li id="nav-proposal-categories" role="presentation">
             <a href="#/temas" class="active" role="tab" aria-controls="proposal-categories">Por Temas</a>
@@ -119,7 +119,7 @@
         </ul>
       </nav>
 
-      <div id="proposal-categories">
+      <article id="proposal-categories">
         <div id="proposal-categories-container">
           {{#each article.categories}}
             <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
@@ -128,7 +128,7 @@
             </li>
           {{/each}}
           {{#each article.categories}}
-            <div id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide" data-category="{{slug}}">
+            <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
               <div class="header">
                 <div class="name">{{name}}</div>
                 <div class="description"></div>
@@ -138,12 +138,12 @@
                   {{#link title id}}{{/link}}
                 {{/list_proposal}}
               </ul>
-            </div>
+            </section>
           {{/each}}
         </div>
-      </div>
+      </article>
 
-      <div id="proposal-group" class="hide">
+      <article id="proposal-group" class="hide">
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
         <div id="search-input-container">
           <input placeholder="palavra chave" id="search-input" type="text" name="search" />
@@ -153,12 +153,12 @@
             {{#link title id}}{{/link}}
           {{/list_proposal}}
         </ul>
-      </div>
+      </article>
 
       {{#each article.children}}
         {{!-- <div class="container"> --}}
-          <div class="proposal-detail hide" id="proposal-item-{{id}}">
-            <div class="categories {{#each categories}}{{slug}} {{/each}}">
+          <article class="proposal-detail hide" id="proposal-item-{{id}}">
+            <div class="categories {{#each categories}}{{slug}}{{/each}}">
               <ul class="select">
                 {{#each categories}}
                   <li class="category proposal-category" data-category="{{slug}}">
@@ -172,14 +172,13 @@
                 {{/each}}
               </ul>
 
-
-              <div class="proposal-header ">
-                <div class="abstract ">
+              <div class="proposal-header">
+                <div class="abstract">
                   <img src="{{../host}}{{image.url}}" alt="Imagem de apresentação do programa."/>
                 </div>
                 <a href="#/programas/{{id}}/sobre-o-programa">
-                  <div class="title ">{{title}}</div>
-                  <div class="abstract ">{{{abstract}}}</div>
+                  <div class="title">{{title}}</div>
+                  <div class="abstract">{{{abstract}}}</div>
                 </a>
                 <div class="show_body row">
                   <a class="col-sm-6 col-sm-offset-3" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
@@ -195,7 +194,7 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="go-to-proposal-button">
-                        <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}">
+                        <a href="#/programas/{{id}}" data-target="proposal-item-{{id}}" class="button button-participe">
                           <span class="fa fa-reply"></span>
                           Participe
                         </a>
@@ -258,26 +257,32 @@
                 <div class="talk-proposal">
                   <div class="container-title">Bate-papo com os ministros</div>
                   <p>Confira as datas e horários:</p>
-                  <ul class="calendar" data-slick='{"infinite": false, "rows": 2}'>
+                  <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
                     <li>
                       <span>Arthur Chioro</span>
                       <span>Saúde</span>
                       <div class="date"><i class="fa fa-calendar"></i> 17/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
+                  </ul>
+                  <ul class="calendar seguranca-publica" data-slick='{"infinite": false, "rows": 2}'>
                     <li>
-                      <span>Tereza Campello</span>
-                      <span>Desenvolvimento Social</span>
-                      <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                      <span>José Eduardo Cardozo</span>
+                      <span>Justiça</span>
+                      <div class="date"><i class="fa fa-calendar"></i> 25/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
+                  </ul>
+                  <ul class="calendar educacao" data-slick='{"infinite": false, "rows": 2}'>
                     <li>
                       <span>Renato Janine Ribeiro</span>
                       <span>Educação</span>
                       <div class="date"><i class="fa fa-calendar"></i> 24/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
+                  </ul>
+                  <ul class="calendar reducao-da-pobreza" data-slick='{"infinite": false, "rows": 2}'>
                     <li>
-                      <span>José Eduardo Cardozo</span>
-                      <span>Justiça</span>
-                      <div class="date"><i class="fa fa-calendar"></i> 25/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                      <span>Tereza Campello</span>
+                      <span>Desenvolvimento Social</span>
+                      <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
                     </li>
                   </ul>
                 </div>
@@ -285,20 +290,20 @@
 
               <div class="clearfix"></div>
             </div>
-          </div>
+          </article>
         {{!-- </div> --}}
       {{/each}}
     </script>
 
     <script id="support-proposal-template" type="text/x-handlebars-template">
       <div class="abstract">
-        <p>{{stripTags (trimString abstract 200)}}</p>
+        <p class="box-subtitle">{{stripTags (trimString abstract 200)}}</p>
       </div>
       <div class="vote-actions">
         <a href="#" class="like dislike" data-vote-value="-1"></a>
         <a href="#" class="like" data-vote-value="1"></a>
-        <a href="#" class="skip">Pular</a>
-        <a href="#" class="vote-result">Resultados</a>
+        <a href="#" class="skip button box-footer">Pular</a>
+        <a href="#" class="vote-result box-bottom">Resultados</a>
       </div>
       <div class="social">
         <span>Compartilhe esta proposta</span>
@@ -343,6 +348,12 @@
       <div class="loading">Carregando...</div>
       <form id="login-form" class="login">
         <div class="message hide"></div>
+        <div class="row">
+          <div class="col-sm-4">
+            <a href="#" class="new-user button">Cadastre-se</a>
+          </div>
+        </div>
+        <p class="box-subtitle">Ou acesse:</p>
         <div class="username">
           <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
           <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
@@ -351,18 +362,21 @@
           <label for="user_password" class="label">Senha:</label>
           <input id="user_password" name="password" type="password" placeholder="Senha">
         </div>
-        <div class="actions">
-          <input type="submit" class="login-action" value="Acessar"/>
-          <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
-        </div>
-        <div class="oauth">
-          <div class="label">Acessar com:</div>
-          <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login">Facebook</a>
-          <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login">Google +</a>
-          <a href="#" class="new-user">Cadastrar</a>
+        <div class="row">
+          <div class="actions col-sm-4">
+            <input type="submit" class="login-action button col-sm-12" value="Acessar"/>
+            <a href="http://www.participa.br/account/forgot_password" target="_blank" class="forgot-password">Esqueci minha senha</a>
+          </div>
+          <div class="oauth col-sm-8">
+            <span class="label">Ou acesse usando <i>&raquo;</i></span>
+            <a href="http://www.participa.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login icon icon-facebook">Facebook</a>
+            <a href="http://www.participa.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login icon icon-gplus">Google +</a>
+          </div>
         </div>
       </form>
       <form id="signup-form" class="signup hide" autocomplete="off">
+        <div class="message hide"></div>
+        <p class="box-subtitle">Cadastre-se</p>
         <div class="email">
           <label for="user_email" class="label">E-mail:</label>
           <input id="user_email" name="email" type="email" required placeholder="E-mail">
@@ -371,21 +385,27 @@
           <label for="user_name" class="label">Nome de Usuário</label>
           <input id="user_name" name="login" type="text" required placeholder="Nome do usuário">
         </div>
-        <div class="password">
-          <label for="user_password" class="label">Senha:</label>
-          <input id="user_password" name="password" type="password" required placeholder="Senha">
-        </div>
-        <div class="password-confirmation">
-          <label for="user_password_confirmation" class="label">Confirme a senha:</label>
-          <input id="user_password_confirmation" name="password_confirmation" type="password" required placeholder="Confirme a senha">
-        </div>
-        <div class="captcha">
-          <div id="g-recaptcha"></div>
+        <div class="row">
+          <div class="password col-sm-6">
+            <label for="user_password" class="label">Senha:</label>
+            <input id="user_password" name="password" type="password" placeholder="Senha">
+          </div>
+          <div class="password-confirmation col-sm-6">
+            <label for="user_password_confirmation" class="label">Confirme a senha:</label>
+            <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+          </div>
+          <div class="captcha">
+            <div id="g-recaptcha"></div>
         </div>
         <div class="actions">
-          <div class="message hide"></div>
-          <a href="#" class="confirm-signup">Confirmar</a>
-          <a href="#" class="cancel-signup">Cancelar</a>
+          <div class="row">
+            <div class="col-sm-4">
+              <a href="#" class="confirm-signup button">Confirmar</a>
+            </div>
+            <div class="col-sm-4">
+              <a href="#" class="cancel-signup button button-cancela">Cancelar</a>
+            </div>
+          </div>
         </div>
       </form>
     </script>
