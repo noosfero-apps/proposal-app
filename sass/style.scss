@@ -156,6 +156,11 @@ form {
 }
 
 .captcha{
+  display: table;
+  margin: 20px 0;
+  position: relative;
+  width: 100%;
+  z-index: 1;
 }
 
 @media (max-width: 480px) {
