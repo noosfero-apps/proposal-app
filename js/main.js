@@ -34,7 +34,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   Main = (function(){
 
     return {
-      private_token: 'db34efd2c7df703b61226c88b7b477c8',
+      private_token: '375bee7e17d0021af7160ce664874618',
       getProposalId: function() {
         var regexProposals = /\d.*\/propostas\/*.*/;
         var proposalId = 0;
