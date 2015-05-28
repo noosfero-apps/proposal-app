@@ -232,11 +232,10 @@
             }
           }
         }
-        .table {
+        .border {
           border: 2px solid $color;
           border-radius: 6px;
           clear: both;
-          margin: 20px;
         }
         table {
           tr {
@@ -1007,6 +1006,7 @@
     margin-bottom: 10px !important;
     .results-content {
       margin-top: 0 !important;
+      padding: 20px;
     }
     .truncated {
       padding: 0 10px !important;
