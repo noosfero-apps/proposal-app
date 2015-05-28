@@ -115,6 +115,10 @@ define(['handlebars'], function(Handlebars){
     return encodeURIComponent(uri);
   });
 
+  Handlebars.registerHelper('calcPosition', function(index, per_page, page) {
+    return index + 1 + per_page * (page - 1);
+  });
+
   function proposal_has_category(proposal, category_slug) {
     for(var i=0; i<proposal.categories.length; i++) {
       if(proposal.categories[i].slug == category_slug)
