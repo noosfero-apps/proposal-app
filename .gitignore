@@ -12,6 +12,7 @@ package.json
 bower_components/
 bower.json
 sass/bootstrap.scss
+sass/novo.sass
 css/bootstrap.css
 html/
 novo.css
