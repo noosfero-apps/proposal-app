@@ -188,7 +188,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('.talk-proposal-container').hide();
         },
 
-        loginCallback: function(loggedIn, token) {
+        loginCallback: function(loggedIn, token, user) {
           logged_in = loggedIn;
           $('.login .message').text('');
 
@@ -200,6 +200,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             loginButton.siblings('.require-login .message').show();
             loginButton.siblings('.login-container').hide();
             $.cookie('_dialoga_session', Main.private_token);
+          } else if (user) {
+            var loginContainer = loginButton.siblings('.login-container');
+            loginContainer.show();
+            loginContainer.find('.new-user').click();
+            var signupForm = loginContainer.find('#signup-form');
+            signupForm.find("#user_email").val(user.email);
+            signupForm.find("#user_name").val(user.login);
+            signupForm.find("#user_oauth_providers").val(user.oauth_providers);
+            signupForm.find(".password").hide();
+            signupForm.find(".password-confirmation").hide();
           } else {
             loginButton.siblings('.require-login').hide();
             loginButton.siblings('.login-container').show();
@@ -714,11 +724,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
     $(document).on('click', '.new-user', function(e) {
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
-      
+
       loginForm.hide();
       signupForm.show();
+      signupForm.find(".password").show();
+      signupForm.find(".password-confirmation").show();
       loginForm.find('.message').hide();
-      console.log(signupForm.find('#g-recaptcha')[0]);
+      signupForm.find('#g-recaptcha').empty();
       grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
       e.preventDefault();
     })
@@ -785,7 +797,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   window.addEventListener("message", function(ev) {
     if (ev.data.message === "oauthClientPluginResult") {
-      Main.loginCallback(ev.data.logged_in, ev.data.private_token);
+      Main.loginCallback(ev.data.logged_in, ev.data.private_token, ev.data.user);
       ev.source.close();
     }
   });
