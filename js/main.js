@@ -208,8 +208,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             signupForm.find("#user_email").val(user.email);
             signupForm.find("#user_name").val(user.login);
             signupForm.find("#user_oauth_providers").val(user.oauth_providers);
-            signupForm.find(".password").hide();
-            signupForm.find(".password-confirmation").hide();
+            //signupForm.find(".password").hide();
+            //signupForm.find(".password-confirmation").hide();
           } else {
             loginButton.siblings('.require-login').hide();
             loginButton.siblings('.login-container').show();
