@@ -169,8 +169,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                 items: data.pagination.total,
                 itemsOnPage: data.pagination.per_page,
                 currentPage: data.pagination.page,
-                prevText: 'Anterior',
-                nextText: 'Próximo',
+                prevText: '«',
+                nextText: '»',
                 cssStyle: 'compact-theme',
                 onPageClick: function(page, e) {
                   Main.loadRanking($resultsContainer, topic_id, page);

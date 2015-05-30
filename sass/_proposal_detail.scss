@@ -202,35 +202,50 @@
             ul {
               list-style: none;
               padding: 0;
-              display: table;
+              display: block;
               margin: 0 auto;
+              text-align: center;
               li {
                 list-style: none;
+                display: inline;
                 padding: 0;
-                margin: 0;
-                float: left;
+                margin: 0 10px;
+                float: none;
+                &.active {
+                  .next, .prev {
+                    opacity: 0.5;
+                  }
+                }
                 a, span {
-                  float: left;
-                  color: white;
+                  background: transparent;
+                  border: 0;
+                  border-bottom: 1px solid #000;
+                  color: #000;
+                  display: inline-block;
+                  // float: left;
                   font-size: 14px;
-                  line-height: 24px;
                   font-weight: normal;
+                  line-height: 1.2;
+                  margin: 0;
+                  min-width: 0;
+                  padding: 0;
                   text-align: center;
-                  min-width: 14px;
-                  padding: 0 7px;
-                  background: $color;
-                  width: 100%;
                   text-transform: none;
-                }
-                .prev {
-                  border-radius: 3px 0 0 3px;
-                }
-                .next {
-                  border-right: 1px solid #AAA;
-                  border-radius: 0 3px 3px 0;
+                  width: auto;
+                  vertical-align: middle;
                 }
                 .current {
-                  opacity: 0.5;
+                  padding: 10px;
+                  background-color: #ccc;
+                  border-bottom-color: #ccc;
+                  border-radius: 6px;
+                }
+                .next, .prev {
+                  background-color: $color;
+                  border-bottom: 3px solid darken($color, 15%);
+                  border-radius: 6px;
+                  color: #fff;
+                  padding: 10px 15px;
                 }
               }
             }
