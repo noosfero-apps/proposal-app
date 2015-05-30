@@ -162,13 +162,16 @@
           display:table;
           clear:both;
         }
+        h2 {
+          border-bottom: 0;
+        }
         .results-content {
           border: 1px solid $color;
           margin-top: 20px;
           padding: 20px;
           .vote-result {
             font-weight: bolder;
-            font-size: 12px;
+            font-size: 20px;
             text-transform: uppercase;
             color: gray;
             border: none;
@@ -189,9 +192,9 @@
             margin-right: 8px;
           }
           .total {
-            padding: 10px;
-            color: gray;
-            font-size: 14px;
+            display: block;
+            font-size: 20px;
+            padding-bottom: 40px;
             float: left;
           }
           .simple-pagination {
@@ -290,7 +293,7 @@
             th {
               background-color: $color;
               color: #fff;
-              padding: 20px;
+              padding: 15px 20px;
               border-bottom: 3px solid darken($color, 15%);
               border-left: 1px solid lighten($color, 15%);
               border-right: 1px solid lighten($color, 15%);
@@ -308,6 +311,27 @@
                 border-top: 0;
               }
             }
+            .position {
+              width: 20%;
+              a {
+                background-color: $color;
+                border: 1px solid #fff;
+                border-radius: 100%;
+                color: #fff;
+                display: inline-block;
+                font-size: 16px;
+                height: 30px;
+                margin-left: 5px;
+                padding: 2px 0;
+                text-align: center;
+                width: 30px;
+                vertical-align: middle;
+                transition: all 200ms;
+                &:hover {
+                  background-color: darken($color, 15%);
+                }
+              }
+            }
             .votes-for {
               // background-image: url(./images/result-like.png);
               // background-repeat: no-repeat;
@@ -319,12 +343,12 @@
                 background-color: #32dbb5;
                 border: 2px solid #ffffff;
                 border-radius: 100%;
-                font-size: 12px;
-                height: 24px;
-                padding: 3px 0;
+                font-size: 16px;
+                height: 30px;
+                padding: 5px 0;
                 text-align: center;
                 transition: all 200ms ease 0s;
-                width: 24px;
+                width: 30px;
               }
             }
             .votes-against {
@@ -336,12 +360,12 @@
                 background-color: #DB4127;
                 border: 2px solid #ffffff;
                 border-radius: 100%;
-                font-size: 12px;
-                height: 24px;
-                padding: 3px 0;
+                font-size: 16px;
+                height: 30px;
+                padding: 5px 0;
                 text-align: center;
                 transition: all 200ms ease 0s;
-                width: 24px;
+                width: 30px;
               }
             }
           }

@@ -316,10 +316,9 @@
     <script id="results" type="text/x-handlebars-template">
       <div class="loading">Carregando...</div>
       <div class="results-content hide">
-        <div class="clearfix">
-          <span class="total">Total de propostas: <span class="value">{{pagination.total}}</span></span>
-          <a href="#" class="vote-result">Fechar</a>
-        </div>
+        <a href="#" class="vote-result"><span class="sr-only">Fechar</span><span class="fa fa-times"></span></a>
+        <h2>Resultados</h2>
+        <span class="total">Total de propostas: <strong class="value">{{pagination.total}}</strong></span>
         <div class="updated-at">
           <span>Última atualização </span>
           <span class="timeago" title="{{updated_at}}"></span>
@@ -327,7 +326,7 @@
         <div class="table-responsive border">
           <table class="table">
             <tr class="header">
-              <th class="position">Posição</th>
+              <th class="position">Posição <a href="#"><span class="fa fa-question"></span></a></th>
               <th class="abstract-text">Propostas</th>
               <th class="views">Exibições</th>
               <th class="votes-for"><span class="fa fa-check"></span></th>
