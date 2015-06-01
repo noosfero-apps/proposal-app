@@ -2,7 +2,7 @@
 	position: relative;
 	z-index: 1;
 	&.top {
-		margin-top: 45px;
+		// margin-top: 45px;
 	}
 	&.right {
 		padding-top: 10px;
@@ -30,6 +30,7 @@
 	li {
 		display: inline-block;
 		padding: 0 2px !important;
+		vertical-align: top;
 	}
 	.icon {
 		background-color: transparent !important;
@@ -37,37 +38,86 @@
 		background-position: 50% !important;
 		background-size: auto !important;
 		border: 0 !important;
+		border-radius: 100%;
 		color: #fff;
 		display: inline-block;
 		font-size: 20px;
 		height: 36px;
 		min-width: 0 !important;
-		padding: 9px 0 !important;
+		padding: 0 !important;
 		// text-indent: -999999px;
 		text-align: center;
+		text-decoration: none;
+		transform: all 200ms;
 		width: 36px;
 		&-facebook {
-			background-image: url(images/icons/icon-facebook.png) !important;
+			background-color: #537abb !important;
+			padding: 8px 0 !important;
 			&.disabled {
-				background-image: url(images/icons/icon-facebook-disabled.png) !important;
+				background-color: #fff !important;
+				color: #000 !important;
+				&:hover {
+					background-color: darken(#537abb, 15%) !important;
+				}
+			}
+			&:hover {
+				background-color: darken(#537abb, 15%) !important;
 			}
 		}
 		&-twitter {
-			background-image: url(images/icons/icon-twitter.png) !important;
+			background-color: #78caee !important;
+			padding: 8px 0 !important;
 			&.disabled {
-				background-image: url(images/icons/icon-twitter-disabled.png) !important;
+				background-color: #fff !important;
+				color: #000 !important;
+				&:hover {
+					background-color: darken(#537abb, 15%) !important;
+				}
+			}
+			&:hover {
+				background-color: darken(#fff, 15%) !important;
 			}
 		}
 		&-gplus {
-			background-image: url(images/icons/icon-gplus.png) !important;
+			background-color: #d54000 !important;
+			padding: 9px 0 !important;
 			&.disabled {
-				background-image: url(images/icons/icon-gplus-disabled.png) !important;
+				background-color: #fff !important;
+				color: #000 !important;
+				&:hover {
+					background-color: darken(#fff, 15%) !important;
+				}
+			}
+			&:hover {
+				background-color: darken(#d54000, 15%) !important;
 			}
 		}
 		&-whatsapp {
-			background-image: url(images/icons/icon-whatsapp.png) !important;
+			background-color: #56ba62 !important;
+			padding: 7px 0 !important;
 			&.disabled {
-				background-image: url(images/icons/icon-whatsapp-disabled.png) !important;
+				background-color: #fff !important;
+				color: #000 !important;
+				&:hover {
+					background-color: darken(#fff, 15%) !important;
+				}
+			}
+			&:hover {
+				background-color: darken(#56ba62, 15%) !important;
+			}
+		}
+		&-email {
+			background-color: #edb24c !important;
+			padding: 7px 0 !important;
+			&.disabled {
+				background-color: #fff !important;
+				color: #000 !important;
+				&:hover {
+					background-color: darken(#fff, 15%) !important;
+				}
+			}
+			&:hover {
+				background-color: darken(#edb24c, 15%) !important;
 			}
 		}
 	}
