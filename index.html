@@ -98,9 +98,9 @@
     <script id="proposal-template" type="text/x-handlebars-template">
       <header>
         <a id="display-contrast" href="#">Alto Contraste</a>
-        <div class="login">
-          <a href="#" class="button">Participe</a>
-          <a href="#">Entrar</a>
+        <div class="login-block">
+          <a href="#" class="login-register">Participe</a>
+          <a href="#" class="login-in">Entrar</a>
         </div>
         <div class="social top">
           {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
@@ -109,7 +109,9 @@
       </header>
 
       <div id="content">
-        {{{article.abstract}}}
+        <div class="embed-responsive embed-responsive-16by9">
+          {{{article.abstract}}}
+        </div>
       </div>
 
       <nav class="tab" role="tabpanel">
@@ -123,7 +125,7 @@
         </ul>
       </nav>
 
-      <article id="proposal-categories">
+      <aside id="proposal-categories">
         <div id="proposal-categories-container">
           <ul class="themes">
           {{#each article.categories}}
@@ -147,7 +149,7 @@
             </section>
           {{/each}}
         </div>
-      </article>
+      </aside>
 
       <article id="proposal-group" class="hide">
         <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>

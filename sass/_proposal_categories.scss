@@ -5,14 +5,16 @@
   clear: both;
   margin: 0;
   padding: 10px;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #03316f;
   border-left: 1px solid #03316f;
   border-right: 1px solid #03316f;    
-  
+  ul {
+    padding-left: 0;
+  }
   li {
     list-style: none;
-    display: inline-block;
+    display: block;
   }
   
   .proposal-category {
