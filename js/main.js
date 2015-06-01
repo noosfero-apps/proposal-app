@@ -164,6 +164,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $(".timeago").timeago();
             $resultsContainer.show();
 
+            $('.footable').footable();
+
             if(data.pagination.total > data.pagination.per_page) {
               $resultsContainer.find('.paging').pagination({
                 items: data.pagination.total,

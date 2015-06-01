@@ -283,7 +283,7 @@
           }
           td {
             background-color: #eeeff1;
-            padding: 10px 20px;
+            padding: 10px;
             border: 1px solid #fff;
             text-align: center;
             &.abstract-text {
@@ -388,7 +388,7 @@
           .truncate {
             display: table;
             table-layout: fixed;
-            width: 100%;
+            width: 90%;
           }
           .truncated {
             overflow-x: hidden;

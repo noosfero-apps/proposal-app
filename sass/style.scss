@@ -224,3 +224,74 @@ form {
     }
   }
 }
+
+.footable {
+  &-loaded {
+    td {
+      font-weight: 500 !important;
+    }
+  }
+  &-detail {
+    &-show {
+      td {
+        background-color: #ddd !important;
+        .footable-toggle {
+          background-color: #ccc
+        }
+      }
+    }
+  }
+  &-row {
+    &-detail {
+      &-cell {
+        border-top: 1px solid #ccc !important;
+        padding: 0 !important;
+      }
+      &-inner {
+        background-color: #ccc;
+        display: block;
+        padding: 10px;
+        width: 100%;
+      }
+      &-row {
+        display: inline-block;
+      }
+      &-row:nth-child(2) {
+        div:nth-child(1) {
+          background: url(images/icons/icon-afavor.png) no-repeat center top;
+          text-indent: -99999px;
+        }
+      }
+      &-row:nth-child(3) {
+        div:nth-child(1) {
+          background: url(images/icons/icon-contra.png) no-repeat center top;
+          text-indent: -99999px;
+        }
+      }
+      &-name {
+        display: block;
+        padding: 2px 15px;
+        text-transform: uppercase;
+        font-size: 16px;
+      }
+      &-value {
+        display: block;
+      }
+    }
+  }
+  &.breakpoint {
+    > tbody {
+      > tr {
+        > td {
+          > span {
+            &.footable-toggle {
+              float: right;
+              margin: -10px;
+              padding: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,6 +15,7 @@ requirejs.config({
         jquery_timeago: 'jquery.timeago',
         jquery_timeago_pt: 'jquery.timeago.pt-br',
         jquery_simplePagination: 'jquery.simplePagination',
+        jquery_simplePagination: 'footable',
         handlebars: 'handlebars-v3.0.1',
         handlebars_helpers: 'handlebars-helpers',
         jquery_maxlength: 'jquery.maxlength.min',
@@ -39,6 +40,9 @@ requirejs.config({
         deps: ['jquery_timeago']
       },
       'jquery_simplePagination': {
+        deps: ['jquery']
+      },
+      'footable': {
         deps: ['jquery']
       },
       'jquery_ui': {
@@ -66,5 +70,5 @@ requirejs.config({
     }
 });
 
-requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest', 'jquery_timeago_pt', 'jquery_simplePagination', 'handlebars_helpers']);
+requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest', 'jquery_timeago_pt', 'jquery_simplePagination', 'footable', 'handlebars_helpers']);
 requirejs(['slick', 'fastclick', 'jquery_maxlength', 'layout','main']);
