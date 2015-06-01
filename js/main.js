@@ -30,7 +30,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
     window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
     var host = 'http://noosfero.com:3000';
-    var proposal_discussion = '372'; //local serpro
+    var proposal_discussion = '392'; //local serpro
     window.recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-' //http://noosfero.com/
   }
 
@@ -759,9 +759,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         data: $(this).parents('.signup').serialize(),
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
-      }).fail(function( /*data*/ ) {
+      }).fail(function(data) {
+        var msg = "";
+        var o = JSON.parse(data.responseJSON.message);
+        Object.keys(o).map(function(k) { msg += k + " " + o[k] + ", " });
+        msg = msg.substring(0, msg.length - 2) + ".";
         message.show();
-        message.text('Não foi possível efetuar o cadastro');
+        message.text('Não foi possível efetuar o cadastro: ' + msg);
       }).always(function() {
         loading.hide();
         signup.show();
