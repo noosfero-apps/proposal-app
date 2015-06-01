@@ -235,6 +235,9 @@ form {
     &-show {
       td {
         background-color: #ddd !important;
+        .footable-toggle {
+          background-color: #ccc
+        }
       }
     }
   }
@@ -282,7 +285,6 @@ form {
         > td {
           > span {
             &.footable-toggle {
-              background-color: #ccc;
               float: right;
               margin: -10px;
               padding: 12px;
