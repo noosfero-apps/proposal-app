@@ -48,6 +48,7 @@
           'css/bootstrap.min.css',
           'css/bootstrap-alert.min.css',
           'css/hover.custom.css',
+          'css/footable.core.min.css',
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
           'http://fonts.googleapis.com/css?family=Asap:400,700',
@@ -323,15 +324,18 @@
           <span>Última atualização </span>
           <span class="timeago" title="{{updated_at}}"></span>
         </div>
-        <div class="table-responsive border">
-          <table class="table">
-            <tr class="header">
-              <th class="position">Posição <a href="#"><span class="fa fa-question"></span></a></th>
-              <th class="abstract-text">Propostas</th>
-              <th class="views">Exibições</th>
-              <th class="votes-for"><span class="fa fa-check"></span></th>
-              <th class="votes-against"><span class="fa fa-times"></span></th>
-            </tr>
+        <div class="border">
+          <table class="footable">
+            <thead>
+              <tr class="header">
+                <th class="position">Posição <a href="#" class="hidden-xs"><span class="fa fa-question"></span></a></th>
+                <th class="abstract-text" data-toggle="true">Propostas</th>
+                <th class="views" data-hide="phone">Exibições</th>
+                <th class="votes-for" data-hide="phone"><span class="sr-only">A favor</span><span class="fa fa-check"></span></th>
+                <th class="votes-against" data-hide="phone"><span class="sr-only">Contra</span><span class="fa fa-times"></span></th>
+              </tr>
+            </thead>
+            <tbody>
             {{#each proposals}}
               <tr>
                 <td class="">{{calcPosition @index ../pagination.per_page ../pagination.page}}°</td>
@@ -341,6 +345,7 @@
                 <td class="votes-against value">{{votes_against}}</td>
               </tr>
             {{/each}}
+            </tbody>
           </table>
         </div>
         <div class="paging"></div>
