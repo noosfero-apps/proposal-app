@@ -37,11 +37,14 @@
 		background-position: 50% !important;
 		background-size: auto !important;
 		border: 0 !important;
+		color: #fff;
 		display: inline-block;
+		font-size: 20px;
 		height: 36px;
 		min-width: 0 !important;
-		padding: 0 !important;
-		text-indent: -999999px;
+		padding: 9px 0 !important;
+		// text-indent: -999999px;
+		text-align: center;
 		width: 36px;
 		&-facebook {
 			background-image: url(images/icons/icon-facebook.png) !important;
