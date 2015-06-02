@@ -57,11 +57,10 @@ h1 {
 #content {
   padding-bottom: 50px;
   p {
-
-    text-align: justify;
-    margin: 20px;
-    line-height: 1.5em;
-    font-size: 1.2em;
+    text-align: inherit;
+    margin: 0;
+    line-height: inherit;
+    font-size: inherit;
 
     font{
       weight: lighter;

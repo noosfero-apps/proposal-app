@@ -19,11 +19,10 @@ define(['handlebars'], function(Handlebars){
     for(var i=0, j=proposals.length; i<j; i++) {
       var proposal = proposals[i];
       
-      element = '<li class="proposal-item">' + 
+      element = '<li class="proposal-item col-sm-6">' + 
         '<a href="#/programas/'+proposal.id+'" data-target="proposal-item-'+proposal.id+'" class="proposal-link box">' +
-          '<div class="box-header item">' +
-            '' + proposal.title;
-      category = "<ul class='category box-category'>";
+          '<div class="box-header item">';
+      category = "<div class='category box-category'>";
       
       
       for(var x=0, y=proposal.categories.length; x<y; x++) {
@@ -31,14 +30,13 @@ define(['handlebars'], function(Handlebars){
           element = '';
           continue;
         }      
-        category = category + '<li class="category-'+proposal.categories[x].slug+' button button-inline">' + proposal.categories[x].name + '</li>';
+        category = category + '<div class="category-'+proposal.categories[x].slug+'">' + proposal.categories[x].name + '</div>';
       }
       if(element == ''){
         continue;
       }
-      category =  category + '</ul>';
+      category =  category + '</div>' + '<div class="box-body">' + '' + proposal.title + (proposal.abstract ? proposal.abstract : '') + '</div>';
       // element = element + options.fn(proposal);
-      element = element + (proposal.abstract ? proposal.abstract : '');
   
       element = element + category;
       ret = ret + element + '</div></a></li>';
