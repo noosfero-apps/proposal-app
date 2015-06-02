@@ -133,7 +133,7 @@
           <div class="col-sm-3">
             <aside id="proposal-categories">
               <div id="proposal-categories-container">
-                <h2><strong>Programas</strong> por Tema</h2>
+                <h2 class="menu"><strong>Programas</strong> por Tema</h2>
                 <ul class="themes">
                 {{#each article.categories}}
                   <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
@@ -153,7 +153,7 @@
           {{#each article.categories}}
             <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
               <div class="header">
-                <div class="name">{{name}}</div>
+                <h2 class="name">{{name}}</h2>
                 <div class="description"></div>
               </div>
               <ul class="proposal-list row">
@@ -173,7 +173,7 @@
                 <input placeholder="palavra chave" id="search-input" type="text" name="search" />
               </div>
               -->
-              <h2>Programas</h2>
+              <h2 class="name">Programas</h2>
 
               <ul class="proposal-list row">
                 {{#list_proposal article.children}}
@@ -187,20 +187,20 @@
             {{!-- <div class="container"> --}}
               <article class="proposal-detail hide col-sm-9" id="proposal-item-{{id}}">
                 <div class="categories {{#each categories}}{{slug}}{{/each}}">
-                  <!--
-                  <ul class="select">
+                  
+                  <div class="select">
                     {{#each categories}}
-                      <li class="category proposal-category" data-category="{{slug}}">
+                      <div class="category proposal-category" data-category="{{slug}}">
                         <button class="go-back btn btn-default">
                           <span class="fa fa-reply"></span>
                           Voltar
                         </button>
                         <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">{{name}}</a>
                         {{#select_proposal ../../article.children slug ../id}}{{/select_proposal}}
-                      </li>
+                      </div>
                     {{/each}}
-                  </ul>
-                  -->
+                  </div>
+                  
 
                   <div class="proposal-header">
                     <div class="abstract">
