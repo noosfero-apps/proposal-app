@@ -257,7 +257,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         },
         // fim Eduardo
         display_proposal: function(proposal_id){
-          // $('#proposal-categories').hide();
+          $('#proposal-categories').hide();
           $('#proposal-group').hide();
           $('.proposal-category-items').hide(); /* Hide Category Items */
           $('nav').hide();
