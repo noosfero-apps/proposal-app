@@ -1,0 +1,934 @@
+// ------------------------------------
+// Organização da folha de estilo:
+// 
+// 1 - Variaveis
+//   1.1 - espacamento
+//   1.2 - arredondamento
+//   1.3 - tamanhos de fontes
+//   1.4 - dicionarios
+//   1.5 - cores
+//   1.6 - escurecer
+// 2 - Mixins
+//   2.1 - hover
+// 3 - Base
+// 4 - Grid
+// 5 - Elementos reusaveis
+//   5.1 - botao padrao
+//   5.2 - botao voltar
+//   5.3 - icones
+// 6 - Blocos de elementos
+//   6.1 - compartilhar
+//   6.2 - logo
+//   6.3 - tabs de temas e programas
+//   6.4 - blocos dos temas
+//   6.5 - listagem dos programas
+//   6.6 - blocos dos programas
+//   6.7 - header do programa e select box
+//   6.8 - imagem destaque do programa, titulo, descricao e botao de acesso
+//   6.9 - login form
+//   6.10 - votacao
+//   6.11 - lista de resultados
+//   6.12 - paginador
+//   6.13 - calendario dos ministros
+//   6.14 - listas
+// 7 - Modificadores
+// 8 - Cores do Temas
+// 9 - Alto Contraste
+// ------------------------------------
+
+
+// ------------------------------------
+// 1 - Variaveis
+// ------------------------------------
+
+// 1.1 - espacamento
+$gutter: 20px
+
+// 1.2 - arredondamento
+$radius: 3px
+
+// 1.3 - tamanhos de fontes
+$font-size-base: 16px
+$font-size-big: $font-size-base + 2
+$font-size-small: $font-size-base - 2
+$font-size-h1: 28px
+$font-size-h2: 38px
+$font-size-h3: 28px
+$font-size-h4: 34px
+$theme-size-header: 24px
+$proposal-title: 32px
+
+// 1.4 - dicionarios
+$categories: (saude: #3449b7, seguranca-publica: #ee2a61, educacao: #f39720, reducao-da-pobreza: #3ebb8f)
+$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.", educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.")
+
+// 1.5 - cores
+$header-color: #03316f
+$link-color: #335277
+
+// 1.6 - escurecer
+$darken: 15%
+
+
+// ------------------------------------
+// 2 - Mixins
+// ------------------------------------
+
+// 2.1 - hover
+=hover($color, $amount)
+  transition: all 400ms
+  &:hover
+    background-color: darken($color, $amount)
+    text-decoration: none
+
+// ------------------------------------
+// 3 - Base
+// ------------------------------------
+
+body
+  font-family: 'Open Sans', sans-serif
+  font-size: $font-size-base
+  font-weight: 400
+h1
+  font-size: $font-size-h1
+  font-weight: 500
+  margin: $gutter 0
+  text-transform: uppercase
+  a
+    color: $header-color
+h2
+  border-bottom: 1px solid darken(#eeeff1,$darken)
+  font-size: $font-size-h2
+  font-weight: 500
+  margin-bottom: $gutter * 2
+  padding-bottom: $gutter
+  small
+    display: block
+    font-size: 16px
+    padding-top: $gutter * 0.25
+    text-transform: none
+h3
+  font-size: $font-size-h3
+  font-weight: 500
+h4
+  font-size: $font-size-h4
+  font-weight: 500
+p,ul,select
+  color: #000
+blockquote
+  border-bottom: 5px solid
+  border-left: 0
+  border-right: 0
+  border-top: 5px solid
+  font-size: $font-size-h1
+  margin: $gutter 0
+  padding: $gutter 0
+
+// ------------------------------------
+// 4 - Grid
+// ------------------------------------
+
+.container, .row
+  margin-bottom: $gutter
+
+
+// ------------------------------------
+// 5 - Elementos reusaveis
+// ------------------------------------
+.hide
+  display: none
+
+.button
+  border-bottom: 3px solid #000
+  border-left: 0
+  border-right: 0
+  border-top: 0
+  border-radius: $radius * 2
+  color: #fff
+  cursor: pointer
+  display: block
+  font-size: $font-size-base
+  font-weight: 700
+  padding-bottom: $gutter * 0.75
+  padding-left: 0
+  padding-right: 0
+  padding-top: $gutter * 0.75
+  text-align: center
+  +hover(#000,$darken)
+  &:hover, &:focus
+    color: #fff
+  &-inline
+    display: inline-block
+    padding-bottom: $gutter * 0.25 !important
+    padding-top: $gutter * 0.25 !important
+  &-cancela
+    @extend .button
+  &-send
+    span
+      background-image: url(images/airplane.png)
+      background-position: left center
+      background-repeat: no-repeat
+      color: #fff
+      padding-left: $gutter * 1.5
+  &-participe
+    .fa
+      margin-right: $gutter * 0.5
+
+.btn
+  background-color: transparent
+  border: 0
+  color: #fff
+  font-size: $font-size-small
+  font-weight: 700
+  padding-bottom: 0
+  padding-left: $gutter * 0.5
+  padding-right: $gutter * 0.5
+  padding-top: 0
+  vertical-align: middle
+
+.icon
+  background-repeat: no-repeat
+  background-position: 50% !important
+  background-size: auto !important
+  border: 0 !important
+  border-radius: 100%
+  color: #fff !important
+  display: inline-block
+  font-size: 20px
+  height: 36px
+  min-width: 0 !important
+  text-align: center
+  transform: all 200ms
+  width: 36px
+  &-facebook
+    background-color: #537abb
+    padding: 8px 0
+    +hover(#537abb,$darken)
+  &-twitter
+    background-color: #78caee
+    padding: 8px 0
+    +hover(#78caee,$darken)
+  &-gplus
+    background-color: #d54000
+    padding: 9px 0
+    +hover(#d54000,$darken)
+  &-whatsapp
+    background-color: #56ba62
+    padding: 7px 0
+    +hover(#56ba62,$darken)
+  &-email
+    background-color: #edb24c
+    padding: 7px 0
+    +hover(#edb24c,$darken)
+  &.disabled
+    background-color: #fff
+    color: #000
+    +hover(#fff,$darken)
+  &-theme
+    background-size: 35px !important
+    height: 48px
+    width: 48px
+    vertical-align: middle
+    margin-right: $gutter * 0.5
+  &-vote
+    display: inline-block
+    font-size: 35px
+    height: 64px
+    margin: 0 6%
+    padding: 3px 0
+    width: 64px
+    &.dislike
+      background-color: #db4127
+      border-bottom: 3px solid darken(#db4127, $darken) !important
+      +hover(#db4127, $darken)
+    &.like
+      background-color: #32dbb5
+      border-bottom: 3px solid darken(#32dbb5, $darken) !important
+      +hover(#32dbb5, $darken)
+
+
+// ------------------------------------
+// 6 - Blocos de elementos
+// ------------------------------------
+
+// 6.1 - compartilhar
+.social
+  position: relative
+  z-index: 1
+  &.top
+    float: right
+    margin-top: $gutter * 2
+  &.right
+    padding-top: 10px
+    > span
+      color: #000
+      display: inline-block
+      font-size: 12px
+      font-weight: 300
+      padding-right: 10px
+      text-align: right
+      vertical-align: middle
+    ul
+      display: inline-block
+      vertical-align: middle
+  span
+    display: block
+    margin-bottom: 10px
+  ul
+    list-style: none
+    padding-left: 0
+  li
+    display: inline-block
+    padding: 0 2px !important
+    vertical-align: top
+
+// 6.2 - logo
+h1
+  float: left
+  a
+    background: url(images/logo.png) no-repeat center
+    display: inline-block
+    height: 80px
+    text-indent: -99999px
+    width: 160px
+
+// 6.3 - video
+#content
+  margin-bottom: $gutter * 1.5
+
+// 6.4 - background do conteudo
+.content
+  padding-top: $gutter * 1.5
+  &.background
+    background-color: #f1f1f1
+
+// 6.5 - tabs de temas e programas (pagina antiga)
+.tab
+  margin-top: $gutter
+  ul
+    font-size: 0
+    list-style: none
+    margin-bottom: 0
+    padding-left: 0
+  li
+    display: inline-block
+    font-size: $font-size-base
+    width: 50%
+  a
+    background-color: #efefef
+    border-bottom: 1px solid #000
+    color: #000
+    display: block
+    font-weight: 700
+    padding-bottom: $gutter
+    padding-left: $gutter * 0.25
+    padding-right: $gutter * 0.25
+    padding-top: $gutter
+    text-align: center
+    text-transform: uppercase
+  .active
+    background-color: #fff
+    border-bottom: 1px solid #fff
+    border-left: 1px solid #000
+    border-right: 1px solid #000
+    border-top: 1px solid #000
+
+// 6.6 - menu dos temas
+#proposal
+  &-categories
+    ul
+      list-style: none
+      padding-left: 0
+.themes
+  li
+    border-bottom: 1px solid #f1f1f1
+    display: block
+    font-size: $font-size-base
+  a
+    background-color: #fff
+    color: #484848
+    display: block
+    font-family: asap, sans
+    font-size: $font-size-small
+    font-weight: 700
+    padding-bottom: $gutter * 0.5
+    padding-left: $gutter
+    padding-right: $gutter
+    padding-top: $gutter * 0.5
+    text-transform: uppercase
+    &:hover,&:focus
+      text-decoration: none
+  .arrow-box
+    position: relative
+    top: $gutter
+    &:after
+      bottom: 100%
+      left: 50%
+      border: solid transparent
+      content: ""
+      position: absolute
+      border-bottom-color: #000
+      border-width: 8px
+      margin-left: -8px
+
+// 6.7 - listagem dos programas aleatorios
+.proposal
+  &-container
+    border-radius: $radius
+    margin-bottom: $gutter
+  &-list
+    list-style: none
+    padding-left: 0
+  &-group
+    ul
+      list-style: none
+      padding-left: 0
+
+// 6.8 - blocos dos programas
+.box
+  background-color: #fff
+  border-radius: $radius
+  color: #000
+  display: block
+  height: 200px
+  margin-top: $gutter * 1.5
+  overflow: auto
+  transition: all 400ms
+  +hover(#fff,$darken)
+  &:hover
+    text-decoration: none
+  p
+    border-bottom: 1px dotted #000
+    padding-bottom: $gutter * 0.75
+  &-propostas
+    height: auto
+    border: 1px solid
+    margin-bottom: $gutter * 0.5
+    margin-top: 0
+    padding: $gutter
+    position: relative
+    &:hover
+      background-color: #fff
+    p
+      border-bottom: 0
+      padding-bottom: inherit
+  &-apoie
+    p
+      @extend .box-subtitle
+      border-bottom: 0
+      padding-bottom: inherit
+  &-header
+    color: $link-color
+    font-family: asap, sans
+    font-size: $theme-size-header
+    font-weight: 700
+    p
+      font-size: $font-size-small
+  &-body
+    padding: $gutter
+  &-category
+    font-size: $font-size-small
+    font-weight: 700
+    list-style: none
+    text-transform: uppercase
+    div
+      color: #fff
+      padding-bottom: $gutter * 0.25
+      padding-left: $gutter
+      padding-right: $gutter * 0.5
+      padding-top: $gutter * 0.25
+  &-title
+    font-size: $font-size-h2
+    font-weight: 400
+    margin-bottom: $gutter
+  &-subtitle
+    color: $link-color
+    font-size: $theme-size-header
+    font-weight: 700
+    line-height: 1.2
+    margin-bottom: $gutter
+  &-info
+    margin-bottom: $gutter
+  &-footer
+    margin-bottom: $gutter * 0.25
+    margin-left: auto
+    margin-right: auto
+    margin-top: $gutter
+    width: 40%
+  &-bottom
+    @extend .box-footer
+    bottom: 10px
+    color: #000
+    display: inline-block
+    font-size: $font-size-small
+    font-weight: 700
+    margin-bottom: $gutter * 0.75
+    margin-top: 0
+    text-align: center
+    &:hover, &:focus
+      color: #000
+  &-center
+    text-align: center
+
+// 6.9 - header do programa e select box
+.select
+  background-color: #000
+  margin-bottom: $gutter * 0.5
+  padding: $gutter * 0.25
+  .proposal
+    &-link
+      color: #fff
+      display: inline-block
+      font-size: $theme-size-header
+      font-weight: 700
+      padding-bottom: 0
+      padding-left: $gutter * 2.25
+      padding-right: 0
+      padding-top: 0
+      vertical-align: middle
+    &-selection
+      background-color: #fff
+      border: 0
+      border-radius: 3px
+      float: right
+      margin: 4px
+      width: 50%
+      vertical-align: middle
+
+// 6.10 - imagem destaque do programa, titulo, descricao e botao de acesso
+.proposal-header
+  position: relative
+  .title
+    background-color: #000
+    bottom: 170px
+    color: #fff
+    font-size: $proposal-title
+    font-weight: 700
+    margin-bottom: $gutter * 1.25
+    margin-left: 0
+    margin-right: 0
+    margin-top: $gutter * 1.25
+    padding: $gutter
+    position: absolute
+    right: 0
+    text-align: center
+    text-transform: uppercase
+    width: 50%
+    vertical-align: middle
+  .show_body
+    margin-bottom: $gutter
+    margin-top: $gutter
+    a
+      background-color: lighten(#000, 40%)
+      border-bottom: 5px solid #000
+      border-left: 0
+      border-right: 0
+      border-top: 0
+      border-radius: $radius * 2
+      color: #fff
+      font-size: $font-size-h2
+      font-weight: 700
+      padding-bottom: $gutter * 0.5
+      padding-left: 0
+      padding-right: 0
+      padding-top: $gutter * 0.5
+      text-align: center
+      +hover(#000,$darken)
+  img
+    width: 100%
+  p
+    @extend .title
+    bottom: 140px
+    font-size: $font-size-small
+    margin-bottom: $gutter * 0.5
+    padding-top: $gutter * 0.25
+    text-transform: none
+
+// 6.11 - login form
+.participar
+  text-align: right
+  .participe
+    background-color: #387bf9
+    border-color: darken(#387bf9, $darken)
+    font-size: 14px
+    padding: 2px 10px
+  .entrar
+    background: url(images/icons/icon-user.png) no-repeat 20px 50%
+    border-left: 1px solid #bcbcbc
+    margin-left: 20px
+    padding-left: 40px
+.login,.signup
+  text-align: left
+  .message
+    background: #fcc
+    border: 1px solid #b00
+    border-radius: $radius
+    color: #b00
+    font-weight: 700
+    padding-bottom: $gutter * 0.25
+    padding-left: $gutter * 0.5
+    padding-right: $gutter * 0.5
+    padding-top: $gutter * 0.25
+    margin-bottom: $gutter
+  input
+    border: 1px solid
+    display: block
+    margin-bottom: $gutter
+    padding-bottom: $gutter * 0.25
+    padding-left: $gutter * 0.5
+    padding-right: $gutter * 0.5
+    padding-top: $gutter * 0.25
+    width: 100%
+    &.button
+      @extend .button
+      margin-bottom: $gutter * 0.25
+
+  .label
+    vertical-align: middle
+  .icon
+    vertical-align: middle
+  .oauth
+    margin-top: $gutter * 0.5
+    text-align: right
+  .forgot-password
+    display: block
+    font-size: $font-size-small
+    text-align: center
+  i
+    font-style: normal
+    font-weight: 700
+    padding-left: $gutter * 0.25
+    padding-right: $gutter * 0.25
+  .row
+    input
+      margin-bottom: 0
+
+// 6.12 - votacao
+.vote-actions
+  .like
+    display: inline-block
+  .dislike
+
+// 6.13 - lista de resultados
+.results-content
+  .total
+    float: left
+  .vote-result
+    float: right
+  .updated-at
+    @extend .vote-result
+    margin-top: $gutter
+  table
+    clear: both
+    font-weight: 300
+    tr:nth-child(odd)
+      background: #e5e5e5
+    td
+      padding: $gutter * 0.25
+    .header
+      font-weight: 700
+      text-align: center
+    .abstract-text
+      width: 80%
+      p
+        margin: inherit
+    .value
+      text-align: center
+      width: 10%
+    .truncate
+      display: table
+      table-layout: fixed
+      width: 100%
+    .truncated
+      overflow-x: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+// 6.14 - paginador
+.paging
+  padding: $gutter * 0.25
+  ul
+    display: table
+    list-style: none
+    margin: auto
+    padding: 0
+  li
+    float: left
+  span
+    @extend .page-link
+  .page-link
+    padding: 0 7px
+    font-size: $font-size-small
+    font-weight: 400
+    text-align: center
+    background-color: #000
+    color: #fff
+    display: inline-block
+    line-height: 24px
+  .current
+    background-color: lighten(#000, $darken)
+  .next
+    border-radius: 0 $radius $radius 0
+  .prev
+    border-radius:  $radius 0 0 $radius
+
+// 6.15 - calendario dos ministros
+.slick
+  &-slider
+    list-style: none
+    margin-bottom: 0
+    margin-left: auto
+    margin-right: auto
+    margin-top: $gutter * 2
+    padding: 0
+    position: relative
+    width: 80%
+    li
+      background-color: #eeeff1
+      margin-bottom: $gutter * 0.25
+      padding: $gutter * 0.5
+    span
+      display: block
+    .date, .time
+      display: inline-block
+      margin-top: $gutter
+      width: 45%
+  &-list
+    overflow: hidden
+  &-slide
+    float: left
+  &-def
+    background-color: transparent
+    border: 0
+    color: #000
+    font-size: 0
+    position: absolute
+    top: 43%
+    width: 20px
+    &:before
+      font-family: "FontAwesome"
+      font-size: 20px
+  &-prev
+    @extend .slick-def
+    left: -25px
+    &:before
+      content: "\f053"
+  &-next
+    @extend .slick-def
+    right: -25px
+    &:before
+      content: "\f054"
+  &-disabled
+    opacity: 0.25
+
+// 6.16 - listas
+.list-container-border
+  border: 3px solid
+  border-radius: $radius
+.list
+  &-unstyled
+    li
+      border-top: 1px solid darken(#eeeff1,$darken)
+      font-size: $font-size-big
+      font-weight: 700
+      padding: $gutter
+      &:first-child
+        border-top: 0
+  &-styled
+    margin-left: $gutter
+    padding-left: 0
+.no-border
+  li
+    border: 0
+    padding-bottom: $gutter * 0.25
+    padding-left: 0
+    padding-right: 0
+    padding-top: $gutter * 0.25
+
+
+// ------------------------------------
+// 7 - Modificadores
+// ------------------------------------
+h2
+  &.name
+    color: #6c6c6c
+    font-size: $font-size-big
+    font-weight: 700
+    margin: 0
+    padding: 0
+    text-transform: none
+  &.menu
+    background-color: #484848
+    border: 0
+    border-top-left-radius: $radius
+    border-top-right-radius: $radius
+    color: #fff
+    font-size: $font-size-base - 1
+    font-weight: 300
+    margin: 0
+    padding-bottom: $gutter
+    padding-left: $gutter
+    padding-right: $gutter
+    padding-top: $gutter
+
+h3.titulo-destaque
+  font-size: $font-size-h3 + 10
+.bloco-destaque
+  padding: $gutter * 1.75
+  border-radius: $radius
+  h4
+    margin-bottom: $gutter * 3
+
+@each $category, $description in $categories-descriptions
+  section.#{$category}
+    .description
+      margin-top: $gutter
+      &:before
+        content: "#{$description}"
+        color: #6c6c6c
+        font-family: asap, sans
+        padding-top: $gutter
+
+
+// ------------------------------------
+// 8 - Cores do Temas
+// ------------------------------------
+
+@each $category, $color in $categories
+  .#{$category}
+    color: $color
+    a
+      color: $color
+    .button,.show_body a
+      background-color: $color
+      border-color: darken($color, $darken)
+      color: #fff
+      +hover($color,$darken)
+    .select
+      background-color: $color
+    .proposal
+      &-header
+        .title,p
+          background-color: darken($color, $darken)
+    .box
+      &-propostas
+        border-color: $color
+      &-title,&-bottom
+        color: $color
+      &-category
+        li
+          background-color: $color
+    .slick
+      &-prev,&-next
+        color: $color
+      &-slider
+        .date,.time
+          color: $color
+    .login,.signup
+      input
+        border-color: $color
+        &.button
+          +hover($color,$darken)
+      i
+        color: $color
+    .list
+      &-unstyled li
+        color: $color
+    .bloco-destaque
+      background-color: $color
+      background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png)
+      background-repeat: no-repeat
+      background-position: 100% 100%
+      color: #fff
+      p
+        color: #fff
+    .select
+      .proposal-link
+        background-image: url(images/icons/#{$category}.png)
+        background-position: 5px 50%
+        background-repeat: no-repeat
+        background-size: 32px
+  .category-#{$category}
+    background-color: $color
+    background-position: 5px 50%
+    background-repeat: no-repeat
+    background-size: 40px
+    border-color: darken($color, $darken)
+  .icon
+    &-#{$category}
+      background-color: $color
+      background-image: url(images/icons/#{$category}.png)
+
+
+// ------------------------------------
+// 9 - Alto Contraste
+// ------------------------------------
+
+.contrast
+  background-color: #000
+  color: #fff
+  .container
+    h2,h3,h4,a,p,li,label,.label,.login i
+      color: #fff
+    a
+      text-decoration: underline
+    small
+      color: darken(#fff, 40%)
+  .button,.show_body a,.login input.button,.box-category li
+    background-color: #fff
+    border-color: darken(#fff, 40%)
+    color: #000
+    text-decoration: none
+    +hover(#fff, 40%)
+  .icon
+    &-facebook
+      background-image: url(images/icons/icon-facebook-contrast.png) !important
+    &-twitter
+      background-image: url(images/icons/icon-twitter-contrast.png) !important
+    &-gplus
+      background-image: url(images/icons/icon-gplus-contrast.png) !important
+    &-whatsapp
+      background-image: url(images/icons/icon-whatsapp-contrast.png) !important
+  .tab
+    a
+      background-color: darken(#fff, 85%)
+      border-bottom-color: #fff
+    .active
+      background-color: #000
+      border-color: #fff
+      border-bottom-color: #000
+  #proposal-categories,#proposal-group
+    border-color: #fff
+  .proposal-category
+    a
+      background-color: darken(#fff, 85%) !important
+    .arrow-box:after
+      border-bottom-color: darken(#fff, 85%) !important
+  .select
+    background-color: darken(#fff, 85%)
+  section
+    background-color: darken(#fff, 85%)
+    &:hover
+      background-color: darken(#fff, 85%)
+    .box
+      background-color: #000
+  .proposal-header
+    .title, p
+      background-color: darken(#fff, 85%)
+  .box
+    background-color: darken(#fff, 85%)
+    text-decoration: none
+    &-propostas
+      border-color: #fff
+    &-title,&-subtitle,&-info,&-bottom,.social span,&-header
+      color: #fff
+  .slick
+    &-prev,&-next
+      color: #fff
+    &-slider
+      li
+        background-color: #000
+      .date,.time
+        color: #fff
+  .bloco-destaque
+    background: darken(#fff, 85%)
