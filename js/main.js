@@ -498,6 +498,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                   }
               }
           }, 300);
+        },
+        responseToText: function(responseJSONmessage){
+          var o = JSON.parse(responseJSONmessage);
+          var msg;
+          Object.keys(o).map(function(k) { msg += k + " " + o[k] + ", " });
+          return msg.substring(0, msg.length - 2) + ".";
         }
     }
   })();
@@ -762,10 +768,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
       }).fail(function(data) {
-        var msg = "";
-        var o = JSON.parse(data.responseJSON.message);
-        Object.keys(o).map(function(k) { msg += k + " " + o[k] + ", " });
-        msg = msg.substring(0, msg.length - 2) + ".";
+        var msg = Main.responseToText(data.responseJSON.message);
         message.show();
         message.text('Não foi possível efetuar o cadastro: ' + msg);
       }).always(function() {
