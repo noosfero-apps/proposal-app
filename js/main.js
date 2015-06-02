@@ -223,8 +223,19 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           }
           return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         },
+        // inicio Eduardo
+        randomProposalByTheme: function(themeClasses) {
+        	$('#proposal-group .proposal-list .proposal-item').hide();
+        	$.each(themeClasses, function(i, themeClass) {
+        		var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
+        		var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
+        		var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
+        		$(proposalToShow).show();        		
+        	});
+        },
         display_category_tab: function(){
-          $('#proposal-group').hide();
+          // $('#proposal-group').hide();
+          this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
           $('#proposal-categories').show();
           $('#nav-proposal-categories a').addClass('active');
           $('#nav-proposal-group a').removeClass('active');
@@ -237,12 +248,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         },
         display_proposals_tab: function(){
           $('#proposal-categories').hide();
+          this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
           $('#proposal-group').show();
           $('#nav-proposal-group a').addClass('active');
           $('#nav-proposal-categories a').removeClass('active');
           $('#content').show();
           $('nav').show();
         },
+        // fim Eduardo
         display_proposal: function(proposal_id){
           // $('#proposal-categories').hide();
           $('#proposal-group').hide();
