@@ -407,7 +407,7 @@ h1 {
     border-radius: 3px;
     float: right;
     margin: 4px;
-    width: 55%;
+    width: 50%;
     vertical-align: middle; }
 
 .proposal-header {
@@ -707,6 +707,8 @@ section.reducao-da-pobreza .description {
 
 .saude {
   color: #3449b7; }
+  .saude a {
+    color: #3449b7; }
   .saude .button, .saude .button-cancela, .saude .login input.button, .login .saude input.button, .saude .signup input.button, .signup .saude input.button, .saude .show_body a {
     background-color: #3449b7;
     border-color: #23317b;
@@ -766,6 +768,8 @@ section.reducao-da-pobreza .description {
 
 .seguranca-publica {
   color: #ee2a61; }
+  .seguranca-publica a {
+    color: #ee2a61; }
   .seguranca-publica .button, .seguranca-publica .button-cancela, .seguranca-publica .login input.button, .login .seguranca-publica input.button, .seguranca-publica .signup input.button, .signup .seguranca-publica input.button, .seguranca-publica .show_body a {
     background-color: #ee2a61;
     border-color: #bc0f40;
@@ -825,6 +829,8 @@ section.reducao-da-pobreza .description {
 
 .educacao {
   color: #f39720; }
+  .educacao a {
+    color: #f39720; }
   .educacao .button, .educacao .button-cancela, .educacao .login input.button, .login .educacao input.button, .educacao .signup input.button, .signup .educacao input.button, .educacao .show_body a {
     background-color: #f39720;
     border-color: #bc6f0a;
@@ -884,6 +890,8 @@ section.reducao-da-pobreza .description {
 
 .reducao-da-pobreza {
   color: #3ebb8f; }
+  .reducao-da-pobreza a {
+    color: #3ebb8f; }
   .reducao-da-pobreza .button, .reducao-da-pobreza .button-cancela, .reducao-da-pobreza .login input.button, .login .reducao-da-pobreza input.button, .reducao-da-pobreza .signup input.button, .signup .reducao-da-pobreza input.button, .reducao-da-pobreza .show_body a {
     background-color: #3ebb8f;
     border-color: #2b8263;
