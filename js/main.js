@@ -9,6 +9,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
   var loginTemplate = Handlebars.compile(document.getElementById('login').innerHTML);
   var resultsTemplate = Handlebars.compile(document.getElementById('results').innerHTML);
+  var articleTemplate = Handlebars.compile(document.getElementById('article').innerHTML);
 
   // The div/container that we are going to display the results in
   var resultsPlaceholder = document.getElementById('proposal-result');
@@ -225,6 +226,17 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           }
           return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         },
+        display_article: function(article_id) {
+          var url = host + '/api/v1/articles/' + article_id + '?private_token=' + Main.private_token;
+          $.getJSON(url).done(function( data ) {
+            $('#article-container').html(articleTemplate(data.article));
+            $('#article-container').show();
+            $('#proposal-categories').hide();
+            $('#proposal-group').hide();
+            $('nav').hide();
+            $('#content').hide();
+          });
+        },
         display_category_tab: function(){
           $('#proposal-group').hide();
           $('#proposal-categories').show();
@@ -233,6 +245,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('.proposal-category-items').hide();
           $('.proposal-category .arrow-box').hide();
           $('.proposal-detail').hide();
+          $('#article-container').hide();
 
           $('#content').show();
           $('nav').show();
@@ -243,6 +256,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#nav-proposal-group a').addClass('active');
           $('#nav-proposal-categories a').removeClass('active');
           $('#content').show();
+          $('#article-container').hide();
           $('nav').show();
         },
         display_proposal: function(proposal_id){
@@ -250,6 +264,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#proposal-group').hide();
           $('nav').hide();
           $('#content').hide();
+          $('#article-container').hide();
           // $('.make-proposal-form').hide();
           // $('.login-container').hide();
           $('.proposal-detail').hide(); // hide all proposals
@@ -293,6 +308,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#proposal-group').hide();
           $('nav').hide();
           $('#content').hide();
+          $('#article-container').hide();
           $proposal = $('#proposal-item-' + proposal_id);
           $proposal.find('.make-proposal-form').hide();
           $proposal.find('.proposal-header').hide();
@@ -403,6 +419,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var regexProposals = /#\/programas/;
           var regexCategory = /#\/temas/;
           var regexHideBarra = /barra=false$/;
+          var regexArticle = /#\/artigo/;
 
           if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
             this.addBarraDoGoverno();
@@ -417,6 +434,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
           var isProposal = regexProposals.exec(hash) !== null;
           var isCategory = regexCategory.exec(hash) !== null;
+          var isArticle  = regexArticle.exec(hash) !== null;
+
+          if(isArticle) {
+            this.display_article(hash.split('/')[2]);
+          }
 
           if( isProposal ){
 
