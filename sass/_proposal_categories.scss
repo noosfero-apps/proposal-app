@@ -1,14 +1,14 @@
 @import "utilities/variables";
 
 #proposal-categories {
-  background: #fff;
-  clear: both;
-  margin: 0;
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #03316f;
-  border-left: 1px solid #03316f;
-  border-right: 1px solid #03316f;    
+  // background: #fff;
+  // clear: both;
+  // margin: 0;
+  // padding: 10px;
+  // text-align: left;
+  // border-bottom: 1px solid #03316f;
+  // border-left: 1px solid #03316f;
+  // border-right: 1px solid #03316f;    
   ul {
     padding-left: 0;
   }
@@ -21,23 +21,14 @@
     a {
       text-decoration: none;
       color: #fff;
-      margin: 10px;
-      -webkit-border-radius: 6px;
-      -moz-border-radius: 6px;
-      border-radius: 6px;
       background-position: center 15px;
       background-repeat: no-repeat;
       width: 140px;
       display: inline-block;
       font-size: 14px;
-      font-family: 'Asap', sans;
       font-weight: 700;
-      text-align: center;
-      padding-top: 110px;
-      min-height: 140px;
       background-size: 90px;
-      cursor: pointer;
-      
+      text-transform: uppercase;
       &:hover {
         border-color: #fff !important;
       }

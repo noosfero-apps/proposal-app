@@ -114,6 +114,7 @@
         </div>
       </div>
 
+      <!--
       <nav class="tab" role="tabpanel">
         <ul role="tablist">
           <li id="nav-proposal-categories" role="presentation">
@@ -124,44 +125,51 @@
           </li>
         </ul>
       </nav>
+      -->
 
-      <aside id="proposal-categories">
-        <div id="proposal-categories-container">
-          <ul class="themes">
-          {{#each article.categories}}
-            <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
-              <a href="#/temas/{{slug}}/{{id}}" class="proposal-link hvr-float-shadow" data-target="proposal-item-{{id}}">{{name}}</a>
-              <div class="arrow-box" style="display: none"></div>
-            </li>
-          {{/each}}
+      <div class="col-sm-3">
+        <aside id="proposal-categories">
+          <div id="proposal-categories-container">
+            <ul class="themes">
+            {{#each article.categories}}
+              <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
+                <a href="#/temas/{{slug}}/{{id}}" class="proposal-link " data-target="proposal-item-{{id}}">{{name}}</a>
+                <!-- <div class="arrow-box" style="display: none"></div> -->
+              </li>
+            {{/each}}
+            </ul>
+            {{#each article.categories}}
+              <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
+                <div class="header">
+                  <div class="name">{{name}}</div>
+                  <div class="description"></div>
+                </div>
+                <ul class="proposal-list">
+                  {{#list_proposal ../article.children category=slug}}
+                    {{#link title id}}{{/link}}
+                  {{/list_proposal}}
+                </ul>
+              </section>
+            {{/each}}
+          </div>
+        </aside>
+      </div>
+
+      <div class="col-sm-9">
+        <article id="proposal-group" class="">
+          <!--
+          <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
+          <div id="search-input-container">
+            <input placeholder="palavra chave" id="search-input" type="text" name="search" />
+          </div>
+          -->
+          <ul class="proposal-list">
+            {{#list_proposal article.children}}
+              {{#link title id}}{{/link}}
+            {{/list_proposal}}
           </ul>
-          {{#each article.categories}}
-            <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
-              <div class="header">
-                <div class="name">{{name}}</div>
-                <div class="description"></div>
-              </div>
-              <ul class="proposal-list">
-                {{#list_proposal ../article.children category=slug}}
-                  {{#link title id}}{{/link}}
-                {{/list_proposal}}
-              </ul>
-            </section>
-          {{/each}}
-        </div>
-      </aside>
-
-      <article id="proposal-group" class="hide">
-        <label for="search-input">Selecione um programa para fazer propostas e contar sua experiência.</label>
-        <div id="search-input-container">
-          <input placeholder="palavra chave" id="search-input" type="text" name="search" />
-        </div>
-        <ul class="proposal-list">
-          {{#list_proposal article.children}}
-            {{#link title id}}{{/link}}
-          {{/list_proposal}}
-        </ul>
-      </article>
+        </article>
+      </div>
 
       {{#each article.children}}
         {{!-- <div class="container"> --}}
