@@ -245,7 +245,7 @@
                       <div class="container-title box-title">Faça Uma Proposta</div>
                       <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
                       <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
-                      <div class="send-proposal-button send-button box-footer"><a href="#"><span>Envie sua proposta</span></a></div>
+                      <div class="button send-proposal-button button-send box-footer"><a href="#"><span>Envie sua proposta</span></a></div>
                       <div class="login-container hide">Login</div>
                       <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                         <div class="message hide"></div>
@@ -285,7 +285,7 @@
 
                   <div class="talk-proposal-container">
                     <section class="talk-proposal box box-propostas">
-                      <div class="container-title">Bate-papo com os ministros</div>
+                      <div class="container-title box-title">Bate-papo com os ministros</div>
                       <p>Confira as datas e horários:</p>
                       <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
                         <li>
@@ -332,8 +332,8 @@
         <p class="box-subtitle">{{stripTags (trimString abstract 200)}}</p>
       </div>
       <div class="vote-actions">
-        <a href="#" class="dislike" data-vote-value="-1"><span class="fa fa-times"></span></a>
-        <a href="#" class="like" data-vote-value="1"><span class="fa fa-check"></span></a>
+        <a href="#" class="icon icon-vote dislike" data-vote-value="-1"><span class="fa fa-times"></span></a>
+        <a href="#" class="icon icon-vote like" data-vote-value="1"><span class="fa fa-check"></span></a>
         <a href="#" class="skip button box-footer">Pular</a>
         <a href="#" class="vote-result box-bottom">Resultados</a>
       </div>
