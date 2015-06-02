@@ -239,13 +239,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         },
         // inicio Eduardo
         randomProposalByTheme: function(themeClasses) {
-        	$('#proposal-group .proposal-list .proposal-item').hide();
-        	$.each(themeClasses, function(i, themeClass) {
-        		var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
-        		var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
-        		var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
-        		$(proposalToShow).show();        		
-        	});
+          $('#proposal-group .proposal-list .proposal-item').hide();
+          $.each(themeClasses, function(i, themeClass) {
+            var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
+            var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
+            var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
+            $(proposalToShow).show();           
+          });
         },
         display_category_tab: function(){
           // $('#proposal-group').hide();
@@ -276,6 +276,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#proposal-categories').hide();
           $('#proposal-group').hide();
           $('.proposal-category-items').hide(); /* Hide Category Items */
+          $('.content').removeClass('background'); /* Remove class background*/
           $('nav').hide();
           $('#content').hide();
           $('#article-container').hide();
@@ -318,6 +319,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           this.loadRandomProposal(topic_id);
         },
         display_proposal_detail: function(proposal_id){
+          $('.content').removeClass('background'); /* Remove class background */
           $('#proposal-categories').hide();
           $('#proposal-group').hide();
           $('nav').hide();
@@ -354,6 +356,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $('#nav-proposal-categories a').addClass('active');
             $('#nav-proposal-group a').removeClass('active');
             $('#proposal-group').hide(); /* Hide section "Programas" */
+            $('.content').addClass('background'); /* Add class background */
             $('.proposal-category-items').hide();
             $('.proposal-detail').hide();
             $item.toggle( 'blind', 200, function () {
