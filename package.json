@@ -1,0 +1,29 @@
+{
+  "name": "proposal-app",
+  "version": "1.0.0",
+  "description": "CSS Files\r   - hover for Float Shadow in categories buttons\r   -",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-connect": "^2.2.0",
+    "gulp-ruby-sass": "^1.0.5",
+    "gulp-sass": "^2.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-ruby-sass": "^1.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/participa/proposal-app.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
