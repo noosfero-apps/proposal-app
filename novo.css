@@ -342,7 +342,8 @@ h1 {
     .box-header p {
       font-size: 14px;
       font-weight: 500;
-      margin-top: 10px; }
+      margin-top: 10px;
+      height: 40px; }
   .box-body {
     padding: 20px; }
     .box-body img {
@@ -350,7 +351,7 @@ h1 {
       margin-right: -20px;
       margin-top: -20px;
       margin-bottom: 20px;
-      max-width: 120%; }
+      height: 170px; }
   .box-category {
     font-size: 14px;
     font-weight: 700;
