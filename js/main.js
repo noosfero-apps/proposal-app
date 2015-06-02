@@ -259,6 +259,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         display_proposal: function(proposal_id){
           // $('#proposal-categories').hide();
           $('#proposal-group').hide();
+          $('.proposal-category-items').hide(); /* Hide Category Items */
           $('nav').hide();
           $('#content').hide();
           // $('.make-proposal-form').hide();
@@ -334,6 +335,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $('#proposal-categories').show();
             $('#nav-proposal-categories a').addClass('active');
             $('#nav-proposal-group a').removeClass('active');
+            $('#proposal-group').hide(); /* Hide section "Programas" */
             $('.proposal-category-items').hide();
             $('.proposal-detail').hide();
             $item.toggle( 'blind', 200, function () {
