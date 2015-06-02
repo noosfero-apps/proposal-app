@@ -51,7 +51,8 @@
           'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
           'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
           'http://fonts.googleapis.com/css?family=Asap:400,700',
-          'style.css'
+          // 'style.css'
+          'novo.css'
         ];
         head = document.getElementsByTagName('head')[0]
         for(i = 0; i < css_files.length; i++){
@@ -96,16 +97,16 @@
     <div class="clearfix"></div>
 
     <script id="proposal-template" type="text/x-handlebars-template">
-      <header>
+      <header class="clearfix">
         <a id="display-contrast" href="#">Alto Contraste</a>
-        <div class="login-block">
-          <a href="#" class="login-register">Participe</a>
-          <a href="#" class="login-in">Entrar</a>
+        <div class="participar">
+          <a href="#" class="button button-inline participe">Participe</a>
+          <a href="#" class="entrar">Entrar</a>
         </div>
+        <h1><a href="#">{{article.title}}</a></h1>
         <div class="social top">
           {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
         </div>
-        <h1><a href="#">{{article.title}}</a></h1>
       </header>
 
       <div id="content">
