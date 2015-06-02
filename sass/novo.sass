@@ -139,7 +139,8 @@ blockquote
   display: none
 
 .button
-  border-bottom: 3px solid #000
+  background-color: #387bf9
+  border-bottom: 3px solid darken(#387bf9, $darken)
   border-left: 0
   border-right: 0
   border-top: 0
@@ -147,14 +148,14 @@ blockquote
   color: #fff
   cursor: pointer
   display: block
-  font-size: $font-size-base
+  font-size: $font-size-small
   font-weight: 700
   padding-bottom: $gutter * 0.75
   padding-left: 0
   padding-right: 0
   padding-top: $gutter * 0.75
   text-align: center
-  +hover(#000,$darken)
+  +hover(#387bf9,$darken)
   &:hover, &:focus
     color: #fff
   &-inline
@@ -390,15 +391,13 @@ h1
   border-radius: $radius
   color: #000
   display: block
-  height: 200px
   margin-top: $gutter * 1.5
-  overflow: auto
+  overflow: hidden
   transition: all 400ms
   +hover(#fff,$darken)
   &:hover
     text-decoration: none
   p
-    border-bottom: 1px dotted #000
     padding-bottom: $gutter * 0.75
   &-propostas
     height: auto
@@ -418,14 +417,21 @@ h1
       border-bottom: 0
       padding-bottom: inherit
   &-header
-    color: $link-color
-    font-family: asap, sans
-    font-size: $theme-size-header
+    color: #000
+    font-size: $font-size-big
     font-weight: 700
     p
       font-size: $font-size-small
+      font-weight: 500
+      margin-top: $gutter * 0.5
   &-body
     padding: $gutter
+    img
+      margin-left: $gutter * (-1)
+      margin-right: $gutter * (-1)
+      margin-top: $gutter * (-1)
+      margin-bottom: $gutter
+      max-width: 120%
   &-category
     font-size: $font-size-small
     font-weight: 700
