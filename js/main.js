@@ -224,19 +224,19 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         },
         display_category_tab: function(){
-          // $('#proposal-group').hide();
+          $('#proposal-group').hide();
           $('#proposal-categories').show();
           $('#nav-proposal-categories a').addClass('active');
           $('#nav-proposal-group a').removeClass('active');
           $('.proposal-category-items').hide();
-          // $('.proposal-category .arrow-box').hide();
+          $('.proposal-category .arrow-box').hide();
           $('.proposal-detail').hide();
 
           $('#content').show();
           $('nav').show();
         },
         display_proposals_tab: function(){
-          // $('#proposal-categories').hide();
+          $('#proposal-categories').hide();
           $('#proposal-group').show();
           $('#nav-proposal-group a').addClass('active');
           $('#nav-proposal-categories a').removeClass('active');
@@ -244,7 +244,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('nav').show();
         },
         display_proposal: function(proposal_id){
-          $('#proposal-categories').hide();
+          // $('#proposal-categories').hide();
           $('#proposal-group').hide();
           $('nav').hide();
           $('#content').hide();
@@ -278,7 +278,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             case 'categories reducao-da-pobreza':
               active_category = 'reducao-da-pobreza';
               break;
-          }        
+          }     
 
           $proposal.find('.calendar.' + active_category).show();
           $proposal.find('.calendar').slick();
@@ -329,9 +329,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                 $('html, body').animate({ scrollTop: itemOffset.top }, 'fast');
               }
             } );
-            // $('.proposal-category .arrow-box').hide();
+            $('.proposal-category .arrow-box').hide();
             var categorySlug = $item.data('category');
-            // $('#proposal-category-' + categorySlug).find('.arrow-box').show();
+            $('#proposal-category-' + categorySlug).find('.arrow-box').show();
 
           }
         },

@@ -133,29 +133,36 @@
           <div class="col-sm-3">
             <aside id="proposal-categories">
               <div id="proposal-categories-container">
+                <h2><strong>Programas</strong> por Tema</h2>
                 <ul class="themes">
                 {{#each article.categories}}
                   <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
-                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link " data-target="proposal-item-{{id}}">{{name}}</a>
+                    <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">
+                      <span class="icon icon-theme icon-{{slug}}"></span>
+                      {{name}}
+                    </a>
                     <!-- <div class="arrow-box" style="display: none"></div> -->
                   </li>
                 {{/each}}
                 </ul>
-                {{#each article.categories}}
-                  <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
-                    <div class="header">
-                      <div class="name">{{name}}</div>
-                      <div class="description"></div>
-                    </div>
-                    <ul class="proposal-list">
-                      {{#list_proposal ../article.children category=slug}}
-                        {{#link title id}}{{/link}}
-                      {{/list_proposal}}
-                    </ul>
-                  </section>
-                {{/each}}
               </div>
             </aside>
+          </div>
+
+          <div class="col-sm-9">
+          {{#each article.categories}}
+            <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
+              <div class="header">
+                <div class="name">{{name}}</div>
+                <div class="description"></div>
+              </div>
+              <ul class="proposal-list row">
+                {{#list_proposal ../article.children category=slug}}
+                  {{#link title id}}{{/link}}
+                {{/list_proposal}}
+              </ul>
+            </section>
+          {{/each}}
           </div>
 
           <div class="col-sm-9">
@@ -166,7 +173,9 @@
                 <input placeholder="palavra chave" id="search-input" type="text" name="search" />
               </div>
               -->
-              <ul class="proposal-list">
+              <h2>Programas</h2>
+
+              <ul class="proposal-list row">
                 {{#list_proposal article.children}}
                   {{#link title id}}{{/link}}
                 {{/list_proposal}}
@@ -176,8 +185,9 @@
 
           {{#each article.children}}
             {{!-- <div class="container"> --}}
-              <article class="proposal-detail hide" id="proposal-item-{{id}}">
+              <article class="proposal-detail hide col-sm-9" id="proposal-item-{{id}}">
                 <div class="categories {{#each categories}}{{slug}}{{/each}}">
+                  <!--
                   <ul class="select">
                     {{#each categories}}
                       <li class="category proposal-category" data-category="{{slug}}">
@@ -190,6 +200,7 @@
                       </li>
                     {{/each}}
                   </ul>
+                  -->
 
                   <div class="proposal-header">
                     <div class="abstract">
@@ -446,7 +457,7 @@
       </ul>
     </script>
 
-    <script type='text/javascript'	>
+    <script type='text/javascript'  >
       loadRequireJS();
     </script>
 
