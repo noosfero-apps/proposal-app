@@ -30,10 +30,12 @@
 //   6.10 - imagem destaque do programa, titulo, descricao e botao de acesso
 //   6.11 - login form
 //   6.12 - votacao
-//   6.13 - lista de resultados
-//   6.14 - paginador
-//   6.15 - calendario dos ministros
-//   6.16 - listas
+//   6.13 - tabela de resultados
+//   6.14 - lista de resultados
+//   6.15 - paginador
+//   6.16 - calendario dos ministros
+//   6.17 - listas
+//   6.18 - artigo
 // 7 - Modificadores
 // 8 - Cores do Temas
 // 9 - Alto Contraste
@@ -101,7 +103,6 @@ h1
   a
     color: $header-color
 h2
-  // border-bottom: 1px solid darken(#eeeff1,$darken)
   font-size: $font-size-h2
   font-weight: 500
   margin-bottom: $gutter * 2
@@ -131,6 +132,39 @@ a
   color: $link-color
   &:hover,&:focus
     color: $link-color
+tr
+  &:last-child
+    td
+      &:first-child
+        border-bottom-left-radius: 3px
+        border-bottom: 0
+        border-left: 0
+      &:last-child
+        border-bottom-right-radius: 3px
+        border-bottom: 0
+        border-right: 0
+th
+  border-bottom: 3px solid
+  border-left: 1px solid
+  border-right: 1px solid
+  padding: 15px 20px
+  &:first-child
+    border-top-left-radius: $radius
+    border-left: 0
+    border-top: 0
+  &:last-child
+    border-top-right-radius: $radius
+    border-right: 0
+    border-top: 0
+td
+  background-color: #eeeff1
+  border: 1px solid #fff
+  padding: 10px
+  text-align: center
+  &:first-child
+    border-left: 0
+  &:last-child
+    border-right: 0
 
 
 // ------------------------------------
@@ -615,6 +649,8 @@ h1
   .oauth
     margin-top: $gutter * 0.5
     text-align: right
+    .icon
+      padding: 3px 0
   .forgot-password
     display: block
     font-size: $font-size-small
@@ -633,7 +669,77 @@ h1
   .like
     display: inline-block
 
-//   6.13 - lista de resultados
+//   6.13 - tabela de resultados
+table
+  .abstract-text
+    width: 80%
+  .value
+    text-align: center
+    width: 10%
+  .header
+    font-weight: bold
+    line-height: 22px
+    text-align: center
+  .position
+    width: 20%
+    a
+      border: 1px solid #fff
+      border-radius: 100%
+      color: #fff
+      display: inline-block
+      font-size: 16px
+      height: 30px
+      margin-left: 5px
+      padding: 2px 0
+      text-align: center
+      width: 30px
+      vertical-align: middle
+      transition: all 400ms
+  .votes-for
+    display: table-cell
+    .fa
+      background-color: #32dbb5
+      border: 2px solid #ffffff
+      border-radius: 100%
+      color: #fff
+      font-size: 16px
+      height: 30px
+      padding: 5px 0
+      text-align: center
+      transition: all 200ms ease 0s
+      width: 30px
+  .votes-against
+    display: table-cell
+    .fa
+      background-color: #DB4127
+      border: 2px solid #ffffff
+      border-radius: 100%
+      color: #fff
+      font-size: 16px
+      height: 30px
+      padding: 5px 0
+      text-align: center
+      transition: all 200ms ease 0s
+      width: 30px
+  .truncate
+    display: table
+    table-layout: fixed
+    width: 90%
+  .truncated
+    overflow-x: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+th
+  color: #fff
+  &.abstract-text
+    text-align: left
+td
+  &.abstract-text
+    text-align: left
+    p
+      margin: 0
+
+//   6.14 - lista de resultados
 .results-content
   .total
     float: left
@@ -644,7 +750,6 @@ h1
     margin-top: $gutter
   table
     clear: both
-    font-weight: 300
     tr:nth-child(odd)
       background: #e5e5e5
     td
@@ -668,7 +773,7 @@ h1
       text-overflow: ellipsis
       white-space: nowrap
 
-//   6.14 - paginador
+//   6.15 - paginador
 .paging
   padding: $gutter * 0.25
   ul
@@ -696,7 +801,7 @@ h1
   .prev
     border-radius:  $radius 0 0 $radius
 
-//   6.15 - calendario dos ministros
+//   6.16 - calendario dos ministros
 .slick
   &-slider
     list-style: none
@@ -745,7 +850,7 @@ h1
   &-disabled
     opacity: 0.25
 
-//   6.16 - listas
+//   6.17 - listas
 .list-container-border
   border: 3px solid
   border-radius: $radius
@@ -769,6 +874,18 @@ h1
     padding-right: 0
     padding-top: $gutter * 0.25
 
+//   6.18 - artigo
+.article-container
+  max-width: 1170px
+  margin-left: auto
+  margin-right: auto
+  .abstract
+    font-style: italic
+    color: rgb(114, 114, 114)
+    margin-bottom: 30px
+    margin-top: 10px
+  .title
+    font-size: 22px
 
 // ------------------------------------
 // 7 - Modificadores
@@ -778,7 +895,10 @@ h2
     color: #6c6c6c
     font-size: $font-size-big
     font-weight: 700
-    margin: 0
+    margin-bottom: $gutter * 0.25
+    margin-left: 0
+    margin-right: 0
+    margin-top: 0
     padding: 0
     text-transform: none
   &.menu
@@ -842,6 +962,16 @@ h3.titulo-destaque
       &-category
         li
           background-color: $color
+    table
+      .position
+        a
+          background-color: $color
+          +hover($color,$darken)
+    th
+      background-color: $color
+      border-bottom-color: darken($color,$darken)
+      border-left-color: lighten($color,$darken)
+      border-right-color: lighten($color,$darken)
     .slick
       &-prev,&-next
         color: $color
@@ -891,28 +1021,35 @@ h3.titulo-destaque
 .contrast
   background-color: #000
   color: #fff
+  .background
+    background-color: #000
   .container
-    h2,h3,h4,a,p,li,label,.label,.login i
+    h2,h3,h4,a,p,li,label,.label,.login i,.total,.updated-at span
       color: #fff
     a
       text-decoration: underline
     small
       color: darken(#fff, 40%)
-  .button,.show_body a,.login input.button,.box-category li
-    background-color: #fff
-    border-color: darken(#fff, 40%)
-    color: #000
-    text-decoration: none
-    +hover(#fff, 40%)
-  .icon
-    &-facebook
-      background-image: url(images/icons/icon-facebook-contrast.png) !important
-    &-twitter
-      background-image: url(images/icons/icon-twitter-contrast.png) !important
-    &-gplus
-      background-image: url(images/icons/icon-gplus-contrast.png) !important
-    &-whatsapp
-      background-image: url(images/icons/icon-whatsapp-contrast.png) !important
+    blockquote
+      border-color: #fff
+    .button,.show_body a,.login input.button,.box-category li
+      background-color: #fff
+      border-color: darken(#fff, 40%)
+      color: #000
+      text-decoration: none
+      +hover(#fff, 40%)
+      span
+        color: #000
+    .icon
+      color: #000 !important
+      text-decoration: none
+      background-color: #fff
+      +hover(#fff,40%)
+      &-vote
+        border-color: darken(#fff, 40%) !important
+      @each $category,$color in $categories
+        &-#{$category}
+          background-image: url(images/icons/#{$category}-contrast.png)
   .tab
     a
       background-color: darken(#fff, 85%)
@@ -923,11 +1060,29 @@ h3.titulo-destaque
       border-bottom-color: #000
   #proposal-categories,#proposal-group
     border-color: #fff
-  .proposal-category
-    a
-      background-color: darken(#fff, 85%) !important
-    .arrow-box:after
-      border-bottom-color: darken(#fff, 85%) !important
+  .proposal
+    &-category
+      a
+        background-color: darken(#fff, 85%) !important
+      .arrow-box:after
+        border-bottom-color: darken(#fff, 85%) !important
+    &-container
+      background-color: #000
+      +hover(#fff,100%)
+    &-header
+      .title, p
+        background-color: darken(#fff, 85%)
+  .box
+    background-color: darken(#fff, 85%)
+    text-decoration: none
+    &-header
+      background-color: darken(#fff, 85%)
+    &-propostas
+      border-color: #fff
+    &-title,&-subtitle,&-info,&-bottom,.social span,&-header
+      color: #fff
+    .icon span
+      color: #000 !important
   .select
     background-color: darken(#fff, 85%)
   section
@@ -936,16 +1091,15 @@ h3.titulo-destaque
       background-color: darken(#fff, 85%)
     .box
       background-color: #000
-  .proposal-header
-    .title, p
-      background-color: darken(#fff, 85%)
-  .box
-    background-color: darken(#fff, 85%)
-    text-decoration: none
-    &-propostas
-      border-color: #fff
-    &-title,&-subtitle,&-info,&-bottom,.social span,&-header
-      color: #fff
+  table
+    .position a
+      background-color: #000
+  .votes-for .fa,.votes-against .fa
+    background-color: #000
+  th,td
+    background-color: #000
+    border-color: #fff
+    color: #fff
   .slick
     &-prev,&-next
       color: #fff
@@ -956,3 +1110,6 @@ h3.titulo-destaque
         color: #fff
   .bloco-destaque
     background: darken(#fff, 85%)
+  @each $category,$color in $categories
+    .category-#{$category}
+      background-color: darken(#fff, 85%)

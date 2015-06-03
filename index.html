@@ -109,7 +109,10 @@
         </div>
       </header>
 
-      <div id="article-container" class="hide"></div>
+      <div id="article-container" class="article-container hide">
+        <a href="#" class="go-back">Voltar</a>
+        <div class="article-content"></div>
+      </div>
 
       <div id="content" class="container">
         <div class="embed-responsive embed-responsive-16by9">
@@ -286,7 +289,7 @@
                       </section>
                     </div>
 
-                    <div class="results-container hide box box-propostas col-sm-12"></div>
+                    <div class="results-container hide col-sm-12"></div>
 
                     <div class="talk-proposal-container col-sm-12">
                       <section class="talk-proposal box box-propostas">
@@ -350,40 +353,42 @@
     </script>
 
     <script id="results" type="text/x-handlebars-template">
-      <div class="loading">Carregando...</div>
-      <div class="results-content hide">
-        <a href="#" class="vote-result"><span class="sr-only">Fechar</span><span class="fa fa-times"></span></a>
-        <h2>Resultados</h2>
-        <span class="total">Total de propostas: <strong class="value">{{pagination.total}}</strong></span>
-        <div class="updated-at">
-          <span>Última atualização </span>
-          <span class="timeago" title="{{updated_at}}"></span>
+      <div class="box box-propostas">
+        <div class="loading">Carregando...</div>
+        <div class="results-content hide">
+          <a href="#" class="vote-result"><span class="sr-only">Fechar</span><span class="fa fa-times"></span></a>
+          <h2>Resultados</h2>
+          <span class="total">Total de propostas: <strong class="value">{{pagination.total}}</strong></span>
+          <div class="updated-at">
+            <span>Última atualização </span>
+            <span class="timeago" title="{{updated_at}}"></span>
+          </div>
+          <div class="border">
+            <table class="footable">
+              <thead>
+                <tr class="header">
+                  <th class="position">Posição <a href="#" class="hidden-xs"><span class="fa fa-question"></span></a></th>
+                  <th class="abstract-text" data-toggle="true">Propostas</th>
+                  <th class="views" data-hide="phone">Exibições</th>
+                  <th class="votes-for" data-hide="phone"><span class="sr-only">A favor</span><span class="fa fa-check"></span></th>
+                  <th class="votes-against" data-hide="phone"><span class="sr-only">Contra</span><span class="fa fa-times"></span></th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each proposals}}
+                <tr>
+                  <td class="">{{calcPosition @index ../pagination.per_page ../pagination.page}}°</td>
+                  <td class="abstract-text"><div class="truncate"><p class="truncated">{{stripTags abstract}}</p></div></td>
+                  <td class="views value">{{hits}}</td>
+                  <td class="votes-for value">{{votes_for}}</td>
+                  <td class="votes-against value">{{votes_against}}</td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="paging"></div>
         </div>
-        <div class="border">
-          <table class="footable">
-            <thead>
-              <tr class="header">
-                <th class="position">Posição <a href="#" class="hidden-xs"><span class="fa fa-question"></span></a></th>
-                <th class="abstract-text" data-toggle="true">Propostas</th>
-                <th class="views" data-hide="phone">Exibições</th>
-                <th class="votes-for" data-hide="phone"><span class="sr-only">A favor</span><span class="fa fa-check"></span></th>
-                <th class="votes-against" data-hide="phone"><span class="sr-only">Contra</span><span class="fa fa-times"></span></th>
-              </tr>
-            </thead>
-            <tbody>
-            {{#each proposals}}
-              <tr>
-                <td class="">{{calcPosition @index ../pagination.per_page ../pagination.page}}°</td>
-                <td class="abstract-text"><div class="truncate"><p class="truncated">{{stripTags abstract}}</p></div></td>
-                <td class="views value">{{hits}}</td>
-                <td class="votes-for value">{{votes_for}}</td>
-                <td class="votes-against value">{{votes_against}}</td>
-              </tr>
-            {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <div class="paging"></div>
       </div>
     </script>
 
@@ -412,8 +417,8 @@
           </div>
           <div class="oauth col-sm-8">
             <span class="label">Ou acesse usando <i>&raquo;</i></span>
-            <a href="http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=5" target="_blank" class="facebook oauth-login icon icon-facebook">Facebook</a>
-            <a href="http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login icon icon-gplus">Google +</a>
+            <a href="http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=5" target="_blank" class="facebook oauth-login icon icon-facebook"><span class="fa fa-facebook"></span><span class="sr-only">Facebook</span></a>
+            <a href="http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login icon icon-gplus"><span class="fa fa-google-plus"></span><span class="sr-only">Google Plus</span></a>
           </div>
         </div>
       </form>
@@ -479,7 +484,7 @@
       </div>
     </script>
 
-    <div class="terms-of-use">
+    <div class="terms-of-use text-center">
       <a href="#/artigo/107880">Termos de uso</a>
     </div>
 

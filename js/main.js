@@ -18,13 +18,15 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
+  var lastHash;
+
   var participa = true;
 
   //Detects for localhost settings
   var patt = new RegExp(":3000/");
   if(patt.test(window.location.href))
     participa = false;
-  
+
   if(participa){
     var host = 'http://www.participa.br';
     var proposal_discussion = '103358'; //participa
@@ -226,15 +228,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           }
           return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         },
-        display_article: function(article_id) {
+        display_article: function(article_id, backTo) {
           var url = host + '/api/v1/articles/' + article_id + '?private_token=' + Main.private_token;
           $.getJSON(url).done(function( data ) {
-            $('#article-container').html(articleTemplate(data.article));
+            $('#article-container .article-content').html(articleTemplate(data.article));
             $('#article-container').show();
             $('#proposal-categories').hide();
             $('#proposal-group').hide();
             $('nav').hide();
             $('#content').hide();
+            $('#article-container .go-back').attr('href', backTo);
           });
         },
         // inicio Eduardo
@@ -431,9 +434,10 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         },
         locationHashChanged: function(){
           var hash = window.location.hash;
-          this.navigateTo(hash);
+          this.navigateTo(hash, lastHash);
+          lastHash = hash;
         },
-        navigateTo: function(hash){
+        navigateTo: function(hash, lastHash) {
           var scrollTop = 0;
           var $nav = $('nav[role="tabpanel"]');
           var navOffset = $nav.offset();
@@ -459,7 +463,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var isArticle  = regexArticle.exec(hash) !== null;
 
           if(isArticle) {
-            this.display_article(hash.split('/')[2]);
+            this.display_article(hash.split('/')[2], lastHash);
           }
 
           if( isProposal ){
@@ -543,12 +547,21 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
           }, 300);
         },
-        responseToText: function(responseJSONmessage){
-          var o = JSON.parse(responseJSONmessage);
-          var msg;
-          Object.keys(o).map(function(k) { msg += k + " " + o[k] + ", " });
-          return msg.substring(0, msg.length - 2) + ".";
+      responseToText: function(responseJSONmessage){
+        var o = JSON.parse(responseJSONmessage);
+        var msg = "";
+        var fn;
+
+        for (var key in o) {
+          if (o[key] instanceof Array) {
+            fn =  key;
+            for (var i = 0; i < o[key].length; i++) {
+              msg += fn + " " + o[key][i] + ", ";
+            }
+          }
         }
+        return msg.substring(0, msg.length - 2) + ".";
+      }
     }
   })();
 
