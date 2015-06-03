@@ -254,6 +254,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           // $('#proposal-group').hide();
           this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
           $('#proposal-group').show(); /* Show random proposals*/
+          $('.content').addClass('background'); /* Add class background */
           $('#proposal-categories').show();
           $('#nav-proposal-categories a').addClass('active');
           $('#nav-proposal-group a').removeClass('active');
@@ -546,12 +547,25 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
           }, 300);
         },
-        responseToText: function(responseJSONmessage){
-          var o = JSON.parse(responseJSONmessage);
-          var msg;
-          Object.keys(o).map(function(k) { msg += k + " " + o[k] + ", " });
-          return msg.substring(0, msg.length - 2) + ".";
+      responseToText: function(responseJSONmessage){
+        var o = JSON.parse(responseJSONmessage);
+        var msg = "";
+        var fn;
+
+        for (var key in o) {
+          if (o[key] instanceof Array) {
+            fn =  key;
+            for (var i = 0; i < o[key].length; i++) {
+              msg += fn + " " + o[key][i] + ", ";
+            }
+          }
         }
+        msg = msg.replace('password_confirmation', 'confirmação da senha');
+        msg = msg.replace('password', 'senha');
+        msg = msg.replace('login', 'nome de usuário');
+        msg = msg.replace('email', 'e-mail');
+        return msg.substring(0, msg.length - 2) + ".";
+      }
     }
   })();
 
