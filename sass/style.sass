@@ -1030,6 +1030,8 @@ h3.titulo-destaque
       text-decoration: underline
     small
       color: darken(#fff, 40%)
+    blockquote
+      border-color: #fff
     .button,.show_body a,.login input.button,.box-category li
       background-color: #fff
       border-color: darken(#fff, 40%)
@@ -1058,11 +1060,29 @@ h3.titulo-destaque
       border-bottom-color: #000
   #proposal-categories,#proposal-group
     border-color: #fff
-  .proposal-category
-    a
-      background-color: darken(#fff, 85%) !important
-    .arrow-box:after
-      border-bottom-color: darken(#fff, 85%) !important
+  .proposal
+    &-category
+      a
+        background-color: darken(#fff, 85%) !important
+      .arrow-box:after
+        border-bottom-color: darken(#fff, 85%) !important
+    &-container
+      background-color: #000
+      +hover(#fff,100%)
+    &-header
+      .title, p
+        background-color: darken(#fff, 85%)
+  .box
+    background-color: darken(#fff, 85%)
+    text-decoration: none
+    &-header
+      background-color: darken(#fff, 85%)
+    &-propostas
+      border-color: #fff
+    &-title,&-subtitle,&-info,&-bottom,.social span,&-header
+      color: #fff
+    .icon span
+      color: #000 !important
   .select
     background-color: darken(#fff, 85%)
   section
@@ -1071,16 +1091,6 @@ h3.titulo-destaque
       background-color: darken(#fff, 85%)
     .box
       background-color: #000
-  .proposal-header
-    .title, p
-      background-color: darken(#fff, 85%)
-  .box
-    background-color: darken(#fff, 85%)
-    text-decoration: none
-    &-propostas
-      border-color: #fff
-    &-title,&-subtitle,&-info,&-bottom,.social span,&-header
-      color: #fff
   table
     .position a
       background-color: #000
