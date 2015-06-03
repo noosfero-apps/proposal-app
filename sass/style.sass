@@ -1,4 +1,4 @@
-// ------------------------------------
+﻿// ------------------------------------
 // Organização da folha de estilo:
 // 
 // 1 - Variaveis
@@ -13,24 +13,27 @@
 // 3 - Base
 // 4 - Grid
 // 5 - Elementos reusaveis
+//   5.1 - esconder
 //   5.1 - botao padrao
 //   5.2 - botao voltar
 //   5.3 - icones
 // 6 - Blocos de elementos
 //   6.1 - compartilhar
 //   6.2 - logo
-//   6.3 - tabs de temas e programas
-//   6.4 - blocos dos temas
-//   6.5 - listagem dos programas
-//   6.6 - blocos dos programas
-//   6.7 - header do programa e select box
-//   6.8 - imagem destaque do programa, titulo, descricao e botao de acesso
-//   6.9 - login form
-//   6.10 - votacao
-//   6.11 - lista de resultados
-//   6.12 - paginador
-//   6.13 - calendario dos ministros
-//   6.14 - listas
+//   6.3 - video
+//   6.4 - background do conteudo
+//   6.5 - tabs de temas e programas (pagina antiga)
+//   6.6 - menu dos temas
+//   6.7 - listagem dos programas aleatorios
+//   6.8 - blocos dos programas
+//   6.9 - header do programa e select box
+//   6.10 - imagem destaque do programa, titulo, descricao e botao de acesso
+//   6.11 - login form
+//   6.12 - votacao
+//   6.13 - lista de resultados
+//   6.14 - paginador
+//   6.15 - calendario dos ministros
+//   6.16 - listas
 // 7 - Modificadores
 // 8 - Cores do Temas
 // 9 - Alto Contraste
@@ -41,13 +44,13 @@
 // 1 - Variaveis
 // ------------------------------------
 
-// 1.1 - espacamento
+//   1.1 - espacamento
 $gutter: 20px
 
-// 1.2 - arredondamento
+//   1.2 - arredondamento
 $radius: 3px
 
-// 1.3 - tamanhos de fontes
+//   1.3 - tamanhos de fontes
 $font-size-base: 16px
 $font-size-big: $font-size-base + 2
 $font-size-small: $font-size-base - 2
@@ -58,15 +61,15 @@ $font-size-h4: 34px
 $theme-size-header: 24px
 $proposal-title: 32px
 
-// 1.4 - dicionarios
+//   1.4 - dicionarios
 $categories: (saude: #3449b7, seguranca-publica: #ee2a61, educacao: #f39720, reducao-da-pobreza: #3ebb8f)
 $categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.", educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.")
 
-// 1.5 - cores
+//   1.5 - cores
 $header-color: #03316f
 $link-color: #335277
 
-// 1.6 - escurecer
+//   1.6 - escurecer
 $darken: 15%
 
 
@@ -74,12 +77,13 @@ $darken: 15%
 // 2 - Mixins
 // ------------------------------------
 
-// 2.1 - hover
+//   2.1 - hover
 =hover($color, $amount)
   transition: all 400ms
   &:hover
     background-color: darken($color, $amount)
     text-decoration: none
+
 
 // ------------------------------------
 // 3 - Base
@@ -124,6 +128,7 @@ blockquote
   margin: $gutter 0
   padding: $gutter 0
 
+
 // ------------------------------------
 // 4 - Grid
 // ------------------------------------
@@ -135,9 +140,12 @@ blockquote
 // ------------------------------------
 // 5 - Elementos reusaveis
 // ------------------------------------
+
+//   5.1 - esconder
 .hide
   display: none
 
+//   5.1 - botao padrao
 .button
   background-color: #387bf9
   border-bottom: 3px solid darken(#387bf9, $darken)
@@ -175,6 +183,7 @@ blockquote
     .fa
       margin-right: $gutter * 0.5
 
+//   5.2 - botao voltar
 .btn
   background-color: transparent
   border: 0
@@ -187,6 +196,7 @@ blockquote
   padding-top: 0
   vertical-align: middle
 
+//   5.3 - icones
 .icon
   background-repeat: no-repeat
   background-position: 50% !important
@@ -252,7 +262,7 @@ blockquote
 // 6 - Blocos de elementos
 // ------------------------------------
 
-// 6.1 - compartilhar
+//   6.1 - compartilhar
 .social
   position: relative
   z-index: 1
@@ -283,7 +293,7 @@ blockquote
     padding: 0 2px !important
     vertical-align: top
 
-// 6.2 - logo
+//   6.2 - logo
 h1
   float: left
   a
@@ -293,17 +303,17 @@ h1
     text-indent: -99999px
     width: 160px
 
-// 6.3 - video
+//   6.3 - video
 #content
   margin-bottom: $gutter * 1.5
 
-// 6.4 - background do conteudo
+//   6.4 - background do conteudo
 .content
   padding-top: $gutter * 1.5
   &.background
     background-color: #f1f1f1
 
-// 6.5 - tabs de temas e programas (pagina antiga)
+//   6.5 - tabs de temas e programas (pagina antiga)
 .tab
   margin-top: $gutter
   ul
@@ -334,7 +344,7 @@ h1
     border-right: 1px solid #000
     border-top: 1px solid #000
 
-// 6.6 - menu dos temas
+//   6.6 - menu dos temas
 #proposal
   &-categories
     ul
@@ -372,7 +382,7 @@ h1
       border-width: 8px
       margin-left: -8px
 
-// 6.7 - listagem dos programas aleatorios
+//   6.7 - listagem dos programas aleatorios
 .proposal
   &-container
     border-radius: $radius
@@ -385,7 +395,7 @@ h1
       list-style: none
       padding-left: 0
 
-// 6.8 - blocos dos programas
+//   6.8 - blocos dos programas
 .box
   background-color: #fff
   border-radius: $radius
@@ -477,7 +487,7 @@ h1
   &-center
     text-align: center
 
-// 6.9 - header do programa e select box
+//   6.9 - header do programa e select box
 .select
   background-color: #000
   margin-bottom: $gutter * 0.5
@@ -502,7 +512,7 @@ h1
       width: 50%
       vertical-align: middle
 
-// 6.10 - imagem destaque do programa, titulo, descricao e botao de acesso
+//   6.10 - imagem destaque do programa, titulo, descricao e botao de acesso
 .proposal-header
   position: relative
   .title
@@ -551,7 +561,7 @@ h1
     padding-top: $gutter * 0.25
     text-transform: none
 
-// 6.11 - login form
+//   6.11 - login form
 .participar
   text-align: right
   .participe
@@ -589,7 +599,6 @@ h1
     &.button
       @extend .button
       margin-bottom: $gutter * 0.25
-
   .label
     vertical-align: middle
   .icon
@@ -610,12 +619,12 @@ h1
     input
       margin-bottom: 0
 
-// 6.12 - votacao
+//   6.12 - votacao
 .vote-actions
   .like
     display: inline-block
 
-// 6.13 - lista de resultados
+//   6.13 - lista de resultados
 .results-content
   .total
     float: left
@@ -650,7 +659,7 @@ h1
       text-overflow: ellipsis
       white-space: nowrap
 
-// 6.14 - paginador
+//   6.14 - paginador
 .paging
   padding: $gutter * 0.25
   ul
@@ -678,7 +687,7 @@ h1
   .prev
     border-radius:  $radius 0 0 $radius
 
-// 6.15 - calendario dos ministros
+//   6.15 - calendario dos ministros
 .slick
   &-slider
     list-style: none
@@ -727,7 +736,7 @@ h1
   &-disabled
     opacity: 0.25
 
-// 6.16 - listas
+//   6.16 - listas
 .list-container-border
   border: 3px solid
   border-radius: $radius

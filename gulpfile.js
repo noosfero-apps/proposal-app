@@ -13,7 +13,7 @@ var connect = require('gulp-connect');
 // });
 
 gulp.task('sass', function() {
-  return sass('./sass/novo.sass')
+  return sass('./sass/style.sass')
     .on('error', function (err) {
       console.error('Error', err.message);
     })
