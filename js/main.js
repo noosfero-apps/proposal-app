@@ -868,6 +868,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       var self = $(this);
       $.removeCookie('*');
       logged_in = false;
+      $('.logout').hide();
+      $('.entrar').show();
       e.preventDefault();
     });
 
