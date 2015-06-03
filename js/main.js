@@ -263,8 +263,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('nav').show();
         },
         display_proposals_tab: function(){
-          $('#proposal-categories').hide();
-          this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
+          // $('#proposal-categories').hide();
+          // this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
+          $('.proposal-item').show(); /* Show all programs */
           $('#proposal-group').show();
           $('#nav-proposal-group a').addClass('active');
           $('#nav-proposal-categories a').removeClass('active');
