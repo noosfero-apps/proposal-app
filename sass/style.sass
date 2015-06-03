@@ -39,6 +39,7 @@
 // 7 - Modificadores
 // 8 - Cores do Temas
 // 9 - Alto Contraste
+// 10 - Mobile
 // ------------------------------------
 
 
@@ -64,7 +65,7 @@ $theme-size-header: 24px
 $proposal-title: 32px
 
 //   1.4 - dicionarios
-$categories: (saude: #3449b7, seguranca-publica: #ee2a61, educacao: #f39720, reducao-da-pobreza: #3ebb8f)
+$categories: (saude: #3449b7, seguranca-publica: #e34748, educacao: #f39720, reducao-da-pobreza: #3ebb8f)
 $categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.", educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.")
 
 //   1.5 - cores
@@ -220,6 +221,8 @@ td
   &-participe
     .fa
       margin-right: $gutter * 0.5
+  &-confirm
+    margin-bottom: $gutter
 
 //   5.2 - botao voltar
 .btn
@@ -516,7 +519,6 @@ h1
     margin-left: auto
     margin-right: auto
     margin-top: $gutter
-    width: 40%
   &-bottom
     @extend .box-footer
     bottom: 10px
@@ -588,6 +590,7 @@ h1
       border-top: 0
       border-radius: $radius * 2
       color: #fff
+      display: block
       font-size: $font-size-h2
       font-weight: 700
       padding-bottom: $gutter * 0.5
@@ -1113,3 +1116,63 @@ h3.titulo-destaque
   @each $category,$color in $categories
     .category-#{$category}
       background-color: darken(#fff, 85%)
+
+
+// ------------------------------------
+// 10 - mobile
+// ------------------------------------
+@media (max-width: 480px)
+  #content
+    // margin-top: $gutter * 1.5 * (-1)
+    margin-bottom: 0
+    .embed-responsive
+      margin-left: $gutter * (-1)
+      margin-right: $gutter * (-1)
+  .themes
+    margin-bottom: $gutter * 1.5
+    margin-left: $gutter * 1.5 * (-1)
+    margin-right: $gutter * 1.5 * (-1)
+    margin-top: $gutter * 1.5 * (-1)
+    font-size: 0
+    &-name
+      display: block
+    li
+      display: inline-block
+      font-size: $font-size-base
+      width: 25%
+      vertical-align: top
+      &:first-child
+        a
+          border-left: 0
+      a
+        border-left: 1px solid #f1f1f1
+        display: block
+        padding: 0
+        text-align: center
+        height: 145px
+        .icon
+          margin-bottom: $gutter * 0.5
+          margin-left: 0
+          margin-right: 0
+          margin-top: $gutter
+  .box
+    &-header
+      p
+        height: auto
+    &-propostas
+      height: auto
+  .proposal
+    &-header
+      .title
+        margin: 0
+        padding-bottom: 0
+        position: inherit
+        width: 100%
+      p
+        padding-bottom: $gutter
+  .select
+    .proposal
+      &-selection
+        float: none
+        margin: 0
+        width: 100%
