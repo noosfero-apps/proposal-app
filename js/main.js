@@ -560,6 +560,10 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             }
           }
         }
+        msg = msg.replace('password_confirmation', 'confirmação da senha');
+        msg = msg.replace('password', 'senha');
+        msg = msg.replace('login', 'nome de usuário');
+        msg = msg.replace('email', 'e-mail');
         return msg.substring(0, msg.length - 2) + ".";
       }
     }
