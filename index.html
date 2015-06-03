@@ -139,13 +139,13 @@
           <div class="col-sm-3">
             <aside id="proposal-categories">
               <div id="proposal-categories-container">
-                <h2 class="menu"><strong>Programas</strong> por Tema</h2>
+                <h2 class="menu hidden-xs"><strong>Programas</strong> por Tema</h2>
                 <ul class="themes">
                 {{#each article.categories}}
                   <li id="proposal-category-{{slug}}" class="proposal-category" data-category="{{slug}}">
                     <a href="#/temas/{{slug}}/{{id}}" class="proposal-link" data-target="proposal-item-{{id}}">
                       <span class="icon icon-theme icon-{{slug}}"></span>
-                      {{name}}
+                      <span class="themes-name">{{name}}</span>
                     </a>
                     <!-- <div class="arrow-box" style="display: none"></div> -->
                   </li>
@@ -219,7 +219,9 @@
                       <div class="abstract">{{{abstract}}}</div>
                     </a>
                     <div class="show_body row">
-                      <a class="col-sm-6 col-sm-offset-3" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <a class="" href="#/programas/{{id}}/sobre-o-programa"><span>Conheça o programa</span></a>
+                      </div>
                     </div>
                   </div>
 
@@ -254,7 +256,13 @@
                         <div class="container-title box-title">Faça Uma Proposta</div>
                         <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
                         <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
-                        <div class="button send-proposal-button button-send box-footer"><a href="#"><span>Envie sua proposta</span></a></div>
+                        <div class="row">
+                          <div class="col-sm-6 col-sm-offset-3">
+                            <div class="button send-proposal-button button-send box-footer">
+                              <a href="#"><span>Envie sua proposta</span></a>
+                            </div>
+                          </div>
+                        </div>
                         <div class="login-container hide">Login</div>
                         <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                           <div class="message hide"></div>
@@ -344,7 +352,11 @@
       <div class="vote-actions">
         <a href="#" class="icon icon-vote dislike" data-vote-value="-1"><span class="fa fa-times"></span></a>
         <a href="#" class="icon icon-vote like" data-vote-value="1"><span class="fa fa-check"></span></a>
-        <a href="#" class="skip button box-footer">Pular</a>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <a href="#" class="skip button box-footer">Pular</a>
+          </div>
+        </div>
         <a href="#" class="vote-result box-bottom">Resultados</a>
       </div>
       <div class="social">
@@ -449,14 +461,14 @@
           <div class="captcha col-sm-12">
             <div id="g-recaptcha"></div>
           </div>
-        </div>
-        <div class="actions col-sm-12">
-          <div class="row">
-            <div class="col-sm-4">
-              <a href="#" class="confirm-signup button">Confirmar</a>
-            </div>
-            <div class="col-sm-4">
-              <a href="#" class="cancel-signup button button-cancela">Cancelar</a>
+          <div class="actions col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <a href="#" class="confirm-signup button button-confirm">Confirmar</a>
+              </div>
+              <div class="col-sm-4">
+                <a href="#" class="cancel-signup button button-cancela">Cancelar</a>
+              </div>
             </div>
           </div>
         </div>
