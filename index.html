@@ -109,7 +109,7 @@
         </div>
       </header>
 
-      <div id="article-container" class="article-container hide"></div>
+      <div id="article-container" class="hide"></div>
 
       <div id="content" class="container">
         <div class="embed-responsive embed-responsive-16by9">
@@ -154,7 +154,8 @@
           <div class="col-sm-9">
           {{#each article.categories}}
             <section id="proposal-item-{{id}}" class="proposal-category-items proposal-category-items-{{slug}} hide proposal-container clearfix {{slug}}" data-category="{{slug}}">
-              <div class="header">
+              <a class="ver-todos" href="#/programas" role="tab" aria-controls="proposal-group">Ver todos os programas</a>
+              <div class="header proposal-title">
                 <h2 class="name">{{name}}</h2>
                 <div class="description"></div>
               </div>
@@ -243,82 +244,84 @@
                     </div>
                   </div>
 
-                  <div class="make-proposal-container">
-                    <section class="make-proposal box box-propostas">
-                      <div class="container-title box-title">Faça Uma Proposta</div>
-                      <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
-                      <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
-                      <div class="button send-proposal-button button-send box-footer"><a href="#"><span>Envie sua proposta</span></a></div>
-                      <div class="login-container hide">Login</div>
-                      <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
-                        <div class="message hide"></div>
-                        <div>
-                          <div><label for="article_abstract">Descrição</label></div>
-                          <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
+                  <div class="row">
+                    <div class="make-proposal-container col-sm-6">
+                      <section class="make-proposal box box-propostas">
+                        <div class="container-title box-title">Faça Uma Proposta</div>
+                        <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
+                        <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
+                        <div class="button send-proposal-button button-send box-footer"><a href="#"><span>Envie sua proposta</span></a></div>
+                        <div class="login-container hide">Login</div>
+                        <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
+                          <div class="message hide"></div>
+                          <div>
+                            <div><label for="article_abstract">Descrição</label></div>
+                            <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
+                          </div>
+                          <input type="hidden" id="type" name="article[type]" value="ProposalsDiscussionPlugin::Proposal">
+                          <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Proposal">
+                          <input type="submit" id="make-proposal-button" name="make-proposal-button" class="make-proposal-button" value="Enviar">
+                        </form>
+                        <div class="success-proposal-sent success-sent hide send-button">
+                          <p>Sua proposta foi encaminhada com sucesso! Ela se tornará pública em até 24 horas e poderá ser apoiada por outros participantes.</p>
+                          <a href="#">Faça nova proposta</a>
                         </div>
-                        <input type="hidden" id="type" name="article[type]" value="ProposalsDiscussionPlugin::Proposal">
-                        <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Proposal">
-                        <input type="submit" id="make-proposal-button" name="make-proposal-button" class="make-proposal-button" value="Enviar">
-                      </form>
-                      <div class="success-proposal-sent success-sent hide send-button">
-                        <p>Sua proposta foi encaminhada com sucesso! Ela se tornará pública em até 24 horas e poderá ser apoiada por outros participantes.</p>
-                        <a href="#">Faça nova proposta</a>
-                      </div>
-                      <div class="clearfix"></div>
-                    </section>
-                  </div>
+                        <div class="clearfix"></div>
+                      </section>
+                    </div>
 
-                  <div class="support-proposal-container">
-                    <section class="support-proposal box box-propostas box-center box-apoie">
-                      <div class="container-title box-title"> Apoie outras propostas</div>
-                      <div class="alert alert-warning hide" role="alert">
-                        <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
-                      </div>
-                      <div class="support-proposal-content require-login">
-                        <div class="random-proposal"></div>
-                        <div class="loading">Carregando...</div>
-                        <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
-                      </div>
-                      <div class="login-container hide">Login</div>
-                      <div class="send-button"><a href="#"><span>Login</span></a></div>
-                    </section>
-                  </div>
+                    <div class="support-proposal-container col-sm-6">
+                      <section class="support-proposal box box-propostas box-center box-apoie">
+                        <div class="container-title box-title"> Apoie outras propostas</div>
+                        <div class="alert alert-warning hide" role="alert">
+                          <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
+                        </div>
+                        <div class="support-proposal-content require-login">
+                          <div class="random-proposal"></div>
+                          <div class="loading">Carregando...</div>
+                          <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
+                        </div>
+                        <div class="login-container hide">Login</div>
+                        <div class="send-button"><a href="#"><span>Login</span></a></div>
+                      </section>
+                    </div>
 
-                  <div class="results-container hide box box-propostas"></div>
+                    <div class="results-container hide box box-propostas col-sm-12"></div>
 
-                  <div class="talk-proposal-container">
-                    <section class="talk-proposal box box-propostas">
-                      <div class="container-title box-title">Bate-papo com os ministros</div>
-                      <p>Confira as datas e horários:</p>
-                      <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
-                        <li>
-                          <span>Arthur Chioro</span>
-                          <span>Saúde</span>
-                          <div class="date"><i class="fa fa-calendar"></i> 17/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                        </li>
-                      </ul>
-                      <ul class="calendar seguranca-publica" data-slick='{"infinite": false, "rows": 2}'>
-                        <li>
-                          <span>José Eduardo Cardozo</span>
-                          <span>Justiça</span>
-                          <div class="date"><i class="fa fa-calendar"></i> 25/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                        </li>
-                      </ul>
-                      <ul class="calendar educacao" data-slick='{"infinite": false, "rows": 2}'>
-                        <li>
-                          <span>Renato Janine Ribeiro</span>
-                          <span>Educação</span>
-                          <div class="date"><i class="fa fa-calendar"></i> 24/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                        </li>
-                      </ul>
-                      <ul class="calendar reducao-da-pobreza" data-slick='{"infinite": false, "rows": 2}'>
-                        <li>
-                          <span>Tereza Campello</span>
-                          <span>Desenvolvimento Social</span>
-                          <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                        </li>
-                      </ul>
-                    </section>
+                    <div class="talk-proposal-container col-sm-12">
+                      <section class="talk-proposal box box-propostas">
+                        <div class="container-title box-title">Bate-papo com os ministros</div>
+                        <p>Confira as datas e horários:</p>
+                        <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
+                          <li>
+                            <span>Arthur Chioro</span>
+                            <span>Saúde</span>
+                            <div class="date"><i class="fa fa-calendar"></i> 17/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                          </li>
+                        </ul>
+                        <ul class="calendar seguranca-publica" data-slick='{"infinite": false, "rows": 2}'>
+                          <li>
+                            <span>José Eduardo Cardozo</span>
+                            <span>Justiça</span>
+                            <div class="date"><i class="fa fa-calendar"></i> 25/04/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                          </li>
+                        </ul>
+                        <ul class="calendar educacao" data-slick='{"infinite": false, "rows": 2}'>
+                          <li>
+                            <span>Renato Janine Ribeiro</span>
+                            <span>Educação</span>
+                            <div class="date"><i class="fa fa-calendar"></i> 24/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                          </li>
+                        </ul>
+                        <ul class="calendar reducao-da-pobreza" data-slick='{"infinite": false, "rows": 2}'>
+                          <li>
+                            <span>Tereza Campello</span>
+                            <span>Desenvolvimento Social</span>
+                            <div class="date"><i class="fa fa-calendar"></i> 18/06/2015</div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                          </li>
+                        </ul>
+                      </section>
+                    </div>
                   </div>
 
                   <div class="clearfix"></div>
@@ -476,7 +479,7 @@
       </div>
     </script>
 
-    <div class="terms-of-use text-center">
+    <div class="terms-of-use">
       <a href="#/artigo/107880">Termos de uso</a>
     </div>
 
