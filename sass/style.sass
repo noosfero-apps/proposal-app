@@ -67,7 +67,7 @@ $categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado.
 
 //   1.5 - cores
 $header-color: #03316f
-$link-color: #335277
+$link-color: #387bfa
 
 //   1.6 - escurecer
 $darken: 15%
@@ -101,7 +101,7 @@ h1
   a
     color: $header-color
 h2
-  border-bottom: 1px solid darken(#eeeff1,$darken)
+  // border-bottom: 1px solid darken(#eeeff1,$darken)
   font-size: $font-size-h2
   font-weight: 500
   margin-bottom: $gutter * 2
@@ -127,6 +127,8 @@ blockquote
   font-size: $font-size-h1
   margin: $gutter 0
   padding: $gutter 0
+a,a:link,a:hover
+  color: $link-color
 
 
 // ------------------------------------
@@ -367,6 +369,7 @@ h1
     padding-right: $gutter
     padding-top: $gutter * 0.5
     text-transform: uppercase
+    +hover(#fff,$darken)
     &:hover,&:focus
       text-decoration: none
   .arrow-box
@@ -383,6 +386,8 @@ h1
       margin-left: -8px
 
 //   6.7 - listagem dos programas aleatorios
+.ver-todos
+  float: right
 .proposal
   &-container
     border-radius: $radius
