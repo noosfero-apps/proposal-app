@@ -82,7 +82,7 @@ define(['handlebars'], function(Handlebars){
 
   Handlebars.registerHelper('proposal_action', function(discussion, target) {
     if(discussion.setting && discussion.setting.moderate_proposals) {
-      return '/api/v1/articles/'+target.id+'/children/suggest';
+      return '/api/v1/proposals_discussion_plugin/'+target.id+'/propose';
     } else {
       return '/api/v1/articles/'+target.id+'/children';
     }
