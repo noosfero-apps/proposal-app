@@ -863,6 +863,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
       e.preventDefault();
     });
+
+    $(document).on('click', '.logout', function (){
+      var self = $(this);
+      $.removeCookie('*');
+      logged_in = false;
+      e.preventDefault();
+    });
+
   });
 
   window.addEventListener("message", function(ev) {
