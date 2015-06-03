@@ -108,7 +108,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
 
               if(!logged_in) {
-                $(this).closest('.support-proposal').find('.send-button a').click();
+                $(this).closest('.support-proposal').find('.button-send a').click();
                 e.preventDefault();
                 return;
               }
@@ -644,12 +644,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         Main.updateHash(newHash);
       });
 
-      $( '.send-button a' ).on('click', function(e){
+      $( '.button-send a' ).on('click', function(e){
         e.preventDefault();
 
         //display form to send proposal (or login form for non-logged users)
         var $this = $(this);
-        loginButton = $this.parents('.send-button');
+        loginButton = $this.parents('.button-send');
         loginButton.hide();
         $this.parents('.success-proposal-sent').hide();
         $wrapper = $this.parents('.make-proposal');

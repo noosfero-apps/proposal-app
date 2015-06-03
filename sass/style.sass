@@ -411,6 +411,14 @@ h1
     +hover(#fff,$darken)
     &:hover,&:focus
       text-decoration: none
+  .fa
+    color: #898989
+    float: right
+    font-size: 45px
+  &-name
+    display: inline-block
+    width: 50%
+    vertical-align: middle
   .arrow-box
     position: relative
     top: $gutter
@@ -427,6 +435,10 @@ h1
 //   6.7 - listagem dos programas aleatorios
 .ver-todos
   float: right
+  .fa
+    font-size: $theme-size-header
+    margin-right: $gutter * 0.5
+    vertical-align: bottom
 .proposal
   &-container
     border-radius: $radius
@@ -1136,6 +1148,7 @@ h3.titulo-destaque
     font-size: 0
     &-name
       display: block
+      width: 100%
     li
       display: inline-block
       font-size: $font-size-base
