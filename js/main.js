@@ -546,12 +546,21 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
           }, 300);
         },
-        responseToText: function(responseJSONmessage){
-          var o = JSON.parse(responseJSONmessage);
-          var msg;
-          Object.keys(o).map(function(k) { msg += k + " " + o[k] + ", " });
-          return msg.substring(0, msg.length - 2) + ".";
+      responseToText: function(responseJSONmessage){
+        var o = JSON.parse(responseJSONmessage);
+        var msg = "";
+        var fn;
+
+        for (var key in o) {
+          if (o[key] instanceof Array) {
+            fn =  key;
+            for (var i = 0; i < o[key].length; i++) {
+              msg += fn + " " + o[key][i] + ", ";
+            }
+          }
         }
+        return msg.substring(0, msg.length - 2) + ".";
+      }
     }
   })();
 
