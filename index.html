@@ -104,7 +104,13 @@
           <a href="#" class="entrar">Entrar</a>
           <a href="#" class="logout hide">Sair</a>
         </div>
-        <h1><a href="#">{{article.title}}</a></h1>
+        <h1>
+          <a href="#" class='logo'>{{article.title}}</a>
+          <div class="top-menu">
+            <a href="#/artigo/108073">Sobre</a>
+            <a href="#/programas">Programas</a>
+          </div>
+        </h1>
         <div class="social top">
           {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
         </div>
@@ -120,19 +126,6 @@
           {{{article.abstract}}}
         </div>
       </div>
-
-      <!--
-      <nav class="tab" role="tabpanel">
-        <ul role="tablist">
-          <li id="nav-proposal-categories" role="presentation">
-            <a href="#/temas" class="active" role="tab" aria-controls="proposal-categories">Por Temas</a>
-          </li>
-          <li id="nav-proposal-group" role="presentation">
-            <a href="#/programas" role="tab" aria-controls="proposal-group">Por Programas</a>
-          </li>
-        </ul>
-      </nav>
-      -->
 
       <div class="background content">
         <div class="container">

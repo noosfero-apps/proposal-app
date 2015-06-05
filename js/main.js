@@ -271,6 +271,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           // this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
           $('.proposal-item').show(); /* Show all programs */
           $('#proposal-group').show();
+          $('#proposal-categories').show();
           $('.proposal-category-items').hide();
           $('#nav-proposal-group a').addClass('active');
           $('#nav-proposal-categories a').removeClass('active');
