@@ -210,6 +210,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             if(token){
               Main.private_token = token;
             }
+            requireLoginContainer = $('.require-login-container');
             requireLoginContainer.find('.require-login').show();
             requireLoginContainer.find('.require-login .message').show();
             requireLoginContainer.find('.login-container').hide();
