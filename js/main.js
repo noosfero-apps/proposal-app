@@ -206,7 +206,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var requireLoginContainer = loginButton.closest('.require-login-container');
 
           if(logged_in) {
-            $('.logout').show();
+            Main.showLogout();
             if(token){
               Main.private_token = token;
             }
@@ -228,7 +228,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           } else {
             requireLoginContainer.find('.require-login').hide();
             requireLoginContainer.find('.login-container').show();
-            $('.logout').hide();
+            Main.showLogin();
           }
         },
         guid: function() {
@@ -577,6 +577,25 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             successPanel.remove();
           }, timeout);
         },
+        setUser: function(user){
+          this.user = user;
+        },
+        getUser: function(){
+          return this.user;
+        },
+        showLogin: function(){
+          $('.entrar').show();
+          $('.logout').hide();
+        },
+        showLogout: function(){
+          $('.entrar').hide();
+          var name = '';
+          if(this.user){
+            name = this.user.person.name + ' | ';
+          }
+          $('.logout').text(name + 'Sair');
+          $('.logout').show();
+        },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
         var msg = "";
@@ -786,10 +805,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     if($.cookie('_dialoga_session')) {
       var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
-      $.getJSON(url).done(function( /*data*/ ) {
+      $.getJSON(url).done(function( data ) {
         logged_in = true;
         Main.private_token = $.cookie('_dialoga_session');
-        setTimeout(function(){ $('.logout').show(); }, 2000);
+
+        if(data && data.user){
+          Main.setUser(data.user);
+          Main.showLogout();
+        }
       });
     }
 
@@ -909,8 +932,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       $.removeCookie('votedProposals');
       $.removeCookie('*');
       logged_in = false;
-      $('.logout').hide();
-      $('.entrar').show();
+      Main.showLogin();
       location.reload();
       e.preventDefault();
     });
