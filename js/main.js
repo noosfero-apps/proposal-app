@@ -99,6 +99,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             });
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
+              Main.displaySuccess($(this).closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
               //Helps to prevent more than one vote per proposal
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 console.log("Proposta " + article.id + " já havia sido votada");
@@ -556,6 +557,22 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                   }
               }
           }, 300);
+        },
+        displaySuccess: function(container, text, timeout) {
+          timeout = typeof timeout !== 'undefined' ? timeout : 2000;
+          container.css('opacity', 0.1);
+          var successPanel = $('.success-panel').clone();
+          successPanel.find('.message').html(text);
+          successPanel.appendTo('body');
+          successPanel.show();
+          successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
+          successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
+
+          var interval = setTimeout(function() {
+            successPanel.hide();
+            container.css('opacity', 1);
+            successPanel.remove();
+          }, timeout);
         },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
