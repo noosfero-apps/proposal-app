@@ -561,10 +561,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
           }, 300);
         },
-        displaySuccess: function(container, text, timeout) {
+        displaySuccess: function(container, text, timeout, iconClass) {
           timeout = typeof timeout !== 'undefined' ? timeout : 2000;
           container.css('opacity', 0.1);
           var successPanel = $('.success-panel').clone();
+          successPanel.find('.icon').addClass(iconClass);
           successPanel.find('.message').html(text);
           successPanel.appendTo(container.closest('.categories'));
           successPanel.show();
@@ -776,7 +777,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $form.siblings('.success-sent').show();
           $form.siblings('.subtitle').hide();
           $form.siblings('.info').hide();
-          Main.displaySuccess($form.closest('.make-proposal .section-content'), 'Proposta enviada com sucesso', 2000);
+          Main.displaySuccess($form.closest('.make-proposal .section-content'), 'Proposta enviada com sucesso', 2000, 'icon-proposal-sent');
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
@@ -830,7 +831,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         }
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000);
+        Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000, 'icon-login-success');
       }).fail(function( /*data*/ ) {
         message.show();
         message.text('Não foi possível logar');
@@ -889,7 +890,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         data: $(this).parents('.signup').serialize(),
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000);
+        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
       }).fail(function(data) {
         var msg = Main.responseToText(data.responseJSON.message);
         message.show();
