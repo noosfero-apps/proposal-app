@@ -346,7 +346,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#content').hide();
           $('#article-container').hide();
           $proposal = $('#proposal-item-' + proposal_id);
-          $proposal.find('.make-proposal-form').hide();
           $proposal.find('.proposal-header').hide();
           $proposal.find('.make-proposal-container').hide();
           $proposal.find('.support-proposal-container').hide();
