@@ -199,7 +199,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var requireLoginContainer = loginButton.closest('.require-login-container');
 
           if(logged_in) {
-            console.log('A');
             if(token){
               Main.private_token = token;
             }
@@ -208,7 +207,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             requireLoginContainer.find('.login-container').hide();
             $.cookie('_dialoga_session', Main.private_token);
           } else if (user) {
-            console.log('B');
             var loginContainer = requireLoginContainer.find('.login-container');
             loginContainer.show();
             loginContainer.find('.new-user').click();
