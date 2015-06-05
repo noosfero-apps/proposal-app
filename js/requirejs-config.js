@@ -15,7 +15,7 @@ requirejs.config({
         jquery_timeago: 'jquery.timeago',
         jquery_timeago_pt: 'jquery.timeago.pt-br',
         jquery_simplePagination: 'jquery.simplePagination',
-        jquery_simplePagination: 'footable',
+        jquery_footable: 'footable',
         handlebars: 'handlebars-v3.0.1',
         handlebars_helpers: 'handlebars-helpers',
         jquery_maxlength: 'jquery.maxlength.min',
