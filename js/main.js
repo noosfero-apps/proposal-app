@@ -99,7 +99,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             });
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
-              Main.displaySuccess($(this).closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
               //Helps to prevent more than one vote per proposal
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 console.log("Proposta " + article.id + " já havia sido votada");
@@ -122,6 +121,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                   private_token: Main.private_token
                 }
               }).done(function( /*data*/ ) {
+                Main.displaySuccess($(this).closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
                 ProposalApp.addVotedProposal(article.id);
                 contextMain.loadRandomProposal(topic_id);
               });
