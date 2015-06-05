@@ -183,6 +183,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                 }
               });
             }
+            $resultsContainer.find('.abstract-text .truncated').click(function() {
+              $(this).toggleClass('truncated');
+            });
 
             // scroll to the end
             $('html, body').animate({
