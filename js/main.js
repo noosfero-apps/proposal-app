@@ -566,15 +566,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           if (o[key] instanceof Array) {
             fn =  key;
             for (var i = 0; i < o[key].length; i++) {
-              msg += fn + " " + o[key][i] + ", ";
+              msg += fn + " " + o[key][i] + "</br>";
             }
           }
         }
-        msg = msg.replace('password_confirmation', 'confirmação da senha');
-        msg = msg.replace('password', 'senha');
-        msg = msg.replace('login', 'nome de usuário');
-        msg = msg.replace('email', 'e-mail');
-        return msg.substring(0, msg.length - 2) + ".";
+        msg = msg.replace('password_confirmation', "campo 'confirmação da senha'");
+        msg = msg.replace(/password/g, "campo 'senha'");
+        msg = msg.replace('login', "campo 'nome de usuário'");
+        msg = msg.replace('email', "campo 'e-mail'");
+        msg = msg.substring(0, msg.length - 5) + ".";
+        return msg;
       }
     }
   })();
@@ -844,7 +845,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       }).fail(function(data) {
         var msg = Main.responseToText(data.responseJSON.message);
         message.show();
-        message.text('Não foi possível efetuar o cadastro: ' + msg);
+        message.html('Não foi possível efetuar o cadastro: <br/><br/>' + msg);
       }).always(function() {
         loading.hide();
         signup.show();
@@ -879,10 +880,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     $(document).on('click', '.logout', function (e){
       var self = $(this);
+      $.removeCookie('_dialoga_session');
       $.removeCookie('*');
       logged_in = false;
       $('.logout').hide();
       $('.entrar').show();
+      location.reload();
       e.preventDefault();
     });
 
