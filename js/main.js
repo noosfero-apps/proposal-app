@@ -566,7 +566,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           container.css('opacity', 0.1);
           var successPanel = $('.success-panel').clone();
           successPanel.find('.message').html(text);
-          successPanel.appendTo(container.closest('.proposal-detail'));
+          successPanel.appendTo(container.closest('.categories'));
           successPanel.show();
           successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
           successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
