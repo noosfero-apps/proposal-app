@@ -102,16 +102,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               //Helps to prevent more than one vote per proposal
               var button = $(this);
 
-              if(ProposalApp.hasProposalbeenVoted(article.id)){
-                console.log("Proposta " + article.id + " já havia sido votada");
-                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
-                contextMain.loadRandomProposal(topic_id);
+              if(!logged_in) {
+                $(this).closest('.require-login-container').find('.button-send a').click();
                 e.preventDefault();
                 return;
               }
 
-              if(!logged_in) {
-                $(this).closest('.require-login-container').find('.button-send a').click();
+              if(ProposalApp.hasProposalbeenVoted(article.id)){
+                console.log("Proposta " + article.id + " já havia sido votada");
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
+                contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
                 return;
               }
@@ -210,6 +210,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             if(token){
               Main.private_token = token;
             }
+            requireLoginContainer = $('.require-login-container');
             requireLoginContainer.find('.require-login').show();
             requireLoginContainer.find('.require-login .message').show();
             requireLoginContainer.find('.login-container').hide();
@@ -345,7 +346,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#content').hide();
           $('#article-container').hide();
           $proposal = $('#proposal-item-' + proposal_id);
-          $proposal.find('.make-proposal-form').hide();
           $proposal.find('.proposal-header').hide();
           $proposal.find('.make-proposal-container').hide();
           $proposal.find('.support-proposal-container').hide();
