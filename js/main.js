@@ -869,7 +869,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       e.preventDefault();
     });
 
-    $(document).on('click', '.logout', function (){
+    $(document).on('click', '.logout', function (e){
       var self = $(this);
       $.removeCookie('*');
       logged_in = false;
