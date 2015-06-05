@@ -219,6 +219,10 @@ td
       background-repeat: no-repeat
       color: #fff
       padding-left: $gutter * 1.5
+    a
+      display: block
+      padding: 15px 0 18px 0
+      margin: -15px 0 -18px 0
   &-participe
     .fa
       margin-right: $gutter * 0.5
@@ -915,6 +919,11 @@ td
   .title
     font-size: 22px
 
+// 6.19 - sucesso
+.success-panel
+  position: absolute
+  z-index: 100
+
 // ------------------------------------
 // 7 - Modificadores
 // ------------------------------------
@@ -1051,33 +1060,33 @@ h3.titulo-destaque
   color: #fff
   .background
     background-color: #000
-  .container
-    h2,h3,h4,a,p,li,label,.label,.login i,.total,.updated-at span
-      color: #fff
-    a
-      text-decoration: underline
-    small
-      color: darken(#fff, 40%)
-    blockquote
-      border-color: #fff
-    .button,.show_body a,.login input.button,.box-category li
-      background-color: #fff
-      border-color: darken(#fff, 40%)
+  // .container
+  h2,h3,h4,a,p,li,label,.label,.login i,.total,.updated-at span
+    color: #fff
+  a
+    text-decoration: underline
+  small
+    color: darken(#fff, 40%)
+  blockquote
+    border-color: #fff
+  .button,.show_body a,.login input.button,.box-category li
+    background-color: #fff
+    border-color: darken(#fff, 40%)
+    color: #000
+    text-decoration: none
+    +hover(#fff, 40%)
+    span
       color: #000
-      text-decoration: none
-      +hover(#fff, 40%)
-      span
-        color: #000
-    .icon
-      color: #000 !important
-      text-decoration: none
-      background-color: #fff
-      +hover(#fff,40%)
-      &-vote
-        border-color: darken(#fff, 40%) !important
-      @each $category,$color in $categories
-        &-#{$category}
-          background-image: url(images/icons/#{$category}-contrast.png)
+  .icon
+    color: #000 !important
+    text-decoration: none
+    background-color: #fff
+    +hover(#fff,40%)
+    &-vote
+      border-color: darken(#fff, 40%) !important
+    @each $category,$color in $categories
+      &-#{$category}
+        background-image: url(images/icons/#{$category}-contrast.png)
   .tab
     a
       background-color: darken(#fff, 85%)

@@ -100,15 +100,18 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
               //Helps to prevent more than one vote per proposal
-              if(ProposalApp.hasProposalbeenVoted(article.id)){
-                console.log("Proposta " + article.id + " já havia sido votada");
-                contextMain.loadRandomProposal(topic_id);
+              var button = $(this);
+
+              if(!logged_in) {
+                $(this).closest('.require-login-container').find('.button-send a').click();
                 e.preventDefault();
                 return;
               }
 
-              if(!logged_in) {
-                $(this).closest('.require-login-container').find('.button-send a').click();
+              if(ProposalApp.hasProposalbeenVoted(article.id)){
+                console.log("Proposta " + article.id + " já havia sido votada");
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
+                contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
                 return;
               }
@@ -121,6 +124,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                   private_token: Main.private_token
                 }
               }).done(function( /*data*/ ) {
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
                 ProposalApp.addVotedProposal(article.id);
                 contextMain.loadRandomProposal(topic_id);
               });
@@ -202,9 +206,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var requireLoginContainer = loginButton.closest('.require-login-container');
 
           if(logged_in) {
+            $('.logout').show();
             if(token){
               Main.private_token = token;
             }
+            requireLoginContainer = $('.require-login-container');
             requireLoginContainer.find('.require-login').show();
             requireLoginContainer.find('.require-login .message').show();
             requireLoginContainer.find('.login-container').hide();
@@ -222,6 +228,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           } else {
             requireLoginContainer.find('.require-login').hide();
             requireLoginContainer.find('.login-container').show();
+            $('.logout').hide();
           }
         },
         guid: function() {
@@ -339,7 +346,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#content').hide();
           $('#article-container').hide();
           $proposal = $('#proposal-item-' + proposal_id);
-          $proposal.find('.make-proposal-form').hide();
           $proposal.find('.proposal-header').hide();
           $proposal.find('.make-proposal-container').hide();
           $proposal.find('.support-proposal-container').hide();
@@ -555,6 +561,22 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
           }, 300);
         },
+        displaySuccess: function(container, text, timeout) {
+          timeout = typeof timeout !== 'undefined' ? timeout : 2000;
+          container.css('opacity', 0.1);
+          var successPanel = $('.success-panel').clone();
+          successPanel.find('.message').html(text);
+          successPanel.appendTo(container.closest('.categories'));
+          successPanel.show();
+          successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
+          successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
+
+          var interval = setTimeout(function() {
+            successPanel.hide();
+            container.css('opacity', 1);
+            successPanel.remove();
+          }, timeout);
+        },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
         var msg = "";
@@ -564,15 +586,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           if (o[key] instanceof Array) {
             fn =  key;
             for (var i = 0; i < o[key].length; i++) {
-              msg += fn + " " + o[key][i] + ", ";
+              msg += fn + " " + o[key][i] + "</br>";
             }
           }
         }
-        msg = msg.replace('password_confirmation', 'confirmação da senha');
-        msg = msg.replace('password', 'senha');
-        msg = msg.replace('login', 'nome de usuário');
-        msg = msg.replace('email', 'e-mail');
-        return msg.substring(0, msg.length - 2) + ".";
+        msg = msg.replace('password_confirmation', "campo 'confirmação da senha'");
+        msg = msg.replace(/password/g, "campo 'senha'");
+        msg = msg.replace('login', "campo 'nome de usuário'");
+        msg = msg.replace('email', "campo 'e-mail'");
+        msg = msg.substring(0, msg.length - 5) + ".";
+        return msg;
       }
     }
   })();
@@ -734,6 +757,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $form.siblings('.success-sent').show();
           $form.siblings('.subtitle').hide();
           $form.siblings('.info').hide();
+          Main.displaySuccess($form.closest('.make-proposal .section-content'), 'Proposta enviada com sucesso', 2000);
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
@@ -742,6 +766,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           message.text('Não foi possível enviar.');
          });
       });
+
+
 
     })
     .fail(function( jqxhr, textStatus, error ) {
@@ -763,6 +789,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       $.getJSON(url).done(function( /*data*/ ) {
         logged_in = true;
         Main.private_token = $.cookie('_dialoga_session');
+        setTimeout(function(){ $('.logout').show(); }, 2000);
       });
     }
 
@@ -770,6 +797,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       var message = $('.login .message');
       message.hide();
       message.text('');
+      var button = $(this);
       $.ajax({
         type: 'post',
         url: host + '/api/v1/login',
@@ -779,6 +807,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         }
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
+        Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000);
       }).fail(function( /*data*/ ) {
         message.show();
         message.text('Não foi possível logar');
@@ -829,6 +858,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       var loading = $('.login-container .loading');
       loading.show();
       signup.hide();
+      var button = $(this);
 
       $.ajax({
         type: 'post',
@@ -836,10 +866,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         data: $(this).parents('.signup').serialize(),
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
+        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000);
       }).fail(function(data) {
         var msg = Main.responseToText(data.responseJSON.message);
         message.show();
-        message.text('Não foi possível efetuar o cadastro: ' + msg);
+        message.html('Não foi possível efetuar o cadastro: <br/><br/>' + msg);
       }).always(function() {
         loading.hide();
         signup.show();
@@ -874,10 +905,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     $(document).on('click', '.logout', function (e){
       var self = $(this);
+      $.removeCookie('_dialoga_session');
+      $.removeCookie('votedProposals');
       $.removeCookie('*');
       logged_in = false;
       $('.logout').hide();
       $('.entrar').show();
+      location.reload();
       e.preventDefault();
     });
 
@@ -897,6 +931,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   }else{
     console.log('The browser not supports the hashchange event!');
   }
+
+
 
   return Main;
 });
