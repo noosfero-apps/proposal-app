@@ -183,6 +183,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                 }
               });
             }
+            $resultsContainer.find('.abstract-text .truncated').click(function() {
+              $(this).toggleClass('truncated');
+            });
 
             // scroll to the end
             $('html, body').animate({
@@ -199,6 +202,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var requireLoginContainer = loginButton.closest('.require-login-container');
 
           if(logged_in) {
+            $('.logout').show();
             if(token){
               Main.private_token = token;
             }
@@ -219,6 +223,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           } else {
             requireLoginContainer.find('.require-login').hide();
             requireLoginContainer.find('.login-container').show();
+            $('.logout').hide();
           }
         },
         guid: function() {
@@ -279,6 +284,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#content').show();
           $('#article-container').hide();
           $('nav').show();
+          $('html, body').animate({ scrollTop: $('#proposal-group').offset().top }, 'fast');
         },
         // fim Eduardo
         display_proposal: function(proposal_id){
@@ -481,6 +487,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             }else{
               if(navOffset){
                 scrollTop = navOffset.top;
+              } else {
+                scrollTop = $('#proposal-group').offset().top;
               }
             }
           }
@@ -737,6 +745,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
          });
       });
 
+
+
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ', ' + error;
@@ -757,6 +767,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       $.getJSON(url).done(function( /*data*/ ) {
         logged_in = true;
         Main.private_token = $.cookie('_dialoga_session');
+        setTimeout(function(){ $('.logout').show(); }, 2000);
       });
     }
 
@@ -866,7 +877,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       e.preventDefault();
     });
 
-    $(document).on('click', '.logout', function (){
+    $(document).on('click', '.logout', function (e){
       var self = $(this);
       $.removeCookie('*');
       logged_in = false;
@@ -891,6 +902,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   }else{
     console.log('The browser not supports the hashchange event!');
   }
+
+
 
   return Main;
 });
