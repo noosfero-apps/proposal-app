@@ -23,9 +23,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   var participa = true;
 
   //Detects for localhost settings
-  var patt = new RegExp(":3000/");
-  //if(patt.test(window.location.href))
-  //  participa = false;
+  var patt = new RegExp(":3001/");
+  if(patt.test(window.location.href))
+    participa = false;
 
   if(participa){
     var host = 'http://www.participa.br';
@@ -808,9 +808,13 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
         Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000);
-      }).fail(function( /*data*/ ) {
+      }).fail(function(data) {
         message.show();
-        message.text('Não foi possível logar');
+        if(data.status==401){
+          message.text('Nome de usuário, e-mail ou senha incorretos, não foi possível acessar.');
+        }else{
+          message.text('Um erro inesperado ocorreu');
+        }
       });
       e.preventDefault();
     });
