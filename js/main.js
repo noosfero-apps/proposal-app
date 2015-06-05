@@ -24,8 +24,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   //Detects for localhost settings
   var patt = new RegExp(":3000/");
-  if(patt.test(window.location.href))
-    participa = false;
+  //if(patt.test(window.location.href))
+  //  participa = false;
 
   if(participa){
     var host = 'http://www.participa.br';
@@ -97,8 +97,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               contextMain.loadRandomProposal(topic_id);
               e.preventDefault();
             });
-            $body.off('click', '.vote-actions .like');
-            $body.on('click', '.vote-actions .like', function(e) {
+            $body.off('click', '.vote-actions .vote-action');
+            $body.on('click', '.vote-actions .vote-action', function(e) {
               //Helps to prevent more than one vote per proposal
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 console.log("Proposta " + article.id + " já havia sido votada");
@@ -108,7 +108,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
 
               if(!logged_in) {
-                $(this).closest('.support-proposal').find('.button-send a').click();
+                $(this).closest('.require-login-container').find('.button-send a').click();
                 e.preventDefault();
                 return;
               }
@@ -196,17 +196,20 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         loginCallback: function(loggedIn, token, user) {
           logged_in = loggedIn;
           $('.login .message').text('');
+          var requireLoginContainer = loginButton.closest('.require-login-container');
 
           if(logged_in) {
+            console.log('A');
             if(token){
               Main.private_token = token;
             }
-            loginButton.siblings('.require-login').show();
-            loginButton.siblings('.require-login .message').show();
-            loginButton.siblings('.login-container').hide();
+            requireLoginContainer.find('.require-login').show();
+            requireLoginContainer.find('.require-login .message').show();
+            requireLoginContainer.find('.login-container').hide();
             $.cookie('_dialoga_session', Main.private_token);
           } else if (user) {
-            var loginContainer = loginButton.siblings('.login-container');
+            console.log('B');
+            var loginContainer = requireLoginContainer.find('.login-container');
             loginContainer.show();
             loginContainer.find('.new-user').click();
             var signupForm = loginContainer.find('#signup-form');
@@ -216,8 +219,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             //signupForm.find(".password").hide();
             //signupForm.find(".password-confirmation").hide();
           } else {
-            loginButton.siblings('.require-login').hide();
-            loginButton.siblings('.login-container').show();
+            requireLoginContainer.find('.require-login').hide();
+            requireLoginContainer.find('.login-container').show();
           }
         },
         guid: function() {

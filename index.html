@@ -245,7 +245,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="make-proposal-container col-sm-6">
+                    <div class="make-proposal-container col-sm-6 require-login-container">
                       <section class="make-proposal box box-propostas">
                         <div class="container-title box-title">Faça uma proposta</div>
                         <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
@@ -276,7 +276,7 @@
                       </section>
                     </div>
 
-                    <div class="support-proposal-container col-sm-6">
+                    <div class="support-proposal-container col-sm-6 require-login-container">
                       <section class="support-proposal box box-propostas box-center box-apoie">
                         <div class="container-title box-title"> Apoie outras propostas</div>
                         <div class="alert alert-warning hide" role="alert">
@@ -288,7 +288,7 @@
                           <div class="no-proposals">Ainda não existe nenhuma proposta para este programa.</div>
                         </div>
                         <div class="login-container hide">Login</div>
-                        <div class="send-button"><a href="#"><span>Login</span></a></div>
+                        <div class="button-send hide"><a href="#"><span>Login</span></a></div>
                       </section>
                     </div>
 
@@ -344,8 +344,8 @@
         <p class="box-subtitle">{{stripTags (trimString abstract 200)}}</p>
       </div>
       <div class="vote-actions">
-        <a href="#" class="icon icon-vote dislike" data-vote-value="-1"><span class="fa fa-times"></span></a>
-        <a href="#" class="icon icon-vote like" data-vote-value="1"><span class="fa fa-check"></span></a>
+        <a href="#" class="icon icon-vote vote-action dislike" data-vote-value="-1"><span class="fa fa-times"></span></a>
+        <a href="#" class="icon icon-vote vote-action like" data-vote-value="1"><span class="fa fa-check"></span></a>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
             <a href="#" class="skip button box-footer">Pular</a>
