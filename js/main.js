@@ -279,6 +279,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $('#content').show();
           $('#article-container').hide();
           $('nav').show();
+          $('html, body').animate({ scrollTop: $('#proposal-group').offset().top }, 'fast');
         },
         // fim Eduardo
         display_proposal: function(proposal_id){
@@ -481,6 +482,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             }else{
               if(navOffset){
                 scrollTop = navOffset.top;
+              } else {
+                scrollTop = $('#proposal-group').offset().top;
               }
             }
           }
