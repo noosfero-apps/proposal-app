@@ -124,7 +124,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                   private_token: Main.private_token
                 }
               }).done(function( /*data*/ ) {
-                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 8000);
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
                 ProposalApp.addVotedProposal(article.id);
                 contextMain.loadRandomProposal(topic_id);
               });
@@ -566,7 +566,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           container.css('opacity', 0.1);
           var successPanel = $('.success-panel').clone();
           successPanel.find('.message').html(text);
-          successPanel.appendTo('body');
+          successPanel.appendTo(container.closest('.proposal-detail'));
           successPanel.show();
           successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
           successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
