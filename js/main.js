@@ -102,16 +102,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               //Helps to prevent more than one vote per proposal
               var button = $(this);
 
-              if(ProposalApp.hasProposalbeenVoted(article.id)){
-                console.log("Proposta " + article.id + " já havia sido votada");
-                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
-                contextMain.loadRandomProposal(topic_id);
+              if(!logged_in) {
+                $(this).closest('.require-login-container').find('.button-send a').click();
                 e.preventDefault();
                 return;
               }
 
-              if(!logged_in) {
-                $(this).closest('.require-login-container').find('.button-send a').click();
+              if(ProposalApp.hasProposalbeenVoted(article.id)){
+                console.log("Proposta " + article.id + " já havia sido votada");
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
+                contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
                 return;
               }
