@@ -906,6 +906,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
     $(document).on('click', '.logout', function (e){
       var self = $(this);
       $.removeCookie('_dialoga_session');
+      $.removeCookie('votedProposals');
       $.removeCookie('*');
       logged_in = false;
       $('.logout').hide();
