@@ -100,8 +100,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
               //Helps to prevent more than one vote per proposal
+              var button = $(this);
+
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 console.log("Proposta " + article.id + " já havia sido votada");
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
                 contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
                 return;
@@ -121,7 +124,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
                   private_token: Main.private_token
                 }
               }).done(function( /*data*/ ) {
-                Main.displaySuccess($(this).closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
+                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 8000);
                 ProposalApp.addVotedProposal(article.id);
                 contextMain.loadRandomProposal(topic_id);
               });
