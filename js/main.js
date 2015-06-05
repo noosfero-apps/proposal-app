@@ -206,7 +206,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           var requireLoginContainer = loginButton.closest('.require-login-container');
 
           if(logged_in) {
-            $('.logout').show();
+            Main.showLogout();
             if(token){
               Main.private_token = token;
             }
@@ -228,7 +228,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           } else {
             requireLoginContainer.find('.require-login').hide();
             requireLoginContainer.find('.login-container').show();
-            $('.logout').hide();
+            Main.showLogin();
           }
         },
         guid: function() {
@@ -561,10 +561,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               }
           }, 300);
         },
-        displaySuccess: function(container, text, timeout) {
+        displaySuccess: function(container, text, timeout, iconClass) {
           timeout = typeof timeout !== 'undefined' ? timeout : 2000;
           container.css('opacity', 0.1);
           var successPanel = $('.success-panel').clone();
+          successPanel.find('.icon').addClass(iconClass);
           successPanel.find('.message').html(text);
           successPanel.appendTo(container.closest('.categories'));
           successPanel.show();
@@ -576,6 +577,25 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             container.css('opacity', 1);
             successPanel.remove();
           }, timeout);
+        },
+        setUser: function(user){
+          this.user = user;
+        },
+        getUser: function(){
+          return this.user;
+        },
+        showLogin: function(){
+          $('.entrar').show();
+          $('.logout').hide();
+        },
+        showLogout: function(){
+          $('.entrar').hide();
+          var name = '';
+          if(this.user){
+            name = this.user.person.name + ' | ';
+          }
+          $('.logout').text(name + 'Sair');
+          $('.logout').show();
         },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
@@ -757,7 +777,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           $form.siblings('.success-sent').show();
           $form.siblings('.subtitle').hide();
           $form.siblings('.info').hide();
-          Main.displaySuccess($form.closest('.make-proposal .section-content'), 'Proposta enviada com sucesso', 2000);
+          Main.displaySuccess($form.closest('.make-proposal .section-content'), 'Proposta enviada com sucesso', 2000, 'icon-proposal-sent');
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
@@ -786,10 +806,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
     if($.cookie('_dialoga_session')) {
       var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
-      $.getJSON(url).done(function( /*data*/ ) {
+      $.getJSON(url).done(function( data ) {
         logged_in = true;
         Main.private_token = $.cookie('_dialoga_session');
-        setTimeout(function(){ $('.logout').show(); }, 2000);
+
+        if(data && data.user){
+          Main.setUser(data.user);
+          Main.showLogout();
+        }
       });
     }
 
@@ -807,7 +831,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         }
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000);
+        Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000, 'icon-login-success');
       }).fail(function(data) {
         message.show();
         if(data.status==401){
@@ -870,7 +894,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         data: $(this).parents('.signup').serialize(),
       }).done(function(data) {
         Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000);
+        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
       }).fail(function(data) {
         var msg = Main.responseToText(data.responseJSON.message);
         message.show();
@@ -913,8 +937,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       $.removeCookie('votedProposals');
       $.removeCookie('*');
       logged_in = false;
-      $('.logout').hide();
-      $('.entrar').show();
+      Main.showLogin();
       location.reload();
       e.preventDefault();
     });
