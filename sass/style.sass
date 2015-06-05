@@ -167,6 +167,15 @@ td
     border-left: 0
   &:last-child
     border-right: 0
+input
+  width: 100%
+textarea
+  border: 1px solid
+  padding-bottom: $gutter * 0.25
+  padding-left: $gutter * 0.5
+  padding-right: $gutter * 0.5
+  padding-top: $gutter * 0.25
+  width: 100%
 
 
 // ------------------------------------
@@ -694,6 +703,10 @@ h1
   .row
     input
       margin-bottom: 0
+.maxlength
+  margin: ($gutter * 0.5) 0 ($gutter * 2)
+  text-align: right
+
 
 //   6.12 - votacao
 .vote-actions
@@ -980,6 +993,8 @@ h3.titulo-destaque
     color: $color
     a
       color: $color
+    textarea
+      border-color: $color
     .button,.show_body a
       background-color: $color
       border-color: darken($color, $darken)
@@ -1022,6 +1037,7 @@ h3.titulo-destaque
           +hover($color,$darken)
       i
         color: $color
+
     .list
       &-unstyled li
         color: $color
