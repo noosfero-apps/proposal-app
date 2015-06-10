@@ -853,11 +853,29 @@ td
       display: table
       table-layout: fixed
       width: 100%
+      @media (max-width: 567px)
+        width: 90%
     .truncated
       overflow-x: hidden
       text-overflow: ellipsis
       white-space: nowrap
-
+    &.phone
+      .footable-toggle
+        float: right
+        padding: 5px 0 !important
+        width: 10%
+        text-align: center
+        background-color: #e0e0e0
+      .footable-row-detail-row
+        display: inline-block
+        &:not(:last-child)
+          margin-right: 10px
+          padding-right: 10px
+          border-right: 1px solid #ccc
+      .footable-row-detail-inner
+        margin: 0 auto
+      .footable-row-detail-cell
+        background-color: #e0e0e0
 //   6.15 - paginador
 .paging
   padding: $gutter * 0.25

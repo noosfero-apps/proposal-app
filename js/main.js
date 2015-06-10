@@ -164,6 +164,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             page: page,
           };
 
+          // hack: add title to result table
+          data.title = $resultsContainer.closest('.categories').find('.proposal-header .title').text();
+
           $resultsContainer.html(resultsTemplate(data));
           $resultsContainer.find('.loading').hide();
           $resultsContainer.find('.results-content').show();
