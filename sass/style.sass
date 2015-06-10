@@ -436,6 +436,7 @@ h1
     border-bottom: 1px solid #f1f1f1
     display: block
     font-size: $font-size-base
+    position: relative
   a
     background-color: #fff
     color: #484848
@@ -453,24 +454,27 @@ h1
       text-decoration: none
   .fa
     color: #898989
-    float: right
     font-size: 45px
+    position: absolute
+    top: 50%
+    margin-top: -22px
+    right: 8px
   &-name
     display: inline-block
     width: 50%
     vertical-align: middle
-  .arrow-box
-    position: relative
-    top: $gutter
-    &:after
-      bottom: 100%
-      left: 50%
-      border: solid transparent
-      content: ""
-      position: absolute
-      border-bottom-color: #000
-      border-width: 8px
-      margin-left: -8px
+  // .arrow-box
+  //   position: relative
+  //   top: $gutter
+  //   &:after
+  //     bottom: 100%
+  //     left: 50%
+  //     border: solid transparent
+  //     content: ""
+  //     position: absolute
+  //     border-bottom-color: #000
+  //     border-width: 8px
+  //     margin-left: -8px
 
 //   6.7 - listagem dos programas aleatorios
 .ver-todos
@@ -535,6 +539,8 @@ h1
       font-weight: 500
       margin-top: $gutter * 0.5
       height: $gutter * 2
+      @media (min-width: 768px)
+        height: $gutter * 3
   &-body
     padding: $gutter
     img
