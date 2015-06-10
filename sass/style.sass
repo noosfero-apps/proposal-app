@@ -490,6 +490,8 @@ h1
   &-list
     list-style: none
     padding-left: 0
+    .proposal-item
+      margin-bottom: $gutter
   &-group
     ul
       list-style: none
@@ -504,6 +506,7 @@ h1
   color: #000
   display: block
   margin-top: $gutter * 1.5
+  height: 100%
   overflow: hidden
   transition: all 400ms
   +hover(#fff,$darken)
@@ -538,17 +541,28 @@ h1
       font-size: $font-size-small
       font-weight: 500
       margin-top: $gutter * 0.5
-      height: $gutter * 2
-      @media (min-width: 768px)
-        height: $gutter * 3
+      // height: $gutter * 2
+      // @media (min-width: 768px)
+      //   height: $gutter * 3
   &-body
     padding: $gutter
-    img
-      margin-left: $gutter * (-1)
-      margin-right: $gutter * (-1)
-      margin-top: $gutter * (-1)
-      margin-bottom: $gutter
-      height: 170px
+    // img
+    //   margin-left: $gutter * (-1)
+    //   margin-right: $gutter * (-1)
+    //   margin-top: $gutter * (-1)
+    //   margin-bottom: $gutter
+    //   height: 170px
+  &__image
+    background-size: cover
+    height: 170px
+    margin: -20px -20px 10px
+    background-position: center center
+  // &__footer
+  //   position: absolute
+  //   left: 0
+  //   width: 100%
+  //   bottom: $gutter
+  //   padding: 0 10%
   &-category
     font-size: $font-size-small
     font-weight: 700
@@ -1248,6 +1262,11 @@ h3.titulo-destaque
         width: 100%
       p
         padding-bottom: $gutter
+  .proposal-list
+    .proposal-item,
+    .box__title,
+    .box__abstract p
+      height: auto !important
   .select
     .proposal
       &-selection

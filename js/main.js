@@ -150,453 +150,457 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $loading.hide();
             $('.support-proposal .alert').show();
           });
-        },
+      },
+      loadRanking: function($resultsContainer, topic_id, page) {
+        $resultsContainer.find('.loading').show();
+        $resultsContainer.find('.results-content').hide();
 
-        loadRanking: function($resultsContainer, topic_id, page) {
-          $resultsContainer.find('.loading').show();
-          $resultsContainer.find('.results-content').hide();
+        var per_page = 10;
+        var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + Main.private_token + '&per_page='+per_page+'&page='+page;
+        $.getJSON(url).done(function( data, stats, xhr ) {
+          data.pagination = {
+            total: parseInt(xhr.getResponseHeader('Total')),
+            per_page: parseInt(xhr.getResponseHeader('Per-Page')),
+            page: page,
+          };
 
-          var per_page = 10;
-          var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + Main.private_token + '&per_page='+per_page+'&page='+page;
-          $.getJSON(url).done(function( data, stats, xhr ) {
-            data.pagination = {
-              total: parseInt(xhr.getResponseHeader('Total')),
-              per_page: parseInt(xhr.getResponseHeader('Per-Page')),
-              page: page,
-            };
+          $resultsContainer.html(resultsTemplate(data));
+          $resultsContainer.find('.loading').hide();
+          $resultsContainer.find('.results-content').show();
+          $(".timeago").timeago();
+          $resultsContainer.show();
 
-            $resultsContainer.html(resultsTemplate(data));
-            $resultsContainer.find('.loading').hide();
-            $resultsContainer.find('.results-content').show();
-            $(".timeago").timeago();
-            $resultsContainer.show();
+          $('.footable').footable();
 
-            $('.footable').footable();
-
-            if(data.pagination.total > data.pagination.per_page) {
-              $resultsContainer.find('.paging').pagination({
-                items: data.pagination.total,
-                itemsOnPage: data.pagination.per_page,
-                currentPage: data.pagination.page,
-                prevText: '«',
-                nextText: '»',
-                cssStyle: 'compact-theme',
-                onPageClick: function(page, e) {
-                  Main.loadRanking($resultsContainer, topic_id, page);
-                  e.preventDefault();
-                }
-              });
-            }
-            $resultsContainer.find('.abstract-text .truncated').click(function() {
-              $(this).toggleClass('truncated');
+          if(data.pagination.total > data.pagination.per_page) {
+            $resultsContainer.find('.paging').pagination({
+              items: data.pagination.total,
+              itemsOnPage: data.pagination.per_page,
+              currentPage: data.pagination.page,
+              prevText: '«',
+              nextText: '»',
+              cssStyle: 'compact-theme',
+              onPageClick: function(page, e) {
+                Main.loadRanking($resultsContainer, topic_id, page);
+                e.preventDefault();
+              }
             });
-
-            // scroll to the end
-            $('html, body').animate({
-              scrollTop: $(document).height()
-            }, 'fast');
-          });
-          $('.experience-proposal-container').hide();
-          $('.talk-proposal-container').hide();
-        },
-
-        loginCallback: function(loggedIn, token, user) {
-          logged_in = loggedIn;
-          $('.login .message').text('');
-          var requireLoginContainer = loginButton.closest('.require-login-container');
-
-          if(logged_in) {
-            Main.showLogout();
-            if(token){
-              Main.private_token = token;
-            }
-            requireLoginContainer = $('.require-login-container');
-            requireLoginContainer.find('.require-login').show();
-            requireLoginContainer.find('.require-login .message').show();
-            requireLoginContainer.find('.login-container').hide();
-            $.cookie('_dialoga_session', Main.private_token);
-          } else if (user) {
-            var loginContainer = requireLoginContainer.find('.login-container');
-            loginContainer.show();
-            loginContainer.find('.new-user').click();
-            var signupForm = loginContainer.find('#signup-form');
-            signupForm.find("#user_email").val(user.email);
-            signupForm.find("#user_name").val(user.login);
-            signupForm.find("#user_oauth_providers").val(user.oauth_providers);
-            //signupForm.find(".password").hide();
-            //signupForm.find(".password-confirmation").hide();
-          } else {
-            requireLoginContainer.find('.require-login').hide();
-            requireLoginContainer.find('.login-container').show();
-            Main.showLogin();
           }
-        },
-        guid: function() {
-          function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-              .toString(16)
-              .substring(1);
+          $resultsContainer.find('.abstract-text .truncated').click(function() {
+            $(this).toggleClass('truncated');
+          });
+
+          // scroll to the end
+          $('html, body').animate({
+            scrollTop: $(document).height()
+          }, 'fast');
+        });
+        $('.experience-proposal-container').hide();
+        $('.talk-proposal-container').hide();
+      },
+      loginCallback: function(loggedIn, token, user) {
+        logged_in = loggedIn;
+        $('.login .message').text('');
+        var requireLoginContainer = loginButton.closest('.require-login-container');
+
+        if(logged_in) {
+          Main.showLogout();
+          if(token){
+            Main.private_token = token;
           }
-          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-        },
-        display_article: function(article_id, backTo) {
-          var url = host + '/api/v1/articles/' + article_id + '?private_token=' + Main.private_token;
-          $.getJSON(url).done(function( data ) {
-            $('#article-container .article-content').html(articleTemplate(data.article));
-            $('#article-container').show();
-            $('#proposal-categories').hide();
-            $('#proposal-group').hide();
-            $('nav').hide();
-            $('#content').hide();
-            $('#article-container .go-back').attr('href', backTo);
-          });
-        },
-        // inicio Eduardo
-        randomProposalByTheme: function(themeClasses) {
-          $('#proposal-group .proposal-list .proposal-item').hide();
-          $.each(themeClasses, function(i, themeClass) {
-            var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
-            var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
-            var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
-            $(proposalToShow).show();           
-          });
-        },
-        display_category_tab: function(){
-          // $('#proposal-group').hide();
-          this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
-          $('#proposal-group').show(); /* Show random proposals*/
-          $('.content').addClass('background'); /* Add class background */
+          requireLoginContainer = $('.require-login-container');
+          requireLoginContainer.find('.require-login').show();
+          requireLoginContainer.find('.require-login .message').show();
+          requireLoginContainer.find('.login-container').hide();
+          $.cookie('_dialoga_session', Main.private_token);
+        } else if (user) {
+          var loginContainer = requireLoginContainer.find('.login-container');
+          loginContainer.show();
+          loginContainer.find('.new-user').click();
+          var signupForm = loginContainer.find('#signup-form');
+          signupForm.find("#user_email").val(user.email);
+          signupForm.find("#user_name").val(user.login);
+          signupForm.find("#user_oauth_providers").val(user.oauth_providers);
+          //signupForm.find(".password").hide();
+          //signupForm.find(".password-confirmation").hide();
+        } else {
+          requireLoginContainer.find('.require-login').hide();
+          requireLoginContainer.find('.login-container').show();
+          Main.showLogin();
+        }
+      },
+      guid: function() {
+        function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+      },
+      display_article: function(article_id, backTo) {
+        var url = host + '/api/v1/articles/' + article_id + '?private_token=' + Main.private_token;
+        $.getJSON(url).done(function( data ) {
+          $('#article-container .article-content').html(articleTemplate(data.article));
+          $('#article-container').show();
+          $('#proposal-categories').hide();
+          $('#proposal-group').hide();
+          $('nav').hide();
+          $('#content').hide();
+          $('#article-container .go-back').attr('href', backTo);
+        });
+      },
+      // inicio Eduardo
+      randomProposalByTheme: function(themeClasses) {
+        $('#proposal-group .proposal-list .proposal-item').hide();
+        $.each(themeClasses, function(i, themeClass) {
+          var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
+          var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
+          var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
+          $(proposalToShow).show();           
+        });
+      },
+      display_category_tab: function(){
+        // $('#proposal-group').hide();
+        this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
+        $('#proposal-group').show(); /* Show random proposals*/
+        $('.content').addClass('background'); /* Add class background */
+        $('#proposal-categories').show();
+        $('#nav-proposal-categories a').addClass('active');
+        $('#nav-proposal-group a').removeClass('active');
+        $('.proposal-category-items').hide();
+        $('.proposal-category .arrow-box').hide();
+        $('.proposal-detail').hide();
+        $('#article-container').hide();
+
+        $('#content').show();
+        $('nav').show();
+
+        this.computeBoxHeight();
+      },
+      display_proposals_tab: function(){
+        // $('#proposal-categories').hide();
+        // this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
+        $('.proposal-item').show(); /* Show all programs */
+        $('#proposal-group').show();
+        $('#proposal-categories').show();
+        $('.proposal-category-items').hide();
+        $('#nav-proposal-group a').addClass('active');
+        $('#nav-proposal-categories a').removeClass('active');
+        $('#content').show();
+        $('#article-container').hide();
+        $('nav').show();
+        $('html, body').animate({ scrollTop: $('#proposal-group').offset().top }, 'fast');
+
+        this.computeBoxHeight();
+      },
+      // fim Eduardo
+      display_proposal: function(proposal_id){
+        $('#proposal-categories').hide();
+        $('#proposal-group').hide();
+        $('.proposal-category-items').hide(); /* Hide Category Items */
+        $('.content').removeClass('background'); /* Remove class background*/
+        $('nav').hide();
+        $('#content').hide();
+        $('#article-container').hide();
+        // $('.make-proposal-form').hide();
+        // $('.login-container').hide();
+        $('.proposal-detail').hide(); // hide all proposals
+        // $('.proposal-detail-base').hide();
+        $proposal = $('#' + proposal_id);
+        $proposal.find('.proposal-detail-base').hide();
+        $proposal.show();
+        $proposal.find('.proposal-header').show();
+        $proposal.find('.make-proposal-container').show();
+        $proposal.find('.support-proposal-container').show();
+        $proposal.find('.results-container').hide();
+        $proposal.find('.results-container .loading').hide();
+        $proposal.find('.results-container .results-content').hide();
+        $proposal.find('.experience-proposal-container').show();
+        $proposal.find('.talk-proposal-container').show();
+        $proposal.find('.calendar').hide();
+        var active_category = '';
+        switch($proposal.find('.categories').attr('class')) {
+          case 'categories saude':
+            active_category = 'saude';
+            break;
+          case 'categories educacao':
+            active_category = 'educacao';
+            break;
+          case 'categories seguranca-publica':
+            active_category = 'seguranca-publica';
+            break;
+          case 'categories reducao-da-pobreza':
+            active_category = 'reducao-da-pobreza';
+            break;
+        }     
+
+        $proposal.find('.calendar.' + active_category).show();
+        $proposal.find('.calendar').slick();
+
+        var topic_id = proposal_id.split('-').pop();
+        this.loadRandomProposal(topic_id);
+      },
+      display_proposal_detail: function(proposal_id){
+        $('.content').removeClass('background'); /* Remove class background */
+        $('#proposal-categories').hide();
+        $('#proposal-group').hide();
+        $('nav').hide();
+        $('#content').hide();
+        $('#article-container').hide();
+        $proposal = $('#proposal-item-' + proposal_id);
+        $proposal.find('.proposal-header').hide();
+        $proposal.find('.make-proposal-container').hide();
+        $proposal.find('.support-proposal-container').hide();
+        $proposal.find('.results-container').hide();
+        $proposal.find('.experience-proposal-container').hide();
+        $proposal.find('.talk-proposal-container').hide();
+        $proposal.find('.body').show();
+        $proposal.show();
+
+        var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + Main.private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+        $.getJSON(url).done(function( data ) {
+          $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+          var err = textStatus + ', ' + error;
+          console.log( 'Request Failed: ' + err );
+        });
+      },
+      display_proposal_by_category: function(item){
+        var $item = $('#' + item);
+
+        if($item.hasClass('proposal-category-items')){
+          //Display Topics or Discussion by category
+          $('nav').show();
+          $('#content').show();
           $('#proposal-categories').show();
           $('#nav-proposal-categories a').addClass('active');
           $('#nav-proposal-group a').removeClass('active');
+          $('#proposal-group').hide(); /* Hide section "Programas" */
+          $('.content').addClass('background'); /* Add class background */
           $('.proposal-category-items').hide();
-          $('.proposal-category .arrow-box').hide();
           $('.proposal-detail').hide();
-          $('#article-container').hide();
+          $item.toggle( 'blind', 200, function () {
+            var itemOffset = $item.offset();
+            if(itemOffset){
+              $('html, body').animate({ scrollTop: itemOffset.top }, 'fast');
+            }
+          } );
+          $('.proposal-category .arrow-box').hide();
+          var categorySlug = $item.data('category');
+          $('#proposal-category-' + categorySlug).find('.arrow-box').show();
 
-          $('#content').show();
-          $('nav').show();
-        },
-        display_proposals_tab: function(){
-          // $('#proposal-categories').hide();
-          // this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
-          $('.proposal-item').show(); /* Show all programs */
-          $('#proposal-group').show();
-          $('#proposal-categories').show();
-          $('.proposal-category-items').hide();
-          $('#nav-proposal-group a').addClass('active');
-          $('#nav-proposal-categories a').removeClass('active');
-          $('#content').show();
-          $('#article-container').hide();
-          $('nav').show();
-          $('html, body').animate({ scrollTop: $('#proposal-group').offset().top }, 'fast');
-        },
-        // fim Eduardo
-        display_proposal: function(proposal_id){
-          $('#proposal-categories').hide();
-          $('#proposal-group').hide();
-          $('.proposal-category-items').hide(); /* Hide Category Items */
-          $('.content').removeClass('background'); /* Remove class background*/
-          $('nav').hide();
-          $('#content').hide();
-          $('#article-container').hide();
-          // $('.make-proposal-form').hide();
-          // $('.login-container').hide();
-          $('.proposal-detail').hide(); // hide all proposals
-          // $('.proposal-detail-base').hide();
-          $proposal = $('#' + proposal_id);
-          $proposal.find('.proposal-detail-base').hide();
-          $proposal.show();
-          $proposal.find('.proposal-header').show();
-          $proposal.find('.make-proposal-container').show();
-          $proposal.find('.support-proposal-container').show();
-          $proposal.find('.results-container').hide();
-          $proposal.find('.results-container .loading').hide();
-          $proposal.find('.results-container .results-content').hide();
-          $proposal.find('.experience-proposal-container').show();
-          $proposal.find('.talk-proposal-container').show();
-          $proposal.find('.calendar').hide();
-          var active_category = '';
-          switch($proposal.find('.categories').attr('class')) {
-            case 'categories saude':
-              active_category = 'saude';
-              break;
-            case 'categories educacao':
-              active_category = 'educacao';
-              break;
-            case 'categories seguranca-publica':
-              active_category = 'seguranca-publica';
-              break;
-            case 'categories reducao-da-pobreza':
-              active_category = 'reducao-da-pobreza';
-              break;
-          }     
+          this.computeBoxHeight();
 
-          $proposal.find('.calendar.' + active_category).show();
-          $proposal.find('.calendar').slick();
+        }
+      },
+      addBarraDoGoverno: function(){
 
-          var topic_id = proposal_id.split('-').pop();
-          this.loadRandomProposal(topic_id);
-        },
-        display_proposal_detail: function(proposal_id){
-          $('.content').removeClass('background'); /* Remove class background */
-          $('#proposal-categories').hide();
-          $('#proposal-group').hide();
-          $('nav').hide();
-          $('#content').hide();
-          $('#article-container').hide();
-          $proposal = $('#proposal-item-' + proposal_id);
-          $proposal.find('.proposal-header').hide();
-          $proposal.find('.make-proposal-container').hide();
-          $proposal.find('.support-proposal-container').hide();
-          $proposal.find('.results-container').hide();
-          $proposal.find('.experience-proposal-container').hide();
-          $proposal.find('.talk-proposal-container').hide();
-          $proposal.find('.body').show();
-          $proposal.show();
+        if( BARRA_ADDED ) { return; }
 
-          var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + Main.private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
-          $.getJSON(url).done(function( data ) {
-            $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
-          })
-          .fail(function( jqxhr, textStatus, error ) {
-            var err = textStatus + ', ' + error;
-            console.log( 'Request Failed: ' + err );
-          });
-        },
-        display_proposal_by_category: function(item){
-          var $item = $('#' + item);
+        var HTML_BODY_PREPEND = '' +
+          '<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> ' +
+            '<ul id="menu-barra-temp" style="list-style:none;">' +
+              '<li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li> ' +
+              '<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>' +
+            '</ul>' +
+          '</div>';
 
-          if($item.hasClass('proposal-category-items')){
-            //Display Topics or Discussion by category
-            $('nav').show();
-            $('#content').show();
-            $('#proposal-categories').show();
-            $('#nav-proposal-categories a').addClass('active');
-            $('#nav-proposal-group a').removeClass('active');
-            $('#proposal-group').hide(); /* Hide section "Programas" */
-            $('.content').addClass('background'); /* Add class background */
-            $('.proposal-category-items').hide();
-            $('.proposal-detail').hide();
-            $item.toggle( 'blind', 200, function () {
-              var itemOffset = $item.offset();
-              if(itemOffset){
-                $('html, body').animate({ scrollTop: itemOffset.top }, 'fast');
-              }
-            } );
-            $('.proposal-category .arrow-box').hide();
-            var categorySlug = $item.data('category');
-            $('#proposal-category-' + categorySlug).find('.arrow-box').show();
+        var HTML_BODY_APPEND = ''+
+          '<footer id="footer-brasil"></footer>' +
+          '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
 
-          }
-        },
-        addBarraDoGoverno: function(){
+        var STYLE_TEMA_AZUL = '' +
+          '<style>'+
+            '#footer-brasil {'+
+             'background: none repeat scroll 0% 0% #0042b1;'+
+             'padding: 1em 0px;'+
+             'max-width: 100%;'+
+             'margin-top: 40px;'+
+            '}'+
+            '#barra-brasil ul {'+
+              'width: auto;'+
+            '}'+
+          '<style>';
 
-          if( BARRA_ADDED ) { return; }
+        var $body = $(document.body);
+        $body.prepend(HTML_BODY_PREPEND);
+        $body.append(HTML_BODY_APPEND);
+        $body.append(STYLE_TEMA_AZUL);
 
-          var HTML_BODY_PREPEND = '' +
-            '<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> ' +
-              '<ul id="menu-barra-temp" style="list-style:none;">' +
-                '<li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li> ' +
-                '<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>' +
-              '</ul>' +
-            '</div>';
+        BARRA_ADDED = true;
+      },
+      updateHash: function(hash){
+        var id = hash.replace(/^.*#/, '');
+        var elem = document.getElementById(id);
 
-          var HTML_BODY_APPEND = ''+
-            '<footer id="footer-brasil"></footer>' +
-            '<script defer="defer" src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>';
+        // preserve the query param
+        // if (HIDE_BARRA_DO_GOVERNO && (hash.indexOf('?barra=false') === -1)){
+        //   hash += '?barra=false';
+        // }
 
-          var STYLE_TEMA_AZUL = '' +
-            '<style>'+
-              '#footer-brasil {'+
-               'background: none repeat scroll 0% 0% #0042b1;'+
-               'padding: 1em 0px;'+
-               'max-width: 100%;'+
-               'margin-top: 40px;'+
-              '}'+
-              '#barra-brasil ul {'+
-                'width: auto;'+
-              '}'+
-            '<style>';
-
-          var $body = $(document.body);
-          $body.prepend(HTML_BODY_PREPEND);
-          $body.append(HTML_BODY_APPEND);
-          $body.append(STYLE_TEMA_AZUL);
-
-          BARRA_ADDED = true;
-        },
-        updateHash: function(hash){
-          var id = hash.replace(/^.*#/, '');
-          var elem = document.getElementById(id);
-
-          // preserve the query param
-          // if (HIDE_BARRA_DO_GOVERNO && (hash.indexOf('?barra=false') === -1)){
-          //   hash += '?barra=false';
-          // }
-
-          if ( !elem ) {
-            window.location.hash = hash;
-            return;
-          }
-
-          elem.id = id+'-tmp';
+        if ( !elem ) {
           window.location.hash = hash;
-          elem.id = id;
-        },
-        locationHashChanged: function(){
-          var hash = window.location.hash;
-          this.navigateTo(hash, lastHash);
-          lastHash = hash;
-        },
-        navigateTo: function(hash, lastHash) {
-          var scrollTop = 0;
-          var $nav = $('nav[role="tabpanel"]');
-          var navOffset = $nav.offset();
+          return;
+        }
 
-          var regexProposals = /#\/programas/;
-          var regexCategory = /#\/temas/;
-          var regexHideBarra = /barra=false$/;
-          var regexArticle = /#\/artigo/;
+        elem.id = id+'-tmp';
+        window.location.hash = hash;
+        elem.id = id;
+      },
+      locationHashChanged: function(){
+        var hash = window.location.hash;
+        this.navigateTo(hash, lastHash);
+        lastHash = hash;
+      },
+      navigateTo: function(hash, lastHash) {
+        var scrollTop = 0;
+        var $nav = $('nav[role="tabpanel"]');
+        var navOffset = $nav.offset();
 
-          if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
-            this.addBarraDoGoverno();
+        var regexProposals = /#\/programas/;
+        var regexCategory = /#\/temas/;
+        var regexHideBarra = /barra=false$/;
+        var regexArticle = /#\/artigo/;
+
+        if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
+          this.addBarraDoGoverno();
+        }else{
+          HIDE_BARRA_DO_GOVERNO = true;
+        }
+
+        // remove query params
+        hash = hash.split('?')[0];
+
+        var parts = hash.split('/');
+
+        var isProposal = regexProposals.exec(hash) !== null;
+        var isCategory = regexCategory.exec(hash) !== null;
+        var isArticle  = regexArticle.exec(hash) !== null;
+
+        if(isArticle) {
+          this.display_article(hash.split('/')[2], lastHash);
+        }
+
+        if( isProposal ){
+
+          // go to proposal
+          var proposalId = parts[2];
+          this.navigateToProposal(proposalId);
+
+          var $proposal = $('#proposal-item-' + proposalId);
+          var proposalOffset = $proposal.offset();
+          if(proposalOffset){
+            scrollTop = proposalOffset.top;
           }else{
-            HIDE_BARRA_DO_GOVERNO = true;
-          }
-
-          // remove query params
-          hash = hash.split('?')[0];
-
-          var parts = hash.split('/');
-
-          var isProposal = regexProposals.exec(hash) !== null;
-          var isCategory = regexCategory.exec(hash) !== null;
-          var isArticle  = regexArticle.exec(hash) !== null;
-
-          if(isArticle) {
-            this.display_article(hash.split('/')[2], lastHash);
-          }
-
-          if( isProposal ){
-
-            // go to proposal
-            var proposalId = parts[2];
-            this.navigateToProposal(proposalId);
-
-            var $proposal = $('#proposal-item-' + proposalId);
-            var proposalOffset = $proposal.offset();
-            if(proposalOffset){
-              scrollTop = proposalOffset.top;
-            }else{
-              if(navOffset){
-                scrollTop = navOffset.top;
-              } else {
-                scrollTop = $('#proposal-group').offset().top;
-              }
+            if(navOffset){
+              scrollTop = navOffset.top;
+            } else {
+              scrollTop = $('#proposal-group').offset().top;
             }
           }
+        }
 
-          if( isCategory ){
+        if( isCategory ){
 
-            // go to category
-            var categoryId = parts[3];
-            this.navigateToCategory(categoryId);
+          // go to category
+          var categoryId = parts[3];
+          this.navigateToCategory(categoryId);
 
-            var $category = $('#proposal-item-' + categoryId);
-            var categoryOffset = $category.offset();
-            if(categoryOffset){
-              scrollTop = categoryOffset.top;
-            }else{
-              if(navOffset){
-                scrollTop = navOffset.top;
-              }
+          var $category = $('#proposal-item-' + categoryId);
+          var categoryOffset = $category.offset();
+          if(categoryOffset){
+            scrollTop = categoryOffset.top;
+          }else{
+            if(navOffset){
+              scrollTop = navOffset.top;
             }
           }
+        }
 
-          // default
-          if( !isProposal && !isCategory ){
-            // show the 'index' -> category tab
-            this.display_category_tab();
+        // default
+        if( !isProposal && !isCategory ){
+          // show the 'index' -> category tab
+          this.display_category_tab();
 
 
-            // if(navOffset){
-            //   scrollTop = navOffset.top;
-            // }
-          }
+          // if(navOffset){
+          //   scrollTop = navOffset.top;
+          // }
+        }
 
-          $('html, body').animate({ scrollTop: scrollTop }, 'fast');
-        },
-        navigateToProposal: function(proposalId){
-          var regexSubpages = /sobre-o-programa$/;
-          if(proposalId === undefined){
-            this.display_proposals_tab();
-          }else if(regexSubpages.exec(window.location.hash) == null){
-            this.display_proposal('proposal-item-' + proposalId);
-          }else{
-            this.display_proposal_detail(proposalId);
-          }
-        },
-        navigateToCategory: function(categoryId){
-          if(categoryId === undefined){
-            this.display_category_tab();
-          }else{
-            this.display_proposal_by_category('proposal-item-' + categoryId);
-          }
-        },
-        oauthClientAction: function(url) {
-          var child = window.open(url, "_blank");
-          var interval = setInterval(function() {
-              try {
-                if(!child.closed) {
-                    child.postMessage({ message: "requestOauthClientPluginResult" }, "*");
+        $('html, body').animate({ scrollTop: scrollTop }, 'fast');
+      },
+      navigateToProposal: function(proposalId){
+        var regexSubpages = /sobre-o-programa$/;
+        if(proposalId === undefined){
+          this.display_proposals_tab();
+        }else if(regexSubpages.exec(window.location.hash) == null){
+          this.display_proposal('proposal-item-' + proposalId);
+        }else{
+          this.display_proposal_detail(proposalId);
+        }
+      },
+      navigateToCategory: function(categoryId){
+        if(categoryId === undefined){
+          this.display_category_tab();
+        }else{
+          this.display_proposal_by_category('proposal-item-' + categoryId);
+        }
+      },
+      oauthClientAction: function(url) {
+        var child = window.open(url, "_blank");
+        var interval = setInterval(function() {
+            try {
+              if(!child.closed) {
+                  child.postMessage({ message: "requestOauthClientPluginResult" }, "*");
+              }
+            }
+            catch(e) {
+                // we're here when the child window has been navigated away or closed
+                if (child.closed) {
+                    clearInterval(interval);
+                    return;
                 }
-              }
-              catch(e) {
-                  // we're here when the child window has been navigated away or closed
-                  if (child.closed) {
-                      clearInterval(interval);
-                      return;
-                  }
-              }
-          }, 300);
-        },
-        displaySuccess: function(container, text, timeout, iconClass) {
-          timeout = typeof timeout !== 'undefined' ? timeout : 2000;
-          container.css('opacity', 0.1);
-          var successPanel = $('.success-panel').clone();
-          successPanel.find('.icon').addClass(iconClass);
-          successPanel.find('.message').html(text);
-          successPanel.appendTo(container.closest('.categories'));
-          successPanel.show();
-          successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
-          successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
+            }
+        }, 300);
+      },
+      displaySuccess: function(container, text, timeout, iconClass) {
+        timeout = typeof timeout !== 'undefined' ? timeout : 2000;
+        container.css('opacity', 0.1);
+        var successPanel = $('.success-panel').clone();
+        successPanel.find('.icon').addClass(iconClass);
+        successPanel.find('.message').html(text);
+        successPanel.appendTo(container.closest('.categories'));
+        successPanel.show();
+        successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
+        successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
 
-          var interval = setTimeout(function() {
-            successPanel.hide();
-            container.css('opacity', 1);
-            successPanel.remove();
-          }, timeout);
-        },
-        setUser: function(user){
-          this.user = user;
-        },
-        getUser: function(){
-          return this.user;
-        },
-        showLogin: function(){
-          $('.entrar').show();
-          $('.logout').hide();
-        },
-        showLogout: function(){
-          $('.entrar').hide();
-          var name = '';
-          if(this.user){
-            name = this.user.person.name + ' | ';
-          }
-          $('.logout').text(name + 'Sair');
-          $('.logout').show();
-        },
+        var interval = setTimeout(function() {
+          successPanel.hide();
+          container.css('opacity', 1);
+          successPanel.remove();
+        }, timeout);
+      },
+      setUser: function(user){
+        this.user = user;
+      },
+      getUser: function(){
+        return this.user;
+      },
+      showLogin: function(){
+        $('.entrar').show();
+        $('.logout').hide();
+      },
+      showLogout: function(){
+        $('.entrar').hide();
+        var name = '';
+        if(this.user){
+          name = this.user.person.name + ' | ';
+        }
+        $('.logout').text(name + 'Sair');
+        $('.logout').show();
+      },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
         var msg = "";
@@ -616,6 +620,60 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         msg = msg.replace('email', "campo 'e-mail'");
         msg = msg.substring(0, msg.length - 5) + ".";
         return msg;
+      },
+      computeBoxHeight: function(){
+        var hPerLineOnTitle = 25;
+        var hPerLineOnParagraph = 20;
+        var maxLinesByParagraph = 0;
+        var maxLinesByTitle = 0;
+        var $visibleProposals = $('.proposal-list .proposal-item:visible');
+        
+        // get the bigger paragraph
+        $visibleProposals.each(function(index, proposalItemEl){
+          var $proposalItemEl = $(proposalItemEl);
+          var $paragraph = $proposalItemEl.find('p');
+          var lines = Main.computeLines($paragraph);
+          if(lines > maxLinesByParagraph ){
+            maxLinesByParagraph = lines
+          }
+        });
+        console.log('maxLinesByParagraph', maxLinesByParagraph);
+        
+        // get the bigger title
+        $visibleProposals.each(function(index, proposalItemEl){
+          var $proposalItemEl = $(proposalItemEl);
+          var $title = $proposalItemEl.find('.box__title');
+          var lines = Main.computeLines($title);
+          if(lines > maxLinesByTitle ){
+            maxLinesByTitle = lines
+          }
+        });
+        console.log('maxLinesByTitle', maxLinesByTitle);
+
+        $visibleProposals.each(function(index, proposalItemEl){
+          var $proposalItemEl = $(proposalItemEl);
+          var $title = $proposalItemEl.find('.box__title');
+          var $paragraph = $proposalItemEl.find('p');
+          
+          var newTitleHeight = maxLinesByTitle * hPerLineOnTitle;
+          var newParagraphHeight = maxLinesByParagraph * hPerLineOnParagraph;
+          
+          $title.css('height', newTitleHeight + 'px');
+          $paragraph.css('height', newParagraphHeight + 'px');
+        });
+
+        // recalc box heights
+        var setAsPx = true;
+        $visibleProposals.equalHeights(setAsPx);
+      },
+      computeLines: function ($el) {
+        // reset height
+        $el.height('auto');
+        
+        var divHeight = $el.height();
+        var lineHeight = parseInt($el.css('lineHeight'));
+        var lines = Math.ceil(divHeight / lineHeight);
+        return lines;
       }
     }
   })();
@@ -960,6 +1018,45 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   }
 
 
+  // Handle resize event
+  (function($,sr){
+
+    // debouncing function from John Hann
+    // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+    var debounce = function (func, threshold, execAsap) {
+      var timeout;
+
+      return function debounced () {
+        var obj = this, args = arguments;
+        
+        function delayed () {
+          if (!execAsap){
+            func.apply(obj, args);
+          }
+          timeout = null;
+        }
+
+        if (timeout){
+          clearTimeout(timeout);
+        }else if (execAsap){
+          func.apply(obj, args);
+        }
+
+        timeout = setTimeout(delayed, threshold || 100);
+      };
+    }
+
+    // smartresize 
+    jQuery.fn[sr] = function(fn){
+      return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
+    };
+
+  })(jQuery, 'smartresize');
+
+  $(window).smartresize(function(){
+    console.log('window resized');
+    Main.computeBoxHeight();
+  });
 
   return Main;
 });
