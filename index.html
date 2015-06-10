@@ -90,7 +90,6 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
-
     <div class="">
       <div id="proposal-result"></div>
     </div>
@@ -98,11 +97,20 @@
 
     <script id="proposal-template" type="text/x-handlebars-template">
       <header class="container">
-        <a id="display-contrast" href="#">Alto Contraste</a>
-        <div class="participar">
-          <!--<a href="#" class="button button-inline participe">Participe</a>-->
-          <a href="#" class="entrar">Entrar</a>
-          <a href="#" class="logout hide">Sair</a>
+        <div class="row" style="margin: 10px 0 0 0">
+          <div class="col-xs-5">
+            <a id="display-contrast" href="#">Alto Contraste</a>
+          </div>
+          <div class="col-xs-7">
+            <div class="participar">
+              <!--<a href="#" class="button button-inline participe">Participe</a>-->
+              <a id="login-button" href="#" class="login"><i class="icon icon-login"></i>Entrar</a>
+              <a id="logout-button" href="#" class="logout hide"><i class="icon icon-login"></i><span class="name"></span>Sair</a>
+            </div>
+          </div>
+          <div class="col-xs-12">
+            <div id="login-panel" class="hide"></div>
+          </div>
         </div>
         <h1>
           <a href="#" class='logo'>{{article.title}}</a>
@@ -367,7 +375,7 @@
       </div>
     </script>
 
-    <script id="results" type="text/x-handlebars-template">
+    <script id="results-template" type="text/x-handlebars-template">
       <div class="box box-propostas">
         <div class="loading">Carregando...</div>
         <div class="results-content hide">
@@ -407,7 +415,7 @@
       </div>
     </script>
 
-    <script id="login" type="text/x-handlebars-template">
+    <script id="login-template" type="text/x-handlebars-template">
       <div class="loading">Carregando...</div>
       <form id="login-form" class="login">
         <div class="message hide"></div>
@@ -485,7 +493,7 @@
       </ul>
     </script>
 
-    <script id="article" type="text/x-handlebars-template">
+    <script id="article-template" type="text/x-handlebars-template">
       <div class="title">
         {{{title}}}
       </div>
@@ -506,11 +514,11 @@
       <a href="#/artigo/107880">Termos de uso</a>
     </div>
 
-    <script type='text/javascript'	>
+    <script type="text/javascript">
       loadRequireJS();
     </script>
 
-    <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR' async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
 
   </body>
 

@@ -7,9 +7,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   // compile the template
   var template = Handlebars.compile(templateSource);
   var supportProposalTemplate = Handlebars.compile(document.getElementById('support-proposal-template').innerHTML);
-  var loginTemplate = Handlebars.compile(document.getElementById('login').innerHTML);
-  var resultsTemplate = Handlebars.compile(document.getElementById('results').innerHTML);
-  var articleTemplate = Handlebars.compile(document.getElementById('article').innerHTML);
+  var loginTemplate = Handlebars.compile(document.getElementById('login-template').innerHTML);
+  var resultsTemplate = Handlebars.compile(document.getElementById('results-template').innerHTML);
+  var articleTemplate = Handlebars.compile(document.getElementById('article-template').innerHTML);
 
   // The div/container that we are going to display the results in
   var resultsPlaceholder = document.getElementById('proposal-result');
@@ -592,17 +592,17 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         return this.user;
       },
       showLogin: function(){
-        $('.entrar').show();
-        $('.logout').hide();
+        $('#login-button').show();
+        $('#logout-button').hide();
       },
       showLogout: function(){
-        $('.entrar').hide();
+        $('#login-button').hide();
         var name = '';
         if(this.user){
-          name = this.user.person.name + ' | ';
+          name = this.user.person.name + ' - ';
         }
-        $('.logout').text(name + 'Sair');
-        $('.logout').show();
+        $('#logout-button .name').text(name);
+        $('#logout-button').show();
       },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
@@ -640,7 +640,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             maxLinesByParagraph = lines
           }
         });
-        console.log('maxLinesByParagraph', maxLinesByParagraph);
+        // console.log('maxLinesByParagraph', maxLinesByParagraph);
         
         // get the bigger title
         $visibleProposals.each(function(index, proposalItemEl){
@@ -651,7 +651,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             maxLinesByTitle = lines
           }
         });
-        console.log('maxLinesByTitle', maxLinesByTitle);
+        // console.log('maxLinesByTitle', maxLinesByTitle);
 
         $visibleProposals.each(function(index, proposalItemEl){
           var $proposalItemEl = $(proposalItemEl);
@@ -677,6 +677,16 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         var lineHeight = parseInt($el.css('lineHeight'));
         var lines = Math.ceil(divHeight / lineHeight);
         return lines;
+      },
+      handleLoginSuccess: function (e, data){
+        if(data.person){
+          Main.setUser({person: data.person});
+        }
+
+        Main.loginCallback(true, data.private_token);
+      },
+      handleLoginFail: function (e){
+        // console.log('Event', e);
       }
     }
   })();
@@ -878,30 +888,50 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       });
     }
 
+    $(document).on('login:success', Main.handleLoginSuccess);
+    $(document).on('login:fail', Main.handleLoginFail);
+
     $(document).on('click', '.login-action', function(e) {
-      var message = $('.login .message');
-      message.hide();
-      message.text('');
-      var button = $(this);
+      e.preventDefault();
+      // console.log('obj', obj);
+
+      var $this = $(this); // button
+      var $form = $this.closest('#login-form');
+      var $message = $form.find('.message');
+      $message.text('').hide();
+
+      loginButton = $this;
+
       $.ajax({
         type: 'post',
         url: host + '/api/v1/login',
-        data: $(this).parents('.login').serialize(),
+        data: $form.serialize(),
         xhrFields: {
           //withCredentials: true
         }
       }).done(function(data) {
-        Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Login efetuado com sucesso', 1000, 'icon-login-success');
+        $(document).trigger('login:success', data);
+
+        var $sectionContent = $form.closest('.section-content');
+        if($sectionContent && $sectionContent.length > 0){
+          Main.displaySuccess($sectionContent, 'Login efetuado com sucesso', 1000, 'icon-login-success');
+        }
+
+        var $loginPanel = $form.closest('#login-panel');
+        if($loginPanel && $loginPanel.length > 0){
+          $loginPanel.hide();
+        }
+
       }).fail(function(data) {
-        message.show();
+        $(document).trigger('login:fail', data);
+
+        $message.show();
         if(data.status==401){
-          message.text('Nome de usuário, e-mail ou senha incorretos, não foi possível acessar.');
+          $message.text('Nome de usuário, e-mail ou senha incorretos, não foi possível acessar.');
         }else{
-          message.text('Um erro inesperado ocorreu');
+          $message.text('Um erro inesperado ocorreu');
         }
       });
-      e.preventDefault();
     });
 
     $(document).on('click', '.social .fb-share', function(e) {
@@ -992,7 +1022,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       e.preventDefault();
     });
 
-    $(document).on('click', '.logout', function (e){
+    $(document).on('click', '#logout-button', function (e){
       var self = $(this);
       $.removeCookie('_dialoga_session');
       $.removeCookie('votedProposals');
@@ -1002,6 +1032,29 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
       location.reload();
       e.preventDefault();
     });
+
+    // create login panel on header
+    (function (){
+      var $loginPanel = $('#login-panel');
+      $loginPanel.hide();
+      $loginPanel.removeClass('hide');
+      $loginPanel.append(loginTemplate());
+      $loginPanel.find('.actions')
+        .removeClass('col-sm-4')
+        .addClass('col-sm-12');
+      $loginPanel.find('.oauth')
+        .removeClass('col-sm-8')
+        .addClass('col-sm-12');
+      $loginPanel.find('.new-user').parent()
+        .removeClass('col-sm-4')
+        .addClass('col-sm-12');
+
+      $(document).on('click', '#login-button', function (e){
+        e.preventDefault();
+
+        $loginPanel.toggle();
+      });
+    })();
 
   });
 
@@ -1057,7 +1110,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   })(jQuery, 'smartresize');
 
   $(window).smartresize(function(){
-    console.log('window resized');
+    // console.log('window resized');
     Main.computeBoxHeight();
   });
 
