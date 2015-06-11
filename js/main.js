@@ -211,7 +211,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           if(token){
             Main.private_token = token;
           }
-          requireLoginContainer = $('.require-login-container');
+          // requireLoginContainer = $('.require-login-container');
           requireLoginContainer.find('.require-login').show();
           requireLoginContainer.find('.require-login .message').show();
           requireLoginContainer.find('.login-container').hide();
@@ -221,9 +221,9 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           loginContainer.show();
           loginContainer.find('.new-user').click();
           var signupForm = loginContainer.find('#signup-form');
-          signupForm.find("#user_email").val(user.email);
-          signupForm.find("#user_name").val(user.login);
-          signupForm.find("#user_oauth_providers").val(user.oauth_providers);
+          signupForm.find('#user_email').val(user.email);
+          signupForm.find('#user_name').val(user.login);
+          signupForm.find('#user_oauth_providers').val(user.oauth_providers);
           //signupForm.find(".password").hide();
           //signupForm.find(".password-confirmation").hide();
         } else {
@@ -309,7 +309,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         // $('.login-container').hide();
         $('.proposal-detail').hide(); // hide all proposals
         // $('.proposal-detail-base').hide();
-        $proposal = $('#' + proposal_id);
+        var $proposal = $('#' + proposal_id);
         $proposal.find('.proposal-detail-base').hide();
         $proposal.show();
         $proposal.find('.proposal-header').show();
@@ -350,7 +350,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         $('nav').hide();
         $('#content').hide();
         $('#article-container').hide();
-        $proposal = $('#proposal-item-' + proposal_id);
+        var $proposal = $('#proposal-item-' + proposal_id);
         $proposal.find('.proposal-header').hide();
         $proposal.find('.make-proposal-container').hide();
         $proposal.find('.support-proposal-container').hide();
@@ -771,10 +771,10 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
         //display form to send proposal (or login form for non-logged users)
         var $this = $(this);
-        loginButton = $this.parents('.button-send');
+        loginButton = $this.closest('.button-send');
         loginButton.hide();
-        $this.parents('.success-proposal-sent').hide();
-        $wrapper = $this.parents('.make-proposal');
+        $this.closest('.success-proposal-sent').hide();
+        var $wrapper = $this.closest('.make-proposal');
         $wrapper.find('.subtitle').show();
         $wrapper.find('.info').show();
         Main.loginCallback(logged_in);
