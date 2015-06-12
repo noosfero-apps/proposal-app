@@ -22,6 +22,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var participa = true;
 
+
+
   //Detects for localhost settings
   var patt = new RegExp(":3001/");
   if(patt.test(window.location.href))
@@ -29,12 +31,30 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   if(participa){
     var host = 'http://www.participa.br';
-    var proposal_discussion = '103358'; //participa
+    window.dialoga_community = 19195;
+    window.proposal_discussion = '103358'; //participa
+    var cat_saude = 180;
+    var cat_seguranca_publica = 182;
+    var cat_educacao = 181;
+    var cat_reducao_da_pobreza = 183;
+
+    window.themes_cat = [];
+    window.themes_cat[0] = cat_saude;
+    window.themes_cat[1] = cat_seguranca_publica;
+    window.themes_cat[2] = cat_educacao;
+    window.themes_cat[3] = cat_reducao_da_pobreza;
+
     window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
-    var host = 'http://noosfero.com:3000';
+    var host = 'http://noosfero.com:3001';
+    window.dialoga_community = 67;
     var proposal_discussion = '392'; //local serpro
     window.recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-' //http://noosfero.com/
+
+    window.proposal_discussion = '392'
+    var cat_saude = 23;
+    window.themes_cat = [];
+    window.themes_cat[0] = cat_saude;
   }
 
   var BARRA_ADDED = false;
@@ -616,6 +636,25 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         msg = msg.replace('email', "campo 'e-mail'");
         msg = msg.substring(0, msg.length - 5) + ".";
         return msg;
+      },
+      display_events: function() {
+        // /api/v1/communities/64/articles?from=2013-04-04-14:41:43&until=2015-06-11-14:41:43&limit=10&categories_ids[]=7&categories_ids[]=8&private_token=a97b6a5cae2c4c54e4ae18dde1829a49
+        var url;
+        count = 0;
+        for(var i = 0; i < window.themes_cat.length; ++i){
+          url = host + '/api/v1/communities/' +  window.dialoga_community + '/articles?categories_ids[]=' + window.themes_cat[i] + '&content_type=Event&private_token=' + Main.private_token;
+          console.log(url);
+          $.getJSON(url).done(function( data ) {
+            console.log(data);
+            $('#ep' + count).text(data.articles[0].author.name);
+            var dt = data.articles[0].start_date;
+            dia = dt.substr(8,2);
+            mes = dt.substr(5,2);
+            ano = dt.substr(0,4);
+            $('#ed' + count).text(dia + '/' + mes + '/' + ano);
+            count++;
+          });
+        }
       }
     }
   })();
@@ -646,6 +685,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
         // Update URL and Navigate
         Main.updateHash($link.attr('href'));
+
       });
 
       $( '#nav-proposal-group a' ).on('click', function(e){
@@ -655,6 +695,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
         // Update URL and Navigate
         Main.updateHash($link.attr('href'));
+        Main.display_events();
       });
 
       $( '.proposal-item a' ).on('click', function(e){
@@ -673,6 +714,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
         // Update URL and Navigate
         Main.updateHash($link.attr('href'));
+        Main.display_events();
       });
 
       $( '.proposal-category .go-back' ).on('click', function(e){
@@ -958,8 +1000,6 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
   }else{
     console.log('The browser not supports the hashchange event!');
   }
-
-
 
   return Main;
 });
