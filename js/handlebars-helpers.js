@@ -35,7 +35,9 @@ define(['handlebars'], function(Handlebars){
       if(element == ''){
         continue;
       }
-      category =  category + '</div>' + '<div class="box-body">' + '<img src="' + options.hash['host'] + proposal.image.url + '" alt="Imagem de apresentação do programa."/>' +  proposal.title + (proposal.abstract ? proposal.abstract : '') + '<span class="button participe">OPINE NESTE PROGRAMA</span></div>';
+
+      if(proposal.image)
+        category =  category + '</div>' + '<div class="box-body">' + '<img src="' + options.hash['host'] + proposal.image.url + '" alt="Imagem de apresentação do programa."/>' +  proposal.title + (proposal.abstract ? proposal.abstract : '') + '<span class="button participe">OPINE NESTE PROGRAMA</span></div>';
       // element = element + options.fn(proposal);
   
       element = element + category;
