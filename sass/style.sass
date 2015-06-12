@@ -894,6 +894,57 @@ td
         margin: 0 auto
       .footable-row-detail-cell
         background-color: #e0e0e0
+      .footable-row-detail-name
+        display: block
+        text-transform: uppercase
+      .footable-row-detail-value
+        display: block
+      
+      // fix height
+      .footable-row-detail-row:nth-child(1)
+        .footable-row-detail-value:before
+          height: 30px
+      
+      // check icon
+      .footable-row-detail-row:nth-child(2)
+        .footable-row-detail-name
+          display: none
+        .footable-row-detail-value:before
+          content: '\f00c'
+          font: normal normal normal 14px/1 'FontAwesome'
+          display: block
+          background-color: #32dbb5
+          border: 2px solid #ffffff
+          border-radius: 100%
+          color: #fff
+          font-size: 16px
+          height: 30px
+          padding: 5px 0
+          text-align: center
+          transition: all 200ms ease 0s
+          width: 30px
+          margin: 0 20px
+
+      // check icon
+      .footable-row-detail-row:nth-child(3)
+        .footable-row-detail-name
+          display: none
+        .footable-row-detail-value:before
+          content: '\f00d'
+          font: normal normal normal 14px/1 'FontAwesome'
+          display: block
+          background-color: #DB4127
+          border: 2px solid #ffffff
+          border-radius: 100%
+          color: #fff
+          font-size: 16px
+          height: 30px
+          padding: 5px 0
+          text-align: center
+          transition: all 200ms ease 0s
+          width: 30px
+          margin: 0 20px
+
 //   6.15 - paginador
 .paging
   padding: $gutter * 0.25
