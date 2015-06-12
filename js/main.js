@@ -18,7 +18,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
   var loginButton;
 
-  var lastHash;
+  var lastHash = window.location.hash;
 
   var participa = true;
 
@@ -137,6 +137,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
 
             $body.off('click', '.vote-result');
             $body.on('click', '.vote-result', function(e) {
+              // e.preventDefault();
+
               var $this = $(this);
               var $proposalDetail = $this.parents('.proposal-detail');
               var $resultsContainer = $proposalDetail.find('.results-container');
@@ -144,12 +146,18 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               if($resultsContainer.css('display') === 'none') {
                 Main.loadRanking($resultsContainer, topic_id, 1);
               } else {
-                $('.experience-proposal-container').show();
-                $('.talk-proposal-container').show();
+                $proposalDetail.find('.experience-proposal-container').show();
+                $proposalDetail.find('.talk-proposal-container').show();
                 $resultsContainer.hide();
               }
-              e.preventDefault();
             });
+
+            // $body.off('click', '.question-link');
+            // $body.on('click', '.question-link', function(e) {
+            //   var $this = $(this);
+              
+            //   // Main.navigateTo($this.attr('href'), backTo);
+            // });
           }).fail(function(){
             $loading.hide();
             $('.support-proposal .alert').show();
@@ -197,10 +205,14 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
             $(this).toggleClass('truncated');
           });
 
+          var scrollTop = $(document).height();
+          var proposalOffset = $resultsContainer.offset();
+          if(proposalOffset){
+            scrollTop = proposalOffset.top;
+          }
+
           // scroll to the end
-          $('html, body').animate({
-            scrollTop: $(document).height()
-          }, 'fast');
+          $('html, body').animate({scrollTop: scrollTop }, 'fast');
         });
         $('.experience-proposal-container').hide();
         $('.talk-proposal-container').hide();
@@ -469,6 +481,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         var regexCategory = /#\/temas/;
         var regexHideBarra = /barra=false$/;
         var regexArticle = /#\/artigo/;
+        var regexResultados = /resultados$/;
 
         if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
           this.addBarraDoGoverno();
@@ -484,6 +497,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         var isProposal = regexProposals.exec(hash) !== null;
         var isCategory = regexCategory.exec(hash) !== null;
         var isArticle  = regexArticle.exec(hash) !== null;
+        var isResultados  = regexResultados.exec(hash) !== null;
 
         if(isArticle) {
           this.display_article(hash.split('/')[2], lastHash);
@@ -504,6 +518,23 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
               scrollTop = navOffset.top;
             } else {
               scrollTop = $('#proposal-group').offset().top;
+            }
+          }
+
+          if(isResultados){
+            var $resultsContainer = $proposal.find('.results-container');
+
+            if($resultsContainer.css('display') === 'none') {
+              Main.loadRanking($resultsContainer, proposalId, 1);
+            } else {
+              $proposalDetail.find('.experience-proposal-container').show();
+              $proposalDetail.find('.talk-proposal-container').show();
+              $resultsContainer.hide();
+            }
+
+            var proposalOffset = $resultsContainer.offset();
+            if(proposalOffset){
+              scrollTop = proposalOffset.top;
             }
           }
         }
@@ -529,20 +560,15 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         if( !isProposal && !isCategory ){
           // show the 'index' -> category tab
           this.display_category_tab();
-
-
-          // if(navOffset){
-          //   scrollTop = navOffset.top;
-          // }
         }
 
         $('html, body').animate({ scrollTop: scrollTop }, 'fast');
       },
       navigateToProposal: function(proposalId){
-        var regexSubpages = /sobre-o-programa$/;
+        var regexSobreOPrograma = /sobre-o-programa$/;
         if(proposalId === undefined){
           this.display_proposals_tab();
-        }else if(regexSubpages.exec(window.location.hash) == null){
+        }else if(regexSobreOPrograma.exec(window.location.hash) == null){
           this.display_proposal('proposal-item-' + proposalId);
         }else{
           this.display_proposal_detail(proposalId);
@@ -754,8 +780,8 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         e.preventDefault();
 
         var oldHash = window.location.hash;
-        var regexSubpages = /sobre-o-programa$/;
-        var isSubpage = regexSubpages.exec(oldHash) !== null;
+        var regexSobreOPrograma = /sobre-o-programa$/;
+        var isSubpage = regexSobreOPrograma.exec(oldHash) !== null;
         var newHash = '#/temas'; // default page
 
         if(isSubpage){
