@@ -18,26 +18,34 @@ define(['handlebars'], function(Handlebars){
     var ret = "";
     for(var i=0, j=proposals.length; i<j; i++) {
       var proposal = proposals[i];
-      
-      element = '<li class="proposal-item col-sm-6">' + 
-        '<a href="#/programas/'+proposal.id+'" data-target="proposal-item-'+proposal.id+'" class="proposal-link box">' +
+
+      element = '<li class="proposal-item col-sm-6">' +
+          '<a href="#/programas/' + proposal.id + '" data-target="proposal-item-' + proposal.id + '" class="proposal-link box">' +
           '<div class="box-header item">';
       category = "<div class='category box-category'>";
-      
-      
-      for(var x=0, y=proposal.categories.length; x<y; x++) {
-        if((options.hash['category'] != null) && (options.hash['category'] != proposal.categories[x].slug)){
+
+
+      for (var x = 0, y = proposal.categories.length; x < y; x++) {
+        if ((options.hash['category'] != null) && (options.hash['category'] != proposal.categories[x].slug)) {
           element = '';
           continue;
-        }      
-        category = category + '<div class="category-'+proposal.categories[x].slug+'">' + proposal.categories[x].name + '</div>';
+        }
+        category = category + '<div class="category-' + proposal.categories[x].slug + '">' + proposal.categories[x].name + '</div>';
       }
-      if(element == ''){
+      if (element == '') {
         continue;
       }
+      if (proposal.image) {
+        category = category + '</div>' +
+          '<div class="box-body">' +
+            // '<div class="box__image">' + '<img src="' + options.hash['host'] + proposal.image.url + '" alt="Imagem de apresentação do programa."/>' + '</div>' +
+          '<div class="box__image" style="background-image:url(' + (options.hash['host'] + proposal.image.url) + ')"></div>' +
+          '<div class="box__title">' + proposal.title + '</div>' +
+          (proposal.abstract ? '<div class="box__abstract">' + proposal.abstract + '</div>' : '') +
+          '<div class="box__footer">' + '<span class="button participe">OPINE NESTE PROGRAMA</span>' + '</div>' +
+          '</div>';
+      }
 
-      if(proposal.image)
-        category =  category + '</div>' + '<div class="box-body">' + '<img src="' + options.hash['host'] + proposal.image.url + '" alt="Imagem de apresentação do programa."/>' +  proposal.title + (proposal.abstract ? proposal.abstract : '') + '<span class="button participe">OPINE NESTE PROGRAMA</span></div>';
       // element = element + options.fn(proposal);
   
       element = element + category;

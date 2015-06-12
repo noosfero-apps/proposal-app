@@ -176,6 +176,7 @@ textarea
   padding-right: $gutter * 0.5
   padding-top: $gutter * 0.25
   width: 100%
+  height: 100px
 
 
 // ------------------------------------
@@ -371,7 +372,7 @@ h1
     display: inline-block
     height: 80px
     text-indent: -99999px
-    width: 160px
+    width: 180px
 
 //   6.3 - menu topo
 .top-menu
@@ -436,6 +437,7 @@ h1
     border-bottom: 1px solid #f1f1f1
     display: block
     font-size: $font-size-base
+    position: relative
   a
     background-color: #fff
     color: #484848
@@ -453,24 +455,27 @@ h1
       text-decoration: none
   .fa
     color: #898989
-    float: right
     font-size: 45px
+    position: absolute
+    top: 50%
+    margin-top: -22px
+    right: 8px
   &-name
     display: inline-block
     width: 50%
     vertical-align: middle
-  .arrow-box
-    position: relative
-    top: $gutter
-    &:after
-      bottom: 100%
-      left: 50%
-      border: solid transparent
-      content: ""
-      position: absolute
-      border-bottom-color: #000
-      border-width: 8px
-      margin-left: -8px
+  // .arrow-box
+  //   position: relative
+  //   top: $gutter
+  //   &:after
+  //     bottom: 100%
+  //     left: 50%
+  //     border: solid transparent
+  //     content: ""
+  //     position: absolute
+  //     border-bottom-color: #000
+  //     border-width: 8px
+  //     margin-left: -8px
 
 //   6.7 - listagem dos programas aleatorios
 .ver-todos
@@ -486,6 +491,8 @@ h1
   &-list
     list-style: none
     padding-left: 0
+    .proposal-item
+      margin-bottom: $gutter
   &-group
     ul
       list-style: none
@@ -500,6 +507,7 @@ h1
   color: #000
   display: block
   margin-top: $gutter * 1.5
+  height: 100%
   overflow: hidden
   transition: all 400ms
   +hover(#fff,$darken)
@@ -534,15 +542,28 @@ h1
       font-size: $font-size-small
       font-weight: 500
       margin-top: $gutter * 0.5
-      height: $gutter * 2
+      // height: $gutter * 2
+      // @media (min-width: 768px)
+      //   height: $gutter * 3
   &-body
     padding: $gutter
-    img
-      margin-left: $gutter * (-1)
-      margin-right: $gutter * (-1)
-      margin-top: $gutter * (-1)
-      margin-bottom: $gutter
-      height: 170px
+    // img
+    //   margin-left: $gutter * (-1)
+    //   margin-right: $gutter * (-1)
+    //   margin-top: $gutter * (-1)
+    //   margin-bottom: $gutter
+    //   height: 170px
+  &__image
+    background-size: cover
+    height: 170px
+    margin: -20px -20px 10px
+    background-position: center center
+  // &__footer
+  //   position: absolute
+  //   left: 0
+  //   width: 100%
+  //   bottom: $gutter
+  //   padding: 0 10%
   &-category
     font-size: $font-size-small
     font-weight: 700
@@ -663,21 +684,38 @@ h1
 
 //   6.11 - login form
 .participar
+  position: relative
   text-align: right
   .participe
     font-size: 14px
     padding: 2px 10px
-  .entrar
+  .icon-login
+    display: inline-block
+    position: relative
+    top: -2px
+    right: 5px
+    width: 20px
+    height: 20px
+    padding: 12px
+    vertical-align: middle
+    border: 1px solid #ccc !important
     background: url(images/icons/icon-user.png) no-repeat 20px 50%
-    // border-left: 1px solid #bcbcbc
-    // margin-left: 20px
-    padding-left: 40px
+  .login
+    margin-left: 20px
   .logout
-    background: url(images/icons/icon-user.png) no-repeat 20px 50%
-    // border-left: 1px solid #bcbcbc
-    // margin-left: 20px
-    padding-left: 40px
-.login,.signup
+    margin-left: 20px
+#login-panel
+  position: absolute
+  top: 0
+  right: 0
+  padding: 20px
+  z-index: 9999
+  background-color: #fff
+  border: 1px solid #ccc
+  .loading
+    display: none
+.login,
+.signup
   text-align: left
   .message
     background: #fcc
@@ -833,10 +871,79 @@ td
       display: table
       table-layout: fixed
       width: 100%
+      @media (max-width: 567px)
+        width: 90%
     .truncated
       overflow-x: hidden
       text-overflow: ellipsis
       white-space: nowrap
+    &.phone
+      .footable-toggle
+        float: right
+        padding: 5px 0 !important
+        width: 10%
+        text-align: center
+        background-color: #e0e0e0
+      .footable-row-detail-row
+        display: inline-block
+        &:not(:last-child)
+          margin-right: 10px
+          padding-right: 10px
+          border-right: 1px solid #ccc
+      .footable-row-detail-inner
+        margin: 0 auto
+      .footable-row-detail-cell
+        background-color: #e0e0e0
+      .footable-row-detail-name
+        display: block
+        text-transform: uppercase
+      .footable-row-detail-value
+        display: block
+      
+      // fix height
+      .footable-row-detail-row:nth-child(1)
+        .footable-row-detail-value:before
+          height: 30px
+      
+      // check icon
+      .footable-row-detail-row:nth-child(2)
+        .footable-row-detail-name
+          display: none
+        .footable-row-detail-value:before
+          content: '\f00c'
+          font: normal normal normal 14px/1 'FontAwesome'
+          display: block
+          background-color: #32dbb5
+          border: 2px solid #ffffff
+          border-radius: 100%
+          color: #fff
+          font-size: 16px
+          height: 30px
+          padding: 5px 0
+          text-align: center
+          transition: all 200ms ease 0s
+          width: 30px
+          margin: 0 20px
+
+      // check icon
+      .footable-row-detail-row:nth-child(3)
+        .footable-row-detail-name
+          display: none
+        .footable-row-detail-value:before
+          content: '\f00d'
+          font: normal normal normal 14px/1 'FontAwesome'
+          display: block
+          background-color: #DB4127
+          border: 2px solid #ffffff
+          border-radius: 100%
+          color: #fff
+          font-size: 16px
+          height: 30px
+          padding: 5px 0
+          text-align: center
+          transition: all 200ms ease 0s
+          width: 30px
+          margin: 0 20px
 
 //   6.15 - paginador
 .paging
@@ -1242,9 +1349,19 @@ h3.titulo-destaque
         width: 100%
       p
         padding-bottom: $gutter
+  .proposal-list
+    .proposal-item,
+    .box__title,
+    .box__abstract p
+      height: auto !important
   .select
     .proposal
       &-selection
         float: none
         margin: 0
         width: 100%
+  table
+    .position
+      a
+        margin-left: 0
+        margin-top: 5px
