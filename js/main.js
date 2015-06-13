@@ -33,6 +33,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
     var host = 'http://www.participa.br';
     window.dialoga_community = 19195;
     window.proposal_discussion = '103358'; //participa
+    proposal_discussion = '103358'; //participa
     var cat_saude = 180;
     var cat_seguranca_publica = 182;
     var cat_educacao = 181;
