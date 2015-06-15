@@ -317,16 +317,31 @@ textarea
     width: 71px
     background: url(images/icons/icon-user-created.png) no-repeat 50% 50%
     border-radius: 0
-  &-login-success
-    height: 71px
-    width: 71px
-    background: url(images/icons/icon-login-success.png) no-repeat 50% 50%
-    border-radius: 0
+  &-login-success,
   &-proposal-sent
     height: 71px
     width: 71px
-    background: url(images/icons/icon-proposal-sent.png) no-repeat 50% 50%
+    background-repeat: no-repeat
+    background-position: 50% 50%
     border-radius: 0
+  &-login-success
+    .saude &
+      background-image: url(images/icons/icon-login-success-blue.png)
+    .seguranca-publica &
+      background-image: url(images/icons/icon-login-success-red.png)
+    .educacao &
+      background-image: url(images/icons/icon-login-success-yellow.png)
+    .reducao-da-pobreza &
+      background-image: url(images/icons/icon-login-success-green.png)
+  &-proposal-sent
+    .saude &
+      background-image: url(images/icons/icon-proposal-sent-blue.png)
+    .seguranca-publica &
+      background-image: url(images/icons/icon-proposal-sent-red.png)
+    .educacao &
+      background-image: url(images/icons/icon-proposal-sent-yellow.png)
+    .reducao-da-pobreza &
+      background-image: url(images/icons/icon-proposal-sent-green.png)
 
 
 // ------------------------------------
