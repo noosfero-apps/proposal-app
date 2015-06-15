@@ -760,7 +760,7 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
     }
   })();
 
-  // Load data from localhost when it is dev env.
+  
   var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + Main.private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
 
   $.getJSON(noosferoAPI)
@@ -929,19 +929,11 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
           message.text('Não foi possível enviar.');
          });
       });
-
-
-
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ', ' + error;
       console.log( 'Request Failed: ' + err );
     });
-
-  // window.addEventListener('load', function() {
-  //   new FastClick(document.body);
-  // }, false);
-
 
   $(document).ready(function($) {
 
