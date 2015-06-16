@@ -1,4 +1,4 @@
-define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, FastClick){
+define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick){
 
   /* global Handlebars, $ */
   // The template code
@@ -494,6 +494,12 @@ define(['handlebars', 'fastclick', 'handlebars_helpers'], function(Handlebars, F
         lastHash = hash;
       },
       navigateTo: function(hash, lastHash) {
+        // _paq.push(['trackEvent', 'NavegarPara', hash || '/']);
+        // _paq.push(['setDocumentTitle', document.domain + '/' + hash]);
+        // _paq.push(['trackPageView']);
+        _paq.push(['trackPageView', 'navigateTo', hash, lastHash]);
+        // console.log('event tracked.');
+
         var scrollTop = 0;
         var $nav = $('nav[role="tabpanel"]');
         var navOffset = $nav.offset();
