@@ -1369,11 +1369,16 @@ h3.titulo-destaque
     &-name
       display: block
       width: 100%
+    &:after
+      content: ""
+      display: block
+      clear: both
     li
-      display: inline-block
-      font-size: $font-size-base
+      display: block
       width: 25%
-      vertical-align: top
+      float: left
+      // font-size: $font-size-base
+      // vertical-align: top
       &:first-child
         a
           border-left: 0
