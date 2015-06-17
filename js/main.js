@@ -379,6 +379,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         var topic_id = proposal_id.split('-').pop();
         this.loadRandomProposal(topic_id);
+        Main.display_events();
       },
       display_proposal_detail: function(proposal_id){
         $('.content').removeClass('background'); /* Remove class background */
@@ -804,7 +805,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         // Update URL and Navigate
         Main.updateHash($link.attr('href'));
-        Main.display_events();
       });
 
       $( '.proposal-item a' ).on('click', function(e){
@@ -823,7 +823,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         // Update URL and Navigate
         Main.updateHash($link.attr('href'));
-        Main.display_events();
       });
 
       $( '.proposal-category .go-back' ).on('click', function(e){
