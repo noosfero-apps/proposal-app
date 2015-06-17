@@ -1,4 +1,4 @@
-define(function(){
+define(['piwik'], function(){
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
@@ -10,4 +10,7 @@ define(function(){
     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
     g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
   })();
+
+  window._paq = _paq;
+  return _paq;
 });

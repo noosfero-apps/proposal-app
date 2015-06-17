@@ -1,5 +1,5 @@
 define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick){
-
+  
   /* global Handlebars, $ */
   // The template code
   var templateSource = $('#proposal-template').html();

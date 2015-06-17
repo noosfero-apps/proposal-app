@@ -37,6 +37,7 @@
 //   6.17 - calendario dos ministros
 //   6.18 - listas
 //   6.19 - artigo
+//   6.20 - participe
 // 7 - Modificadores
 // 8 - Cores do Temas
 // 9 - Alto Contraste
@@ -220,6 +221,8 @@ textarea
     display: inline-block
     padding-bottom: $gutter * 0.25 !important
     padding-top: $gutter * 0.25 !important
+  &-block
+    width: 100%
   &-cancela
     @extend .button
   &-send
@@ -252,6 +255,11 @@ textarea
   padding-top: 0
   vertical-align: middle
 
+#display-contrast
+  color: $link-color
+  font-weight: normal
+  .contrast &
+    color: white
 //   5.3 - icones
 .icon
   background-repeat: no-repeat
@@ -1079,6 +1087,10 @@ td
   position: absolute
   z-index: 100
   text-align: center
+
+// 6.20 - participe
+// .talk__participate
+// .talk__participate
 
 // ------------------------------------
 // 7 - Modificadores
