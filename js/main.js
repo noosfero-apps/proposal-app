@@ -1105,6 +1105,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       e.preventDefault();
     });
 
+    $(document).on('click', '#talk__button-participate', function(e) {
+      e.preventDefault();
+      console.log('TODO: participate action handler not implemented yet.');
+    });
+
     // create login panel on header
     (function (){
       var $loginPanel = $('#login-panel');
