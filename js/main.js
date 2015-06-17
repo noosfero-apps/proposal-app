@@ -497,7 +497,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         // _paq.push(['trackEvent', 'NavegarPara', hash || '/']);
         // _paq.push(['setDocumentTitle', document.domain + '/' + hash]);
         // _paq.push(['trackPageView']);
-        _paq.push(['trackPageView', 'navigateTo', hash, lastHash]);
+        if (window._paq){
+          window._paq.push(['trackPageView', 'navigateTo', hash, lastHash]);
+        }
         // console.log('event tracked.');
 
         var scrollTop = 0;
