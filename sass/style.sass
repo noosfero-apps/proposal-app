@@ -1106,6 +1106,10 @@ td
   @each $category, $color in $categories
     .#{$category} &
       color: $color
+  
+  @media (max-width: 767px)
+    width: 100%
+    margin-left: 0
 
 .talk__value
   font-weight: bold
