@@ -103,9 +103,8 @@
           </div>
           <div class="col-xs-7">
             <div class="participar">
-              <!--<a href="#" class="button button-inline participe">Participe</a>-->
-              <a id="login-button" href="#" class="login"><i class="icon icon-login"></i>Entrar</a>
-              <a id="logout-button" href="#" class="logout hide"><i class="icon icon-login"></i><span class="name"></span>Sair</a>
+              <button type="button" id="login-button" class="btn login"><i class="icon icon-login"></i>Entrar</button>
+              <button type="button" id="logout-button" class="btn logout hide"><i class="icon icon-login"></i><span class="name"></span>Sair</button>
             </div>
           </div>
           <div class="col-xs-12">
@@ -313,7 +312,12 @@
                     <div class="talk-proposal-container col-sm-12">
                       <section class="talk-proposal box box-propostas">
                         <div class="container-title box-title">Bate-papo com ministras e ministros</div>
-                        <p class="talk__description">Confira as datas e horários:</p>
+                        <div class="talk__description">
+                          <div class="embed-responsive embed-responsive-16by9">
+                            <iframe src="//www.youtube.com/embed/pe6bePBLZkc?showinfo=0&amp;iv_load_policy=3&amp;controls=0" width="425" height="350"></iframe>
+                          </div>
+                          <p>Confira as datas e horários:</p>
+                        </div>
                         <div class="col-sm-12">
                           <div class="row">
                             <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
@@ -351,14 +355,15 @@
                             <div class="row">
                               <div class="col-sm-4 col-md-3 col-lg-2">
                                 <div class="row">
-                                  <button type="button" class="button button-block">Participar</button>
+                                  <button id="talk__button-participate" type="button" class="button button-block">Participar</button>
                                 </div>
                               </div>
                               <div class="col-sm-8 col-md-9 col-lg-10">
                                 <div class="row">
                                   <div class="talk__counter">
-                                    <span class="talk__value">8.117</span>
-                                    <span class="talk__counter-message">se inscreveram para esse hangout</span>
+                                    {{!-- <span class="talk__value">8.117</span> --}}
+                                    {{!-- <span class="talk__counter-message">se inscreveram para esse hangout</span> --}}
+                                    <span class="talk__counter-message">Se inscreva agora para esse hangout.</span>
                                   </div>
                                 </div>
                               </div>

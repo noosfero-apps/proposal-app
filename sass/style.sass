@@ -547,6 +547,8 @@ h1
     overflow: auto
     padding: $gutter
     position: relative
+    &.talk-proposal
+      height: auto
     &:hover
       background-color: #fff
     p
@@ -709,6 +711,9 @@ h1
 .participar
   position: relative
   text-align: right
+  .btn
+    color: $link-color
+    font-weight: normal
   .participe
     font-size: 14px
     padding: 2px 10px
@@ -1099,7 +1104,6 @@ td
   // line-height: 3
   margin-left: -10px
   padding: 15px 15px 15px 25px
-  height: 52px // equals button size
   background-color: #eeeff1
   z-index: 1
   border-radius: 10px
@@ -1107,6 +1111,10 @@ td
   @each $category, $color in $categories
     .#{$category} &
       color: $color
+  
+  @media (max-width: 767px)
+    width: 100%
+    margin-left: 0
 
 .talk__value
   font-weight: bold
@@ -1361,11 +1369,16 @@ h3.titulo-destaque
     &-name
       display: block
       width: 100%
+    &:after
+      content: ""
+      display: block
+      clear: both
     li
-      display: inline-block
-      font-size: $font-size-base
+      display: block
       width: 25%
-      vertical-align: top
+      float: left
+      // font-size: $font-size-base
+      // vertical-align: top
       &:first-child
         a
           border-left: 0
