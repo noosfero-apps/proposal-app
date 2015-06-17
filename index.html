@@ -99,7 +99,7 @@
       <header class="container">
         <div class="row" style="margin: 10px 0 0 0">
           <div class="col-xs-5">
-            <a id="display-contrast" href="#">Alto Contraste</a>
+            <button type="button" id="display-contrast" class="btn btn-link"><i class="fa fa-adjust"></i> Alto Contraste</button>
           </div>
           <div class="col-xs-7">
             <div class="participar">
@@ -313,35 +313,54 @@
                     <div class="talk-proposal-container col-sm-12">
                       <section class="talk-proposal box box-propostas">
                         <div class="container-title box-title">Bate-papo com ministras e ministros</div>
-                        <p>Confira as datas e horários:</p>
-                        <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
-                          <li>
-                            <span id='ep0'></span>
-                            <span>Saúde</span>
-                            <div id='ed0' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                          </li>
-                        </ul>
-                        <ul class="calendar seguranca-publica" data-slick='{"infinite": false, "rows": 2}'>
-                          <li>
-                            <span id='ep1'></span>
-                            <span id='ed1'>Justiça</span>
-                            <div class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                          </li>
-                        </ul>
-                        <ul class="calendar educacao" data-slick='{"infinite": false, "rows": 2}'>
-                          <li>
-                            <span id='ep2'></span>
-                            <span>Educação</span>
-                            <div id='ed2' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                          </li>
-                        </ul>
-                        <ul class="calendar reducao-da-pobreza" data-slick='{"infinite": false, "rows": 2}'>
-                          <li>
-                            <span id='ep3'></span>
-                            <span>Desenvolvimento Social</span>
-                            <div id='ed3' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                          </li>
-                        </ul>
+                        <p class="talk__description">Confira as datas e horários:</p>
+                        <div>
+                          <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
+                            <li>
+                              <span id='ep0'></span>
+                              <span>Saúde</span>
+                              <div id='ed0' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                            </li>
+                          </ul>
+                          <ul class="calendar seguranca-publica" data-slick='{"infinite": false, "rows": 2}'>
+                            <li>
+                              <span id='ep1'></span>
+                              <span id='ed1'>Justiça</span>
+                              <div class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                            </li>
+                          </ul>
+                          <ul class="calendar educacao" data-slick='{"infinite": false, "rows": 2}'>
+                            <li>
+                              <span id='ep2'></span>
+                              <span>Educação</span>
+                              <div id='ed2' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                            </li>
+                          </ul>
+                          <ul class="calendar reducao-da-pobreza" data-slick='{"infinite": false, "rows": 2}'>
+                            <li>
+                              <span id='ep3'></span>
+                              <span>Desenvolvimento Social</span>
+                              <div id='ed3' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="talk__participate">
+                          <div class="row">
+                            <div class="col-sm-4 col-md-3 col-lg-2">
+                              <div class="row">
+                                <button type="button" class="button button-block">Participar</button>
+                              </div>
+                            </div>
+                            <div class="col-sm-8 col-md-9 col-lg-10">
+                              <div class="row">
+                                <div class="talk__counter">
+                                  <span class="talk__value">8.117</span>
+                                  <span class="talk__counter-message">se inscreveram para esse hangout</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </section>
                     </div>
                   </div>
