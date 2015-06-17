@@ -692,7 +692,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           console.log(url);
           $.getJSON(url).done(function (data) {
             console.log(data);
-            $('#ep' + count).text(data.articles[0].author.name);
+            $('#ep' + count).text(data.articles[0].setting.presenter);
             var dt = data.articles[0].start_date;
             dia = dt.substr(8, 2);
             mes = dt.substr(5, 2);
