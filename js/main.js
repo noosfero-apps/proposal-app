@@ -695,6 +695,34 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
             $('.calendar-container').html(calendarTemplate(params));
             $('.calendar-container .calendar.' + active_category).show();
             // $('.calendar-container .calendar').slick();
+
+            $(document).off('click', '#talk__button-participate');
+            $(document).on('click', '#talk__button-participate', function(e) {
+              e.preventDefault();
+              var $bt = $(this);
+              if(!logged_in) {
+                $('#login-button').click();
+                $('html, body').animate({scrollTop: 0}, 'fast');
+              } else {
+                $.ajax({
+                  type: 'post',
+                  url: host + '/api/v1/articles/' + $(this).data('event-id') + '/follow',
+                  data: {
+                    private_token: Main.private_token
+                  }
+                }).done(function(data) {
+                  var message = 'Sua participação foi registrada com sucesso';
+                  if(!data.success) {
+                    message = 'Sua participação já foi registrada';
+                  } else {
+                    var value= $bt.closest('.talk__participate').find('.talk__value');
+                    value.text(parseInt(value.text()) + 1);
+                  }
+                  Main.displaySuccess($bt.closest('.talk__participate'), message, 2000, 'icon-proposal-sent');
+                });
+              }
+            });
+
           });
         });
       },
@@ -1146,33 +1174,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       location.reload();
       e.preventDefault();
     });
-
-    $(document).on('click', '#talk__button-participate', function(e) {
-      e.preventDefault();
-      var $bt = $(this);
-      if(!logged_in) {
-        $('#login-button').click();
-        $('html, body').animate({scrollTop: 0}, 'fast');
-      } else {
-        $.ajax({
-          type: 'post',
-          url: host + '/api/v1/articles/' + $(this).data('event-id') + '/follow',
-          data: {
-            private_token: Main.private_token
-          }
-        }).done(function(data) {
-          var message = 'Sua participação foi registrada com sucesso';
-          if(!data.success) {
-            message = 'Sua participação já foi registrada';
-          } else {
-            var value= $bt.closest('.talk__participate').find('.talk__value');
-            value.text(parseInt(value.text()) + 1);
-          }
-          Main.displaySuccess($bt.closest('.talk__participate'), message, 2000, 'icon-proposal-sent');
-        });
-      }
-    });
-
 
   });
 
