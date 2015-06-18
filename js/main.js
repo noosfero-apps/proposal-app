@@ -807,15 +807,12 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         // handle click on elsewhere (out of loginPanel)
         $(document).click(function(e){
           var $target = $(e.target);
-          // console.log('e.target', e.target);
 
           var isLoginButton = ($target.attr('id') === 'login-button');
-          // console.log('isLoginButton', isLoginButton);
-          
+          var requireLogin = $target.hasClass('require-main-login');
           var isChildOfPanel = ($target.closest(loginPanelId).length !== 0);
-          // console.log('isChildOfPanel', isChildOfPanel);
 
-          if( !isLoginButton && !isChildOfPanel ){
+          if( !isLoginButton && !isChildOfPanel && !requireLogin ){
             $loginPanel.hide();
           }
         });
