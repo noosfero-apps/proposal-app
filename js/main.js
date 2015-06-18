@@ -1121,6 +1121,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         $loginPanel.toggle();
       });
+
+      $('.participar').removeClass('hide');
     })();
 
   });
