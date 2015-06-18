@@ -685,7 +685,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           if(data.articles.length==0) return;
           var dt = data.articles[0].start_date;
           var date = dt.substr(8, 2) + '/' + dt.substr(5, 2) + '/' + dt.substr(0, 4);
-          var params = {event: data.articles[0], date: date, time: "19:00", category: data.articles[0].categories[0].name, category_class: active_category};
+          var dd = new Date(dt);
+          var time = dd.getHours() + ':' + (dd.getMinutes()<10?'0':'') + dd.getMinutes();
+          var params = {event: data.articles[0], date: date, time: time, category: data.articles[0].categories[0].name, category_class: active_category};
           $('.calendar-container').html(calendarTemplate(params));
 
           $('.calendar-container .calendar.' + active_category).show();
