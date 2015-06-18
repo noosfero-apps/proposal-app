@@ -780,6 +780,31 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         Main.oauthClientAction($(this).attr('href'));
         e.preventDefault();
       });
+      
+      // create login panel on header
+      (function (){
+        var $loginPanel = $('#login-panel');
+        $loginPanel.hide();
+        $loginPanel.removeClass('hide');
+        $loginPanel.append(loginTemplate());
+        $loginPanel.find('.actions')
+          .removeClass('col-sm-4')
+          .addClass('col-sm-12');
+        $loginPanel.find('.oauth')
+          .removeClass('col-sm-8')
+          .addClass('col-sm-12');
+        $loginPanel.find('.new-user').parent()
+          .removeClass('col-sm-4')
+          .addClass('col-sm-12');
+
+        $(document).on('click', '#login-button', function (e){
+          e.preventDefault();
+
+          $loginPanel.toggle();
+        });
+
+        $('.participar').removeClass('hide');
+      })();
 
       //Actions for links
       $( '#nav-proposal-categories a' ).on('click', function(e){
@@ -1110,28 +1135,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       });
     });
 
-    // create login panel on header
-    (function (){
-      var $loginPanel = $('#login-panel');
-      $loginPanel.hide();
-      $loginPanel.removeClass('hide');
-      $loginPanel.append(loginTemplate());
-      $loginPanel.find('.actions')
-        .removeClass('col-sm-4')
-        .addClass('col-sm-12');
-      $loginPanel.find('.oauth')
-        .removeClass('col-sm-8')
-        .addClass('col-sm-12');
-      $loginPanel.find('.new-user').parent()
-        .removeClass('col-sm-4')
-        .addClass('col-sm-12');
-
-      $(document).on('click', '#login-button', function (e){
-        e.preventDefault();
-
-        $loginPanel.toggle();
-      });
-    })();
 
   });
 

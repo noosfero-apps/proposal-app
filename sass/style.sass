@@ -77,6 +77,11 @@ $link-color: #387bfa
 //   1.6 - escurecer
 $darken: 15%
 
+//   1.7 - screens
+$screen-xs: 480px
+$screen-sm: 768px 
+$screen-md: 992px 
+$screen-lg: 1200px 
 
 // ------------------------------------
 // 2 - Mixins
@@ -401,12 +406,16 @@ h1
 .top-menu
   float: left
   margin: $gutter ($gutter * 0.75)
+  @media (max-width: $screen-xs)
+    margin: auto
   a
     color: $header-color
     display: block
     float: left
     margin: ($gutter * 2) ($gutter * 0.5) 0
     text-transform: uppercase
+    @media (max-width: $screen-xs)
+      margin: 0 ($gutter)
 
 //   6.3 - video
 #content
@@ -568,7 +577,7 @@ h1
       font-weight: 500
       margin-top: $gutter * 0.5
       // height: $gutter * 2
-      // @media (min-width: 768px)
+      // @media (min-width: $screen-md)
       //   height: $gutter * 3
   &-body
     padding: $gutter
@@ -714,6 +723,8 @@ h1
   .btn
     color: $link-color
     font-weight: normal
+    .contrast &
+      color: #fff
   .participe
     font-size: 14px
     padding: 2px 10px
@@ -1112,7 +1123,7 @@ td
     .#{$category} &
       color: $color
   
-  @media (max-width: 767px)
+  @media (max-width: $screen-md)
     width: 100%
     margin-left: 0
 
@@ -1353,7 +1364,7 @@ h3.titulo-destaque
 // ------------------------------------
 // 10 - mobile
 // ------------------------------------
-@media (max-width: 480px)
+@media (max-width: $screen-xs)
   #content
     // margin-top: $gutter * 1.5 * (-1)
     margin-bottom: 0
