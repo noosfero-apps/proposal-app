@@ -246,6 +246,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           requireLoginContainer.find('.require-login .message').show();
           requireLoginContainer.find('.login-container').hide();
           $.cookie('_dialoga_session', Main.private_token);
+          $('#login-panel').hide();
         } else if (user) {
           var loginContainer = requireLoginContainer.find('.login-container');
           loginContainer.show();
@@ -800,7 +801,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         $(document).on('click', '#login-button', function (e){
           e.preventDefault();
-
+          loginButton = $(this);
           $loginPanel.toggle();
         });
 
