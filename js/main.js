@@ -802,6 +802,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           e.preventDefault();
 
           $loginPanel.toggle();
+          $('html, body').animate({scrollTop: 0}, 'fast');
         });
 
         // handle click on elsewhere (out of loginPanel)
@@ -1151,14 +1152,24 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
     $(document).on('click', '#talk__button-participate', function(e) {
       e.preventDefault();
-      $.ajax({
-        type: 'post',
-        url: host + '/api/v1/articles/' + $(this).data('event-id') + '/follow',
-        data: {
-          private_token: Main.private_token
-        }
-      }).done(function(data) {
-      });
+      var $bt = $(this);
+      if(!logged_in) {
+        $('#login-button').click();
+      } else {
+        $.ajax({
+          type: 'post',
+          url: host + '/api/v1/articles/' + $(this).data('event-id') + '/follow',
+          data: {
+            private_token: Main.private_token
+          }
+        }).done(function(data) {
+          var message = 'Sua participação foi registrada com sucesso';
+          if(!data.success) {
+            message = 'Sua participação já foi registrada';
+          }
+          Main.displaySuccess($bt.closest('.talk__participate'), message, 2000, 'icon-proposal-sent');
+        });
+      }
     });
 
 
