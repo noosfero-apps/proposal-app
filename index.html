@@ -477,47 +477,54 @@
     </script>
 
     <script id="calendar-template" type="text/x-handlebars-template">
-      <div class="col-sm-12">
-        <div class="row">
-          <ul class="calendar {{category_class}}" data-slick='{"infinite": false, "rows": 2}'>
-            <li>
-              <div class="event-body">
-                {{{event.body}}}
-              </div>
-              <div class="event-description">
-                <span id='ep0'>{{event.setting.presenter}}</span>
-                <span>{{category}}</span>
-                <div id='ed0' class="date">
-                  <i class="fa fa-calendar"></i> {{date}}
-                </div>
-                <div class="time">
-                  <i class="fa fa-clock-o"></i> {{time}}
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="talk__participate">
+      <div class="calendar {{category_class}}">
+        <div class="col-sm-12">
           <div class="row">
-            <div class="col-sm-4 col-md-3 col-lg-2">
+            <div class="embed-responsive embed-responsive-16by9">
+              {{{event.body}}}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="calendar__column col-xs-12 col-sm-6">
               <div class="row">
-                <button id="talk__button-participate" type="button" class="button button-block" data-event-id="{{event.id}}">Participar</button>
+                <div class="calendar__presenter">{{event.setting.presenter}}</div>
+                <div class="calendar__presenter-category">{{category}}</div>
               </div>
             </div>
-            <div class="col-sm-8 col-md-9 col-lg-10">
+            <div class="calendar__column col-xs-6 col-sm-3">
               <div class="row">
-                <div class="talk__counter">
-                  <span class="talk__value">{{total_followers}}</span>
-                  <span class="talk__counter-message">se inscreveram para esse hangout</span>
-                  {{!- <span class="talk__counter-message">Se inscreva agora para esse hangout.</span> --}}
+                <div class="calendar__date"><i class="fa fa-calendar"></i> {{date}}</div>
+              </div>
+            </div>
+            <div class="calendar__column col-xs-6 col-sm-3">
+              <div class="row">
+                <div class="calendar__time"><i class="fa fa-clock-o"></i> {{time}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="talk__participate">
+            <div class="row">
+              <div class="col-sm-4 col-md-3 col-lg-2">
+                <div class="row">
+                  <button id="talk__button-participate" type="button" class="button button-block" data-event-id="{{event.id}}">Participar</button>
+                </div>
+              </div>
+              <div class="col-sm-8 col-md-9 col-lg-10">
+                <div class="row">
+                  <div class="talk__counter">
+                    <span class="talk__value">{{total_followers}}</span>
+                    <span class="talk__counter-message">se inscreveram para esse hangout</span>
+                    {{!- <span class="talk__counter-message">Se inscreva agora para esse hangout.</span> --}}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </script>
 
     <div class="success-panel hide">

@@ -693,7 +693,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
             params['total_followers'] = data.total_followers;
             $('.calendar-container').html(calendarTemplate(params));
             $('.calendar-container .calendar.' + active_category).show();
-            $('.calendar-container .calendar').slick();
+            // $('.calendar-container .calendar').slick();
           });
         });
       },

@@ -79,7 +79,7 @@ $darken: 15%
 
 //   1.7 - screens
 $screen-xs: 480px
-$screen-sm: 768px 
+$screen-sm: 767px 
 $screen-md: 992px 
 $screen-lg: 1200px 
 
@@ -1061,6 +1061,51 @@ td
   &-disabled
     opacity: 0.25
 
+// .calendar
+.calendar__presenter
+  font-weight: bold
+  font-size: 20px
+
+.calendar__column
+  height: 90px
+  padding-top: 20px
+  background-color: #eeeff1
+  
+  &:not(:last-child)
+    border-right: 2px solid #fff
+  &:first-child
+    padding-left: 40px
+  
+  @media (max-width: $screen-sm)
+    &:first-child
+      border-bottom: 2px solid #fff
+      border-right: none
+
+  .contrast &
+    background-color: #333
+    color: #fff !important
+
+    &:not(:last-child)
+      border-right: 2px solid #262626
+    
+    @media (max-width: $screen-sm)
+      &:first-child
+        border-bottom: 2px solid #262626
+        border-right: none
+
+    // @media (max-width: $screen-sm)
+     
+.calendar__date,
+.calendar__time
+  font-size: 20px
+  font-weight: bold
+  padding-top: 10px
+  text-align: center
+
+  .fa
+    font-size: 32px
+    vertical-align: middle
+
 //   6.17 - listas
 .list-container-border
   border: 3px solid
@@ -1113,17 +1158,21 @@ td
   position: relative
   display: inline-block
   // line-height: 3
-  margin-left: -10px
-  padding: 15px 15px 15px 25px
+  margin-left: -15px
+  padding: 15px 15px 15px 30px
   background-color: #eeeff1
   z-index: 1
   border-radius: 10px
+
+  .contrast &
+    background-color: #333
+    color: #fff !important
 
   @each $category, $color in $categories
     .#{$category} &
       color: $color
   
-  @media (max-width: $screen-md)
+  @media (max-width: $screen-sm)
     width: 100%
     margin-left: 0
 
