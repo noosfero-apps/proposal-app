@@ -10,6 +10,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
   var loginTemplate = Handlebars.compile(document.getElementById('login-template').innerHTML);
   var resultsTemplate = Handlebars.compile(document.getElementById('results-template').innerHTML);
   var articleTemplate = Handlebars.compile(document.getElementById('article-template').innerHTML);
+  var calendarTemplate = Handlebars.compile(document.getElementById('calendar-template').innerHTML);
 
   // The div/container that we are going to display the results in
   var resultsPlaceholder = document.getElementById('proposal-result');
@@ -39,12 +40,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     var cat_educacao = 181;
     var cat_reducao_da_pobreza = 183;
 
-    window.themes_cat = [];
-    window.themes_cat[0] = cat_saude;
-    window.themes_cat[1] = cat_seguranca_publica;
-    window.themes_cat[2] = cat_educacao;
-    window.themes_cat[3] = cat_reducao_da_pobreza;
-
     window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
     var host = 'http://noosfero.com:3001';
@@ -54,8 +49,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
     window.proposal_discussion = '392'
     var cat_saude = 23;
-    window.themes_cat = [];
-    window.themes_cat[0] = cat_saude;
   }
 
   var BARRA_ADDED = false;
@@ -359,27 +352,29 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $proposal.find('.talk-proposal-container').show();
         $proposal.find('.calendar').hide();
         var active_category = '';
+        var category_id;
         switch($proposal.find('.categories').attr('class')) {
           case 'categories saude':
             active_category = 'saude';
+            category_id = 180;
             break;
           case 'categories educacao':
             active_category = 'educacao';
+            category_id = 181;
             break;
           case 'categories seguranca-publica':
             active_category = 'seguranca-publica';
+            category_id = 182;
             break;
           case 'categories reducao-da-pobreza':
             active_category = 'reducao-da-pobreza';
+            category_id = 183;
             break;
-        }     
-
-        $proposal.find('.calendar.' + active_category).show();
-        $proposal.find('.calendar').slick();
+        }
 
         var topic_id = proposal_id.split('-').pop();
         this.loadRandomProposal(topic_id);
-        Main.display_events();
+        Main.display_events(category_id, active_category);
       },
       display_proposal_detail: function(proposal_id){
         $('.content').removeClass('background'); /* Remove class background */
@@ -684,24 +679,18 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         msg = msg.substring(0, msg.length - 5) + ".";
         return msg;
       },
-      display_events: function() {
-        // /api/v1/communities/64/articles?from=2013-04-04-14:41:43&until=2015-06-11-14:41:43&limit=10&categories_ids[]=7&categories_ids[]=8&private_token=a97b6a5cae2c4c54e4ae18dde1829a49
-        var url;
-        count = 0;
-        for (var i = 0; i < window.themes_cat.length; ++i) {
-          url = host + '/api/v1/communities/' + window.dialoga_community + '/articles?categories_ids[]=' + window.themes_cat[i] + '&content_type=Event&private_token=' + Main.private_token;
-          console.log(url);
-          $.getJSON(url).done(function (data) {
-            console.log(data);
-            $('#ep' + count).text(data.articles[0].setting.presenter);
-            var dt = data.articles[0].start_date;
-            dia = dt.substr(8, 2);
-            mes = dt.substr(5, 2);
-            ano = dt.substr(0, 4);
-            $('#ed' + count).text(dia + '/' + mes + '/' + ano);
-            count++;
-          });
-        }
+      display_events: function(cat_id, active_category) {
+        var url = host + '/api/v1/communities/' + window.dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + Main.private_token;
+        $.getJSON(url).done(function (data) {
+          if(data.articles.length==0) return;
+          var dt = data.articles[0].start_date;
+          var date = dt.substr(8, 2) + '/' + dt.substr(5, 2) + '/' + dt.substr(0, 4);
+          var params = {event: data.articles[0], date: date, time: "19:00", category: data.articles[0].categories[0].name, category_class: active_category};
+          $('.calendar-container').html(calendarTemplate(params));
+
+          $('.calendar-container .calendar.' + active_category).show();
+          $('.calendar-container .calendar').slick();
+        });
       },
       computeBoxHeight: function(){
         var hPerLineOnTitle = 25;

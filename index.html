@@ -312,42 +312,9 @@
                     <div class="talk-proposal-container col-sm-12">
                       <section class="talk-proposal box box-propostas">
                         <div class="container-title box-title">Bate-papo com ministras e ministros</div>
-                        <div class="talk__description">
-                          <div class="embed-responsive embed-responsive-16by9">
-                            <iframe src="//www.youtube.com/embed/pe6bePBLZkc?showinfo=0&amp;iv_load_policy=3&amp;controls=0" width="425" height="350"></iframe>
-                          </div>
-                          <p>Confira as datas e horários:</p>
-                        </div>
                         <div class="col-sm-12">
                           <div class="row">
-                            <ul class="calendar saude" data-slick='{"infinite": false, "rows": 2}'>
-                              <li>
-                                <span id='ep0'></span>
-                                <span>Saúde</span>
-                                <div id='ed0' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                              </li>
-                            </ul>
-                            <ul class="calendar seguranca-publica" data-slick='{"infinite": false, "rows": 2}'>
-                              <li>
-                                <span id='ep1'></span>
-                                <span id='ed1'>Justiça</span>
-                                <div class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                              </li>
-                            </ul>
-                            <ul class="calendar educacao" data-slick='{"infinite": false, "rows": 2}'>
-                              <li>
-                                <span id='ep2'></span>
-                                <span>Educação</span>
-                                <div id='ed2' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                              </li>
-                            </ul>
-                            <ul class="calendar reducao-da-pobreza" data-slick='{"infinite": false, "rows": 2}'>
-                              <li>
-                                <span id='ep3'></span>
-                                <span>Desenvolvimento Social</span>
-                                <div id='ed3' class="date"><i class="fa fa-calendar"></i></div><div class="time"><i class="fa fa-clock-o"></i> 19:00</div>
-                              </li>
-                            </ul>
+                            <div class="calendar-container"></div>
                           </div>
                         </div>
                         <div class="col-sm-12">
@@ -531,6 +498,26 @@
       <div class="body">
         {{{body}}}
       </div>
+    </script>
+
+    <script id="calendar-template" type="text/x-handlebars-template">
+      <ul class="calendar {{category_class}}" data-slick='{"infinite": false, "rows": 2}'>
+        <li>
+          <div class="event-body">
+            {{{event.body}}}
+          </div>
+          <div class="event-description">
+            <span id='ep0'>{{event.setting.presenter}}</span>
+            <span>{{category}}</span>
+            <div id='ed0' class="date">
+              <i class="fa fa-calendar"></i> {{date}}
+            </div>
+            <div class="time">
+              <i class="fa fa-clock-o"></i> {{time}}
+            </div>
+          </div>
+        </li>
+      </ul>
     </script>
 
     <div class="success-panel hide">
