@@ -802,7 +802,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           e.preventDefault();
 
           $loginPanel.toggle();
-          $('html, body').animate({scrollTop: 0}, 'fast');
         });
 
         // handle click on elsewhere (out of loginPanel)
@@ -1155,6 +1154,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var $bt = $(this);
       if(!logged_in) {
         $('#login-button').click();
+        $('html, body').animate({scrollTop: 0}, 'fast');
       } else {
         $.ajax({
           type: 'post',
