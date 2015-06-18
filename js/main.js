@@ -1163,6 +1163,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var message = 'Sua participação foi registrada com sucesso';
           if(!data.success) {
             message = 'Sua participação já foi registrada';
+          } else {
+            var value= $bt.closest('.talk__participate').find('.talk__value');
+            value.text(parseInt(value.text()) + 1);
           }
           Main.displaySuccess($bt.closest('.talk__participate'), message, 2000, 'icon-proposal-sent');
         });
