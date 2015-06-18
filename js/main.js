@@ -783,7 +783,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       
       // create login panel on header
       (function (){
-        var $loginPanel = $('#login-panel');
+        var loginPanelId = '#login-panel';
+        var $loginPanel = $(loginPanelId);
         $loginPanel.hide();
         $loginPanel.removeClass('hide');
         $loginPanel.append(loginTemplate());
@@ -801,6 +802,31 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           e.preventDefault();
 
           $loginPanel.toggle();
+        });
+
+        // handle click on elsewhere (out of loginPanel)
+        $(document).click(function(e){
+          var $target = $(e.target);
+          // console.log('e.target', e.target);
+
+          var isLoginButton = ($target.attr('id') === 'login-button');
+          // console.log('isLoginButton', isLoginButton);
+          
+          var isChildOfPanel = ($target.closest(loginPanelId).length !== 0);
+          // console.log('isChildOfPanel', isChildOfPanel);
+
+          if( !isLoginButton && !isChildOfPanel ){
+            $loginPanel.hide();
+          }
+        });
+
+        // handle esc
+        $(document).keyup(function(e) {
+          
+          // escape key maps to keycode `27`
+          if (e.keyCode == 27) { // ESC
+            $loginPanel.hide();
+          }
         });
 
         $('.participar').removeClass('hide');
