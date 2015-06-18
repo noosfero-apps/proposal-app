@@ -776,11 +776,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
       Main.navigateTo(window.location.hash);
 
-      $('.oauth-login').on('click', function(e) {
+      $(document).on('click', '.oauth-login', function (e){
         Main.oauthClientAction($(this).attr('href'));
         e.preventDefault();
       });
-      
+
       // create login panel on header
       (function (){
         var loginPanelId = '#login-panel';
