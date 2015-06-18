@@ -478,13 +478,15 @@
 
     <script id="calendar-template" type="text/x-handlebars-template">
       <div class="calendar {{category_class}}">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="embed-responsive embed-responsive-16by9">
-              {{{event.body}}}
+        {{#if event.body}}
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="embed-responsive embed-responsive-16by9">
+                {{{event.body}}}
+              </div>
             </div>
           </div>
-        </div>
+        {{/if}}
         <div class="col-sm-12">
           <div class="row">
             <div class="calendar__column col-xs-12 col-sm-6">
