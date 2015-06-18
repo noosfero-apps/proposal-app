@@ -127,6 +127,38 @@ define(['handlebars'], function(Handlebars){
     return index + 1 + per_page * (page - 1);
   });
 
+  Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
+
+    if (arguments.length < 3){
+      throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+    }
+
+    var operator = options.hash.operator || "==";
+
+    var operators = {
+      '==':       function(l,r) { return l == r; },
+      '===':      function(l,r) { return l === r; },
+      '!=':       function(l,r) { return l != r; },
+      '<':        function(l,r) { return l < r; },
+      '>':        function(l,r) { return l > r; },
+      '<=':       function(l,r) { return l <= r; },
+      '>=':       function(l,r) { return l >= r; },
+      'typeof':   function(l,r) { return typeof l == r; }
+    }
+
+    if (!operators[operator]){
+      throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+    }
+
+    var result = operators[operator](lvalue,rvalue);
+
+    if( result ) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
+
   function proposal_has_category(proposal, category_slug) {
     for(var i=0; i<proposal.categories.length; i++) {
       if(proposal.categories[i].slug == category_slug)

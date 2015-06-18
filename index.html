@@ -311,7 +311,7 @@
 
                     <div class="talk-proposal-container col-sm-12">
                       <section class="talk-proposal box box-propostas">
-                        <div class="container-title box-title">Bate-papo com ministras e ministros</div>
+                        <div class="container-title box-title">Hangout com ministras e ministros</div>
                         <div class="calendar-container"></div>
                       </section>
                     </div>
@@ -516,9 +516,12 @@
               <div class="col-sm-8 col-md-9 col-lg-10">
                 <div class="row">
                   <div class="talk__counter">
-                    <span class="talk__value">{{total_followers}}</span>
-                    <span class="talk__counter-message">se inscreveram para esse hangout</span>
-                    {{!- <span class="talk__counter-message">Se inscreva agora para esse hangout.</span> --}}
+                    {{#compare total_followers 50 operator=">"}}
+                      <span class="talk__value">{{total_followers}}</span>
+                      <span class="talk__counter-message">se inscreveram para esse hangout</span>
+                    {{^}}
+                      <span class="talk__counter-message">Inscreva-se agora para esse hangout.</span>
+                    {{/compare}}
                   </div>
                 </div>
               </div>
