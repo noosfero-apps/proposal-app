@@ -688,10 +688,13 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var dd = new Date(dt);
           var time = dd.getHours() + ':' + (dd.getMinutes()<10?'0':'') + dd.getMinutes();
           var params = {event: data.articles[0], date: date, time: time, category: data.articles[0].categories[0].name, category_class: active_category};
-          $('.calendar-container').html(calendarTemplate(params));
-
-          $('.calendar-container .calendar.' + active_category).show();
-          $('.calendar-container .calendar').slick();
+          $.getJSON(host+'/api/v1/articles/'+data.articles[0].id+'/followers?private_token=' + Main.private_token + '&_='+new Date().getTime()).done(function (data) {
+            //FIXME do not depend on this request
+            params['total_followers'] = data.total_followers;
+            $('.calendar-container').html(calendarTemplate(params));
+            $('.calendar-container .calendar.' + active_category).show();
+            $('.calendar-container .calendar').slick();
+          });
         });
       },
       computeBoxHeight: function(){
@@ -1122,7 +1125,14 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
     $(document).on('click', '#talk__button-participate', function(e) {
       e.preventDefault();
-      console.log('TODO: participate action handler not implemented yet.');
+      $.ajax({
+        type: 'post',
+        url: host + '/api/v1/articles/' + $(this).data('event-id') + '/follow',
+        data: {
+          private_token: Main.private_token
+        }
+      }).done(function(data) {
+      });
     });
 
 
