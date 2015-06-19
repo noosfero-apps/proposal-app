@@ -701,7 +701,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
               e.preventDefault();
               var $bt = $(this);
               if(!logged_in) {
-                $('#login-button').click();
+                $('#login-panel').show();
                 $('html, body').animate({scrollTop: 0}, 'fast');
               } else {
                 $.ajax({
@@ -837,7 +837,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $(document).click(function(e){
           var $target = $(e.target);
 
-          var isLoginButton = ($target.attr('id') === 'login-button');
+          var isLoginButton = ($target.closest('#login-button').length !== 0);
           var requireLogin = $target.hasClass('require-main-login');
           var isChildOfPanel = ($target.closest(loginPanelId).length !== 0);
 
