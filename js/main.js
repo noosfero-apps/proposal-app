@@ -689,7 +689,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var dd = new Date(dt);
           var time = dd.getHours() + ':' + (dd.getMinutes()<10?'0':'') + dd.getMinutes();
           var params = {event: data.articles[0], date: date, time: time, category: data.articles[0].categories[0].name, category_class: active_category};
-          $.getJSON(host+'/api/v1/articles/'+data.articles[0].id+'/followers?private_token=' + Main.private_token + '&_='+new Date().getTime()).done(function (data) {
+          $.getJSON(host+'/api/v1/articles/'+data.articles[0].id+'/followers?private_token=' + '375bee7e17d0021af7160ce664874618' + '&_='+new Date().getTime()).done(function (data) {
             //FIXME do not depend on this request
             params['total_followers'] = data.total_followers;
             $('.calendar-container').html(calendarTemplate(params));
