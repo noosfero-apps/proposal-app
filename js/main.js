@@ -681,7 +681,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         return msg;
       },
       display_events: function(cat_id, active_category) {
-        var url = host + '/api/v1/communities/' + window.dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + Main.private_token;
+        var url = host + '/api/v1/communities/' + window.dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
         $.getJSON(url).done(function (data) {
           if(data.articles.length==0) return;
           var dt = data.articles[0].start_date;
