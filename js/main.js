@@ -1175,6 +1175,19 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       e.preventDefault();
     });
 
+    // hack-fix IE iframe video over 9999 z-index div.
+    $('iframe').each(function(){
+      var $iframe = $(this);
+      var url = $iframe.attr('src');
+      var c = '?';
+
+      if(url.indexOf("?") != -1){
+        c = "&";
+      }
+      
+      $iframe.attr("src",url+c+"wmode=transparent");
+    });
+
   });
 
   window.addEventListener("message", function(ev) {
