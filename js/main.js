@@ -316,7 +316,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         // this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
         $('.proposal-item').show(); /* Show all programs */
         $('#proposal-group').show();
-        $('.content').addClass('background');
         $('#proposal-categories').show();
         $('.proposal-category-items').hide();
         $('#nav-proposal-group a').addClass('active');
@@ -702,7 +701,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
               e.preventDefault();
               var $bt = $(this);
               if(!logged_in) {
-                $('#login-panel').show();
+                $('#login-button').click();
                 $('html, body').animate({scrollTop: 0}, 'fast');
               } else {
                 $.ajax({
@@ -838,7 +837,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $(document).click(function(e){
           var $target = $(e.target);
 
-          var isLoginButton = ($target.closest('#login-button').length !== 0);
+          var isLoginButton = ($target.attr('id') === 'login-button');
           var requireLogin = $target.hasClass('require-main-login');
           var isChildOfPanel = ($target.closest(loginPanelId).length !== 0);
 
@@ -1174,19 +1173,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       Main.showLogin();
       location.reload();
       e.preventDefault();
-    });
-
-    // hack-fix IE iframe video over 9999 z-index div.
-    $('iframe').each(function(){
-      var $iframe = $(this);
-      var url = $iframe.attr('src');
-      var c = '?';
-
-      if(url.indexOf("?") != -1){
-        c = "&";
-      }
-      
-      $iframe.attr("src",url+c+"wmode=transparent");
     });
 
   });

@@ -5,12 +5,12 @@ $.fn.equalHeights = function(px) {
   $(this).each(function(index, item){
     var $item = $(item);
     $item.height('auto'); // force a 'recalc' height
-    var h = $item.height();
-    if ( h > currentTallest) { currentTallest = h; }
+    
+    if ($item.height() > currentTallest) { currentTallest = $item.height(); }
     if (!px && Number.prototype.pxToEm) { currentTallest = currentTallest.pxToEm(); } //use ems unless px is specified
     // for ie6, set height since min-height isn't supported
     if (typeof(document.body.style.minHeight) === 'undefined') { $item.css({'height': currentTallest}); }
-    $item.height(currentTallest);
+    $item.css({'height': currentTallest});
   });
   return this;
 };
