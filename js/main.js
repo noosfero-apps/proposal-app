@@ -935,10 +935,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
       $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
-        $('body').toggleClass('contrast');
+        $('body').toggleClass('contraste');
 
         if($.cookie){
-          var isContrasted = $('body').hasClass('contrast');
+          var isContrasted = $('body').hasClass('contraste');
           $.cookie('dialoga_contraste', isContrasted);
         }
       });
@@ -1043,10 +1043,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
       // contrast
       var isContrasted = $.cookie('dialoga_contraste');
-      console.log('isContrasted', isContrasted);
-      if(isContrasted){
-        // remove all classes 'contrast' and add only one 'contrast'
-        $('body').addClass('contrast');
+      if(isContrasted === 'true'){
+        // remove all classes 'contraste' and add only one 'contraste'
+        $('body').addClass('contraste');
       }
     }
 
