@@ -936,6 +936,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
         $('body').toggleClass('contrast');
+
+        if($.cookie){
+          var isContrasted = $('body').hasClass('contrast');
+          $.cookie('dialoga_contraste', isContrasted);
+        }
       });
 
       $( '.show_body' ).on('click', function(e){
@@ -1020,17 +1025,29 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
     FastClick.attach(document.body);
 
-    if($.cookie('_dialoga_session')) {
-      var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
-      $.getJSON(url).done(function( data ) {
-        logged_in = true;
-        Main.private_token = $.cookie('_dialoga_session');
+    if($.cookie) {
 
-        if(data && data.user){
-          Main.setUser(data.user);
-          Main.showLogout();
-        }
-      });
+      // session
+      if($.cookie('_dialoga_session')){
+        var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
+        $.getJSON(url).done(function( data ) {
+          logged_in = true;
+          Main.private_token = $.cookie('_dialoga_session');
+
+          if(data && data.user){
+            Main.setUser(data.user);
+            Main.showLogout();
+          }
+        });
+      }
+
+      // contrast
+      var isContrasted = $.cookie('dialoga_contraste');
+      console.log('isContrasted', isContrasted);
+      if(isContrasted){
+        // remove all classes 'contrast' and add only one 'contrast'
+        $('body').addClass('contrast');
+      }
     }
 
     $(document).on('login:success', Main.handleLoginSuccess);
