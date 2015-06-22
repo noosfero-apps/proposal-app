@@ -1225,10 +1225,49 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       e.preventDefault();
     });
 
+    // hack-fix to support z-index over video/iframe
+    function checkIframes () {
+
+      $('iframe').each(function(){
+        var $iframe = $(this);
+        var url = $iframe.attr('src');
+        var c = '?';
+
+        // console.log('url', url);
+        // console.log('url.indexOf("youtube")', url.indexOf("youtube"));
+        if(url.indexOf("youtube") === -1){
+          // is not a iframe of youtube
+          // console.debug('is not a iframe of youtube');
+          return;
+        }
+
+        if(url.indexOf("wmode=opaque") !== -1){
+          // already in opaque mode
+          // console.debug('already in opaque mode');
+          return;
+        }
+
+        if(url.indexOf('?') !== -1){
+          c = '&';
+        }
+        
+        $iframe.attr("src",url+c+"wmode=opaque");
+        // console.debug('iframe changed to opaque mode');
+      });
+
+      setTimeout(checkIframes, 500);
+    }
+    checkIframes();
+    // $(document).bind('DOMSubtreeModified', function(e){
+      // console.log('this', this);
+      // console.log('e', e);
+      
+    // });
+
   });
 
-  window.addEventListener("message", function(ev) {
-    if (ev.data.message === "oauthClientPluginResult") {
+  window.addEventListener('message', function(ev) {
+    if (ev.data.message === 'oauthClientPluginResult') {
       Main.loginCallback(ev.data.logged_in, ev.data.private_token, ev.data.user);
       ev.source.close();
     }
