@@ -657,8 +657,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       showLogout: function(){
         $('#login-button').hide();
         var name = '';
-        if(this.user){
-          name = this.user.person.name + ' - ';
+        var user = Main.getUser();
+        if(user){
+          name = user.person.name + ' - ';
         }
         $('#logout-button .name').text(name);
         $('#logout-button').show();
@@ -830,6 +831,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           .removeClass('col-sm-4')
           .addClass('col-sm-12');
 
+        if(logged_in){
+          Main.showLogout();
+        }
+
         $(document).on('click', '#login-button', function (e){
           e.preventDefault();
           loginButton = $(this);
@@ -935,7 +940,12 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
       $( '#display-contrast' ).on('click', function(e){
         e.preventDefault();
-        $('body').toggleClass('contrast');
+        $('body').toggleClass('contraste');
+
+        if($.cookie){
+          var isContrasted = $('body').hasClass('contraste');
+          $.cookie('dialoga_contraste', isContrasted);
+        }
       });
 
       $( '.show_body' ).on('click', function(e){
@@ -1020,17 +1030,28 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
     FastClick.attach(document.body);
 
-    if($.cookie('_dialoga_session')) {
-      var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
-      $.getJSON(url).done(function( data ) {
-        logged_in = true;
-        Main.private_token = $.cookie('_dialoga_session');
+    if($.cookie) {
 
-        if(data && data.user){
-          Main.setUser(data.user);
-          Main.showLogout();
-        }
-      });
+      // session
+      if($.cookie('_dialoga_session')){
+        var url = host + '/api/v1/users/me?private_token=' + $.cookie('_dialoga_session');
+        $.getJSON(url).done(function( data ) {
+          logged_in = true;
+          Main.private_token = $.cookie('_dialoga_session');
+
+          if(data && data.user){
+            Main.setUser(data.user);
+            Main.showLogout();
+          }
+        });
+      }
+
+      // contrast
+      var isContrasted = $.cookie('dialoga_contraste');
+      if(isContrasted === 'true'){
+        // remove all classes 'contraste' and add only one 'contraste'
+        $('body').addClass('contraste');
+      }
     }
 
     $(document).on('login:success', Main.handleLoginSuccess);
@@ -1055,7 +1076,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           //withCredentials: true
         }
       }).done(function(data) {
-        $(document).trigger('login:success', data);
 
         var $sectionContent = $form.closest('.section-content');
         if($sectionContent && $sectionContent.length > 0){
@@ -1067,8 +1087,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           $loginPanel.hide();
         }
 
+        $(document).trigger('login:success', data);
       }).fail(function(data) {
-        $(document).trigger('login:fail', data);
 
         $message.show();
         if(data.status==401){
@@ -1076,6 +1096,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         }else{
           $message.text('Um erro inesperado ocorreu');
         }
+
+        $(document).trigger('login:fail', data);
       });
     });
 
@@ -1119,9 +1141,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       message.text('');
 
       var signup = $(this).parents('form.signup');
-      var loading = $('.login-container .loading');
-      loading.show();
+      var $loading = $('.login-container .loading');
+      $loading.show();
       signup.hide();
+      signup.removeClass('hide');
       var button = $(this);
 
       $.ajax({
@@ -1129,43 +1152,67 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         url: host + '/api/v1/register',
         data: $(this).parents('.signup').serialize(),
       }).done(function(data) {
-        Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+
+        var $sectionContent = button.closest('.section-content');
+        if($sectionContent && $sectionContent.length > 0){
+          Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+        }
+
+        $(document).trigger('login:success', data);
       }).fail(function(data) {
-        var msg = Main.responseToText(data.responseJSON.message);
+        var msg = "";
+        try{
+          msg = Main.responseToText(data.responseJSON.message);
+        }catch(ex){
+          var ptBR = {};
+          // (Invalid request) email can't be saved
+          ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
+          // (Invalid request) login can't be saved
+          ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
+
+          msg = ptBR[data.responseJSON.message] || data.responseJSON.message;
+        }
+
         message.show();
         message.html('Não foi possível efetuar o cadastro: <br/><br/>' + msg);
+
+        $(document).trigger('login:fail', data);
       }).always(function() {
-        loading.hide();
+        $loading.hide();
         signup.show();
+
+        // var $loginPanel = $loading.closest('#login-panel');
+        // if($loginPanel && $loginPanel.length > 0){
+        //   $loginPanel.hide();
+        // }
       });
       grecaptcha.reset();
       e.preventDefault();
     });
 
-    var popupCenter = function(url, title, w, h) {
-      var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
-      var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+    // var popupCenter = function(url, title, w, h) {
+    //   var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+    //   var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
 
-      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+    //   var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    //   var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
 
-      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
-      var top = ((height / 3) - (h / 3)) + dualScreenTop;
+    //   var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    //   var top = ((height / 3) - (h / 3)) + dualScreenTop;
 
-      var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    //   var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 
-      // Puts focus on the newWindow
-      if (window.focus) {
-        newWindow.focus();
-      }
-    };
+    //   // Puts focus on the newWindow
+    //   if (window.focus) {
+    //     newWindow.focus();
+    //   }
+    // };
 
-    $(document).on('click', '.social a.popup', {}, function popUp(e) {
-      var self = $(this);
-      popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
-      e.preventDefault();
-    });
+    // $(document).on('click', '.social a.popup', {}, function popUp(e) {
+    //   var self = $(this);
+    //   popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
+    //   e.preventDefault();
+    // });
 
     $(document).on('click', '#logout-button', function (e){
       var self = $(this);
