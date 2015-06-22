@@ -657,8 +657,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       showLogout: function(){
         $('#login-button').hide();
         var name = '';
-        if(this.user){
-          name = this.user.person.name + ' - ';
+        var user = Main.getUser();
+        if(user){
+          name = user.person.name + ' - ';
         }
         $('#logout-button .name').text(name);
         $('#logout-button').show();
@@ -829,6 +830,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $loginPanel.find('.new-user').parent()
           .removeClass('col-sm-4')
           .addClass('col-sm-12');
+
+        if(logged_in){
+          Main.showLogout();
+        }
 
         $(document).on('click', '#login-button', function (e){
           e.preventDefault();
@@ -1071,7 +1076,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           //withCredentials: true
         }
       }).done(function(data) {
-        $(document).trigger('login:success', data);
 
         var $sectionContent = $form.closest('.section-content');
         if($sectionContent && $sectionContent.length > 0){
@@ -1083,8 +1087,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           $loginPanel.hide();
         }
 
+        $(document).trigger('login:success', data);
       }).fail(function(data) {
-        $(document).trigger('login:fail', data);
 
         $message.show();
         if(data.status==401){
@@ -1092,6 +1096,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         }else{
           $message.text('Um erro inesperado ocorreu');
         }
+
+        $(document).trigger('login:fail', data);
       });
     });
 
@@ -1135,9 +1141,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       message.text('');
 
       var signup = $(this).parents('form.signup');
-      var loading = $('.login-container .loading');
-      loading.show();
+      var $loading = $('.login-container .loading');
+      $loading.show();
       signup.hide();
+      signup.removeClass('hide');
       var button = $(this);
 
       $.ajax({
@@ -1145,15 +1152,39 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         url: host + '/api/v1/register',
         data: $(this).parents('.signup').serialize(),
       }).done(function(data) {
-        Main.loginCallback(true, data.private_token);
-        Main.displaySuccess(button.closest('.section-content'), 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+
+        var $sectionContent = button.closest('.section-content');
+        if($sectionContent && $sectionContent.length > 0){
+          Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+        }
+
+        $(document).trigger('login:success', data);
       }).fail(function(data) {
-        var msg = Main.responseToText(data.responseJSON.message);
+        var msg = "";
+        try{
+          msg = Main.responseToText(data.responseJSON.message);
+        }catch(ex){
+          var ptBR = {};
+          // (Invalid request) email can't be saved
+          ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
+          // (Invalid request) login can't be saved
+          ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
+
+          msg = ptBR[data.responseJSON.message] || data.responseJSON.message;
+        }
+
         message.show();
         message.html('Não foi possível efetuar o cadastro: <br/><br/>' + msg);
+
+        $(document).trigger('login:fail', data);
       }).always(function() {
-        loading.hide();
+        $loading.hide();
         signup.show();
+
+        // var $loginPanel = $loading.closest('#login-panel');
+        // if($loginPanel && $loginPanel.length > 0){
+        //   $loginPanel.hide();
+        // }
       });
       grecaptcha.reset();
       e.preventDefault();
