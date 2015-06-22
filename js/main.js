@@ -280,6 +280,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           $('#proposal-group').hide();
           $('nav').hide();
           $('#content').hide();
+          $('.content').removeClass('background'); /* Remove class background*/
           $('#article-container .go-back').attr('href', backTo);
         });
       },
@@ -303,7 +304,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $('#nav-proposal-group a').removeClass('active');
         $('.proposal-category-items').hide();
         $('.proposal-category .arrow-box').hide();
-        $('.proposal-detail').hide();
+        $('.proposal-detail').hide().removeClass('hide');
         $('#article-container').hide();
 
         $('#content').show();
@@ -318,9 +319,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $('#proposal-group').show();
         $('#proposal-categories').show();
         $('.proposal-category-items').hide();
+        $('.proposal-detail').hide().removeClass('hide');
         $('#nav-proposal-group a').addClass('active');
         $('#nav-proposal-categories a').removeClass('active');
         $('#content').show();
+        $('.content').addClass('background'); /* Add class background */
         $('#article-container').hide();
         $('nav').show();
         $('html, body').animate({ scrollTop: $('#proposal-group').offset().top }, 'fast');
@@ -338,7 +341,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $('#article-container').hide();
         // $('.make-proposal-form').hide();
         // $('.login-container').hide();
-        $('.proposal-detail').hide(); // hide all proposals
+        $('.proposal-detail').hide().removeClass('hide'); // hide all proposals
         // $('.proposal-detail-base').hide();
         var $proposal = $('#' + proposal_id);
         $proposal.find('.proposal-detail-base').hide();
@@ -416,7 +419,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           $('#proposal-group').hide(); /* Hide section "Programas" */
           $('.content').addClass('background'); /* Add class background */
           $('.proposal-category-items').hide();
-          $('.proposal-detail').hide();
+          $('.proposal-detail').hide().removeClass('hide');
           $item.toggle( 'blind', 200, function () {
             var itemOffset = $item.offset();
             if(itemOffset){
