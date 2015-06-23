@@ -1,5 +1,5 @@
 define(['piwik'], function(){
-/*
+
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
@@ -14,5 +14,5 @@ define(['piwik'], function(){
 
   window._paq = _paq;
   return _paq;
-*/
+
 });

@@ -24,7 +24,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
   var participa = true;
 
 
-
   //Detects for localhost settings
   var patt = new RegExp(":3001/");
   if(patt.test(window.location.href))
@@ -494,13 +493,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         lastHash = hash;
       },
       navigateTo: function(hash, lastHash) {
-        // _paq.push(['trackEvent', 'NavegarPara', hash || '/']);
-        // _paq.push(['setDocumentTitle', document.domain + '/' + hash]);
-        // _paq.push(['trackPageView']);
-        if (window._paq){
-          window._paq.push(['trackPageView', 'navigateTo', hash, lastHash]);
-        }
-        // console.log('event tracked.');
 
         var scrollTop = 0;
         var $nav = $('nav[role="tabpanel"]');
@@ -511,6 +503,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         var regexHideBarra = /barra=false$/;
         var regexArticle = /#\/artigo/;
         var regexResultados = /resultados$/;
+        var regexSobreOPrograma = /sobre-o-programa$/;
 
         if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
           this.addBarraDoGoverno();
@@ -523,10 +516,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         var parts = hash.split('/');
 
-        var isProposal = regexProposals.exec(hash) !== null;
-        var isCategory = regexCategory.exec(hash) !== null;
-        var isArticle  = regexArticle.exec(hash) !== null;
-        var isResultados  = regexResultados.exec(hash) !== null;
+        var isProposal        = regexProposals.exec(hash) !== null;
+        var isCategory        = regexCategory.exec(hash) !== null;
+        var isArticle         = regexArticle.exec(hash) !== null;
+        var isResultados      = regexResultados.exec(hash) !== null;
+        var isSobreOPrograma  = regexSobreOPrograma.exec(hash) !== null;
 
         if(isArticle) {
           this.display_article(hash.split('/')[2], lastHash);
@@ -539,6 +533,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           this.navigateToProposal(proposalId);
 
           var $proposal = $('#proposal-item-' + proposalId);
+          var proposalTitle = $proposal.find('.title').text();
           var proposalOffset = $proposal.offset();
           if(proposalOffset){
             scrollTop = proposalOffset.top;
@@ -571,6 +566,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         if( isCategory ){
 
           // go to category
+          var categorySlug = parts[2];
           var categoryId = parts[3];
           this.navigateToCategory(categoryId);
 
@@ -590,6 +586,38 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           // show the 'index' -> category tab
           this.display_category_tab();
         }
+
+        // [BEGIN] Tracking
+        if (window._paq){
+          // _paq.push(['trackEvent', 'NavegarPara', hash || '/']);
+          // _paq.push(['setDocumentTitle', document.domain + '/' + hash]);
+          // _paq.push(['trackPageView']);
+
+          var trackPageTitle = '';
+          if(isArticle){
+            trackPageTitle = 'Página: Sobre'
+          }
+
+          if(isProposal){
+            trackPageTitle = 'Proposta: ' + (proposalTitle || 'todas as propostas');
+
+            if(isResultados){
+              trackPageTitle += ' / Resultados' ;
+            }
+
+            if(isSobreOPrograma){
+              trackPageTitle += ' / Sobre o programa' ;
+            }
+          }
+
+          if(isCategory){
+            trackPageTitle = 'Tema: ' + categorySlug;
+          }
+
+          window._paq.push(['trackPageView', trackPageTitle]);
+          console.log('tracked page view', trackPageTitle);
+        }
+        // [END] Tracking
 
         $('html, body').animate({ scrollTop: scrollTop }, 'fast');
       },
