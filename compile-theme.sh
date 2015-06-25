@@ -1,2 +1,2 @@
 #!/bin/bash
-sass --watch sass/style.scss:style.css
+sass --watch sass/style.sass:style.css
