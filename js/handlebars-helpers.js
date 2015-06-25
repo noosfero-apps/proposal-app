@@ -42,7 +42,7 @@ define(['handlebars'], function(Handlebars){
           '<div class="box__image" style="background-image:url(' + (options.hash['host'] + proposal.image.url) + ')"></div>' +
           '<div class="box__title">' + proposal.title + '</div>' +
           (proposal.abstract ? '<div class="box__abstract">' + proposal.abstract + '</div>' : '') +
-          '<div class="box__footer">' + '<button type="button" class="button button-block participe">OPINE NESTE PROGRAMA</button>' + '</div>' +
+          '<div class="box__footer">' + '<button type="button" class="button button-block participe">Participe</button>' + '</div>' +
           '</div>';
       }
 
