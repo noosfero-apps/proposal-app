@@ -1151,7 +1151,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       signupForm.find(".password-confirmation").show();
       loginForm.find('.message').hide();
       signupForm.find('#g-recaptcha').empty();
-      grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
+      //grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
       e.preventDefault();
     })
 
@@ -1159,7 +1159,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var signupForm = $(this).parents('#signup-form');
       signupForm.hide();
       signupForm.siblings('#login-form').show();
-      grecaptcha.reset();
+      //Reset captcha here
+      //grecaptcha.reset();
       e.preventDefault();
     });
 
