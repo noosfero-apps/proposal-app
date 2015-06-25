@@ -396,11 +396,14 @@ textarea
 h1
   float: left
   .logo
-    background: url(images/logo.png) no-repeat center
+    background-image: url(images/logo.png)
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: contain
+    height: 55px
+    width: 322px
     display: inline-block
-    height: 80px
     text-indent: -99999px
-    width: 180px
 
 //   6.3 - menu topo
 .top-menu
@@ -412,7 +415,7 @@ h1
     color: $header-color
     display: block
     float: left
-    margin: ($gutter * 2) ($gutter * 0.5) 0
+    margin: ($gutter) ($gutter * 0.5) 0
     text-transform: uppercase
     @media (max-width: $screen-xs)
       margin: 0 ($gutter)
