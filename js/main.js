@@ -1215,7 +1215,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         //   $loginPanel.hide();
         // }
       });
-      grecaptcha.reset();
+      //Reset captcha here
+      //grecaptcha.reset();
       e.preventDefault();
     });
 
