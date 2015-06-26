@@ -1151,7 +1151,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       loginForm.find('.message').hide();
       signupForm.find('#g-recaptcha').empty();
       //grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
-      Recaptcha.create(window.recaptchaSiteKey, "captcha_v1", { theme: "red", callback: Recaptcha.focus_response_field } );
+      Recaptcha.create(window.recaptchaSiteKey, "g-recaptcha", { theme: "red", callback: Recaptcha.focus_response_field } );
       e.preventDefault();
     })
 
