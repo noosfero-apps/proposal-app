@@ -38,7 +38,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     var cat_seguranca_publica = 182;
     var cat_educacao = 181;
     var cat_reducao_da_pobreza = 183;
-
     window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
     var host = 'http://noosfero.com:3001';
@@ -1152,6 +1151,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       loginForm.find('.message').hide();
       signupForm.find('#g-recaptcha').empty();
       //grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
+      Recaptcha.create(window.recaptchaSiteKey, "captcha_v1", { theme: "red", callback: Recaptcha.focus_response_field } );
       e.preventDefault();
     })
 
