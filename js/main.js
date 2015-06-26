@@ -1143,15 +1143,14 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     $(document).on('click', '.new-user', function(e) {
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
-
+      console.log("novo usuário");
       loginForm.hide();
       signupForm.show();
       signupForm.find(".password").show();
       signupForm.find(".password-confirmation").show();
       loginForm.find('.message').hide();
       signupForm.find('#g-recaptcha').empty();
-      //grecaptcha.render(signupForm.find('#g-recaptcha')[0], {'sitekey' : window.recaptchaSiteKey });
-      Recaptcha.create(window.recaptchaSiteKey, "g-recaptcha", { theme: "red", callback: Recaptcha.focus_response_field } );
+      Recaptcha.create(window.recaptchaSiteKey, signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
       e.preventDefault();
     })
 
@@ -1159,8 +1158,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var signupForm = $(this).parents('#signup-form');
       signupForm.hide();
       signupForm.siblings('#login-form').show();
-      //Reset captcha here
-      //grecaptcha.reset();
       e.preventDefault();
     });
 
@@ -1215,8 +1212,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         //   $loginPanel.hide();
         // }
       });
-      //Reset captcha here
-      //grecaptcha.reset();
       e.preventDefault();
     });
 
