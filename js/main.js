@@ -1143,6 +1143,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     $(document).on('click', '.new-user', function(e) {
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
+      window.signupForm = signupForm;
       console.log("novo usuário");
       loginForm.hide();
       signupForm.show();
@@ -1187,6 +1188,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $(document).trigger('login:success', data);
       }).fail(function(data) {
         var msg = "";
+        window.signupForm.find('#g-recaptcha').empty();
+        Recaptcha.create(window.recaptchaSiteKey, window.signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
+
         try{
           msg = Main.responseToText(data.responseJSON.message);
         }catch(ex){
