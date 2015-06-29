@@ -1199,7 +1199,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
           // (Invalid request) login can't be saved
           ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
-
+          ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
           msg = ptBR[data.responseJSON.message] || data.responseJSON.message;
         }
 
