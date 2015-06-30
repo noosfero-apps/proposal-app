@@ -121,7 +121,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
               }
 
               if(ProposalApp.hasProposalbeenVoted(article.id)){
-                console.log("Proposta " + article.id + " já havia sido votada");
+                // console.debug("Proposta " + article.id + " já havia sido votada");
                 Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
                 contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
@@ -401,7 +401,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
-          console.log( 'Request Failed: ' + err );
+          // console.log( 'Request Failed: ' + err );
         });
       },
       display_proposal_by_category: function(item){
@@ -614,7 +614,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           }
 
           window._paq.push(['trackPageView', trackPageTitle]);
-          console.log('tracked page view', trackPageTitle);
+          // console.log('tracked page view', trackPageTitle);
         }
         // [END] Tracking
 
@@ -1144,7 +1144,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
       window.signupForm = signupForm;
-      console.log("novo usuário");
+      // console.log("novo usuário");
       loginForm.hide();
       signupForm.show();
       signupForm.find(".password").show();

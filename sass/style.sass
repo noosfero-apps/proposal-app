@@ -895,6 +895,12 @@ td
     float: left
   .vote-result
     float: right
+    background: none
+    border: none
+    
+    @each $category, $color in $categories
+      .#{$category} &
+        color: $color
   .updated-at
     @extend .vote-result
     margin-top: $gutter
