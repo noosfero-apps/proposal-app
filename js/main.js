@@ -161,6 +161,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
                 $proposalDetail.find('.experience-proposal-container').show();
                 $proposalDetail.find('.talk-proposal-container').show();
                 $resultsContainer.hide();
+
+                // remove '/resultados' from URL
+                window.location.hash = window.location.hash.split('/resultados')[0];
+                e.preventDefault();
               }
             });
 
@@ -1250,7 +1254,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       $.removeCookie('*');
       logged_in = false;
       Main.showLogin();
-      location.reload();
+      if(window.location.hash.indexOf('/resultados') !== -1){
+        window.location.hash = window.location.hash.split('/resultados')[0];
+      }else{
+        location.reload();
+      }
       e.preventDefault();
     });
 
