@@ -1152,6 +1152,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       signupForm.find(".password").show();
       signupForm.find(".password-confirmation").show();
       loginForm.find('.message').hide();
+      signupForm.find('#g-recaptcha').empty();
+      Recaptcha.create(window.recaptchaSiteKey, signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
       e.preventDefault();
     })
 
@@ -1188,7 +1190,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $(document).trigger('login:success', data);
       }).fail(function(data) {
         var msg = "";
-        //RELOAD CAPTCHA HERE
+        window.signupForm.find('#g-recaptcha').empty();
+        Recaptcha.create(window.recaptchaSiteKey, window.signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
 
         try{
           msg = Main.responseToText(data.responseJSON.message);

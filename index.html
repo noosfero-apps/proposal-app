@@ -439,23 +439,7 @@
             <input id="user_oauth_providers" name="oauth_providers" type="hidden">
           </div>
           <div class="captcha col-sm-12">
-             <div id="idAntiRobo">
-                <!--<div data-ui-captcha-serpro="css1; input" data-clienteid="41ff278aba054a4cb14ab7a03d2f4c4d"></div>-->
-                <!--<div data-ui-captcha-serpro="css1; input" data-urlimagem="./captcha/gerarCaptcha.asp" data-urlsom="./captcha/gerarSom.asp"></div>-->
-                <div style="border: 1px solid black; width: 210px; padding: 4px; float: left;">
-                  <div style="width: 100%;">
-                    <div style="float: left;">
-                      <img id="imgCaptcha" alt="Imagem Captcha" src="http://www.receita.fazenda.gov.br/aplicacoes/atcta/cpf/captcha/gerarCaptcha.asp">
-                    </div>
-                    <div style="width: 20px; float: right;">
-                      <a href="javascript: reloadImagemCaptcha();"><img alt="" src="http://www.receita.fazenda.gov.br/aplicacoes/atcta/cpf/Images/reload.png"/></a>
-                      <a href="javascript: play_sound('/aplicacoes/atcta/cpf/captcha/captcha/gerarSom.asp')"><img alt="" src="http://www.receita.fazenda.gov.br/aplicacoes/atcta/cpf/Images/som.png" /></a>
-                    </div>
-                  </div>
-                  <label id="labelcaptcha">Digite os caracteres acima:</label>
-                  <input type="text" id="txtTexto_captcha_serpro_gov_br" autocomplete="off" name="txtTexto_captcha_serpro_gov_br" />
-                </div>
-             </div>
+            <div id="g-recaptcha"></div>
           </div>
           <div id="terms-of-use-box" class="col-sm-12">
             <div class="checkbox">
@@ -570,7 +554,7 @@
       loadRequireJS();
     </script>
 
-    <script src="http://captcha2.servicoscorporativos.serpro.gov.br/js/captcha.serpro.gov.br.js"></script>
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js" async defer></script>
 
   </body>
 
