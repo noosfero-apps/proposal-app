@@ -32,7 +32,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
   if(participa){
     var host = 'http://www.participa.br';
     window.dialoga_community = 19195;
-    window.proposal_discussion = '103358'; //participa
     proposal_discussion = '103358'; //participa
     var cat_saude = 180;
     var cat_seguranca_publica = 182;
@@ -41,14 +40,13 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
     var host = 'http://noosfero.com:3001';
-    window.dialoga_community = 67;
-    var proposal_discussion = '392'; //local serpro
+    window.dialoga_community = 104;
+//    var proposal_discussion = '392'; //local serpro
+    var proposal_discussion = '413'; //casa
     window.recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-' //http://noosfero.com/
-
-    window.proposal_discussion = '392'
     var cat_saude = 23;
   }
-
+  window.proposal_discussion = proposal_discussion;
   var BARRA_ADDED = false;
   var HIDE_BARRA_DO_GOVERNO = false;
 
