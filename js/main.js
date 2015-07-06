@@ -30,7 +30,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     participa = false;
 
   if(participa){
-    var host = 'http://www.participa.br';
+    var host = 'http://login.dialoga.gov.br';
     window.dialoga_community = 19195;
     proposal_discussion = '103358'; //participa
     var cat_saude = 180;
