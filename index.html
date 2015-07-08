@@ -99,12 +99,12 @@
       <header class="container">
         <div class="row" style="margin: 10px 0 0 0">
           <div class="col-xs-6">
-            <button type="button" id="display-contrast" class="btn btn-link"><i class="fa fa-adjust"></i> Alto Contraste</button>
+            <button type="button" id="display-contrast" class="btn btn-link"><i class="fa fa-adjust" aria-hidden="true"></i> Alto Contraste</button>
           </div>
           <div class="col-xs-6">
             <div class="participar hide">
-              <button type="button" id="login-button" class="btn login"><i class="icon icon-login"></i>Entrar</button>
-              <button type="button" id="logout-button" class="btn logout hide"><i class="icon icon-login"></i><span class="name"></span>Sair</button>
+              <button type="button" id="login-button" class="btn login"><i class="icon icon-login" aria-hidden="true"></i>Entrar</button>
+              <button type="button" id="logout-button" class="btn logout hide"><i class="icon icon-login" aria-hidden="true"></i><span class="name"></span>Sair</button>
             </div>
           </div>
           <div class="col-xs-12">
@@ -112,7 +112,7 @@
           </div>
         </div>
         <h1>
-          <a href="#" class='logo'>{{article.title}}</a>
+          <a href="/" class='logo'>Dialoga Brasil | O país fica melhor quando você participa</a>
         </h1>
         <div class="top-menu">
           <a href="#/artigo/108073">Sobre</a>
@@ -257,7 +257,7 @@
                         <div class="section-content">
                           <div class="container-title box-title">Faça uma proposta</div>
                           <div class="subtitle box-subtitle">Qual a sua sugestão para melhorar este programa?</div>
-                          <div class="info box-info">Esta consulta termina em julho de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
+                          <div class="info box-info">Esta consulta termina em outubro de 2015. Até lá, todas as propostas serão lidas e as cinco mais pontuadas em cada programa receberão resposta oficial do governo.</div>
                           <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
                               <div class="button send-proposal-button button-send box-footer">
@@ -294,7 +294,7 @@
                         <div class="section-content">
                           <div class="container-title box-title"> Apoie outras propostas</div>
                           <div class="alert alert-warning hide" role="alert">
-                            <i class="fa fa-warning"></i><strong>Proposta não encontrada</strong>
+                            <i class="fa fa-warning" aria-hidden="true"></i><strong>Proposta não encontrada</strong>
                           </div>
                           <div class="support-proposal-content require-login">
                             <div class="random-proposal"></div>
@@ -350,7 +350,7 @@
       <div class="box box-propostas">
         <div class="loading">Carregando...</div>
         <div class="results-content hide">
-          <a href="#" class="vote-result"><span class="sr-only">Fechar</span><span class="fa fa-times"></span></a>
+          <button class="vote-result"><span class="sr-only">Fechar</span><span class="fa fa-times"></span></button>
           <h2>Resultados</h2>
           <span class="total">Total de propostas para o programa {{title}}: <strong class="value">{{pagination.total}}</strong></span>
           <div class="updated-at">
@@ -397,12 +397,12 @@
         </div>
         <p class="box-subtitle">Ou acesse:</p>
         <div class="username">
-          <label for="user_name" class="label">Nome de Usuário / E-mail:</label>
-          <input id="user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
+          <label for="login-user_name" class="label">Nome de Usuário / E-mail:</label>
+          <input id="login-user_name" name="login" type="text" placeholder="Nome do usuário / E-mail">
         </div>
         <div class="password">
-          <label for="user_password" class="label">Senha:</label>
-          <input id="user_password" name="password" type="password" placeholder="Senha">
+          <label for="login-user_password" class="label">Senha:</label>
+          <input id="login-user_password" name="password" type="password" placeholder="Senha">
         </div>
         <div class="row">
           <div class="actions col-sm-4">
@@ -410,26 +410,26 @@
           </div>
           <div class="oauth col-sm-8">
             <span class="label">Ou acesse usando <i>&raquo;</i></span>
-            <a href="http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=5" target="_blank" class="facebook oauth-login icon icon-facebook"><span class="fa fa-facebook"></span><span class="sr-only">Facebook</span></a>
+            <a href="http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1" target="_blank" class="facebook oauth-login icon icon-facebook"><span class="fa fa-facebook"></span><span class="sr-only">Facebook</span></a>
             <a href="http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=2" target="_blank" class="google oauth-login icon icon-gplus"><span class="fa fa-google-plus"></span><span class="sr-only">Google Plus</span></a>
           </div>
         </div>
       </form>
-      <form id="signup-form" class="signup hide" autocomplete="off">
+      <form id="signup-form" class="signup hide" autocomplete="off" method="post">
         <div class="message hide"></div>
         <p class="box-subtitle">Cadastre-se</p>
         <div class="email">
-          <label for="user_email" class="label">E-mail:</label>
-          <input id="user_email" name="email" type="email" required placeholder="E-mail">
+          <label for="signup-user_email" class="label">E-mail:</label>
+          <input id="signup-user_email" name="email" type="email" required placeholder="E-mail">
         </div>
         <div class="username">
-          <label for="user_name" class="label">Nome de Usuário</label>
-          <input id="user_name" name="login" type="text" required placeholder="Nome do usuário">
+          <label for="signup-user_name" class="label">Nome de Usuário</label>
+          <input id="signup-user_name" name="login" type="text" required placeholder="Nome do usuário">
         </div>
         <div class="row">
           <div class="password col-sm-6">
-            <label for="user_password" class="label">Senha:</label>
-            <input id="user_password" name="password" type="password" placeholder="Senha">
+            <label for="signup-user_password" class="label">Senha:</label>
+            <input id="signup-user_password" name="password" type="password" placeholder="Senha">
           </div>
           <div class="password-confirmation col-sm-6">
             <label for="user_password_confirmation" class="label">Confirme a senha:</label>
@@ -446,13 +446,22 @@
           <div class="captcha col-sm-6">
             <input type="text" name="captcha_text" >
           </div>
+          <div id="terms-of-use-box" class="col-sm-12">
+            <div class="checkbox">
+              <input id="user_terms_accepted" name="user[terms_accepted]" value="0" type="hidden" />
+              <label>
+                <input name="user[terms_accepted]" value="0" type="checkbox" />
+                Eu aceito os <a href="#/artigo/107880" target="_blank">termos de uso</a>
+              </label>
+            </div>
+          </div>
           <div class="actions col-sm-12">
             <div class="row">
               <div class="col-sm-4">
-                <a href="#" class="confirm-signup button button-confirm">Confirmar</a>
+                <button type="submit" class="confirm-signup button button-confirm button-block">Confirmar</button>
               </div>
               <div class="col-sm-4">
-                <a href="#" class="cancel-signup button button-cancela">Cancelar</a>
+                <button type="button" class="cancel-signup button button-cancela button-block">Cancelar</button>
               </div>
             </div>
           </div>
@@ -502,12 +511,12 @@
             </div>
             <div class="calendar__column col-xs-6 col-sm-3">
               <div class="row">
-                <div class="calendar__date"><i class="fa fa-calendar"></i> {{date}}</div>
+                <div class="calendar__date"><i class="fa fa-calendar" aria-hidden="true"></i> {{date}}</div>
               </div>
             </div>
             <div class="calendar__column col-xs-6 col-sm-3">
               <div class="row">
-                <div class="calendar__time"><i class="fa fa-clock-o"></i> {{time}}</div>
+                <div class="calendar__time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{time}}</div>
               </div>
             </div>
           </div>

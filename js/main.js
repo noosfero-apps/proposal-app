@@ -30,9 +30,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     participa = false;
 
   if(participa){
-    var host = 'http://www.participa.br';
+    var host = 'http://login.dialoga.gov.br';
     window.dialoga_community = 19195;
-    window.proposal_discussion = '103358'; //participa
     proposal_discussion = '103358'; //participa
     var cat_saude = 180;
     var cat_seguranca_publica = 182;
@@ -41,14 +40,13 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
   }else{
     var host = 'http://noosfero.com:3001';
-    window.dialoga_community = 67;
-    var proposal_discussion = '392'; //local serpro
+    window.dialoga_community = 104;
+//    var proposal_discussion = '392'; //local serpro
+    var proposal_discussion = '413'; //casa
     window.recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-' //http://noosfero.com/
-
-    window.proposal_discussion = '392'
     var cat_saude = 23;
   }
-
+  window.proposal_discussion = proposal_discussion;
   var BARRA_ADDED = false;
   var HIDE_BARRA_DO_GOVERNO = false;
 
@@ -121,7 +119,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
               }
 
               if(ProposalApp.hasProposalbeenVoted(article.id)){
-                console.log("Proposta " + article.id + " já havia sido votada");
+                // console.debug("Proposta " + article.id + " já havia sido votada");
                 Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
                 contextMain.loadRandomProposal(topic_id);
                 e.preventDefault();
@@ -161,6 +159,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
                 $proposalDetail.find('.experience-proposal-container').show();
                 $proposalDetail.find('.talk-proposal-container').show();
                 $resultsContainer.hide();
+
+                // remove '/resultados' from URL
+                window.location.hash = window.location.hash.split('/resultados')[0];
+                e.preventDefault();
               }
             });
 
@@ -401,7 +403,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
-          console.log( 'Request Failed: ' + err );
+          // console.log( 'Request Failed: ' + err );
         });
       },
       display_proposal_by_category: function(item){
@@ -614,7 +616,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           }
 
           window._paq.push(['trackPageView', trackPageTitle]);
-          console.log('tracked page view', trackPageTitle);
+          // console.log('tracked page view', trackPageTitle);
         }
         // [END] Tracking
 
@@ -1146,7 +1148,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
       window.signupForm = signupForm;
-      console.log("novo usuário");
+      // console.log("novo usuário");
       loginForm.hide();
       signupForm.show();
       signupForm.find(".password").show();
@@ -1256,7 +1258,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       $.removeCookie('*');
       logged_in = false;
       Main.showLogin();
-      location.reload();
+      if(window.location.hash.indexOf('/resultados') !== -1){
+        window.location.hash = window.location.hash.split('/resultados')[0];
+      }else{
+        location.reload();
+      }
       e.preventDefault();
     });
 
