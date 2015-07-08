@@ -1289,7 +1289,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         function handleAlways() {
           $loading.hide();
-          signup.show();
+          $signupForm.show();
         }
       }
     });
