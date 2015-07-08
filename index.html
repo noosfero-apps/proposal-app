@@ -311,7 +311,7 @@
 
                     <div class="talk-proposal-container col-sm-12">
                       <section class="talk-proposal box box-propostas">
-                        <div class="container-title box-title">Hangout com ministras e ministros</div>
+                        <div class="container-title box-title">Bate-papo virtual com ministras e ministros</div>
                         <div class="calendar-container"></div>
                       </section>
                     </div>
@@ -429,11 +429,11 @@
         <div class="row">
           <div class="password col-sm-6">
             <label for="signup-user_password" class="label">Senha:</label>
-            <input id="signup-user_password" name="password" type="password" placeholder="Senha">
+            <input id="signup-user_password" name="password" required type="password" placeholder="Senha">
           </div>
           <div class="password-confirmation col-sm-6">
             <label for="user_password_confirmation" class="label">Confirme a senha:</label>
-            <input id="user_password_confirmation" name="password_confirmation" type="password" placeholder="Confirme a senha">
+            <input id="user_password_confirmation" name="password_confirmation" required type="password" placeholder="Confirme a senha">
           </div>
           <div class="oauth-providers">
             <input id="user_oauth_providers" name="oauth_providers" type="hidden">
@@ -448,9 +448,8 @@
           </div>
           <div id="terms-of-use-box" class="col-sm-12">
             <div class="checkbox">
-              <input id="user_terms_accepted" name="user[terms_accepted]" value="0" type="hidden" />
-              <label>
-                <input name="user[terms_accepted]" value="0" type="checkbox" />
+              <label for="user_terms_accepted">
+                <input id="user_terms_accepted" name="user_terms_accepted" value="0" required type="checkbox" />
                 Eu aceito os <a href="#/artigo/107880" target="_blank">termos de uso</a>
               </label>
             </div>
