@@ -251,12 +251,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var loginContainer = requireLoginContainer.find('.login-container');
           loginContainer.show();
           loginContainer.find('.new-user').click();
-          var signupForm = loginContainer.find('#signup-form');
-          signupForm.find('#user_email').val(user.email);
-          signupForm.find('#user_name').val(user.login);
-          signupForm.find('#user_oauth_providers').val(user.oauth_providers);
-          //signupForm.find(".password").hide();
-          //signupForm.find(".password-confirmation").hide();
+          var $signupForm = loginContainer.find('#signup-form');
+          $signupForm.find('#user_email').val(user.email);
+          $signupForm.find('#user_name').val(user.login);
+          $signupForm.find('#user_oauth_providers').val(user.oauth_providers);
         } else {
           requireLoginContainer.find('.require-login').hide();
           requireLoginContainer.find('.login-container').show();
@@ -1026,16 +1024,16 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         var proposal_id = this.id.split('-').pop();
         var form = this;
         var $form = $(this);
-        var message = $(form).find('.message');
-        message.hide();
-        message.text('');
+        var $message = $form.find('.message');
+        $message.hide();
+        $message.text('');
         $.ajax({
           type: 'post',
           url: host + $form.attr('action'),
-          data: $('#'+this.id).serialize() + '&private_token=' + Main.private_token + '&fields=id&article[name]=article_' + Main.guid()
+          data: $form.serialize() + '&private_token=' + Main.private_token + '&fields=id&article[name]=article_' + Main.guid()
         })
         .done(function( /*data*/ ) {
-          form.reset();
+          $form.reset();
           $form.hide();
           $form.siblings('.success-sent').show();
           $form.siblings('.subtitle').hide();
@@ -1044,15 +1042,15 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
-          console.log( 'Request Failed: ' + err );
-          message.show();
-          message.text('Não foi possível enviar.');
+          // console.log( 'Request Failed: ' + err );
+          $message.show();
+          $message.text('Não foi possível enviar.');
          });
       });
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ', ' + error;
-      console.log( 'Request Failed: ' + err );
+      // console.log( 'Request Failed: ' + err );
     });
 
   $(document).ready(function($) {
@@ -1088,7 +1086,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
     $(document).on('click', '.login-action', function(e) {
       e.preventDefault();
-      // console.log('obj', obj);
 
       var $this = $(this); // button
       var $form = $this.closest('#login-form');
@@ -1146,7 +1143,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
       window.signupForm = signupForm;
-      // console.log("novo usuário");
       loginForm.hide();
       signupForm.show();
       signupForm.find(".password").show();
@@ -1165,60 +1161,137 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     });
 
     $(document).on('click', '.confirm-signup', function(e) {
+      
+      var $button = $(this);
+      var $signupForm = $(this).parents('form.signup');
+      var $inputEmail = $signupForm.find('#signup-user_email');
+      var $inputUsername = $signupForm.find('#signup-user_name');
+      var $inputPassword = $signupForm.find('#signup-user_password');
+      var $inputPasswordConfirmation = $signupForm.find('#user_password_confirmation');
+      var $inputAcceptation = $signupForm.find('#user_terms_accepted');
+      var $inputCaptcha = $signupForm.find('#recaptcha_response_field');
+      
+      // clear messages
       var message = $('.signup .message');
       message.hide();
       message.text('');
 
-      var signup = $(this).parents('form.signup');
-      var $loading = $('.login-container .loading');
-      $loading.show();
-      signup.hide();
-      signup.removeClass('hide');
-      var button = $(this);
+      // Validate form
+      var hasEmail = $inputEmail && $inputEmail.val().length > 0;
+      var hasUsername = $inputUsername && $inputUsername.val().length > 0;
+      var hasPassword = $inputPassword && $inputPassword.val().length > 0;
+      var hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
+      var hasPasswordEquals = $inputPassword.val() == $inputPasswordConfirmation.val();
+      var hasAcceptation = $inputAcceptation.val();
+      var hasCaptcha = $inputCaptcha.val().length > 0;
+      var hasError = (!hasEmail || !hasUsername || !hasPassword || !hasPasswordConfirmation || !hasPasswordEquals || !hasAcceptation || !hasCaptcha);
 
-      $.ajax({
-        type: 'post',
-        url: host + '/api/v1/register',
-        data: $(this).parents('.signup').serialize(),
-      }).done(function(data) {
+      if(hasError){
 
-        var $sectionContent = button.closest('.section-content');
-        if($sectionContent && $sectionContent.length > 0){
-          Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+        if ($signupForm[0].checkValidity()) { // force check of HTML5 validation
+          e.preventDefault();
+
+          var messageErrors = [];
+
+          messageErrors.push('<ul>'); // start a HTML list
+          
+          if (!hasEmail){
+            messageErrors.push('<li>O e-mail é um campo obrigatório.</li>');
+          }
+          
+          if (!hasUsername){
+            messageErrors.push('<li>O nome de usuário é um campo obrigatório.</li>');
+          }
+          
+          if (!hasPassword){
+            messageErrors.push('<li>A senha é um campo obrigatório.</li>');
+          }
+          
+          if (!hasPasswordConfirmation){
+            messageErrors.push('<li>A confirmação da senha é um campo obrigatório.</li>');
+          }
+          
+          if (!hasPasswordEquals){
+            messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
+          }
+          
+          if (!hasAcceptation){
+            messageErrors.push('<li>Você deve ler e aceitar os termos de uso.</li>');
+          }
+          
+          if (!hasCaptcha){
+            messageErrors.push('<li>O ReCaptcha é um campo obrigatório.</li>');
+          }
+
+          messageErrors.push('</ul>'); // close the paragraph
+
+          messageErrors = messageErrors.join('<br/>');
+          message.html($(messageErrors));
+          message.show();
+        }
+      } else {
+        e.preventDefault();
+
+        // show loading
+        var $loading = $('.login-container .loading');
+        $loading.show();
+
+        $.ajax({
+          type: 'post',
+          url: host + '/api/v1/register',
+          data: $signupForm.serialize(),
+        })
+        .done(handleDone)
+        .fail(handleFail)
+        .always(handleAlways);
+
+        function handleDone(data){
+          
+          $signupForm.hide();
+          $signupForm.removeClass('hide');
+
+          var $sectionContent = $button.closest('.section-content');
+          if($sectionContent && $sectionContent.length > 0){
+            Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+          }
+
+          $(document).trigger('login:success', data);
         }
 
-        $(document).trigger('login:success', data);
-      }).fail(function(data) {
-        var msg = "";
-        window.signupForm.find('#g-recaptcha').empty();
-        Recaptcha.create(window.recaptchaSiteKey, window.signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
+        function handleFail(data, var2) {
+          var msg = "";
+          $signupForm.find('#g-recaptcha').empty();
+          Recaptcha.create(window.recaptchaSiteKey, $signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
 
-        try{
-          msg = Main.responseToText(data.responseJSON.message);
-        }catch(ex){
-          var ptBR = {};
-          // (Invalid request) email can't be saved
-          ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
-          // (Invalid request) login can't be saved
-          ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
-          ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
-          msg = ptBR[data.responseJSON.message] || data.responseJSON.message;
+          if(data.responseJSON){            
+            try{
+              msg = Main.responseToText(data.responseJSON.message);
+            }catch(ex){
+              var ptBR = {};
+              // (Invalid request) email can't be saved
+              ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
+              // (Invalid request) login can't be saved
+              ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
+              ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
+              msg = '<br/><br/>';
+              msg += ptBR[data.responseJSON.message] || data.responseJSON.message;
+            }
+          }else{
+            msg = '<br/><br/>';
+            msg += 'Erro na comunicação com o servidor.';
+          }
+
+          message.html('<p>Não foi possível efetuar o cadastro:' + msg + '</p>');
+          message.show();
+
+          $(document).trigger('login:fail', data);
         }
 
-        message.show();
-        message.html('Não foi possível efetuar o cadastro: <br/><br/>' + msg);
-
-        $(document).trigger('login:fail', data);
-      }).always(function() {
-        $loading.hide();
-        signup.show();
-
-        // var $loginPanel = $loading.closest('#login-panel');
-        // if($loginPanel && $loginPanel.length > 0){
-        //   $loginPanel.hide();
-        // }
-      });
-      e.preventDefault();
+        function handleAlways() {
+          $loading.hide();
+          signup.show();
+        }
+      }
     });
 
     // var popupCenter = function(url, title, w, h) {
@@ -1268,8 +1341,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         var url = $iframe.attr('src');
         var c = '?';
 
-        // console.log('url', url);
-        // console.log('url.indexOf("youtube")', url.indexOf("youtube"));
         if(url.indexOf("youtube") === -1){
           // is not a iframe of youtube
           // console.debug('is not a iframe of youtube');
@@ -1293,11 +1364,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       setTimeout(checkIframes, 500);
     }
     checkIframes();
-    // $(document).bind('DOMSubtreeModified', function(e){
-      // console.log('this', this);
-      // console.log('e', e);
-      
-    // });
 
   });
 
@@ -1313,7 +1379,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       Main.locationHashChanged.apply(Main);
     }
   }else{
-    console.log('The browser not supports the hashchange event!');
+    // console.log('The browser not supports the hashchange event!');
   }
 
   // Handle resize event
