@@ -1141,6 +1141,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     });
 
     $(document).on('click', '.new-user', function(e) {
+      if(window.lastCaptcha)
+        window.lastCaptcha.destruir();
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
       window.signupForm = signupForm;
@@ -1150,8 +1152,12 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       signupForm.find(".password").show();
       signupForm.find(".password-confirmation").show();
       loginForm.find('.message').hide();
-      signupForm.find('#g-recaptcha').empty();
-      Recaptcha.create(window.recaptchaSiteKey, signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
+      signupForm.find('#serpro_captcha').empty();
+      var oCaptcha_serpro_gov_br;
+      oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
+      window.lastCaptcha = oCaptcha_serpro_gov_br;
+      oCaptcha_serpro_gov_br.clienteId = "fdbcdc7a0b754ee7ae9d865fda740f17";
+      oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], "css", "input",  "serpro_captcha_component_");
       e.preventDefault();
     })
 
@@ -1188,9 +1194,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $(document).trigger('login:success', data);
       }).fail(function(data) {
         var msg = "";
-        window.signupForm.find('#g-recaptcha').empty();
-        Recaptcha.create(window.recaptchaSiteKey, window.signupForm.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
-
+        // Reload captcha here
+        if(window.lastCaptcha)
+          window.lastCaptcha.recarregar();
         try{
           msg = Main.responseToText(data.responseJSON.message);
         }catch(ex){
