@@ -1033,7 +1033,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           data: $form.serialize() + '&private_token=' + Main.private_token + '&fields=id&article[name]=article_' + Main.guid()
         })
         .done(function( /*data*/ ) {
-          $form.reset();
+          $form[0].reset();
           $form.hide();
           $form.siblings('.success-sent').show();
           $form.siblings('.subtitle').hide();
