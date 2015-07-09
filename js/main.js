@@ -1175,7 +1175,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var $inputPassword = $signupForm.find('#signup-user_password');
       var $inputPasswordConfirmation = $signupForm.find('#user_password_confirmation');
       var $inputAcceptation = $signupForm.find('#user_terms_accepted');
-      var $inputCaptcha = $signupForm.find('#recaptcha_response_field');
+      var $inputCaptcha = $signupForm.find('#captcha_text');
       
       // clear messages
       var message = $('.signup .message');
