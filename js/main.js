@@ -1237,65 +1237,55 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         }
       } else {
         e.preventDefault();
-
         // show loading
         var $loading = $('.login-container .loading');
         $loading.show();
-
         $.ajax({
           type: 'post',
           url: host + '/api/v1/register',
           data: $signupForm.serialize(),
         })
-        .done(handleDone)
-        .fail(handleFail)
-        .always(handleAlways);
-
-        function handleDone(data){
-          $signupForm.hide();
-          $signupForm.removeClass('hide');
-
-          var $sectionContent = $button.closest('.section-content');
-          if($sectionContent && $sectionContent.length > 0){
-            Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
-          }
-          $(document).trigger('login:success', data);
-        }
-
-        function handleFail(data, var2) {
-          var msg = "";
-          // Reload captcha here
-          if(window.lastCaptcha)
-            window.lastCaptcha.recarregar();
-
-          if(data.responseJSON){            
-            try{
-              msg = Main.responseToText(data.responseJSON.message);
-            }catch(ex){
-              var ptBR = {};
-              // (Invalid request) email can't be saved
-              ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
-              // (Invalid request) login can't be saved
-              ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
-              ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
-              msg = '<br/><br/>';
-              msg += ptBR[data.responseJSON.message] || data.responseJSON.message;
+        .done(function (data){
+              $signupForm.hide();
+              $signupForm.removeClass('hide');
+              var $sectionContent = $button.closest('.section-content');
+              if($sectionContent && $sectionContent.length > 0){
+                Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+              }
+              $(document).trigger('login:success', data);
+            })
+        .fail(function (data, var2) {
+              var msg = "";
+              // Reload captcha here
+              if(window.lastCaptcha)
+                window.lastCaptcha.recarregar();
+              if(data.responseJSON){
+                try{
+                  msg = Main.responseToText(data.responseJSON.message);
+                }catch(ex){
+                  var ptBR = {};
+                  // (Invalid request) email can't be saved
+                  ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
+                  // (Invalid request) login can't be saved
+                  ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
+                  ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
+                  msg = '<br/><br/>';
+                  msg += ptBR[data.responseJSON.message] || data.responseJSON.message;
+                }
+              }else{
+                msg = '<br/><br/>';
+                msg += 'Erro na comunicação com o servidor.';
+              }
+              message.html('<p>Não foi possível efetuar o cadastro:' + msg + '</p>');
+              message.show();
+              $(document).trigger('login:fail', data);
             }
-          }else{
-            msg = '<br/><br/>';
-            msg += 'Erro na comunicação com o servidor.';
-          }
-
-          message.html('<p>Não foi possível efetuar o cadastro:' + msg + '</p>');
-          message.show();
-
-          $(document).trigger('login:fail', data);
-        }
-
-        function handleAlways() {
-          $loading.hide();
-          $signupForm.show();
-        }
+        )
+        .always(function () {
+              $loading.hide();
+              $signupForm.show();
+            }
+        );
       }
     });
 
