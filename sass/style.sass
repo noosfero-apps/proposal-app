@@ -1205,8 +1205,18 @@ td
   font-weight: bold
 
 // 6.21 - captcha
-.captcha
-  margin: 10px auto
+#serpro_captcha
+  margin: 15px 0 10px 0
+  &:before,
+  &:after
+    clear: both
+    content: " "
+    display: table
+  #serpro_captcha_component_img_captcha_serpro_gov_br
+    float: left
+  #serpro_captcha_component_divButtons_captcha_serpro_gov_br
+    float: left
+    margin: 10px
 
 // ------------------------------------
 // 7 - Modificadores
