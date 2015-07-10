@@ -1,6 +1,7 @@
-define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick){
-  
-  /* global Handlebars, $ */
+/* global define */
+define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick, ProposalApp){
+  // 'use strict';
+
   // The template code
   var templateSource = $('#proposal-template').html();
 
@@ -21,36 +22,45 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
   var lastHash = window.location.hash;
 
-  var participa = true;
+  var host = 'http://login.dialoga.gov.br';
+  var dialoga_community = 19195;
+  var proposal_discussion = '103358'; //participa
+  var cat_saude = 180;
+  // var cat_seguranca_publica = 182;
+  // var cat_educacao = 181;
+  // var cat_reducao_da_pobreza = 183;
+  var recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i';
 
 
   //Detects for localhost settings
-  var patt = new RegExp(":3001/");
-  if(patt.test(window.location.href))
-    participa = false;
-
-  if(participa){
-    var host = 'http://login.dialoga.gov.br';
-    window.dialoga_community = 19195;
-    proposal_discussion = '103358'; //participa
-    var cat_saude = 180;
-    var cat_seguranca_publica = 182;
-    var cat_educacao = 181;
-    var cat_reducao_da_pobreza = 183;
-    window.recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
-  }else{
-    var host = 'http://noosfero.com:3001';
-    window.dialoga_community = 104;
-//    var proposal_discussion = '392'; //local serpro
-    var proposal_discussion = '413'; //casa
-    window.recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-' //http://noosfero.com/
-    var cat_saude = 23;
+  var patt = new RegExp(':3001/');
+  if(patt.test(window.location.href)){
+     host = 'http://noosfero.com:3001';
+    dialoga_community = 104;
+    proposal_discussion = '413'; //casa
+    recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
+    cat_saude = 23;
   }
-  window.proposal_discussion = proposal_discussion;
+
   var BARRA_ADDED = false;
   var HIDE_BARRA_DO_GOVERNO = false;
 
-  Main = (function(){
+  var Main;
+  window.Main = Main = (function(){
+
+    var API = {
+      articles: '',
+      proposals: '/api/v1/articles/{topic_id}/children',
+      
+    };
+
+    API.getProposalsURL = function (topicId){
+      return host + replace(API.proposals, '{topic_id}', topicId);
+    };
+
+    function replace(str, pattern, value){
+      return str.replace(new RegExp(pattern, 'g'), value);
+    }
 
     return {
       private_token: '375bee7e17d0021af7160ce664874618',
@@ -68,7 +78,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         return proposalId;
       },
       loadRandomProposal: function (topic_id, force) {
-          var private_token = Main.private_token;
+          var private_token = window.Main.private_token;
           var $noProposals = $('.no-proposals');
           var $loading = $('.loading');
           var $randomProposal = $('.random-proposal');
@@ -80,13 +90,13 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           $loading.show();
           $randomProposal.html('');
 
-          var url = host + '/api/v1/articles/' + topic_id + '/children';
+          var url = API.getProposalsURL(topic_id);
           var childId = this.getProposalId();
 
-          if(childId != 0 && !force){
-            url += '/'+childId;
+          if(childId !== 0 && !force){
+            url += '/' + childId;
           }
-          url += '?private_token=' + Main.private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
@@ -164,12 +174,6 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
               }
             });
 
-            // $body.off('click', '.question-link');
-            // $body.on('click', '.question-link', function(e) {
-            //   var $this = $(this);
-              
-            //   // Main.navigateTo($this.attr('href'), backTo);
-            // });
           }).fail(function(){
             $loading.hide();
             $('.support-proposal .alert').show();
@@ -194,7 +198,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           $resultsContainer.html(resultsTemplate(data));
           $resultsContainer.find('.loading').hide();
           $resultsContainer.find('.results-content').show();
-          $(".timeago").timeago();
+          $('.timeago').timeago();
           $resultsContainer.show();
 
           $('.footable').footable();
@@ -399,7 +403,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
-          // console.log( 'Request Failed: ' + err );
+          console.error( 'Request Failed: ' + err );
         });
       },
       display_proposal_by_category: function(item){
@@ -502,7 +506,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         var regexResultados = /resultados$/;
         var regexSobreOPrograma = /sobre-o-programa$/;
 
-        if( !(regexHideBarra.exec(hash) !== null) && !HIDE_BARRA_DO_GOVERNO ){
+        if( (regexHideBarra.exec(hash) === null) && !HIDE_BARRA_DO_GOVERNO ){
           this.addBarraDoGoverno();
         }else{
           HIDE_BARRA_DO_GOVERNO = true;
@@ -523,6 +527,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           this.display_article(hash.split('/')[2], lastHash);
         }
 
+        var proposalTitle;
+
         if( isProposal ){
 
           // go to proposal
@@ -530,8 +536,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           this.navigateToProposal(proposalId);
 
           var $proposal = $('#proposal-item-' + proposalId);
-          var proposalTitle = $proposal.find('.title').text();
+          proposalTitle = $proposal.find('.title').text();
           var proposalOffset = $proposal.offset();
+          
           if(proposalOffset){
             scrollTop = proposalOffset.top;
           }else{
@@ -548,22 +555,24 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
             if($resultsContainer.css('display') === 'none') {
               Main.loadRanking($resultsContainer, proposalId, 1);
             } else {
-              $proposalDetail.find('.experience-proposal-container').show();
-              $proposalDetail.find('.talk-proposal-container').show();
+              $proposal.find('.experience-proposal-container').show();
+              $proposal.find('.talk-proposal-container').show();
               $resultsContainer.hide();
             }
 
-            var proposalOffset = $resultsContainer.offset();
+            proposalOffset = $resultsContainer.offset();
             if(proposalOffset){
               scrollTop = proposalOffset.top;
             }
           }
         }
 
+        var categorySlug;
+
         if( isCategory ){
 
           // go to category
-          var categorySlug = parts[2];
+          categorySlug = parts[2];
           var categoryId = parts[3];
           this.navigateToCategory(categoryId);
 
@@ -592,7 +601,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
           var trackPageTitle = '';
           if(isArticle){
-            trackPageTitle = 'Página: Sobre'
+            trackPageTitle = 'Página: Sobre';
           }
 
           if(isProposal){
@@ -622,7 +631,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         var regexSobreOPrograma = /sobre-o-programa$/;
         if(proposalId === undefined){
           this.display_proposals_tab();
-        }else if(regexSobreOPrograma.exec(window.location.hash) == null){
+        }else if(regexSobreOPrograma.exec(window.location.hash) === null){
           this.display_proposal('proposal-item-' + proposalId);
         }else{
           this.display_proposal_detail(proposalId);
@@ -636,11 +645,13 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         }
       },
       oauthClientAction: function(url) {
-        var child = window.open(url, "_blank");
+        var child = window.open(url, '_blank');
         var interval = setInterval(function() {
             try {
               if(!child.closed) {
-                  child.postMessage({ message: "requestOauthClientPluginResult" }, "*");
+                  child.postMessage({
+                    message: 'requestOauthClientPluginResult'
+                  }, '*');
               }
             }
             catch(e) {
@@ -660,10 +671,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         successPanel.find('.message').html(text);
         successPanel.appendTo(container.closest('.categories'));
         successPanel.show();
-        successPanel.css("top", Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + "px");
-        successPanel.css("left", Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + "px");
+        successPanel.css('top', Math.max(0, ((container.height() - successPanel.outerHeight()) / 2) + container.offset().top) + 'px');
+        successPanel.css('left', Math.max(0, ((container.width() - successPanel.outerWidth()) / 2) + container.offset().left) + 'px');
 
-        var interval = setTimeout(function() {
+        setTimeout(function() {
           successPanel.hide();
           container.css('opacity', 1);
           successPanel.remove();
@@ -691,28 +702,32 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       },
       responseToText: function(responseJSONmessage){
         var o = JSON.parse(responseJSONmessage);
-        var msg = "";
+        var msg = '';
         var fn;
 
         for (var key in o) {
           if (o[key] instanceof Array) {
             fn =  key;
             for (var i = 0; i < o[key].length; i++) {
-              msg += fn + " " + o[key][i] + "</br>";
+              msg += fn + ' ' + o[key][i] + '</br>';
             }
           }
         }
-        msg = msg.replace('password_confirmation', "campo 'confirmação da senha'");
-        msg = msg.replace(/password/g, "campo 'senha'");
-        msg = msg.replace('login', "campo 'nome de usuário'");
-        msg = msg.replace('email', "campo 'e-mail'");
-        msg = msg.substring(0, msg.length - 5) + ".";
+        msg = msg.replace('password_confirmation', 'campo "confirmação da senha"');
+        msg = msg.replace(/password/g, 'campo "senha"');
+        msg = msg.replace('login', 'campo "nome de usuário"');
+        msg = msg.replace('email', 'campo "e-mail"');
+        msg = msg.substring(0, msg.length - 5) + '.';
         return msg;
       },
       display_events: function(cat_id, active_category) {
-        var url = host + '/api/v1/communities/' + window.dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
+        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
         $.getJSON(url).done(function (data) {
-          if(data.articles.length==0) return;
+          
+          if(data.articles.length === 0){
+            return;
+          }
+
           var dt = data.articles[0].start_date;
           var date = dt.substr(8, 2) + '/' + dt.substr(5, 2) + '/' + dt.substr(0, 4);
           var dd = new Date(dt);
@@ -720,7 +735,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var params = {event: data.articles[0], date: date, time: time, category: data.articles[0].categories[0].name, category_class: active_category};
           $.getJSON(host+'/api/v1/articles/'+data.articles[0].id+'/followers?private_token=' + '375bee7e17d0021af7160ce664874618' + '&_='+new Date().getTime()).done(function (data) {
             //FIXME do not depend on this request
-            params['total_followers'] = data.total_followers;
+            params.total_followers = data.total_followers;
             $('.calendar-container').html(calendarTemplate(params));
             $('.calendar-container .calendar.' + active_category).show();
             // $('.calendar-container .calendar').slick();
@@ -768,7 +783,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var $paragraph = $proposalItemEl.find('p');
           var lines = Main.computeLines($paragraph);
           if(lines > maxLinesByParagraph ){
-            maxLinesByParagraph = lines
+            maxLinesByParagraph = lines;
           }
         });
         // console.log('maxLinesByParagraph', maxLinesByParagraph);
@@ -779,7 +794,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var $title = $proposalItemEl.find('.box__title');
           var lines = Main.computeLines($title);
           if(lines > maxLinesByTitle ){
-            maxLinesByTitle = lines
+            maxLinesByTitle = lines;
           }
         });
         // console.log('maxLinesByTitle', maxLinesByTitle);
@@ -816,9 +831,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         Main.loginCallback(true, data.private_token);
       },
       handleLoginFail: function (e){
-        // console.log('Event', e);
+        console.error('handleLoginFail', e);
       }
-    }
+    };
   })();
 
   
@@ -846,7 +861,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         var url = abstract.substring(startSrcUrl , endSrcUrl);
         // console.log('url', url);
 
-        if(url.indexOf("wmode=opaque") !== -1){
+        if(url.indexOf('wmode=opaque') !== -1){
           // already in opaque mode
           // console.debug('already in opaque mode');
           return;
@@ -856,10 +871,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           c = '&';
         }
         
-        var resultUrl = url+c+"wmode=opaque";
+        var resultUrl = url + c + 'wmode=opaque';
         article.abstract = abstract.replace(url, resultUrl);
         // console.log('article.abstract', article.abstract);
-      };
+      }
+
       forceWmodeIframe(data.article);
 
       resultsPlaceholder.innerHTML = template(data);
@@ -917,7 +933,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         $(document).keyup(function(e) {
           
           // escape key maps to keycode `27`
-          if (e.keyCode == 27) { // ESC
+          if (e.keyCode === 27) { // ESC
             $loginPanel.hide();
           }
         });
@@ -975,7 +991,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           // return to proposal page
           newHash = oldHash.split('/sobre-o-programa')[0];
         }else{
-          $link = $(this).siblings('.proposal-link');
+          var $link = $(this).siblings('.proposal-link');
           newHash = $link.attr('href');
         }
 
@@ -1025,10 +1041,10 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         Main.updateHash($link.attr('href'));
       });
 
-      $( '.proposal-selection' ).change(function(e){
+      $( '.proposal-selection' ).change(function(){
         // Update URL and Navigate
         Main.updateHash('#/programas/' + this.value);
-        $(this).val($(this).data("proposal")).trigger("chosen:updated");
+        $(this).val($(this).data('proposal')).trigger('chosen:updated');
       });
 
       var availableTags = [ ];
@@ -1053,8 +1069,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
       $('.save-article-form').submit(function (e) {
         e.preventDefault();
-        var proposal_id = this.id.split('-').pop();
-        var form = this;
+        // var proposal_id = this.id.split('-').pop();
+        // var form = this;
         var $form = $(this);
         var $message = $form.find('.message');
         $message.hide();
@@ -1074,7 +1090,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
         })
         .fail(function( jqxhr, textStatus, error ) {
           var err = textStatus + ', ' + error;
-          // console.log( 'Request Failed: ' + err );
+          console.error( 'Request Failed: ' + err );
           $message.show();
           $message.text('Não foi possível enviar.');
          });
@@ -1082,7 +1098,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ', ' + error;
-      // console.log( 'Request Failed: ' + err );
+      console.error( 'Request Failed: ' + err );
     });
 
   $(document).ready(function($) {
@@ -1149,7 +1165,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       }).fail(function(data) {
 
         $message.show();
-        if(data.status==401){
+        if(data.status === 401){
           $message.text('Nome de usuário, e-mail ou senha incorretos, não foi possível acessar.');
         }else{
           $message.text('Um erro inesperado ocorreu');
@@ -1174,24 +1190,32 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     });
 
     $(document).on('click', '.new-user', function(e) {
-      if(window.lastCaptcha)
+      
+      if(window.lastCaptcha){
         window.lastCaptcha.destruir();
+      }
+
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
       window.signupForm = signupForm;
+
       loginForm.hide();
       signupForm.show();
-      signupForm.find(".password").show();
-      signupForm.find(".password-confirmation").show();
+
+      signupForm.find('.password').show();
+      signupForm.find('.password-confirmation').show();
       loginForm.find('.message').hide();
       signupForm.find('#serpro_captcha').empty();
+      
       var oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
       window.lastCaptcha = oCaptcha_serpro_gov_br;
-      oCaptcha_serpro_gov_br.clienteId = "fdbcdc7a0b754ee7ae9d865fda740f17";
-      oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], "css", "input",  "serpro_captcha_component_");
+      
+      oCaptcha_serpro_gov_br.clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
+      oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'input',  'serpro_captcha_component_');
+      
       e.preventDefault();
-    })
+    });
 
     $(document).on('click', '.cancel-signup', function(e) {
       var signupForm = $(this).parents('#signup-form');
@@ -1221,7 +1245,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       var hasUsername = $inputUsername && $inputUsername.val().length > 0;
       var hasPassword = $inputPassword && $inputPassword.val().length > 0;
       var hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
-      var hasPasswordEquals = $inputPassword.val() == $inputPasswordConfirmation.val();
+      var hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
       var hasAcceptation = $inputAcceptation.val();
       var hasCaptcha = $inputCaptcha.val().length > 0;
       var hasError = (!hasEmail || !hasUsername || !hasPassword || !hasPasswordConfirmation || !hasPasswordEquals || !hasAcceptation || !hasCaptcha);
@@ -1288,11 +1312,13 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
               }
               $(document).trigger('login:success', data);
             })
-        .fail(function (data, var2) {
-              var msg = "";
+        .fail(function (data) {
+              var msg = '';
               // Reload captcha here
-              if(window.lastCaptcha)
+              if(window.lastCaptcha){
                 window.lastCaptcha.recarregar();
+              }
+
               if(data.responseJSON){
                 try{
                   msg = Main.responseToText(data.responseJSON.message);
@@ -1323,32 +1349,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
       }
     });
 
-    // var popupCenter = function(url, title, w, h) {
-    //   var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
-    //   var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
-
-    //   var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-    //   var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-    //   var left = ((width / 2) - (w / 2)) + dualScreenLeft;
-    //   var top = ((height / 3) - (h / 3)) + dualScreenTop;
-
-    //   var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-
-    //   // Puts focus on the newWindow
-    //   if (window.focus) {
-    //     newWindow.focus();
-    //   }
-    // };
-
-    // $(document).on('click', '.social a.popup', {}, function popUp(e) {
-    //   var self = $(this);
-    //   popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
-    //   e.preventDefault();
-    // });
-
     $(document).on('click', '#logout-button', function (e){
-      var self = $(this);
       $.removeCookie('_dialoga_session');
       $.removeCookie('votedProposals');
       $.removeCookie('*');
@@ -1363,36 +1364,36 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     });
 
     // hack-fix to support z-index over video/iframe
-    function checkIframes () {
+    // function checkIframes () {
 
-      $('iframe').each(function(){
-        var $iframe = $(this);
-        var url = $iframe.attr('src');
-        var c = '?';
+    //   $('iframe').each(function(){
+    //     var $iframe = $(this);
+    //     var url = $iframe.attr('src');
+    //     var c = '?';
 
-        if(url.indexOf("youtube") === -1){
-          // is not a iframe of youtube
-          // console.debug('is not a iframe of youtube');
-          return;
-        }
+    //     if(url.indexOf("youtube") === -1){
+    //       // is not a iframe of youtube
+    //       // console.debug('is not a iframe of youtube');
+    //       return;
+    //     }
 
-        if(url.indexOf("wmode=opaque") !== -1){
-          // already in opaque mode
-          // console.debug('already in opaque mode');
-          return;
-        }
+    //     if(url.indexOf("wmode=opaque") !== -1){
+    //       // already in opaque mode
+    //       // console.debug('already in opaque mode');
+    //       return;
+    //     }
 
-        if(url.indexOf('?') !== -1){
-          c = '&';
-        }
+    //     if(url.indexOf('?') !== -1){
+    //       c = '&';
+    //     }
         
-        $iframe.attr("src",url+c+"wmode=opaque");
-        // console.debug('iframe changed to opaque mode');
-      });
+    //     $iframe.attr("src",url+c+"wmode=opaque");
+    //     // console.debug('iframe changed to opaque mode');
+    //   });
 
-      setTimeout(checkIframes, 500);
-    }
-    checkIframes();
+    //   setTimeout(checkIframes, 500);
+    // }
+    // checkIframes();
 
   });
 
@@ -1404,11 +1405,11 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
   });
 
   if('onhashchange' in window){
-      window.onhashchange = function(){
+    window.onhashchange = function(){
       Main.locationHashChanged.apply(Main);
-    }
+    };
   }else{
-    // console.log('The browser not supports the hashchange event!');
+    console.warn('The browser not supports the hashchange event!');
   }
 
   // Handle resize event
@@ -1437,7 +1438,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         timeout = setTimeout(delayed, threshold || 100);
       };
-    }
+    };
 
     // smartresize 
     jQuery.fn[sr] = function(fn){
