@@ -728,12 +728,20 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             return;
           }
 
-          var dt = data.articles[0].start_date;
+          // FIXME fix api and remove this
+          var article;//data.articles[0];
+          for(var i=0, i<data.articles.length; i++) {
+            if($.grep(data.articles[i].categorues, function(e){ return e.id == cat_id; }).length>0) {
+              article = data.articles[i];
+            }
+          }
+
+          var dt = article.start_date;
           var date = dt.substr(8, 2) + '/' + dt.substr(5, 2) + '/' + dt.substr(0, 4);
           var dd = new Date(dt);
           var time = dd.getHours() + ':' + (dd.getMinutes()<10?'0':'') + dd.getMinutes();
-          var params = {event: data.articles[0], date: date, time: time, category: data.articles[0].categories[0].name, category_class: active_category};
-          $.getJSON(host+'/api/v1/articles/'+data.articles[0].id+'/followers?private_token=' + '375bee7e17d0021af7160ce664874618' + '&_='+new Date().getTime()).done(function (data) {
+          var params = {event: article, date: date, time: time, category: article.categories[0].name, category_class: active_category};
+          $.getJSON(host+'/api/v1/articles/'+article.id+'/followers?private_token=' + '375bee7e17d0021af7160ce664874618' + '&_='+new Date().getTime()).done(function (data) {
             //FIXME do not depend on this request
             params.total_followers = data.total_followers;
             $('.calendar-container').html(calendarTemplate(params));
