@@ -67,7 +67,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
 
         return proposalId;
       },
-      loadRandomProposal: function (topic_id) {
+      loadRandomProposal: function (topic_id, force) {
           var private_token = Main.private_token;
           var $noProposals = $('.no-proposals');
           var $loading = $('.loading');
@@ -83,7 +83,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           var url = host + '/api/v1/articles/' + topic_id + '/children';
           var childId = this.getProposalId();
 
-          if(childId != 0){
+          if(childId != 0 && !force){
             url += '/'+childId;
           }
           url += '?private_token=' + Main.private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
@@ -104,25 +104,24 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
             $randomProposal.html(supportProposalTemplate(article));
             $body.off('click', '.vote-actions .skip');
             $body.on('click', '.vote-actions .skip', function(e) {
-              contextMain.loadRandomProposal(topic_id);
               e.preventDefault();
+              contextMain.loadRandomProposal(topic_id, true);
             });
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
               //Helps to prevent more than one vote per proposal
               var button = $(this);
+              e.preventDefault();
 
               if(!logged_in) {
                 $(this).closest('.require-login-container').find('.button-send a').click();
-                e.preventDefault();
                 return;
               }
 
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 // console.debug("Proposta " + article.id + " já havia sido votada");
                 Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
-                contextMain.loadRandomProposal(topic_id);
-                e.preventDefault();
+                contextMain.loadRandomProposal(topic_id, true);
                 return;
               }
 
@@ -140,9 +139,8 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
                   Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
                 }
                 ProposalApp.addVotedProposal(article.id);
-                contextMain.loadRandomProposal(topic_id);
+                contextMain.loadRandomProposal(topic_id, true);
               });
-              e.preventDefault();
             });
 
             $body.off('click', '.vote-result');
