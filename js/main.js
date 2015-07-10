@@ -830,6 +830,40 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     .done(function( data ) {
       data.host = host;
       data.private_token = Main.private_token;
+
+      // check youtube iframe
+      function forceWmodeIframe(article){
+        var abstract = article.abstract;
+        // console.log('article.abstract', article.abstract);
+
+        var patternIframe = '<iframe src="';
+        var indexOfIframe = abstract.indexOf(patternIframe);
+
+        if(indexOfIframe === -1){
+          return;
+        }
+
+        var startSrcUrl = indexOfIframe + patternIframe.length;
+        var endSrcUrl = abstract.indexOf('"', startSrcUrl);
+        var url = abstract.substring(startSrcUrl , endSrcUrl);
+        // console.log('url', url);
+
+        if(url.indexOf("wmode=opaque") !== -1){
+          // already in opaque mode
+          // console.debug('already in opaque mode');
+          return;
+        }
+        var c = '';
+        if(url.indexOf('?') !== -1){
+          c = '&';
+        }
+        
+        var resultUrl = url+c+"wmode=opaque";
+        article.abstract = abstract.replace(url, resultUrl);
+        // console.log('article.abstract', article.abstract);
+      };
+      forceWmodeIframe(data.article);
+
       resultsPlaceholder.innerHTML = template(data);
       $('.login-container').html(loginTemplate());
       $('.countdown').maxlength({text: '%left caracteres restantes'});
@@ -1128,6 +1162,7 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
     });
 
     $(document).on('click', '.social .fb-share', function(e) {
+      e.preventDefault();
       var link = $(this).attr('href');
       FB.ui({
           method: 'feed',
@@ -1135,8 +1170,9 @@ define(['jquery', 'handlebars', 'fastclick', 'handlebars_helpers', 'piwik'], fun
           name: $(this).data('name') || 'Dialoga Brasil',
           caption: $(this).data('caption') || 'dialoga.gov.br',
           description: $(this).data('description'),
-      }, function(response){});
-      e.preventDefault();
+      }, function(response){
+        console.log('response', response);
+      });
     });
 
     $(document).on('click', '.new-user', function(e) {
