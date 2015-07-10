@@ -731,7 +731,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           // FIXME fix api and remove this
           var article;//data.articles[0];
           for(var i=0; i<data.articles.length; i++) {
-            if($.grep(data.articles[i].categorues, function(e){ return e.id == cat_id; }).length>0) {
+            if($.grep(data.articles[i].categories, function(e){ return e.id == cat_id; }).length>0) {
               article = data.articles[i];
             }
           }
