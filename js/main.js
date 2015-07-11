@@ -35,9 +35,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   //Detects for localhost settings
   var patt = new RegExp(':3001/');
   if(patt.test(window.location.href)){
-     host = 'http://noosfero.com:3001';
+    host = 'http://noosfero.com:3001';
     dialoga_community = 104;
-    proposal_discussion = '413'; //casa
+//    proposal_discussion = '413'; //Eugênio
+    proposal_discussion = '392'; //Evandro
     recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
     cat_saude = 23;
   }
@@ -1220,7 +1221,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       window.lastCaptcha = oCaptcha_serpro_gov_br;
       
       oCaptcha_serpro_gov_br.clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
-      oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'input',  'serpro_captcha_component_');
+      oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'serpro_captcha_component_');
       
       e.preventDefault();
     });
