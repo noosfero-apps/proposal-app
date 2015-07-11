@@ -1219,8 +1219,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       var oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
       window.lastCaptcha = oCaptcha_serpro_gov_br;
-      
       oCaptcha_serpro_gov_br.clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
+      oCaptcha_serpro_gov_br.url = "/captchaserpro"
       oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'serpro_captcha_component_');
       
       e.preventDefault();
