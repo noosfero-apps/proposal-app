@@ -921,6 +921,28 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       forceWmodeIframe(data.article);
 
+      function removeStylefromIframe (article){
+        var abstract = article.abstract;
+
+        var patternIframe = 'style="';
+        var indexOfIframe = abstract.indexOf('<iframe');
+        var indexOfStyleOnIframe = abstract.indexOf('style="', indexOfIframe);
+
+        if(indexOfStyleOnIframe === -1){
+          return;
+        }
+
+        var startStyleContent = indexOfStyleOnIframe + patternIframe.length;
+        var endStyleContent = abstract.indexOf('"', startStyleContent);
+        var style = abstract.substring(startStyleContent , endStyleContent);
+        // console.log('style', style);
+
+        article.abstract = abstract.replace(style, '');
+        // console.log('article.abstract', article.abstract);
+      }
+
+      removeStylefromIframe(data.article);
+
       resultsPlaceholder.innerHTML = template(data);
       $('.login-container').html(loginTemplate());
       $('.countdown').maxlength({text: '%left caracteres restantes'});
