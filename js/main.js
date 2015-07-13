@@ -52,7 +52,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     var API = {
       articles: '',
       proposals: '/api/v1/articles/{topic_id}/children',
-      
+
     };
 
     API.getProposalsURL = function (topicId){
@@ -62,6 +62,16 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     function replace(str, pattern, value){
       return str.replace(new RegExp(pattern, 'g'), value);
     }
+
+    function fillSignupForm(signupForm, user) {
+      signupForm.find('#signup-user_email').val(user.email);
+      signupForm.find('#signup-user_name').val(user.login);
+      signupForm.find('#user_oauth_providers').val(user.oauth_providers);
+      signupForm.find('div.password').hide();
+      signupForm.find('div.password-confirmation').hide();
+      signupForm.find('#signup-user_password').attr('required', false);
+      signupForm.find('#user_password_confirmation').attr('required', false);
+    };
 
     return {
       private_token: '375bee7e17d0021af7160ce664874618',
@@ -97,7 +107,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           if(childId !== 0 && !force){
             url += '/' + childId;
           }
-          url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          url += '?private_ftoken=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
@@ -121,7 +131,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
               e.preventDefault();
-              
+
               //Helps to prevent more than one vote per proposal
               var $button = $(this);
               var $proposal = $button.closest('.random-proposal');
@@ -164,7 +174,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                   $proposal.find('.abstract').hide();
                   $proposal.find('.vote-actions .like').hide();
                   $proposal.find('.vote-actions .dislike').hide();
-                  
+
                   var $successPanel = $('.success-panel').clone();
                   // $successPanel.find('.icon').addClass('icon-proposal-sent');
                   $successPanel.find('.message').html('Seu voto já foi computado nesta proposta');
@@ -280,13 +290,18 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           $.cookie('_dialoga_session', Main.private_token);
           $('#login-panel').hide();
         } else if (user) {
-          var loginContainer = requireLoginContainer.find('.login-container');
-          loginContainer.show();
-          loginContainer.find('.new-user').click();
-          var $signupForm = loginContainer.find('#signup-form');
-          $signupForm.find('#user_email').val(user.email);
-          $signupForm.find('#user_name').val(user.login);
-          $signupForm.find('#user_oauth_providers').val(user.oauth_providers);
+          // fluxo signup vindo das caixas de login dentro dos programas
+          if(requireLoginContainer.length > 0){
+            var loginContainer = requireLoginContainer.find('.login-container');
+            loginContainer.show();
+            loginContainer.find('.new-user').click();
+            var $signupForm = loginContainer.find('#signup-form');
+            fillSignupForm($signupForm, user);
+          } else { //signup botão Entrar principal vindo de OAUTH
+            $('#login-panel').find('a.new-user').click();
+            var $signupForm = $('#login-panel #signup-form');
+            fillSignupForm($signupForm, user);
+          }
         } else {
           requireLoginContainer.find('.require-login').hide();
           requireLoginContainer.find('.login-container').show();
@@ -321,7 +336,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
           var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
           var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
-          $(proposalToShow).show();           
+          $(proposalToShow).show();
         });
       },
       display_category_tab: function(){
@@ -568,7 +583,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $proposal = $('#proposal-item-' + proposalId);
           proposalTitle = $proposal.find('.title').text();
           var proposalOffset = $proposal.offset();
-          
+
           if(proposalOffset){
             scrollTop = proposalOffset.top;
           }else{
@@ -758,7 +773,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       display_events: function(cat_id, active_category) {
         var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
         $.getJSON(url).done(function (data) {
-          
+
           if(data.articles.length === 0){
             return;
           }
@@ -819,7 +834,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var maxLinesByParagraph = 0;
         var maxLinesByTitle = 0;
         var $visibleProposals = $('.proposal-list .proposal-item:visible');
-        
+
         // get the bigger paragraph
         $visibleProposals.each(function(index, proposalItemEl){
           var $proposalItemEl = $(proposalItemEl);
@@ -830,7 +845,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           }
         });
         // console.log('maxLinesByParagraph', maxLinesByParagraph);
-        
+
         // get the bigger title
         $visibleProposals.each(function(index, proposalItemEl){
           var $proposalItemEl = $(proposalItemEl);
@@ -846,10 +861,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $proposalItemEl = $(proposalItemEl);
           var $title = $proposalItemEl.find('.box__title');
           var $paragraph = $proposalItemEl.find('p');
-          
+
           var newTitleHeight = maxLinesByTitle * hPerLineOnTitle;
           var newParagraphHeight = maxLinesByParagraph * hPerLineOnParagraph;
-          
+
           $title.css('height', newTitleHeight + 'px');
           $paragraph.css('height', newParagraphHeight + 'px');
         });
@@ -861,7 +876,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       computeLines: function ($el) {
         // reset height
         $el.height('auto');
-        
+
         var divHeight = $el.height();
         var lineHeight = parseInt($el.css('lineHeight'));
         var lines = Math.ceil(divHeight / lineHeight);
@@ -879,7 +894,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     };
   })();
 
-  
+
   var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + Main.private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
 
   $.getJSON(noosferoAPI)
@@ -913,7 +928,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if(url.indexOf('?') !== -1){
           c = '&';
         }
-        
+
         var resultUrl = url + c + 'wmode=opaque';
         article.abstract = abstract.replace(url, resultUrl);
         // console.log('article.abstract', article.abstract);
@@ -997,7 +1012,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
         // handle esc
         $(document).keyup(function(e) {
-          
+
           // escape key maps to keycode `27`
           if (e.keyCode === 27) { // ESC
             $loginPanel.hide();
@@ -1256,7 +1271,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     });
 
     $(document).on('click', '.new-user', function(e) {
-      
+
       if(window.lastCaptcha){
         window.lastCaptcha.destruir();
       }
@@ -1270,16 +1285,20 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       signupForm.find('.password').show();
       signupForm.find('.password-confirmation').show();
+
+      signupForm.find('signup-user_password').attr('required', true);
+      signupForm.find('#user_password_confirmation').attr('required', true);
+
       loginForm.find('.message').hide();
       signupForm.find('#serpro_captcha').empty();
-      
+
       var oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
       window.lastCaptcha = oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br.clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
       oCaptcha_serpro_gov_br.url = "/captchaserpro"
       oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'serpro_captcha_component_');
-      
+
       e.preventDefault();
     });
 
@@ -1291,7 +1310,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     });
 
     $(document).on('click', '.confirm-signup', function(e) {
-      
+
       var $button = $(this);
       var $signupForm = $(this).parents('form.signup');
       var $inputEmail = $signupForm.find('#signup-user_email');
@@ -1300,7 +1319,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       var $inputPasswordConfirmation = $signupForm.find('#user_password_confirmation');
       var $inputAcceptation = $signupForm.find('#user_terms_accepted');
       var $inputCaptcha = $signupForm.find('#captcha_text');
-      
+
       // clear messages
       var message = $('.signup .message');
       message.hide();
@@ -1324,31 +1343,31 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var messageErrors = [];
 
           messageErrors.push('<ul>'); // start a HTML list
-          
+
           if (!hasEmail){
             messageErrors.push('<li>O e-mail é um campo obrigatório.</li>');
           }
-          
+
           if (!hasUsername){
             messageErrors.push('<li>O nome de usuário é um campo obrigatório.</li>');
           }
-          
+
           if (!hasPassword){
             messageErrors.push('<li>A senha é um campo obrigatório.</li>');
           }
-          
+
           if (!hasPasswordConfirmation){
             messageErrors.push('<li>A confirmação da senha é um campo obrigatório.</li>');
           }
-          
+
           if (!hasPasswordEquals){
             messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
           }
-          
+
           if (!hasAcceptation){
             messageErrors.push('<li>Você deve ler e aceitar os termos de uso.</li>');
           }
-          
+
           if (!hasCaptcha){
             messageErrors.push('<li>O ReCaptcha é um campo obrigatório.</li>');
           }
@@ -1452,7 +1471,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     //     if(url.indexOf('?') !== -1){
     //       c = '&';
     //     }
-        
+
     //     $iframe.attr("src",url+c+"wmode=opaque");
     //     // console.debug('iframe changed to opaque mode');
     //   });
@@ -1488,7 +1507,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       return function debounced () {
         var obj = this, args = arguments;
-        
+
         function delayed () {
           if (!execAsap){
             func.apply(obj, args);
@@ -1506,7 +1525,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       };
     };
 
-    // smartresize 
+    // smartresize
     jQuery.fn[sr] = function(fn){
       return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
     };
