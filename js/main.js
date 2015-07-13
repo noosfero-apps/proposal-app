@@ -120,9 +120,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             });
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
-              //Helps to prevent more than one vote per proposal
-              var button = $(this);
               e.preventDefault();
+              
+              //Helps to prevent more than one vote per proposal
+              var $button = $(this);
+              var $proposal = $button.closest('.random-proposal');
 
               if(!logged_in) {
                 $(this).closest('.require-login-container').find('.button-send a').click();
@@ -131,7 +133,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 // console.debug("Proposta " + article.id + " já havia sido votada");
-                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
+                Main.displaySuccess($button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
                 contextMain.loadRandomProposal(topic_id, true);
                 return;
               }
@@ -145,12 +147,35 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                 }
               }).done(function(data) {
                 if(data.vote) {
-                  Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
+                  // Main.displaySuccess($button.closest('.support-proposal .section-content'), '', 800);
+                  $proposal.find('.abstract').hide();
+                  $proposal.find('.vote-actions .like').hide();
+                  $proposal.find('.vote-actions .dislike').hide();
+                  // $proposal.find('.vote-actions .vote-result').hide();
+                  var $successPanel = $('.success-panel').clone();
+                  $successPanel.find('.icon').addClass('icon-proposal-sent');
+                  $successPanel.find('.message').html('Voto realizado com sucesso');
+                  $successPanel.removeClass('hide');
+                  $proposal.prepend($successPanel);
+                  $successPanel.show();
+                  // $successPanel.css('top', Math.max(0, (($proposal.height() - $successPanel.outerHeight()) / 2) + $proposal.offset().top) + 'px');
+                  // $successPanel.css('left', Math.max(0, (($proposal.width() - $successPanel.outerWidth()) / 2) + $proposal.offset().left) + 'px');
                 } else {
-                  Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
+                  $proposal.find('.abstract').hide();
+                  $proposal.find('.vote-actions .like').hide();
+                  $proposal.find('.vote-actions .dislike').hide();
+                  
+                  var $successPanel = $('.success-panel').clone();
+                  // $successPanel.find('.icon').addClass('icon-proposal-sent');
+                  $successPanel.find('.message').html('Seu voto já foi computado nesta proposta');
+                  $successPanel.removeClass('hide');
+                  $proposal.prepend($successPanel);
+                  $successPanel.show();
+                  // Main.displaySuccess($button.closest('.support-proposal .section-content'), , 800);
+                  // $successPanel.find('.message').html('Seu voto já foi computado nesta proposta');
                 }
-                ProposalApp.addVotedProposal(article.id);
-                contextMain.loadRandomProposal(topic_id, true);
+                // ProposalApp.addVotedProposal(article.id);
+                // contextMain.loadRandomProposal(topic_id, true);
               });
             });
 
