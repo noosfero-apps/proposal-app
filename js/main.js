@@ -1304,6 +1304,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
     $(document).on('click', '.cancel-signup', function(e) {
       var signupForm = $(this).parents('#signup-form');
+      signupForm.find('#user_oauth_providers').val('');
       signupForm.hide();
       signupForm.siblings('#login-form').show();
       e.preventDefault();
@@ -1342,6 +1343,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
           var messageErrors = [];
 
+          var isOAUTH = $signupForm.find('#user_oauth_providers').val() !== '';
+
           messageErrors.push('<ul>'); // start a HTML list
 
           if (!hasEmail){
@@ -1352,16 +1355,18 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             messageErrors.push('<li>O nome de usuário é um campo obrigatório.</li>');
           }
 
-          if (!hasPassword){
-            messageErrors.push('<li>A senha é um campo obrigatório.</li>');
-          }
+          if(!isOAUTH){
+            if (!hasPassword){
+              messageErrors.push('<li>A senha é um campo obrigatório.</li>');
+            }
 
-          if (!hasPasswordConfirmation){
-            messageErrors.push('<li>A confirmação da senha é um campo obrigatório.</li>');
-          }
+            if (!hasPasswordConfirmation){
+              messageErrors.push('<li>A confirmação da senha é um campo obrigatório.</li>');
+            }
 
-          if (!hasPasswordEquals){
-            messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
+            if (!hasPasswordEquals){
+              messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
+            }
           }
 
           if (!hasAcceptation){
