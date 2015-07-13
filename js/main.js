@@ -67,10 +67,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       signupForm.find('#signup-user_email').val(user.email);
       signupForm.find('#signup-user_name').val(user.login);
       signupForm.find('#user_oauth_providers').val(user.oauth_providers);
-      signupForm.find('div.password').hide();
+      /*signupForm.find('div.password').hide();
       signupForm.find('div.password-confirmation').hide();
       signupForm.find('#signup-user_password').attr('required', false);
-      signupForm.find('#user_password_confirmation').attr('required', false);
+      signupForm.find('#user_password_confirmation').attr('required', false);*/
     };
 
     return {
@@ -1336,11 +1336,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       var hasPasswordConfirmation = true;
       var hasPasswordEquals = true;
 
-      if(! isOAUTH){
+      //if(! isOAUTH){
         hasPassword = $inputPassword && $inputPassword.val().length > 0;
         hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
         hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
-      }
+      //}
 
       var hasAcceptation = $inputAcceptation.val();
       var hasCaptcha = $inputCaptcha.val().length > 0;
