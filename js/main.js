@@ -1329,21 +1329,30 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       // Validate form
       var hasEmail = $inputEmail && $inputEmail.val().length > 0;
       var hasUsername = $inputUsername && $inputUsername.val().length > 0;
-      var hasPassword = $inputPassword && $inputPassword.val().length > 0;
-      var hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
-      var hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
+
+      var isOAUTH = $signupForm.find('#user_oauth_providers').val() !== '';
+
+      var hasPassword = true;
+      var hasPasswordConfirmation = true;
+      var hasPasswordEquals = true;
+
+      if(! isOAUTH){
+        hasPassword = $inputPassword && $inputPassword.val().length > 0;
+        hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
+        hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
+      }
+
       var hasAcceptation = $inputAcceptation.val();
       var hasCaptcha = $inputCaptcha.val().length > 0;
       var hasError = (!hasEmail || !hasUsername || !hasPassword || !hasPasswordConfirmation || !hasPasswordEquals || !hasAcceptation || !hasCaptcha);
 
       if(hasError){
 
-        if (! $signupForm[0].checkValidity()) { // force check of HTML5 validation
+        if ($signupForm[0].checkValidity()) { // force check of HTML5 validation
           e.preventDefault();
 
           var messageErrors = [];
 
-          var isOAUTH = $signupForm.find('#user_oauth_providers').val() !== '';
 
           messageErrors.push('<ul>'); // start a HTML list
 
