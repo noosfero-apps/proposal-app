@@ -1338,7 +1338,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       if(hasError){
 
-        if ($signupForm[0].checkValidity()) { // force check of HTML5 validation
+        if (! $signupForm[0].checkValidity()) { // force check of HTML5 validation
           e.preventDefault();
 
           var messageErrors = [];
