@@ -939,10 +939,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $target = $(e.target);
 
           var isLoginButton = ($target.attr('id') === 'login-button');
+          var isLoginButtonIcon = $target.hasClass('icon-login');
           var requireLogin = $target.hasClass('require-main-login');
           var isChildOfPanel = ($target.closest(loginPanelId).length !== 0);
 
-          if( !isLoginButton && !isChildOfPanel && !requireLogin ){
+          if( !isLoginButton && !isLoginButtonIcon && !isChildOfPanel && !requireLogin ){
             $loginPanel.hide();
           }
         });
