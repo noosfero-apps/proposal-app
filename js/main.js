@@ -239,6 +239,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $('.login .message').text('');
         var requireLoginContainer = loginButton.closest('.require-login-container');
 
+        if(user && !Main.getUser()) {
+          Main.setUser(user);
+        }
+
         if(logged_in) {
           Main.showLogout();
           if(token){
@@ -696,7 +700,12 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var name = '';
         var user = Main.getUser();
         if(user){
-          name = user.person.name + ' - ';
+          if(user.person && user.person.name){
+            name = user.person.name + ' - ';
+          }else{
+            name = user.login + ' - ';
+          }
+
         }
         $('#logout-button .name').text(name);
         $('#logout-button').show();
