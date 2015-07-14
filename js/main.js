@@ -107,7 +107,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           if(childId !== 0 && !force){
             url += '/' + childId;
           }
-          url += '?private_ftoken=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
