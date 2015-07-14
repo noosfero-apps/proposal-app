@@ -1427,6 +1427,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                   ptBR['(Invalid request) email can\'t be saved'] = 'E-mail inválido.';
                   // (Invalid request) login can't be saved
                   ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
+                  ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
                   ptBR['Wrong captcha text, please try again'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
                   msg = '<br/><br/>';
                   msg += ptBR[data.responseJSON.message] || data.responseJSON.message;
