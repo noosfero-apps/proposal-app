@@ -52,7 +52,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     var API = {
       articles: '',
       proposals: '/api/v1/articles/{topic_id}/children',
-      
+
     };
 
     API.getProposalsURL = function (topicId){
@@ -62,6 +62,16 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     function replace(str, pattern, value){
       return str.replace(new RegExp(pattern, 'g'), value);
     }
+
+    function fillSignupForm(signupForm, user) {
+      signupForm.find('#signup-user_email').val(user.email);
+      signupForm.find('#signup-user_name').val(user.login);
+      signupForm.find('#user_oauth_providers').val(user.oauth_providers);
+      /*signupForm.find('div.password').hide();
+      signupForm.find('div.password-confirmation').hide();
+      signupForm.find('#signup-user_password').attr('required', false);
+      signupForm.find('#user_password_confirmation').attr('required', false);*/
+    };
 
     return {
       private_token: '375bee7e17d0021af7160ce664874618',
@@ -97,7 +107,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           if(childId !== 0 && !force){
             url += '/' + childId;
           }
-          url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          url += '?private_ftoken=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
@@ -120,9 +130,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             });
             $body.off('click', '.vote-actions .vote-action');
             $body.on('click', '.vote-actions .vote-action', function(e) {
-              //Helps to prevent more than one vote per proposal
-              var button = $(this);
               e.preventDefault();
+
+              //Helps to prevent more than one vote per proposal
+              var $button = $(this);
+              var $proposal = $button.closest('.random-proposal');
 
               if(!logged_in) {
                 $(this).closest('.require-login-container').find('.button-send a').click();
@@ -131,7 +143,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
               if(ProposalApp.hasProposalbeenVoted(article.id)){
                 // console.debug("Proposta " + article.id + " já havia sido votada");
-                Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
+                Main.displaySuccess($button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
                 contextMain.loadRandomProposal(topic_id, true);
                 return;
               }
@@ -145,12 +157,35 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                 }
               }).done(function(data) {
                 if(data.vote) {
-                  Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Voto realizado com sucesso', 800);
+                  // Main.displaySuccess($button.closest('.support-proposal .section-content'), '', 800);
+                  $proposal.find('.abstract').hide();
+                  $proposal.find('.vote-actions .like').hide();
+                  $proposal.find('.vote-actions .dislike').hide();
+                  // $proposal.find('.vote-actions .vote-result').hide();
+                  var $successPanel = $('.success-panel').clone();
+                  $successPanel.find('.icon').addClass('icon-proposal-sent');
+                  $successPanel.find('.message').html('Voto realizado com sucesso');
+                  $successPanel.removeClass('hide');
+                  $proposal.prepend($successPanel);
+                  $successPanel.show();
+                  // $successPanel.css('top', Math.max(0, (($proposal.height() - $successPanel.outerHeight()) / 2) + $proposal.offset().top) + 'px');
+                  // $successPanel.css('left', Math.max(0, (($proposal.width() - $successPanel.outerWidth()) / 2) + $proposal.offset().left) + 'px');
                 } else {
-                  Main.displaySuccess(button.closest('.support-proposal .section-content'), 'Seu voto já foi computado nesta proposta', 800);
+                  $proposal.find('.abstract').hide();
+                  $proposal.find('.vote-actions .like').hide();
+                  $proposal.find('.vote-actions .dislike').hide();
+
+                  var $successPanel = $('.success-panel').clone();
+                  // $successPanel.find('.icon').addClass('icon-proposal-sent');
+                  $successPanel.find('.message').html('Seu voto já foi computado nesta proposta');
+                  $successPanel.removeClass('hide');
+                  $proposal.prepend($successPanel);
+                  $successPanel.show();
+                  // Main.displaySuccess($button.closest('.support-proposal .section-content'), , 800);
+                  // $successPanel.find('.message').html('Seu voto já foi computado nesta proposta');
                 }
-                ProposalApp.addVotedProposal(article.id);
-                contextMain.loadRandomProposal(topic_id, true);
+                // ProposalApp.addVotedProposal(article.id);
+                // contextMain.loadRandomProposal(topic_id, true);
               });
             });
 
@@ -239,6 +274,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $('.login .message').text('');
         var requireLoginContainer = loginButton.closest('.require-login-container');
 
+        if(user && !Main.getUser()) {
+          Main.setUser(user);
+        }
+
         if(logged_in) {
           Main.showLogout();
           if(token){
@@ -251,13 +290,18 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           $.cookie('_dialoga_session', Main.private_token);
           $('#login-panel').hide();
         } else if (user) {
-          var loginContainer = requireLoginContainer.find('.login-container');
-          loginContainer.show();
-          loginContainer.find('.new-user').click();
-          var $signupForm = loginContainer.find('#signup-form');
-          $signupForm.find('#user_email').val(user.email);
-          $signupForm.find('#user_name').val(user.login);
-          $signupForm.find('#user_oauth_providers').val(user.oauth_providers);
+          // fluxo signup vindo das caixas de login dentro dos programas
+          if(requireLoginContainer.length > 0){
+            var loginContainer = requireLoginContainer.find('.login-container');
+            loginContainer.show();
+            loginContainer.find('.new-user').click();
+            var $signupForm = loginContainer.find('#signup-form');
+            fillSignupForm($signupForm, user);
+          } else { //signup botão Entrar principal vindo de OAUTH
+            $('#login-panel').find('a.new-user').click();
+            var $signupForm = $('#login-panel #signup-form');
+            fillSignupForm($signupForm, user);
+          }
         } else {
           requireLoginContainer.find('.require-login').hide();
           requireLoginContainer.find('.login-container').show();
@@ -292,7 +336,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
           var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
           var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
-          $(proposalToShow).show();           
+          $(proposalToShow).show();
         });
       },
       display_category_tab: function(){
@@ -539,7 +583,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $proposal = $('#proposal-item-' + proposalId);
           proposalTitle = $proposal.find('.title').text();
           var proposalOffset = $proposal.offset();
-          
+
           if(proposalOffset){
             scrollTop = proposalOffset.top;
           }else{
@@ -696,7 +740,12 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var name = '';
         var user = Main.getUser();
         if(user){
-          name = user.person.name + ' - ';
+          if(user.person && user.person.name){
+            name = user.person.name + ' - ';
+          }else{
+            name = user.login + ' - ';
+          }
+
         }
         $('#logout-button .name').text(name);
         $('#logout-button').show();
@@ -724,7 +773,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       display_events: function(cat_id, active_category) {
         var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
         $.getJSON(url).done(function (data) {
-          
+
           if(data.articles.length === 0){
             return;
           }
@@ -785,7 +834,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var maxLinesByParagraph = 0;
         var maxLinesByTitle = 0;
         var $visibleProposals = $('.proposal-list .proposal-item:visible');
-        
+
         // get the bigger paragraph
         $visibleProposals.each(function(index, proposalItemEl){
           var $proposalItemEl = $(proposalItemEl);
@@ -796,7 +845,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           }
         });
         // console.log('maxLinesByParagraph', maxLinesByParagraph);
-        
+
         // get the bigger title
         $visibleProposals.each(function(index, proposalItemEl){
           var $proposalItemEl = $(proposalItemEl);
@@ -812,10 +861,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $proposalItemEl = $(proposalItemEl);
           var $title = $proposalItemEl.find('.box__title');
           var $paragraph = $proposalItemEl.find('p');
-          
+
           var newTitleHeight = maxLinesByTitle * hPerLineOnTitle;
           var newParagraphHeight = maxLinesByParagraph * hPerLineOnParagraph;
-          
+
           $title.css('height', newTitleHeight + 'px');
           $paragraph.css('height', newParagraphHeight + 'px');
         });
@@ -827,7 +876,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       computeLines: function ($el) {
         // reset height
         $el.height('auto');
-        
+
         var divHeight = $el.height();
         var lineHeight = parseInt($el.css('lineHeight'));
         var lines = Math.ceil(divHeight / lineHeight);
@@ -845,7 +894,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     };
   })();
 
-  
+
   var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + Main.private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
 
   $.getJSON(noosferoAPI)
@@ -879,13 +928,35 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if(url.indexOf('?') !== -1){
           c = '&';
         }
-        
+
         var resultUrl = url + c + 'wmode=opaque';
         article.abstract = abstract.replace(url, resultUrl);
         // console.log('article.abstract', article.abstract);
       }
 
       forceWmodeIframe(data.article);
+
+      function removeStylefromIframe (article){
+        var abstract = article.abstract;
+
+        var patternIframe = 'style="';
+        var indexOfIframe = abstract.indexOf('<iframe');
+        var indexOfStyleOnIframe = abstract.indexOf('style="', indexOfIframe);
+
+        if(indexOfStyleOnIframe === -1){
+          return;
+        }
+
+        var startStyleContent = indexOfStyleOnIframe + patternIframe.length;
+        var endStyleContent = abstract.indexOf('"', startStyleContent);
+        var style = abstract.substring(startStyleContent , endStyleContent);
+        // console.log('style', style);
+
+        article.abstract = abstract.replace(style, '');
+        // console.log('article.abstract', article.abstract);
+      }
+
+      removeStylefromIframe(data.article);
 
       resultsPlaceholder.innerHTML = template(data);
       $('.login-container').html(loginTemplate());
@@ -930,17 +1001,18 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $target = $(e.target);
 
           var isLoginButton = ($target.attr('id') === 'login-button');
+          var isLoginButtonIcon = $target.hasClass('icon-login');
           var requireLogin = $target.hasClass('require-main-login');
           var isChildOfPanel = ($target.closest(loginPanelId).length !== 0);
 
-          if( !isLoginButton && !isChildOfPanel && !requireLogin ){
+          if( !isLoginButton && !isLoginButtonIcon && !isChildOfPanel && !requireLogin ){
             $loginPanel.hide();
           }
         });
 
         // handle esc
         $(document).keyup(function(e) {
-          
+
           // escape key maps to keycode `27`
           if (e.keyCode === 27) { // ESC
             $loginPanel.hide();
@@ -1199,7 +1271,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     });
 
     $(document).on('click', '.new-user', function(e) {
-      
+
       if(window.lastCaptcha){
         window.lastCaptcha.destruir();
       }
@@ -1213,28 +1285,33 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       signupForm.find('.password').show();
       signupForm.find('.password-confirmation').show();
+
+      signupForm.find('signup-user_password').attr('required', true);
+      signupForm.find('#user_password_confirmation').attr('required', true);
+
       loginForm.find('.message').hide();
       signupForm.find('#serpro_captcha').empty();
-      
+
       var oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
       window.lastCaptcha = oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br.clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
       oCaptcha_serpro_gov_br.url = "/captchaserpro"
       oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'serpro_captcha_component_');
-      
+
       e.preventDefault();
     });
 
     $(document).on('click', '.cancel-signup', function(e) {
       var signupForm = $(this).parents('#signup-form');
+      signupForm.find('#user_oauth_providers').val('');
       signupForm.hide();
       signupForm.siblings('#login-form').show();
       e.preventDefault();
     });
 
     $(document).on('click', '.confirm-signup', function(e) {
-      
+
       var $button = $(this);
       var $signupForm = $(this).parents('form.signup');
       var $inputEmail = $signupForm.find('#signup-user_email');
@@ -1243,7 +1320,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       var $inputPasswordConfirmation = $signupForm.find('#user_password_confirmation');
       var $inputAcceptation = $signupForm.find('#user_terms_accepted');
       var $inputCaptcha = $signupForm.find('#captcha_text');
-      
+
       // clear messages
       var message = $('.signup .message');
       message.hide();
@@ -1252,9 +1329,19 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       // Validate form
       var hasEmail = $inputEmail && $inputEmail.val().length > 0;
       var hasUsername = $inputUsername && $inputUsername.val().length > 0;
-      var hasPassword = $inputPassword && $inputPassword.val().length > 0;
-      var hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
-      var hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
+
+      var isOAUTH = $signupForm.find('#user_oauth_providers').val() !== '';
+
+      var hasPassword = true;
+      var hasPasswordConfirmation = true;
+      var hasPasswordEquals = true;
+
+      //if(! isOAUTH){
+        hasPassword = $inputPassword && $inputPassword.val().length > 0;
+        hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
+        hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
+      //}
+
       var hasAcceptation = $inputAcceptation.val();
       var hasCaptcha = $inputCaptcha.val().length > 0;
       var hasError = (!hasEmail || !hasUsername || !hasPassword || !hasPasswordConfirmation || !hasPasswordEquals || !hasAcceptation || !hasCaptcha);
@@ -1266,32 +1353,35 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
           var messageErrors = [];
 
+
           messageErrors.push('<ul>'); // start a HTML list
-          
+
           if (!hasEmail){
             messageErrors.push('<li>O e-mail é um campo obrigatório.</li>');
           }
-          
+
           if (!hasUsername){
             messageErrors.push('<li>O nome de usuário é um campo obrigatório.</li>');
           }
-          
-          if (!hasPassword){
-            messageErrors.push('<li>A senha é um campo obrigatório.</li>');
+
+          if(!isOAUTH){
+            if (!hasPassword){
+              messageErrors.push('<li>A senha é um campo obrigatório.</li>');
+            }
+
+            if (!hasPasswordConfirmation){
+              messageErrors.push('<li>A confirmação da senha é um campo obrigatório.</li>');
+            }
+
+            if (!hasPasswordEquals){
+              messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
+            }
           }
-          
-          if (!hasPasswordConfirmation){
-            messageErrors.push('<li>A confirmação da senha é um campo obrigatório.</li>');
-          }
-          
-          if (!hasPasswordEquals){
-            messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
-          }
-          
+
           if (!hasAcceptation){
             messageErrors.push('<li>Você deve ler e aceitar os termos de uso.</li>');
           }
-          
+
           if (!hasCaptcha){
             messageErrors.push('<li>O ReCaptcha é um campo obrigatório.</li>');
           }
@@ -1358,6 +1448,30 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       }
     });
 
+    var popupCenter = function(url, title, w, h) {
+      var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+      var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+
+      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+      var top = ((height / 3) - (h / 3)) + dualScreenTop;
+
+      var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+      // Puts focus on the newWindow
+      if (window.focus) {
+        newWindow.focus();
+      }
+    };
+
+    $(document).on('click', '.social a.popup', {}, function popUp(e) {
+      var self = $(this);
+      popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
+      e.preventDefault();
+    });
+
     $(document).on('click', '#logout-button', function (e){
       $.removeCookie('_dialoga_session');
       $.removeCookie('votedProposals');
@@ -1395,7 +1509,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     //     if(url.indexOf('?') !== -1){
     //       c = '&';
     //     }
-        
+
     //     $iframe.attr("src",url+c+"wmode=opaque");
     //     // console.debug('iframe changed to opaque mode');
     //   });
@@ -1431,7 +1545,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       return function debounced () {
         var obj = this, args = arguments;
-        
+
         function delayed () {
           if (!execAsap){
             func.apply(obj, args);
@@ -1449,7 +1563,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       };
     };
 
-    // smartresize 
+    // smartresize
     jQuery.fn[sr] = function(fn){
       return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
     };
