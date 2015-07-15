@@ -431,7 +431,8 @@
             });
 
             $table.find(opt.toggleSelector).unbind('click.footable').bind('click.footable', function (e) {
-                if ($table.is('.breakpoint') && $(e.target).is('td,th,.'+ cls.toggle)) {
+                // if ($table.is('.breakpoint') && $(e.target).is('td,th,.'+ cls.toggle)) {
+                if ($table.is('.breakpoint') && $(e.target).is('.'+ cls.toggle)) {
                     $(this).trigger(trg.toggleRow);
                 }
             });
