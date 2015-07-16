@@ -66,6 +66,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     function fillSignupForm(signupForm, user) {
       signupForm.find('#signup-user_email').val(user.email);
       signupForm.find('#signup-user_name').val(user.login);
+      signupForm.find('#user_oauth_signup_token').val(user.oauth_signup_token);
       signupForm.find('#user_oauth_providers').val(user.oauth_providers);
       /*signupForm.find('div.password').hide();
       signupForm.find('div.password-confirmation').hide();
@@ -74,7 +75,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     };
 
     return {
-      private_token: '375bee7e17d0021af7160ce664874618',
+      /*private_token: '375bee7e17d0021af7160ce664874618',*/
       getProposalId: function() {
         var regexProposals = /\d.*\/propostas\/*.*/;
         var proposalId = 0;
@@ -89,7 +90,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         return proposalId;
       },
       loadRandomProposal: function (topic_id, force) {
-          var private_token = window.Main.private_token;
+          /*var private_token = window.Main.private_token;*/
           var $noProposals = $('.no-proposals');
           var $loading = $('.loading');
           var $randomProposal = $('.random-proposal');
@@ -107,7 +108,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           if(childId !== 0 && !force){
             url += '/' + childId;
           }
-          url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          //url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          url += '?limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
@@ -220,7 +222,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $resultsContainer.find('.results-content').hide();
 
         var per_page = 10;
-        var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + Main.private_token + '&per_page='+per_page+'&page='+page;
+        //var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + Main.private_token + '&per_page='+per_page+'&page='+page;
+        var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?per_page='+per_page+'&page='+page;
         $.getJSON(url).done(function( data, stats, xhr ) {
           data.pagination = {
             total: parseInt(xhr.getResponseHeader('Total')),
@@ -317,7 +320,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
       },
       display_article: function(article_id, backTo) {
-        var url = host + '/api/v1/articles/' + article_id + '?private_token=' + Main.private_token;
+        //var url = host + '/api/v1/articles/' + article_id + '?private_token=' + Main.private_token;
+        var url = host + '/api/v1/articles/' + article_id;
         $.getJSON(url).done(function( data ) {
           $('#article-container .article-content').html(articleTemplate(data.article));
           $('#article-container').show();
@@ -442,7 +446,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $proposal.find('.body').show();
         $proposal.show();
 
-        var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + Main.private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+        //var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + Main.private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+        var url = host + '/api/v1/articles/' + proposal_id + '?fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
         $.getJSON(url).done(function( data ) {
           $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
         })
@@ -771,7 +776,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         return msg;
       },
       display_events: function(cat_id, active_category) {
-        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
+        //var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
+        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
         $.getJSON(url).done(function (data) {
 
           if(data.articles.length === 0){
@@ -791,7 +797,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var dd = new Date(dt);
           var time = dd.getHours() + ':' + (dd.getMinutes()<10?'0':'') + dd.getMinutes();
           var params = {event: article, date: date, time: time, category: article.categories[0].name, category_class: active_category};
-          $.getJSON(host+'/api/v1/articles/'+article.id+'/followers?private_token=' + '375bee7e17d0021af7160ce664874618' + '&_='+new Date().getTime()).done(function (data) {
+          //$.getJSON(host+'/api/v1/articles/'+article.id+'/followers?private_token=' + '375bee7e17d0021af7160ce664874618' + '&_='+new Date().getTime()).done(function (data) {
+          $.getJSON(host+'/api/v1/articles/'+article.id+'/followers?_='+new Date().getTime()).done(function (data) {
             //FIXME do not depend on this request
             params.total_followers = data.total_followers;
             $('.calendar-container').html(calendarTemplate(params));
