@@ -23,6 +23,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   var lastHash = window.location.hash;
 
   var host = 'http://login.dialoga.gov.br';
+  var serpro_captcha_clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
   var dialoga_community = 19195;
   var proposal_discussion = '103358'; //participa
   var cat_saude = 180;
@@ -31,16 +32,35 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   // var cat_reducao_da_pobreza = 183;
   var recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i';
 
+  // There are two modes for development
+  // 1: Remote API
+  // 2: Local API
+  // For (1) use port 3000 -> rails s
+  // For (2) use port 3001 -> rails s -p 3001
+  //
+  // For (2) set at /etc/hosts:
+  //
+  //127.0.0.1	participa.br
+  //127.0.0.1	dialoga.gov.br
+  //127.0.0.1	login.dialoga.gov.br
+  //127.0.0.1	noosfero.com
 
   //Detects for localhost settings
-  var patt = new RegExp(':3001/');
+  var patt = new RegExp(':300[0-1]/');
+  var localDevelopment = false;
   if(patt.test(window.location.href)){
-    host = 'http://noosfero.com:3001';
-    dialoga_community = 104;
+    localDevelopment = true;
+    patt = new RegExp(':3000/');
+    if(patt.test(window.location.href)){
+      host = 'http://noosfero.com:3000';
+    }else{
+      host = 'http://noosfero.com:3001';
+      dialoga_community = 104;
 //    proposal_discussion = '413'; //Eugênio
-    proposal_discussion = '392'; //Evandro
-    recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
-    cat_saude = 23;
+      proposal_discussion = '392'; //Evandro
+      recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
+      cat_saude = 23;
+    }
   }
 
   var BARRA_ADDED = false;
@@ -52,7 +72,6 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     var API = {
       articles: '',
       proposals: '/api/v1/articles/{topic_id}/children',
-
     };
 
     API.getProposalsURL = function (topicId){
@@ -1302,8 +1321,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       var oCaptcha_serpro_gov_br;
       oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
       window.lastCaptcha = oCaptcha_serpro_gov_br;
-      oCaptcha_serpro_gov_br.clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
-      oCaptcha_serpro_gov_br.url = "/captchaserpro"
+      oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
+      if(!localDevelopment) {
+        oCaptcha_serpro_gov_br.url = "/captchaserpro"
+      }
       oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'serpro_captcha_component_');
 
       e.preventDefault();
