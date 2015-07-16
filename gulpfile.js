@@ -4,7 +4,7 @@ var gulp = require('gulp');
 // var sass = require('gulp-sass');
 var sass = require('gulp-ruby-sass');
 var connect = require('gulp-connect');
- 
+
 // gulp.task('sass', function () {
 //   gulp.src('./sass/**/*.scss')
 //     .pipe(sass().on('error', sass.logError))
@@ -20,13 +20,14 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('.'))
     .pipe(connect.reload());
 });
- 
+
 gulp.task('watch', function () {
   gulp.watch('./sass/**/*.sass', ['sass']);
 });
 
 gulp.task('connect', function() {
   connect.server({
+    port: 8080,
     root: [__dirname],
     livereload: true
   });
