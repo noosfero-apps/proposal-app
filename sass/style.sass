@@ -427,6 +427,12 @@ h1
   margin-bottom: $gutter * 1.5
   .embed-responsive
     border: 1px solid #333
+  
+  &.video-smaller
+    @media (min-width: $screen-md)
+      width: 60%
+      margin-left: auto
+      margin-right: auto
 
 //   6.4 - background do conteudo
 .content
