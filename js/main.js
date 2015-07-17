@@ -499,6 +499,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           $('.content').addClass('background'); /* Add class background */
           $('.proposal-category-items').hide();
           $('.proposal-detail').hide().removeClass('hide');
+          $('#article-container').hide();
           $item.toggle( 'blind', 200, function () {
             var itemOffset = $item.offset();
             if(itemOffset){
