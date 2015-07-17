@@ -53,14 +53,14 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     patt = new RegExp(':3000/');
 
     if(patt.test(window.location.href)){
-      host = 'http://noosfero.com:3000';
+      host = 'http://login.dialoga.gov.br';
     }else if (new RegExp(':3001/').test(window.location.href)){
       host = 'http://noosfero.com:3001';
-      dialoga_community = 104;
+      //dialoga_community = 104;
       //    proposal_discussion = '413'; //Eugênio
-      proposal_discussion = '392'; //Evandro
+      //proposal_discussion = '392'; //Evandro
       recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
-      cat_saude = 23;
+      //cat_saude = 23;
     } else { //ABNER
       host = 'http://local.abner.com:3002';
       dialoga_community = 105;
@@ -303,8 +303,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       },
       loginCallback: function(loggedIn, token, user) {
         logged_in = loggedIn;
+        var requireLoginContainer;
         $('.login .message').text('');
-        var requireLoginContainer = loginButton.closest('.require-login-container');
+        if(loginButton){
+          requireLoginContainer = loginButton.closest('.require-login-container');
+        }
 
         if(user && !Main.getUser()) {
           Main.setUser(user);
@@ -315,12 +318,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           if(token){
             Main.private_token = token;
           }
-          // requireLoginContainer = $('.require-login-container');
-          requireLoginContainer.find('.require-login').show();
-          requireLoginContainer.find('.require-login .message').show();
-          requireLoginContainer.find('.login-container').hide();
+
           $.cookie('_dialoga_session', Main.private_token);
-          $('#login-panel').hide();
+
+          if(requireLoginContainer){
+            // requireLoginContainer = $('.require-login-container');
+            requireLoginContainer.find('.require-login').show();
+            requireLoginContainer.find('.require-login .message').show();
+            requireLoginContainer.find('.login-container').hide();
+
+            $('#login-panel').hide();
+          }
         } else if (user) {
           // fluxo signup vindo das caixas de login dentro dos programas
           if(requireLoginContainer.length > 0){
@@ -585,6 +593,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var regexArticle = /#\/artigo/;
         var regexResultados = /resultados$/;
         var regexSobreOPrograma = /sobre-o-programa$/;
+        var regexActivateUser = /#\/activate/;
 
         if( (regexHideBarra.exec(hash) === null) && !HIDE_BARRA_DO_GOVERNO ){
           this.addBarraDoGoverno();
@@ -602,6 +611,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var isArticle         = regexArticle.exec(hash) !== null;
         var isResultados      = regexResultados.exec(hash) !== null;
         var isSobreOPrograma  = regexSobreOPrograma.exec(hash) !== null;
+        var isActivateUser    = regexActivateUser.exec(hash) !== null;
 
         if(isArticle) {
           this.display_article(hash.split('/')[2], lastHash);
@@ -671,6 +681,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if( !isProposal && !isCategory ){
           // show the 'index' -> category tab
           this.display_category_tab();
+        }
+
+        if(isActivateUser){
+          var code = parts.pop();
+          Main.activateUser(code);
         }
 
         // [BEGIN] Tracking
@@ -927,6 +942,43 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       },
       handleLoginFail: function (e){
         console.error('handleLoginFail', e);
+      },
+      activateUser: function(code){
+
+        /**
+        * @TODO Import database of dialoga.gov.br into local
+        *       and test the activation with new url
+        */
+        if(code && code.length > 0){
+          $.ajax({
+            method: 'PATCH',
+            url:host+'/api/v1/activate',
+            data: {
+              private_token: Main.private_token,
+              activation_code: code
+            },
+            success:function(response, textStatus, xhr){
+
+              if(xhr != 202){
+                $('.activate-message').html('Usuário ativado com sucesso')
+                                      .removeClass('alert-danger')
+                                      .addClass('alert-success')
+                                      .show();
+
+                $(document).trigger('login:success', response);
+              }
+
+            },
+            error:function(xhr, textStatus, errorTrown){
+              if(xhr.status == 412){
+                $('.activate-message').html('<strong>Erro:</strong> O código de ativação é inválido')
+                                      .removeClass('alert-success')
+                                      .addClass('alert-danger')
+                                      .show();
+              }
+            }
+          });
+        }
       }
     };
   })();
