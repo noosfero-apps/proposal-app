@@ -56,11 +56,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       host = 'http://login.dialoga.gov.br';
     }else if (new RegExp(':3001/').test(window.location.href)){
       host = 'http://noosfero.com:3001';
-      //dialoga_community = 104;
+      dialoga_community = 104;
       //    proposal_discussion = '413'; //Eugênio
-      //proposal_discussion = '392'; //Evandro
+      proposal_discussion = '392'; //Evandro
       recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
-      //cat_saude = 23;
+      cat_saude = 23;
     } else { //ABNER
       host = 'http://local.abner.com:3002';
       dialoga_community = 105;
