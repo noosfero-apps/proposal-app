@@ -939,7 +939,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if(data.person){
           Main.setUser({person: data.person});
         }
-        Main.loginCallback(true, data.private_token);
+        Main.loginCallback(data.activated, data.private_token);
       },
       handleLoginFail: function (e){
         console.error('handleLoginFail', e);
@@ -1508,8 +1508,13 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
               $signupForm.hide();
               $signupForm.removeClass('hide');
               var $sectionContent = $button.closest('.section-content');
+
+              var message = 'Cadastro efetuado com sucesso';
+              if(!data.activated) {
+                message = 'Verifique seu email para confirmar o cadastro.';
+              }
               if($sectionContent && $sectionContent.length > 0){
-                Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+                Main.displaySuccess($sectionContent, message, 1000, 'icon-user-created');
               }
               $(document).trigger('login:success', data);
             })
@@ -1543,9 +1548,14 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
               $(document).trigger('login:fail', data);
             }
         )
-        .always(function () {
+        .always(function (data) {
               $loading.hide();
-              $signupForm.show();
+              if(data && !data.activated) {
+                $signupForm.find('.cancel-signup').click();
+                $signupForm.hide();
+              } else {
+                $signupForm.show();
+              }
             }
         );
       }
