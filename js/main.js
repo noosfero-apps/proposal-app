@@ -1509,14 +1509,16 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
               $signupForm.removeClass('hide');
               var $sectionContent = $button.closest('.section-content');
 
-              var message = 'Cadastro efetuado com sucesso';
-              if(!data.activated) {
-                message = 'Verifique seu email para confirmar o cadastro.';
+              if(data.activated) {
+                if($sectionContent && $sectionContent.length > 0){
+                  Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
+                }
+                $(document).trigger('login:success', data);
+              } else {
+                var $message = $signupForm.siblings('#login-form').find('.message-success');
+                $message.html('Cadastro efetuado com sucesso.<br/>Verifique seu email para confirmar o cadastro.');
+                $message.show();
               }
-              if($sectionContent && $sectionContent.length > 0){
-                Main.displaySuccess($sectionContent, message, 1000, 'icon-user-created');
-              }
-              $(document).trigger('login:success', data);
             })
         .fail(function (data) {
               var msg = '';
