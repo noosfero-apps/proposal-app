@@ -1515,6 +1515,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                 }
                 $(document).trigger('login:success', data);
               } else {
+                $signupForm.find('.cancel-signup').click();
+                $signupForm.hide();
                 var $message = $signupForm.siblings('#login-form').find('.message-success');
                 $message.html('Cadastro efetuado com sucesso.<br/>Verifique seu email para confirmar o cadastro.');
                 $message.show();
@@ -1552,10 +1554,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         )
         .always(function (data) {
               $loading.hide();
-              if(data && !data.activated) {
-                $signupForm.find('.cancel-signup').click();
-                $signupForm.hide();
-              } else {
+              if(!data || data.activated) {
                 $signupForm.show();
               }
             }
