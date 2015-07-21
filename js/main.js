@@ -1385,6 +1385,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       signupForm.find('#signup-user_email').val('');
       signupForm.find('#signup-user_email').attr('disabled', false);
       signupForm.find('#signup-user_name').val('');
+      signupForm.find('#user_password_confirmation').val('');
+      signupForm.find('#signup-user_password').val('');
+      signupForm.find('#captcha_text').val('');
+      signupForm.find('#user_terms_accepted').removeAttr('checked');
 
 
       var oCaptcha_serpro_gov_br;
