@@ -1412,7 +1412,6 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var $message = $newPasswordForm.siblings('#login-form').find('.message-success');
         $message.html('Senha alterada com sucesso.');
         $message.show();
-        Main.loginCallback(data.activated, data.private_token, data);
         window.location.hash = '/';
       }).fail(function() {
         var $message = $newPasswordForm.find('.message');
