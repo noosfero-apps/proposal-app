@@ -1360,6 +1360,48 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       });
     });
 
+    $(document).on('click', '.forgot-password', function(e) {
+      var loginForm = $(this).parents('#login-form');
+      var $forgotPasswordForm = loginForm.siblings('#forgot-password-form');
+      loginForm.hide();
+      $forgotPasswordForm.show();
+
+      var $message = $forgotPasswordForm.find('.message');
+      $message.html('');
+      $message.hide();
+      $forgotPasswordForm.find('#forgot-password-value').val('');
+
+      e.preventDefault();
+    });
+
+    $(document).on('click', '.confirm-forgot-password', function(e) {
+      var $forgotPasswordForm = $(this).parents('#forgot-password-form');
+      var $inputValue = $forgotPasswordForm.find('#forgot-password-value');
+      $.ajax({
+        method: 'post',
+        url:host+'/api/v1/forgot_password',
+        data: {
+          value: $inputValue.val()
+        },
+      }).done(function(data) {
+        $forgotPasswordForm.find('.cancel-forgot-password').click();
+        var $message = $forgotPasswordForm.siblings('#login-form').find('.message-success');
+        $message.html('Verifique seu email para efetuar a troca da senha.');
+        $message.show();
+      }).fail(function() {
+        var $message = $forgotPasswordForm.find('.message');
+        $message.html('Não foi possível requisitar a troca de senha para os dados informados.');
+        $message.show();
+      });
+    });
+
+    $(document).on('click', '.cancel-forgot-password', function(e) {
+      var forgotPasswordForm = $(this).parents('#forgot-password-form');
+      var loginForm = forgotPasswordForm.siblings('#login-form');
+      loginForm.show();
+      forgotPasswordForm.hide();
+    });
+
     $(document).on('click', '.new-user', function(e) {
 
       if(window.lastCaptcha){

@@ -408,7 +408,7 @@
           <input id="login-user_password" name="password" type="password" placeholder="Senha">
         </div>
         <div class="forgot-password">
-          <a href='http://login.dialoga.gov.br/account/forgot_password' target='_blank'>Esqueci a Senha</a>
+          <a href="#" class="forgot-password">Esqueci a Senha</a>
         </div>
         <div class="row">
           <div class="actions col-sm-4">
@@ -421,6 +421,26 @@
           </div>
         </div>
       </form>
+
+      <form id="forgot-password-form" class="forgot-password hide" autocomplete="off" method="post">
+        <p class="box-subtitle">Esqueceu sua senha?</p>
+        <div class="message alert-danger hide"></div>
+        <div class="row">
+          <div class="value col-sm-12">
+            <label for="forgot-password-value" class="label">Nome de usuário ou E-mail:</label>
+            <input id="forgot-password-value" name="value" type="text" required placeholder="Nome de usuário ou E-mail">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <button type="submit" class="confirm-forgot-password button button-confirm button-block">Confirmar</button>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="cancel-forgot-password button button-cancela button-block">Cancelar</button>
+          </div>
+        </div>
+      </form>
+
       <form id="signup-form" class="signup hide" autocomplete="off" method="post">
         <div class="message hide"></div>
         <p class="box-subtitle">Cadastre-se</p>
