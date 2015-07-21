@@ -1366,6 +1366,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         window.lastCaptcha.destruir();
       }
 
+      var message = $('.signup .message');
+      message.hide();
+      message.text('');
+
       var loginForm = $(this).parents('#login-form');
       var signupForm = loginForm.siblings('#signup-form');
       window.signupForm = signupForm;
