@@ -813,7 +813,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             }
           }
         }
-	msg = msg.replace(/login incorrect format/g,"campo \"nome do usuário\" está com formato inválido. O mesmo só pode ser composto por letras, números, '_' e '-'. Adicionalmente não é permitido usar acentuação nem começar com '_' ou '-'");
+	msg = msg.replace(/login incorrect format/g,"campo \"nome do usuário\" está com formato inválido. O mesmo só pode ser composto por letras minúsculas, números, '_' e '-'. Adicionalmente não é permitido usar acentuação nem começar com '_' ou '-'");
         msg = msg.replace('password_confirmation', 'campo "confirmação da senha"');
         msg = msg.replace(/password/g, 'campo "senha"');
         msg = msg.replace(/login/g, 'campo "nome de usuário"');
