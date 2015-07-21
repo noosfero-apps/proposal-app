@@ -422,6 +422,32 @@
         </div>
       </form>
 
+      <form id="new-password-form" class="new-password hide" autocomplete="off" method="post">
+        <p class="box-subtitle">Trocar senha</p>
+        <div class="message alert-danger hide"></div>
+        <div class="row">
+          <div class="value col-sm-12">
+            <label for="new-password" class="label">Informe a nova senha:</label>
+            <input id="new-password" name="password" type="password" required placeholder="Nova senha">
+          </div>
+        </div>
+        <div class="row">
+          <div class="value col-sm-12">
+            <label for="new-password-confirmation" class="label">Confirme a nova senha:</label>
+            <input id="new-password-confirmation" name="password_confirmation" type="password" required placeholder="Confirmação da senha">
+          </div>
+          <input type="hidden" id="new-password-code" name="code">
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <button type="submit" class="confirm-new-password button button-confirm button-block">Confirmar</button>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="cancel-new-password button button-cancela button-block">Cancelar</button>
+          </div>
+        </div>
+      </form>
+
       <form id="forgot-password-form" class="forgot-password hide" autocomplete="off" method="post">
         <p class="box-subtitle">Esqueceu sua senha?</p>
         <div class="message alert-danger hide"></div>

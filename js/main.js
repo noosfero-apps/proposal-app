@@ -594,6 +594,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var regexResultados = /resultados$/;
         var regexSobreOPrograma = /sobre-o-programa$/;
         var regexActivateUser = /#\/activate/;
+        var regexChangeUserPassword = /#\/trocar_senha/;
 
         if( (regexHideBarra.exec(hash) === null) && !HIDE_BARRA_DO_GOVERNO ){
           this.addBarraDoGoverno();
@@ -612,6 +613,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var isResultados      = regexResultados.exec(hash) !== null;
         var isSobreOPrograma  = regexSobreOPrograma.exec(hash) !== null;
         var isActivateUser    = regexActivateUser.exec(hash) !== null;
+        var isChangeUserPassword = regexChangeUserPassword.exec(hash) !== null;
 
         if(isArticle) {
           this.display_article(hash.split('/')[2], lastHash);
@@ -686,6 +688,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if(isActivateUser){
           var code = parts.pop();
           Main.activateUser(code);
+        }
+
+        if(isChangeUserPassword){
+          var code = parts.pop();
+          Main.changeUserPassword(code);
         }
 
         // [BEGIN] Tracking
@@ -944,6 +951,15 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       handleLoginFail: function (e){
         console.error('handleLoginFail', e);
       },
+      changeUserPassword: function(code){
+        if(!code || code.length == 0) return;
+        var $loginPanel = $('#login-panel');
+        $loginPanel.show();
+        $loginPanel.find('#login-form').hide();
+        var $newPasswordForm = $loginPanel.find('#new-password-form');
+        $newPasswordForm.find('#new-password-code').val(code);
+        $newPasswordForm.show();
+      },
       activateUser: function(code){
 
         /**
@@ -1052,8 +1068,6 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       $('.login-container').html(loginTemplate());
       $('.countdown').maxlength({text: '%left caracteres restantes'});
 
-      Main.navigateTo(window.location.hash);
-
       $(document).on('click', '.oauth-login', function (e){
         Main.oauthClientAction($(this).attr('href'));
         e.preventDefault();
@@ -1111,6 +1125,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
         $('.participar').removeClass('hide');
       })();
+
+      Main.navigateTo(window.location.hash);
 
       //Actions for links
       $( '#nav-proposal-categories a' ).on('click', function(e){
@@ -1371,6 +1387,38 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       $message.hide();
       $forgotPasswordForm.find('#forgot-password-value').val('');
 
+      e.preventDefault();
+    });
+
+    $(document).on('click', '.cancel-new-password', function(e) {
+      var newPasswordForm = $(this).parents('#new-password-form');
+      var loginForm = newPasswordForm.siblings('#login-form');
+      loginForm.show();
+      newPasswordForm.hide();
+    });
+
+    $(document).on('click', '.confirm-new-password', function(e) {
+      var $newPasswordForm = $(this).parents('#new-password-form');
+      $.ajax({
+        method: 'PATCH',
+        url:host+'/api/v1/new_password',
+        data: {
+          code: $newPasswordForm.find('#new-password-code').val(),
+          password: $newPasswordForm.find('#new-password').val(),
+          password_confirmation: $newPasswordForm.find('#new-password-confirmation').val()
+        },
+      }).done(function(data) {
+        $newPasswordForm.find('.cancel-new-password').click();
+        var $message = $newPasswordForm.siblings('#login-form').find('.message-success');
+        $message.html('Senha alterada com sucesso.');
+        $message.show();
+        Main.loginCallback(data.activated, data.private_token, data);
+        window.location.hash = '/';
+      }).fail(function() {
+        var $message = $newPasswordForm.find('.message');
+        $message.html('Não foi possível trocar a senha com os dados informados.');
+        $message.show();
+      });
       e.preventDefault();
     });
 
