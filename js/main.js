@@ -888,6 +888,25 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           });
         });
       },
+      reloadCaptcha: function(element) {
+        var $element = $(element);
+        if($element.data('captcha')){
+          $element.data('captcha').recarregar();
+        }
+      },
+      initCaptcha: function(element) {
+        var $element = $(element);
+        if($element.data('captcha')) return;
+
+        $element.val('');
+        var oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
+        $element.data('captcha', oCaptcha_serpro_gov_br);
+        oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
+        if(!localDevelopment) {
+          oCaptcha_serpro_gov_br.url = "/captchaserpro"
+        }
+        oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
+      },
       computeBoxHeight: function(){
         var hPerLineOnTitle = 25;
         var hPerLineOnParagraph = 20;
@@ -1376,11 +1395,13 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       });
     });
 
-    $(document).on('click', '.forgot-password', function(e) {
+    $(document).on('click', 'a.forgot-password', function(e) {
       var loginForm = $(this).parents('#login-form');
       var $forgotPasswordForm = loginForm.siblings('#forgot-password-form');
       loginForm.hide();
       $forgotPasswordForm.show();
+
+      Main.initCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
 
       var $message = $forgotPasswordForm.find('.message');
       $message.html('');
@@ -1436,10 +1457,12 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $message.html('Verifique seu email para efetuar a troca da senha.');
         $message.show();
       }).fail(function() {
+        Main.reloadCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
         var $message = $forgotPasswordForm.find('.message');
         $message.html('Não foi possível requisitar a troca de senha para os dados informados.');
         $message.show();
       });
+      e.preventDefault();
     });
 
     $(document).on('click', '.cancel-forgot-password', function(e) {
@@ -1450,11 +1473,6 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     });
 
     $(document).on('click', '.new-user', function(e) {
-
-      if(window.lastCaptcha){
-        window.lastCaptcha.destruir();
-      }
-
       var message = $('.signup .message');
       message.hide();
       message.text('');
@@ -1483,15 +1501,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       signupForm.find('#captcha_text').val('');
       signupForm.find('#user_terms_accepted').removeAttr('checked');
 
-
-      var oCaptcha_serpro_gov_br;
-      oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
-      window.lastCaptcha = oCaptcha_serpro_gov_br;
-      oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
-      if(!localDevelopment) {
-        oCaptcha_serpro_gov_br.url = "/captchaserpro"
-      }
-      oCaptcha_serpro_gov_br.criarUI(signupForm.find('#serpro_captcha')[0], 'css', 'serpro_captcha_component_');
+      Main.initCaptcha(signupForm.find('#serpro_captcha')[0]);
 
       e.preventDefault();
     });
@@ -1621,10 +1631,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             })
         .fail(function (data) {
               var msg = '';
-              // Reload captcha here
-              if(window.lastCaptcha){
-                window.lastCaptcha.recarregar();
-              }
+              Main.reloadCaptcha($signupForm.find('#serpro_captcha')[0]);
 
               if(data.responseJSON){
                 try{

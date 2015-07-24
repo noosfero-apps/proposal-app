@@ -450,13 +450,23 @@
         </div>
       </form>
 
-      <form id="forgot-password-form" class="forgot-password hide" autocomplete="off" method="post">
+      <form id="forgot-password-form" class="forgot-password-form hide" autocomplete="off" method="post">
         <p class="box-subtitle">Esqueceu sua senha?</p>
         <div class="message alert-danger hide"></div>
         <div class="row">
           <div class="value col-sm-12">
             <label for="forgot-password-value" class="label">Informe o nome de usuário ou E-mail:</label>
             <input id="forgot-password-value" name="value" type="text" required placeholder="Nome de usuário ou E-mail">
+          </div>
+        </div>
+        <div class="row">
+          <div id="serpro_captcha" class="captcha col-sm-12">
+          </div>
+          <div class="captcha col-sm-12">
+            Digite os caracteres acima:
+          </div>
+          <div class="captcha col-sm-6">
+            <input type="text" name="captcha_text" id="captcha_text">
           </div>
         </div>
         <div class="row">
