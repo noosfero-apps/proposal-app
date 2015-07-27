@@ -1456,7 +1456,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $message.html('Verifique seu email para efetuar a troca da senha.');
         $message.show();
       }).fail(function(data) {
-        console.log(data);
+        console.log(data.responseJSON);
+
         Main.reloadCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
         var $message = $forgotPasswordForm.find('.message');
         $message.html('Não foi possível requisitar a troca de senha para os dados informados.');
