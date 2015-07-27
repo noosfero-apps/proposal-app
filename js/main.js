@@ -34,7 +34,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
   // There are two modes for development
   // 1: Remote API
-  // 2: Local API
+  // 2: Local API with proposal database
   // For (1) use port 3000 -> rails s
   // For (2) use port 3001 -> rails s -p 3001
   //
@@ -56,11 +56,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       host = 'http://login.dialoga.gov.br';
     }else if (new RegExp(':3001/').test(window.location.href)){
       host = 'http://noosfero.com:3001';
-      dialoga_community = 104;
-      //    proposal_discussion = '413'; //Eugênio
-      proposal_discussion = '392'; //Evandro
+      //  dialoga_community = 104;
+      //  proposal_discussion = '413'; //Eugênio
+      //  proposal_discussion = '392'; //Evandro
+      //  cat_saude = 23;
       recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
-      cat_saude = 23;
     } else { //ABNER
       host = 'http://local.abner.com:3002';
       dialoga_community = 105;
@@ -1445,18 +1445,18 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     $(document).on('click', '.confirm-forgot-password', function(e) {
       var $forgotPasswordForm = $(this).parents('#forgot-password-form');
       var $inputValue = $forgotPasswordForm.find('#forgot-password-value');
+      var forgotPasswordFormData = $forgotPasswordForm.serialize();
       $.ajax({
         method: 'post',
         url:host+'/api/v1/forgot_password',
-        data: {
-          value: $inputValue.val()
-        },
+        data: forgotPasswordFormData,
       }).done(function(data) {
         $forgotPasswordForm.find('.cancel-forgot-password').click();
         var $message = $forgotPasswordForm.siblings('#login-form').find('.message-success');
         $message.html('Verifique seu email para efetuar a troca da senha.');
         $message.show();
-      }).fail(function() {
+      }).fail(function(data) {
+        console.log(data);
         Main.reloadCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
         var $message = $forgotPasswordForm.find('.message');
         $message.html('Não foi possível requisitar a troca de senha para os dados informados.');
