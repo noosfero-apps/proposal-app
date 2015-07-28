@@ -1547,13 +1547,13 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
       }
 
-      var hasAcceptation = $inputAcceptation.val();
+      var hasAcceptation = $inputAcceptation.prop('checked');
       var hasCaptcha = $inputCaptcha.val().length > 0;
       var hasError = (!hasEmail || !hasUsername || !hasPassword || !hasPasswordConfirmation || !hasPasswordEquals || !hasAcceptation || !hasCaptcha);
 
       if(hasError){
 
-        if ($signupForm[0].checkValidity()) { // force check of HTML5 validation
+        if ($signupForm[0].checkValidity() || !hasAcceptation) { // force check of HTML5 validation
           e.preventDefault();
 
           var messageErrors = [];
