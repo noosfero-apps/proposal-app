@@ -31,7 +31,6 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   // var cat_educacao = 181;
   // var cat_reducao_da_pobreza = 183;
   var recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i';
-
   // There are two modes for development
   // 1: Remote API
   // 2: Local API with proposal database
@@ -70,6 +69,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     }
   }
 
+  window.recaptchaSiteKey = recaptchaSiteKey;
 
   var BARRA_ADDED = false;
   var HIDE_BARRA_DO_GOVERNO = false;
@@ -891,21 +891,25 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       reloadCaptcha: function(element) {
         var $element = $(element);
         if($element.data('captcha')){
-          $element.data('captcha').recarregar();
+          //$element.data('captcha').recarregar();
+          Recaptcha.reload();
         }
       },
       initCaptcha: function(element) {
         var $element = $(element);
         if($element.data('captcha')) return;
 
-        $element.val('');
-        var oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
-        $element.data('captcha', oCaptcha_serpro_gov_br);
-        oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
-        if(!localDevelopment) {
-          oCaptcha_serpro_gov_br.url = "/captchaserpro"
-        }
-        oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
+        // $element.val('');
+        // var oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
+        // $element.data('captcha', oCaptcha_serpro_gov_br);
+        // oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
+        // if(!localDevelopment) {
+        //   oCaptcha_serpro_gov_br.url = "/captchaserpro"
+        // }
+        // oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
+
+
+        Recaptcha.create(window.recaptchaSiteKey, $element, { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
       },
       computeBoxHeight: function(){
         var hPerLineOnTitle = 25;
