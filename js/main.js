@@ -70,6 +70,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     }
   }
 
+  window.recaptchaSiteKey = recaptchaSiteKey;
 
   var BARRA_ADDED = false;
   var HIDE_BARRA_DO_GOVERNO = false;
@@ -891,7 +892,9 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       reloadCaptcha: function(element) {
         var $element = $(element);
         if($element.data('captcha')){
-          $element.data('captcha').recarregar();
+          Recaptcha.reload();
+          //Recaptcha.create(window.recaptchaSiteKey, $element.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
+          //$element.data('captcha').recarregar();
         }
       },
       initCaptcha: function(element) {
@@ -899,13 +902,15 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if($element.data('captcha')) return;
 
         $element.val('');
-        var oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
-        $element.data('captcha', oCaptcha_serpro_gov_br);
-        oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
-        if(!localDevelopment) {
-          oCaptcha_serpro_gov_br.url = "/captchaserpro"
-        }
-        oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
+        // var oCaptcha_serpro_gov_br = new captcha_serpro_gov_br();
+        // $element.data('captcha', oCaptcha_serpro_gov_br);
+        // oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
+        // if(!localDevelopment) {
+        //   oCaptcha_serpro_gov_br.url = "/captchaserpro"
+        // }
+        // oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
+        $element.find('#g-recaptcha').empty();
+        Recaptcha.create(window.recaptchaSiteKey, $element.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
       },
       computeBoxHeight: function(){
         var hPerLineOnTitle = 25;
@@ -1401,7 +1406,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       loginForm.hide();
       $forgotPasswordForm.show();
 
-      Main.initCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
+      Main.initCaptcha($forgotPasswordForm.find('#captcha')[0]);
 
       var $message = $forgotPasswordForm.find('.message');
       $message.html('');
@@ -1458,7 +1463,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       }).fail(function(data) {
         console.log(data.responseJSON);
 
-        Main.reloadCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
+        Main.reloadCaptcha($forgotPasswordForm.find('#captcha')[0]);
         var $message = $forgotPasswordForm.find('.message');
         $message.html('Não foi possível requisitar a troca de senha para os dados informados.');
         $message.show();
@@ -1502,7 +1507,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       signupForm.find('#captcha_text').val('');
       signupForm.find('#user_terms_accepted').removeAttr('checked');
 
-      Main.initCaptcha(signupForm.find('#serpro_captcha')[0]);
+      Main.initCaptcha(signupForm.find('#captcha')[0]);
 
       e.preventDefault();
     });
@@ -1632,7 +1637,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             })
         .fail(function (data) {
               var msg = '';
-              Main.reloadCaptcha($signupForm.find('#serpro_captcha')[0]);
+              Main.reloadCaptcha($signupForm.find('#captcha')[0]);
 
               if(data.responseJSON){
                 try{

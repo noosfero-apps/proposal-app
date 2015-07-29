@@ -460,14 +460,7 @@
           </div>
         </div>
         <div class="row">
-          <div id="serpro_captcha" class="captcha col-sm-12">
-          </div>
-          <div class="captcha col-sm-12">
-            Digite os caracteres acima:
-          </div>
-          <div class="captcha col-sm-6">
-            <input type="text" name="captcha_text" id="captcha_text">
-          </div>
+          <div id="g-recaptcha"></div>
         </div>
         <div class="row">
           <div class="col-sm-4">
@@ -503,13 +496,8 @@
             <input id="user_oauth_providers" name="oauth_providers" type="hidden">
             <input id="user_oauth_signup_token" name="oauth_signup_token" type="hidden">
           </div>
-          <div id="serpro_captcha" class="captcha col-sm-12">
-          </div>
-          <div class="captcha col-sm-12">
-            Digite os caracteres acima:
-          </div>
-          <div class="captcha col-sm-6">
-            <input type="text" name="captcha_text" id="captcha_text">
+          <div id="captcha" class="captcha col-sm-12">
+            <div id="g-recaptcha"></div>
           </div>
           <div id="terms-of-use-box" class="col-sm-12">
             <div class="checkbox">
@@ -623,7 +611,7 @@
       loadRequireJS();
     </script>
 
-    <script src="http://captcha2.servicoscorporativos.serpro.gov.br/js/captcha.serpro.gov.br.js"></script>
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js" async defer></script>
 
   </body>
 
