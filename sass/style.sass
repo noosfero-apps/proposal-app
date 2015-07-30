@@ -940,6 +940,7 @@ td
       text-align: center
       width: 10%
     .truncate
+      position: relative
       display: table
       table-layout: fixed
       width: 100%
@@ -949,6 +950,17 @@ td
       overflow-x: hidden
       text-overflow: ellipsis
       white-space: nowrap
+      &:after
+        display: block
+        content: "[...]"
+        // content: "\e000" 
+        position: absolute
+        top: 0
+        right: 2px
+        padding: 1px 3px
+        color: #888
+        background-color: #e0e0e0
+
     &.phone
       .footable-toggle
         float: right

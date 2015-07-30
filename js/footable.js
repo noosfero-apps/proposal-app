@@ -426,7 +426,8 @@
             if (!ft.hasAnyBreakpointColumn()) return;
 
             $table.find(opt.toggleSelector).unbind(trg.toggleRow).bind(trg.toggleRow, function (e) {
-                var $row = $(this).is('tr') ? $(this) : $(this).parents('tr:first');
+                var $this = $(this);
+                var $row = $this.is('tr') ? $this : $this.parents('tr:first');
                 ft.toggleDetail($row);
             });
 

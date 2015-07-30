@@ -260,16 +260,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             page: page,
           };
 
-          // hack: add title to result table
+          // hack: add more info to result table
           data.title = $resultsContainer.closest('.categories').find('.proposal-header .title').text();
+          data.topic_id = topic_id;
 
           $resultsContainer.html(resultsTemplate(data));
           $resultsContainer.find('.loading').hide();
           $resultsContainer.find('.results-content').show();
-          $('.timeago').timeago();
+          $resultsContainer.find('.timeago').timeago();
           $resultsContainer.show();
+          $resultsContainer.find('.footable').footable(); // must be called on visible elements.
 
-          $('.footable').footable();
 
           if(data.pagination.total > data.pagination.per_page) {
             $resultsContainer.find('.paging').pagination({
