@@ -55,12 +55,12 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     if(patt.test(window.location.href)){
       host = 'http://login.dialoga.gov.br';
     }else if (new RegExp(':3001/').test(window.location.href)){
-      host = 'http://noosfero.com:3001';
+      host = 'http://dialoga.gov.br:3001';
       //  dialoga_community = 104;
       //  proposal_discussion = '413'; //Eugênio
       //  proposal_discussion = '392'; //Evandro
       //  cat_saude = 23;
-      recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
+      recaptchaSiteKey = '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'; // dialoga.gov.br
     } else { //ABNER
       host = 'http://local.abner.com:3002';
       dialoga_community = 105;
@@ -890,12 +890,9 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         });
       },
       reloadCaptcha: function(element) {
-        var $element = $(element);
-        if($element.data('captcha')){
-          Recaptcha.reload();
-          //Recaptcha.create(window.recaptchaSiteKey, $element.find('#g-recaptcha')[0], { lang : 'pt', theme: "clean", callback: Recaptcha.focus_response_field } );
-          //$element.data('captcha').recarregar();
-        }
+          if(typeof(Recaptcha) == "object"){
+            Recaptcha.reload();
+          }
       },
       initCaptcha: function(element) {
         var $element = $(element);
@@ -1504,7 +1501,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       signupForm.find('#signup-user_name').val('');
       signupForm.find('#user_password_confirmation').val('');
       signupForm.find('#signup-user_password').val('');
-      signupForm.find('#captcha_text').val('');
+      signupForm.find('#recaptcha_response_field').val('');
       signupForm.find('#user_terms_accepted').removeAttr('checked');
 
       Main.initCaptcha(signupForm.find('#captcha')[0]);
@@ -1529,7 +1526,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       var $inputPassword = $signupForm.find('#signup-user_password');
       var $inputPasswordConfirmation = $signupForm.find('#user_password_confirmation');
       var $inputAcceptation = $signupForm.find('#user_terms_accepted');
-      var $inputCaptcha = $signupForm.find('#captcha_text');
+      var $inputCaptcha = $signupForm.find('#recaptcha_response_field');
 
       // clear messages
       var message = $('.signup .message');
@@ -1649,7 +1646,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                   // (Invalid request) login can't be saved
                   ptBR['(Invalid request) login can\'t be saved'] = 'Nome de usuário inválido.';
                   ptBR['Please solve the test in order to register.'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
-                  ptBR['Wrong captcha text, please try again'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
+                  ptBR['Wrong captcha text, please try again'] = 'Texto da imagem incorreto. Por favor, digite os caracteres da imagem na caixa abaixo dela.';
                   ptBR['Internal captcha validation error'] = 'Por favor, digite os caracteres da imagem na caixa abaixo dela.';
                   msg = '<br/><br/>';
                   msg += ptBR[data.responseJSON.message] || data.responseJSON.message;
