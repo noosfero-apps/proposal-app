@@ -260,16 +260,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             page: page,
           };
 
-          // hack: add title to result table
+          // hack: add more info to result table
           data.title = $resultsContainer.closest('.categories').find('.proposal-header .title').text();
+          data.topic_id = topic_id;
 
           $resultsContainer.html(resultsTemplate(data));
           $resultsContainer.find('.loading').hide();
           $resultsContainer.find('.results-content').show();
-          $('.timeago').timeago();
+          $resultsContainer.find('.timeago').timeago();
           $resultsContainer.show();
+          $resultsContainer.find('.footable').footable(); // must be called on visible elements.
 
-          $('.footable').footable();
 
           if(data.pagination.total > data.pagination.per_page) {
             $resultsContainer.find('.paging').pagination({
@@ -589,6 +590,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
         var regexProposals = /#\/programas/;
         var regexCategory = /#\/temas/;
+        var regexPropostas = /\/propostas\//;
         var regexHideBarra = /barra=false$/;
         var regexArticle = /#\/artigo/;
         var regexResultados = /resultados$/;
@@ -610,6 +612,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var isProposal        = regexProposals.exec(hash) !== null;
         var isCategory        = regexCategory.exec(hash) !== null;
         var isArticle         = regexArticle.exec(hash) !== null;
+        var isPropostas       = regexPropostas.exec(hash) !== null;
         var isResultados      = regexResultados.exec(hash) !== null;
         var isSobreOPrograma  = regexSobreOPrograma.exec(hash) !== null;
         var isActivateUser    = regexActivateUser.exec(hash) !== null;
@@ -656,6 +659,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             if(proposalOffset){
               scrollTop = proposalOffset.top;
             }
+          }
+
+
+          if(isPropostas){
+            var $propostasContainer = $proposal.find('.support-proposal-container');
+
+            proposalOffset = $propostasContainer.offset();
+            if(proposalOffset){
+              scrollTop = proposalOffset.top;
+            }
+            
           }
         }
 
