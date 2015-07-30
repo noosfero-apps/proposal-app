@@ -590,6 +590,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
         var regexProposals = /#\/programas/;
         var regexCategory = /#\/temas/;
+        var regexPropostas = /\/propostas\//;
         var regexHideBarra = /barra=false$/;
         var regexArticle = /#\/artigo/;
         var regexResultados = /resultados$/;
@@ -611,6 +612,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var isProposal        = regexProposals.exec(hash) !== null;
         var isCategory        = regexCategory.exec(hash) !== null;
         var isArticle         = regexArticle.exec(hash) !== null;
+        var isPropostas       = regexPropostas.exec(hash) !== null;
         var isResultados      = regexResultados.exec(hash) !== null;
         var isSobreOPrograma  = regexSobreOPrograma.exec(hash) !== null;
         var isActivateUser    = regexActivateUser.exec(hash) !== null;
@@ -657,6 +659,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             if(proposalOffset){
               scrollTop = proposalOffset.top;
             }
+          }
+
+
+          if(isPropostas){
+            var $propostasContainer = $proposal.find('.support-proposal-container');
+
+            proposalOffset = $propostasContainer.offset();
+            if(proposalOffset){
+              scrollTop = proposalOffset.top;
+            }
+            
           }
         }
 
