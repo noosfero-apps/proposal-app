@@ -1278,9 +1278,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         // var proposal_id = this.id.split('-').pop();
         // var form = this;
         var $form = $(this);
+        
+        // reset messages
         var $message = $form.find('.message');
         $message.hide();
         $message.text('');
+
+        // handle 'loading'
+        var $voteContainer = $form.find('.vote-actions');
+        $voteContainer.hide();
+        // $loading.show();
+        
         $.ajax({
           type: 'post',
           url: host + $form.attr('action'),
@@ -1299,7 +1307,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           console.error( 'Request Failed: ' + err );
           $message.show();
           $message.text('Não foi possível enviar.');
-         });
+         })
+        .always(function(){
+          $voteContainer.show();
+          // $loading.hide();
+        });
       });
     })
     .fail(function( jqxhr, textStatus, error ) {
