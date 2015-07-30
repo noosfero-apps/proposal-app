@@ -903,7 +903,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $element.data('captcha', oCaptcha_serpro_gov_br);
         oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
         if(!localDevelopment) {
-          oCaptcha_serpro_gov_br.url = "/captchaserpro"
+          oCaptcha_serpro_gov_br.url = "/serprocaptcha"
         }
         oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
       },
