@@ -78,6 +78,40 @@
         script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js'));
         head.appendChild(script_element);
       }
+
+      function loadOldBrowserWarn(){
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        var scriptLocale = document.createElement('script');
+        var style = makeCSSLink('images/ie6-warning/css/ie-warning.css');
+        head.appendChild(style);
+
+        scriptLocale.type = script.type = 'text/javascript';
+        script.src = makeJSURL('images/ie6-warning/warning.js');
+        scriptLocale.src = makeJSURL('images/ie6-warning/localization/pt_BR.js');
+
+        head.appendChild(scriptLocale);
+        head.appendChild(script);
+        window.onload=function(){
+          ie6Warning(function() {
+           var languageMap = {};
+             //specifies a JSON hash table for localization
+           if(window.IE6WarningLocalizations) {
+             languageMap = window.IE6WarningLocalizations;
+           }
+
+           return {
+             imgPath: makeJSURL("images/ie6-warning/"), //specifies the path to the icons of each browser
+             localizations:  languageMap
+           };
+         });
+       };
+      }
+
+      if(!document.addEventListener){
+        loadOldBrowserWarn();
+      }
+      
       loadCSSFiles();
     </script>
 
