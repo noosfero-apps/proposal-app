@@ -1299,8 +1299,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $message.text('');
 
         // handle 'loading'
-        var $voteContainer = $form.find('.vote-actions');
-        $voteContainer.hide();
+        var $submitButton = $form.find('.make-proposal-button');
+        $submitButton.hide();
         // $loading.show();
         
         $.ajax({
@@ -1323,7 +1323,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           $message.text('Não foi possível enviar.');
          })
         .always(function(){
-          $voteContainer.show();
+          $submitButton.show();
           // $loading.hide();
         });
       });
