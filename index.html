@@ -273,8 +273,8 @@
                           <form class="make-proposal-form save-article-form require-login hide" id="make-proposal-form-{{id}}" action="{{proposal_action ../article . }}" method="post">
                             <div class="message hide"></div>
                             <div>
-                              <div><label for="article_abstract">Descrição</label></div>
-                              <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Descrição" maxlength="200"></textarea>
+                              <div><label for="article_abstract">Descrição <span title="Campo obrigatório.">(*)</span></label></div>
+                              <textarea id="article_abstract" class="countdown" name="article[abstract]" placeholder="Escreva sua proposta aqui." maxlength="200" required></textarea>
                             </div>
                             <input type="hidden" id="type" name="article[type]" value="ProposalsDiscussionPlugin::Proposal">
                             <input type="hidden" id="content_type" name="content_type" value="ProposalsDiscussionPlugin::Proposal">

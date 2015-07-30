@@ -1292,9 +1292,24 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         // var proposal_id = this.id.split('-').pop();
         // var form = this;
         var $form = $(this);
+        var $description = $form.find('#article_abstract');
         var $message = $form.find('.message');
+        
+        // validation
+        if( $description.text().length  === 0 ){
+          $message.text('O campo "descrição" é obrigatório.');
+          return false;
+        }
+
+        // reset messages
         $message.hide();
         $message.text('');
+
+        // handle 'loading'
+        var $submitButton = $form.find('.make-proposal-button');
+        $submitButton.hide();
+        // $loading.show();
+        
         $.ajax({
           type: 'post',
           url: host + $form.attr('action'),
@@ -1313,7 +1328,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           console.error( 'Request Failed: ' + err );
           $message.show();
           $message.text('Não foi possível enviar.');
-         });
+         })
+        .always(function(){
+          $submitButton.show();
+          // $loading.hide();
+        });
       });
     })
     .fail(function( jqxhr, textStatus, error ) {
