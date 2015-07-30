@@ -1292,9 +1292,16 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         // var proposal_id = this.id.split('-').pop();
         // var form = this;
         var $form = $(this);
-        
-        // reset messages
+        var $description = $form.find('#article_abstract');
         var $message = $form.find('.message');
+        
+        // validation
+        if( $description.text().length  === 0 ){
+          $message.text('O campo "descrição" é obrigatório.');
+          return false;
+        }
+
+        // reset messages
         $message.hide();
         $message.text('');
 
