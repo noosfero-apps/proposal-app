@@ -721,14 +721,19 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           }
 
           if(isProposal){
-            trackPageTitle = 'Proposta: ' + (proposalTitle || 'todas as propostas');
+
+            if( proposalTitle ){
+              trackPageTitle = 'Programa: ' + proposalTitle + ' / Início');
+            }else{
+              trackPageTitle = 'todos os programas');
+            }
 
             if(isResultados){
               trackPageTitle += ' / Resultados' ;
             }
 
             if(isSobreOPrograma){
-              trackPageTitle += ' / Sobre o programa' ;
+              trackPageTitle += ' / Conheça o programa' ;
             }
           }
 
