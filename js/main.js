@@ -723,9 +723,9 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           if(isProposal){
 
             if( proposalTitle ){
-              trackPageTitle = 'Programa: ' + proposalTitle + ' / Início');
+              trackPageTitle = 'Programa: ' + proposalTitle + ' / Início';
             }else{
-              trackPageTitle = 'todos os programas');
+              trackPageTitle = 'todos os programas';
             }
 
             if(isResultados){
