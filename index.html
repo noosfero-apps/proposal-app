@@ -387,7 +387,7 @@
               {{#each proposals}}
                 <tr>
                   <td class="">{{calcPosition @index ../pagination.per_page ../pagination.page}}°</td>
-                  <td class="abstract-text"><div class="truncate"><p class="truncated"><a href="#/programas/{{../topic_id}}/propostas/{{id}}">{{stripTags abstract}}</a></p></div></td>
+                  <td class="abstract-text"><div class="truncate"><p class="truncated"><a href="{{proposal_url ../topic_id id}}">{{stripTags abstract}}</a></p></div></td>
                   <td class="views value">{{hits}}</td>
                   <td class="votes-for value">{{votes_for}}</td>
                   <td class="votes-against value">{{votes_against}}</td>
