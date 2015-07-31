@@ -1296,7 +1296,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var $message = $form.find('.message');
         
         // validation
-        if( $description.text().length  === 0 ){
+        if( $description.val().length  === 0 ){
           $message.text('O campo "descrição" é obrigatório.');
           return false;
         }
