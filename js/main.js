@@ -251,6 +251,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $resultsContainer.find('.results-content').hide();
 
         var per_page = 10;
+        var parentId = topic_id;
         //var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?private_token=' + Main.private_token + '&per_page='+per_page+'&page='+page;
         var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking' + '?per_page='+per_page+'&page='+page;
         $.getJSON(url).done(function( data, stats, xhr ) {
@@ -261,8 +262,9 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           };
 
           // hack: add more info to result table
-          data.title = $resultsContainer.closest('.categories').find('.proposal-header .title').text();
-          data.topic_id = topic_id;
+          var $header = $resultsContainer.closest('.categories').find('.proposal-header');
+          data.title = $header.find('.title').text();
+          data.topic_id = $header.find('a').attr('href').match(/\d+/)[0];
 
           $resultsContainer.html(resultsTemplate(data));
           $resultsContainer.find('.loading').hide();
