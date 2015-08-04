@@ -12,20 +12,20 @@ requirejs.config({
     jquery: 'jquery',
     jquery_xdomainrequest: 'jquery.xdomainrequest.min',
     jquery_ui: 'jquery-ui-1.11.4.custom/jquery-ui.min',
-    jquery_cookie: 'jquery.cookie',
+    jquery_cookie: 'jquery_cookie',
     jquery_timeago: 'jquery.timeago',
     jquery_timeago_pt: 'jquery.timeago.pt-br',
     jquery_simplePagination: 'jquery.simplePagination',
-    jquery_equalHeights: 'jquery.equalHeights',
+    jquery_equalHeights: 'jquery_equalHeights',
     jquery_footable: 'footable',
-    handlebars: 'handlebars-v3.0.1',
-    handlebars_helpers: 'handlebars-helpers',
-    jquery_maxlength: 'jquery.maxlength.min',
+    handlebars: 'handlebars',
+    handlebars_helpers: 'handlebars_helpers',
+    jquery_maxlength: 'jquery_maxlength',
     slick: 'slick.min',
     fastclick: 'fastclick.min',
     layout: 'layout',
     main: 'main',
-    proposal_app: 'proposal-app'
+    "proposal-app": 'proposal-app'
   },
   shim: {
     'handlebars': {
@@ -71,7 +71,7 @@ requirejs.config({
     'handlebars_helpers': {
       deps: ['handlebars']
     },
-    'proposal_app': {
+    'proposal-app': {
       deps: ['jquery'],
       exports: 'ProposalApp'
     }
@@ -79,7 +79,7 @@ requirejs.config({
 });
 
 requirejs(['piwik']);
-requirejs(['jquery', 'proposal_app', 'jquery_ui', 'jquery_xdomainrequest',
+requirejs(['jquery', 'proposal-app', 'jquery-ui', 'jquery_xdomainrequest',
   'jquery_timeago_pt', 'jquery_simplePagination', 'jquery_equalHeights',
   'footable', 'handlebars_helpers'
 ]);

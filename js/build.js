@@ -1,0 +1,19 @@
+define(
+	[
+		'jquery',
+		'handlebars', 
+		'fastclick',
+		'handlebars_helpers',
+		'piwik', 
+		'jquery.timeago',
+		'jquery.timeago.pt-br', 
+		'jQuery.XDomainRequest',
+		'jquery-ui',
+		'jquery_equalHeights',
+		'jquery_maxlength',
+		'proposal_app', 
+		'main'
+	], 
+	function(){
+	}
+);

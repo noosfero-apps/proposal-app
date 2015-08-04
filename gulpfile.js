@@ -28,11 +28,20 @@ gulp.task('watch', function() {
 
 gulp.task('connect', function() {
   connect.server({
-    port: 8080,
+    port: 3000,
     root: [__dirname],
     livereload: true
   });
 });
+
+gulp.task('connect_dist', ['clean',  'copyResources', 'sass', 'compileJS',  'htmlReplace'], function() {
+  connect.server({
+    port: 3000,
+    root: ['./dist'],
+    livereload: false
+  });
+});
+
 
 gulp.task('default', ['sass', 'connect', 'watch']);
 
@@ -50,48 +59,47 @@ var concat = require('gulp-concat');
 var copy = require('gulp-copy');
 var add = require("gulp-add");
 
+gulp.task('copyResources', function(){
+  gulp.src(["./*.html", "style.css", "./fonts/**/*.*", "./favicon.ico", "./images/**/*.*"])
+    .pipe(copy('dist/'));
+});
+
 
 gulp.task('compileJS', function() {
   var mainInit =
     "require.config({  paths: {    \"main\": \"main-bundled\"  }});require([\"main\"]);";
   return gulp.src('js/main.js')
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     .pipe(requirejsOptimize({
       baseUrl: 'js',
-      name: 'main',
-      generateSourceMaps: true,
-      optimize: "uglify2",
+      name: 'build',
+      //generateSourceMaps: true,
+      optimize: "none",
       preserveLicenseComments: false,
       paths: {
         "requireLib": "require"
       },
       include: "requireLib",
-      out: "main.min.js"
+      out: "dist/main.min.js"
     }).on('error', function(error) {
       console.log(error);
     }))
-    .pipe(add('main-init.js', mainInit))
-    .pipe(sourcemaps.write('./'))
-    /*   .pipe(concat('main-bundled.js'))*/
+    .pipe(add('dist/main-init.js', mainInit))
+    .pipe(concat('dist/main-bundled.js'))
+    //.pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./'));
 });
 
 
-gulp.task('htmlReplace', function() {
-  var assets = useRef.assets();
-  var jsFilter = filter("./main-bundled.js");
-  var cssFilter = filter("**/*.css");
-  return gulp.src('./index.html')
-    .pipe(assets)
+gulp.task('htmlReplace', ['clean', 'sass', 'copyResources', 'compileJS'],function() {
+  var assets;
+  var jsFilter = filter("./dist/main-bundled.js");
+  var cssFilter = filter("dist/*.css");
+  return gulp.src('dist/index.html')
+    .pipe(assets = useRef.assets())
     .pipe(sourcemaps.init())
     .pipe(rev())
-    .pipe(gulpif('*.js', uglify({
-      compress: false,
-      mangle: false,
-      output: {
-        beautify: true
-      }
-    })))
+    .pipe(gulpif('*.js', uglify()))
     .pipe(assets.restore())
     .pipe(useRef())
     .pipe(revReplace())
@@ -103,7 +111,8 @@ gulp.task('htmlReplace', function() {
     .pipe(useRef())
     .pipe(revReplace())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('dist'));
+    .pipe(assets.restore())
+    .pipe(gulp.dest('dist/'));
 });
 
 var del = require('del');
@@ -114,4 +123,4 @@ gulp.task('clean', function(cb) {
   ], cb);
 });
 
-gulp.task('build', ['clean', 'sass', 'compileJS', 'htmlReplace']);
+gulp.task('build', ['clean',  'copyResources', 'sass', 'compileJS',  'htmlReplace']);

@@ -1,5 +1,12 @@
 /* global define */
-define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick, ProposalApp){
+define(
+  [
+    'jquery', 'handlebars', 'fastclick', 'proposal_app',
+    'handlebars_helpers', 'piwik', 'jquery.timeago', 'jquery.timeago.pt-br',
+    'jquery-ui', 'footable', 'jquery.simplePagination'
+  ], 
+function($, Handlebars, FastClick, ProposalApp){
+
   // 'use strict';
 
   // The template code
