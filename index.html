@@ -9,9 +9,10 @@
     <meta property="og:title" content="Dialoga Brasil" />
 
     <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgo=">
-    
-    <link rel="stylesheet" href="style.css">
 
+    <!-- build:css style.min.css -->
+    <link rel="stylesheet" href="style.css"/>
+    <!-- endbuild -->
     <script type="text/javascript">
       /**
       * The Url created with module pattern
@@ -631,9 +632,14 @@
       <a href="#/artigo/107880">Termos de uso</a>
     </div>
 
-    <script type="text/javascript">
-      loadRequireJS();
-    </script>
+    <!-- build:remove -->
+    <script type="text/javascript" src="js/require.js" data-main="js/requirejs-config.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js main-bundled.min.js -->
+    <script type="text/javascript" src="main-bundled.js"></script>
+    <!-- endbuild -->
+
 
     <script src="http://captcha2.servicoscorporativos.serpro.gov.br/js/captcha.serpro.gov.br.js"></script>
 
