@@ -6,4 +6,8 @@ bower_components/
 sass/novo.scss
 sass/bootstrap.scss
 style.css
-style.css.map
+style.css.mapdist
+main-bundled.js
+main-init.js
+main.min.js
+dist/
