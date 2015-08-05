@@ -325,7 +325,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           }
         } else if (user) {
           // fluxo signup vindo das caixas de login dentro dos programas
-          if(requireLoginContainer.length > 0){
+          if(requireLoginContainer && requireLoginContainer.length > 0){
             var loginContainer = requireLoginContainer.find('.login-container');
             loginContainer.show();
             loginContainer.find('.new-user').click();
@@ -337,8 +337,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             fillSignupForm($signupForm, user);
           }
         } else {
-          requireLoginContainer.find('.require-login').hide();
-          requireLoginContainer.find('.login-container').show();
+
+          if(requireLoginContainer){
+            requireLoginContainer.find('.require-login').hide();
+            requireLoginContainer.find('.login-container').show();
+          }
           Main.showLogin();
         }
       },
@@ -977,6 +980,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         if(data.person){
           Main.setUser({person: data.person});
         }
+        data = data.user || data;
         Main.loginCallback(data.activated, data.private_token);
       },
       handleLoginFail: function (e){
