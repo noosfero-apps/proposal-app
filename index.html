@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="Dialoga Brasil" />
 
-    <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgo=">
-    
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgo=" />
+
+    <link rel="stylesheet" href="style.css" />
 
     <script type="text/javascript">
       /**
@@ -39,6 +39,15 @@
         }
 
       })();
+
+      function makeCSSLink(filename){
+        var fileref=document.createElement('link');
+        fileref.setAttribute('rel', 'stylesheet');
+        fileref.setAttribute('type', 'text/css');
+        fileref.setAttribute('href',  Url.addBaseUrl(filename));
+        return fileref;
+      }
+
 
       function makeJSURL(filename){
         var url = Url.addBaseUrl(filename);

@@ -25,9 +25,27 @@ gulp.task('watch', function () {
   gulp.watch('./sass/**/*.sass', ['sass']);
 });
 
+
 gulp.task('connect', function() {
   connect.server({
     port: 8080,
+    root: [__dirname],
+    livereload: true
+  });
+});
+
+
+gulp.task('connect_api_prod', function(){
+  connect.server({
+    port: 3001,
+    root: [__dirname],
+    livereload: true
+  });
+});
+
+gulp.task('connect_api_local', function(){
+  connect.server({
+    port: 3002,
     root: [__dirname],
     livereload: true
   });

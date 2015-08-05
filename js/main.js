@@ -36,8 +36,9 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   // 1: Remote API
   // 2: Local API with proposal database
   // For (1) use port 3000 -> rails s
-  // For (2) use port 3001 -> rails s -p 3001
   //
+  // gulp connect_api_prod for access api from production - localhost:3001
+  // gulp connect_api_local for access api from local noosfero - localhost:3002
   // For (2) set at /etc/hosts:
   //
   //127.0.0.1  participa.br
@@ -45,28 +46,18 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   //127.0.0.1  login.dialoga.gov.br
   //127.0.0.1  noosfero.com
   //Detects for localhost settings
-  var patt = new RegExp(':300[0-2]/');
+  var patt = new RegExp(':300[1-2]/');
   var localDevelopment = false;
 
   if(patt.test(window.location.href)){
     localDevelopment = true;
-    patt = new RegExp(':3000/');
+    patt = new RegExp(':3001/');
 
     if(patt.test(window.location.href)){
       host = 'http://login.dialoga.gov.br';
-    }else if (new RegExp(':3001/').test(window.location.href)){
-      host = 'http://noosfero.com:3001';
-      //  dialoga_community = 104;
-      //  proposal_discussion = '413'; //Eugênio
-      //  proposal_discussion = '392'; //Evandro
-      //  cat_saude = 23;
+    }else if (new RegExp(':3002/').test(window.location.href)){
+      host = 'http://noosfero.com:3000';
       recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
-    } else { //ABNER
-      host = 'http://local.abner.com:3002';
-      dialoga_community = 105;
-      proposal_discussion = '392'; //Evandro
-      recaptchaSiteKey = '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'; //http://noosfero.com/
-      cat_saude = 23;
     }
   }
 
@@ -671,7 +662,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             if(proposalOffset){
               scrollTop = proposalOffset.top;
             }
-            
+
           }
         }
 
@@ -1301,7 +1292,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var $form = $(this);
         var $description = $form.find('#article_abstract');
         var $message = $form.find('.message');
-        
+
         // validation
         if( $description.val().length  === 0 ){
           $message.text('O campo "descrição" é obrigatório.');
@@ -1316,7 +1307,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var $submitButton = $form.find('.make-proposal-button');
         $submitButton.hide();
         // $loading.show();
-        
+
         $.ajax({
           type: 'post',
           url: host + $form.attr('action'),
