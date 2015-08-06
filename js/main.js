@@ -85,7 +85,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
     function fillSignupForm(signupForm, user) {
       signupForm.find('#signup-user_email').val(user.email);
       signupForm.find('#signup-user_email').attr('disabled', true);
-      //signupForm.find('#signup-user_name').val(user.login);
+      signupForm.find('#signup-user_fullname').val(user.name);
       signupForm.find('#user_oauth_signup_token').val(user.signup_token);
       signupForm.find('#user_oauth_providers').val(user.oauth_providers);
       signupForm.find('div.password').hide();
@@ -835,10 +835,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             }
           }
         }
-	      msg = msg.replace(/login incorrect format/g,"campo \"nome do usuário\" está com formato inválido. O mesmo só pode ser composto por letras minúsculas, números, '_' e '-'. Adicionalmente não é permitido usar acentuação nem começar com '_' ou '-'");
         msg = msg.replace('password_confirmation', 'campo "confirmação da senha"');
         msg = msg.replace(/password/g, 'campo "senha"');
-        msg = msg.replace(/login/g, 'campo "nome de usuário"');
         msg = msg.replace('email', 'campo "e-mail"');
         msg = msg.substring(0, msg.length - 5) + '.';
         return msg;
@@ -1531,7 +1529,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
       signupForm.find('#signup-user_email').val('');
       signupForm.find('#signup-user_email').attr('disabled', false);
-      //signupForm.find('#signup-user_name').val('');
+      signupForm.find('#signup-user_fullname').val('');
       signupForm.find('#user_password_confirmation').val('');
       signupForm.find('#signup-user_password').val('');
       signupForm.find('#captcha_text').val('');
@@ -1552,10 +1550,15 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
     $(document).on('click', '.confirm-signup', function(e) {
 
+      function validateEmail(email) {
+          var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+          return re.test(email);
+      }
+
       var $button = $(this);
       var $signupForm = $(this).parents('form.signup');
       var $inputEmail = $signupForm.find('#signup-user_email');
-      //var $inputUsername = $signupForm.find('#signup-user_name');
+      var $inputFullname = $signupForm.find('#signup-user_fullname');
       var $inputPassword = $signupForm.find('#signup-user_password');
       var $inputPasswordConfirmation = $signupForm.find('#user_password_confirmation');
       var $inputAcceptation = $signupForm.find('#user_terms_accepted');
@@ -1567,19 +1570,20 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       message.text('');
 
       // Validate form
-      var hasEmail = $inputEmail && $inputEmail.val().length > 0;
-      //var hasUsername = $inputUsername && $inputUsername.val().length > 0;
+      var hasEmail = $inputEmail && validateEmail($inputEmail.val());
 
       var isOAUTH = $signupForm.find('#user_oauth_providers').val() !== '';
 
       var hasPassword = true;
       var hasPasswordConfirmation = true;
       var hasPasswordEquals = true;
+      var hasFullname = true;
 
       if(! isOAUTH){
         hasPassword = $inputPassword && $inputPassword.val().length > 0;
         hasPasswordConfirmation = $inputPasswordConfirmation && $inputPasswordConfirmation.val().length > 0;
         hasPasswordEquals = $inputPassword.val() === $inputPasswordConfirmation.val();
+        hasFullname = $inputFullname && $inputFullname.val().length > 0;
       }
 
       var hasAcceptation = $inputAcceptation.prop('checked');
@@ -1593,16 +1597,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
           var messageErrors = [];
 
-
           messageErrors.push('<ul>'); // start a HTML list
 
           if (!hasEmail){
             messageErrors.push('<li>O e-mail é um campo obrigatório.</li>');
           }
-
-          // if (!hasUsername){
-          //   messageErrors.push('<li>O nome de usuário é um campo obrigatório.</li>');
-          // }
 
           if(!isOAUTH){
             if (!hasPassword){
@@ -1616,6 +1615,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             if (!hasPasswordEquals){
               messageErrors.push('<li>A senha e confirmação da senha devem ser iguais.</li>');
             }
+
+            if (!hasFullname){
+              messageErrors.push('<li>O nome é obrigatório.</li>');
+            }
           }
 
           if (!hasAcceptation){
@@ -1623,7 +1626,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           }
 
           if (!hasCaptcha){
-            messageErrors.push('<li>O ReCaptcha é um campo obrigatório.</li>');
+            messageErrors.push('<li>Você deve digitar o texto da imagem.</li>');
           }
 
           messageErrors.push('</ul>'); // close the paragraph
@@ -1645,7 +1648,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         login = $inputEmail.val().substr(0, indexAt);
         login = login.toLowerCase().replace(/\W+/g,"").substr(0,25) + "-" + Date.now();
         signup_form_data += "&login=" + login;
-        signup_form_data += "&name=" + $inputEmail.val();
+        signup_form_data += "&name=" + $inputFullname.val();
         $.ajax({
           type: 'post',
           contentType: 'application/x-www-form-urlencoded',
