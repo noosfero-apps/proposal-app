@@ -139,6 +139,7 @@ define(['handlebars'], function(Handlebars){
       '==':       function(l,r) { return l == r; },
       '===':      function(l,r) { return l === r; },
       '!=':       function(l,r) { return l != r; },
+      '!==':       function(l,r) { return l !== r; },
       '<':        function(l,r) { return l < r; },
       '>':        function(l,r) { return l > r; },
       '<=':       function(l,r) { return l <= r; },
