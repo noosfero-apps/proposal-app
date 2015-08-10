@@ -589,49 +589,58 @@
             </div>
           </div>
         {{/if}}
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="calendar__column col-xs-12 col-sm-6">
-              <div class="row">
-                <div class="calendar__presenter">{{event.setting.presenter}}</div>
-                <div class="calendar__presenter-category">{{category}}</div>
-              </div>
+
+        {{#compare event.setting.presenter event.title operator="!=="}}
+          <div class="col-sm-12">
+            <div class="row">
+              <p>{{event.setting.presenter}}</p>
             </div>
-            <div class="calendar__column col-xs-6 col-sm-3">
-              <div class="row">
-                <div class="calendar__date"><i class="fa fa-calendar" aria-hidden="true"></i> {{date}}</div>
+          </div>
+        {{^}}
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="calendar__column col-xs-12 col-sm-6">
+                <div class="row">
+                  <div class="calendar__presenter">{{event.setting.presenter}}</div>
+                  <div class="calendar__presenter-category">{{category}}</div>
+                </div>
               </div>
-            </div>
-            <div class="calendar__column col-xs-6 col-sm-3">
-              <div class="row">
-                <div class="calendar__time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{time}}</div>
+              <div class="calendar__column col-xs-6 col-sm-3">
+                <div class="row">
+                  <div class="calendar__date"><i class="fa fa-calendar" aria-hidden="true"></i> {{date}}</div>
+                </div>
+              </div>
+              <div class="calendar__column col-xs-6 col-sm-3">
+                <div class="row">
+                  <div class="calendar__time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{time}}</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="talk__participate">
-            <div class="row">
-              <div class="col-sm-4 col-md-3 col-lg-2">
-                <div class="row">
-                  <button id="talk__button-participate" type="button" class="button button-block require-main-login" data-event-id="{{event.id}}">Participar</button>
+          <div class="col-sm-12">
+            <div class="talk__participate">
+              <div class="row">
+                <div class="col-sm-4 col-md-3 col-lg-2">
+                  <div class="row">
+                    <button id="talk__button-participate" type="button" class="button button-block require-main-login" data-event-id="{{event.id}}">Participar</button>
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-8 col-md-9 col-lg-10">
-                <div class="row">
-                  <div class="talk__counter">
-                    {{#compare total_followers 50 operator=">"}}
-                      <span class="talk__value">{{total_followers}}</span>
-                      <span class="talk__counter-message">se inscreveram para esse bate-papo virtual</span>
-                    {{^}}
-                      <span class="talk__counter-message">Inscreva-se agora para esse bate-papo virtual.</span>
-                    {{/compare}}
+                <div class="col-sm-8 col-md-9 col-lg-10">
+                  <div class="row">
+                    <div class="talk__counter">
+                      {{#compare total_followers 50 operator=">"}}
+                        <span class="talk__value">{{total_followers}}</span>
+                        <span class="talk__counter-message">se inscreveram para esse bate-papo virtual</span>
+                      {{^}}
+                        <span class="talk__counter-message">Inscreva-se agora para esse bate-papo virtual.</span>
+                      {{/compare}}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        {{/compare}}
     </script>
 
     <div class="success-panel hide">
