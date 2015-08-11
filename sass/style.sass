@@ -80,8 +80,8 @@ $theme-size-header: 24px
 $proposal-title: 32px
 
 //   1.4 - dicionarios
-$categories: (saude: #3449b7, seguranca-publica: #e34748, educacao: #f39720, reducao-da-pobreza: #3ebb8f)
-$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.", educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.")
+$categories: (saude: #3449b7, seguranca-publica: #e34748, educacao: #f39720, reducao-da-pobreza: #3ebb8f, cultura: #a63738)
+$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.", educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.", cultulra: "[DESCRIÇÃO / CULTURA]")
 
 //   1.5 - cores
 $header-color: #03316f
@@ -1380,16 +1380,18 @@ h3.titulo-destaque
         background-position: 5px 50%
         background-repeat: no-repeat
         background-size: 32px
-  .category-#{$category}
-    background-color: $color
-    background-position: 5px 50%
-    background-repeat: no-repeat
-    background-size: 40px
-    border-color: darken($color, $darken)
+    .category-title
+      background-color: $color
+      border-color: darken($color, $darken)
   .icon
     &-#{$category}
       background-color: $color
       background-image: url(images/icons/#{$category}.png)
+
+.category-title
+  background-position: 5px 50%
+  background-repeat: no-repeat
+  background-size: 40px
 
 
 // ------------------------------------
@@ -1509,39 +1511,39 @@ h3.titulo-destaque
       iframe
         left: 0 !important
 
-  .themes
-    margin-bottom: $gutter * 1.5
-    margin-left: $gutter * 1.5 * (-1)
-    margin-right: $gutter * 1.5 * (-1)
-    margin-top: $gutter * 1.5 * (-1)
-    font-size: 0
-    &-name
-      display: block
-      width: 100%
-    &:after
-      content: ""
-      display: block
-      clear: both
-    li
-      display: block
-      width: 25%
-      float: left
-      // font-size: $font-size-base
-      // vertical-align: top
-      &:first-child
-        a
-          border-left: 0
-      a
-        border-left: 1px solid #f1f1f1
-        display: block
-        padding: 0
-        text-align: center
-        height: 145px
-        .icon
-          margin-bottom: $gutter * 0.5
-          margin-left: 0
-          margin-right: 0
-          margin-top: $gutter
+  // .themes
+  //   margin-bottom: $gutter * 1.5
+  //   margin-left: $gutter * 1.5 * (-1)
+  //   margin-right: $gutter * 1.5 * (-1)
+  //   margin-top: $gutter * 1.5 * (-1)
+  //   font-size: 0
+  //   &-name
+  //     display: block
+  //     width: 100%
+  //   &:after
+  //     content: ""
+  //     display: block
+  //     clear: both
+  //   li
+  //     display: block
+  //     width: 25%
+  //     float: left
+  //     // font-size: $font-size-base
+  //     // vertical-align: top
+  //     &:first-child
+  //       a
+  //         border-left: 0
+  //     a
+  //       border-left: 1px solid #f1f1f1
+  //       display: block
+  //       padding: 0
+  //       text-align: center
+  //       height: 145px
+  //       .icon
+  //         margin-bottom: $gutter * 0.5
+  //         margin-left: 0
+  //         margin-right: 0
+  //         margin-top: $gutter
   .box
     &-header
       p

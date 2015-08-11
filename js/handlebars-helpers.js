@@ -18,8 +18,9 @@ define(['handlebars'], function(Handlebars){
     var ret = "";
     for(var i=0, j=proposals.length; i<j; i++) {
       var proposal = proposals[i];
+      var categorySlug = (proposal.categories && proposal.categories.length > 0) ? proposal.categories[0].slug : '';
 
-      element = '<li class="proposal-item col-sm-6">' +
+      element = '<li class="proposal-item col-sm-6 ' + categorySlug + '">' +
           '<a href="#/programas/' + proposal.id + '" data-target="proposal-item-' + proposal.id + '" class="proposal-link box">' +
           '<div class="box-header item">';
       category = "<div class='category box-category'>";
@@ -30,7 +31,7 @@ define(['handlebars'], function(Handlebars){
           element = '';
           continue;
         }
-        category = category + '<div class="category-' + proposal.categories[x].slug + '">' + proposal.categories[x].name + '</div>';
+        category = category + '<div class="category-title">' + proposal.categories[x].name + '</div>';
       }
       if (element == '') {
         continue;
