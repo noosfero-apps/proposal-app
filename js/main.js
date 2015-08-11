@@ -370,17 +370,23 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       },
       // inicio Eduardo
       randomProposalByTheme: function(themeClasses) {
-        $('#proposal-group .proposal-list .proposal-item').hide();
+        var $proposalGroup = $('#proposal-group');
+        var $proposalList = $proposalGroup.find('.proposal-list');
+        var $proposalItem = $proposalList.find('.proposal-item');
+        
+        $proposalItem.hide();
+        
         $.each(themeClasses, function(i, themeClass) {
-          var proposalsByTheme = $('#proposal-group .proposal-list .proposal-item').find('.' + themeClass);
+          var proposalsByTheme = $proposalList.find('.' + themeClass);
           var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
-          var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
-          $(proposalToShow).show();
+          // var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
+          // $(proposalToShow).show();
+          $(proposalsByTheme[randomizedIndex]).show();
         });
       },
       display_category_tab: function(){
         // $('#proposal-group').hide();
-        this.randomProposalByTheme(['category-saude', 'category-seguranca-publica', 'category-educacao', 'category-reducao-da-pobreza']);
+        this.randomProposalByTheme(['saude', 'seguranca-publica', 'educacao', 'reducao-da-pobreza', 'cultura']);
         $('#proposal-group').show(); /* Show random proposals*/
         $('.content').addClass('background'); /* Add class background */
         $('#proposal-categories').show();

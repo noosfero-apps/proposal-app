@@ -31,7 +31,7 @@ define(['handlebars'], function(Handlebars){
           element = '';
           continue;
         }
-        category = category + '<div class="category-' + proposal.categories[x].slug + '">' + proposal.categories[x].name + '</div>';
+        category = category + '<div class="category-title">' + proposal.categories[x].name + '</div>';
       }
       if (element == '') {
         continue;

@@ -1380,16 +1380,18 @@ h3.titulo-destaque
         background-position: 5px 50%
         background-repeat: no-repeat
         background-size: 32px
-  .category-#{$category}
-    background-color: $color
-    background-position: 5px 50%
-    background-repeat: no-repeat
-    background-size: 40px
-    border-color: darken($color, $darken)
+    .category-title
+      background-color: $color
+      border-color: darken($color, $darken)
   .icon
     &-#{$category}
       background-color: $color
       background-image: url(images/icons/#{$category}.png)
+
+.category-title
+  background-position: 5px 50%
+  background-repeat: no-repeat
+  background-size: 40px
 
 
 // ------------------------------------
