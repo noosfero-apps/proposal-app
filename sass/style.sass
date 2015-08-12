@@ -1368,7 +1368,7 @@ h3.titulo-destaque
         color: $color
     .bloco-destaque
       background-color: $color
-      background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png)
+      // background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png)
       background-repeat: no-repeat
       background-position: 100% 100%
       color: #fff
@@ -1387,6 +1387,22 @@ h3.titulo-destaque
     &-#{$category}
       background-color: $color
       background-image: url(images/icons/#{$category}.png)
+
+// hack
+.saude
+  .bloco-destaque
+    background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png)
+
+.cultura
+  .bloco-destaque-cultura
+    background-color: map-get($categories, "cultura")
+    p
+      color: #fff
+    .col-md-4
+      padding-right: 0
+      text-align: right
+  .col-cultura
+    padding: 35px
 
 .category-title
   background-position: 5px 50%

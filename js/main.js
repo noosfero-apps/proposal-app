@@ -382,6 +382,14 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           // var proposalToShow = $(proposalsByTheme[randomizedIndex]).parents().filter('.proposal-item');
           // $(proposalToShow).show();
           $(proposalsByTheme[randomizedIndex]).show();
+
+          // Hack to align proposals at home
+          if(themeClass == "cultura"){
+            var l = proposalsByTheme.length;
+            var next = randomizedIndex + 1;
+            next = next >= l ? 0 : next;
+            $(proposalsByTheme[next]).show();
+          }
         });
       },
       display_category_tab: function(){
