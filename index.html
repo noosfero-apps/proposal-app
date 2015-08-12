@@ -583,14 +583,34 @@
           </div>
         {{/if}}
 
-        {{#compare event.setting.presenter event.title operator="!=="}}
           <div class="col-sm-12">
-            <div class="row">
-              <p>{{event.setting.presenter}}</p>
-            </div>
-          </div>
-        {{^}}
-          <div class="col-sm-12">
+            {{#compare event.setting.presenter event.title operator="!=="}}
+
+              <div class="row alert presenter-warning">
+                {{event.setting.presenter}}
+              </div>
+
+              <div class="row calendar__disabled">
+                <div class="calendar__column col-xs-12 col-sm-6">
+                  <div class="row">
+                    <div class="calendar__presenter">{{event.title}}</div>
+                    <div class="calendar__presenter-category">{{category}}</div>
+                  </div>
+                </div>
+                <div class="calendar__column col-xs-6 col-sm-3">
+                  <div class="row">
+                    <div class="calendar__date"><i class="fa fa-calendar" aria-hidden="true"></i> {{date}}</div>
+                  </div>
+                </div>
+                <div class="calendar__column col-xs-6 col-sm-3">
+                  <div class="row">
+                    <div class="calendar__time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{time}}</div>
+                  </div>
+                </div>
+              </div>
+
+            {{^}}
+
             <div class="row">
               <div class="calendar__column col-xs-12 col-sm-6">
                 <div class="row">

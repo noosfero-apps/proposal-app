@@ -1,6 +1,6 @@
 ﻿// ------------------------------------
 // Organização da folha de estilo:
-// 
+//
 // 0 - Dependências
 // 1 - Variaveis
 //   1.1 - espacamento
@@ -92,9 +92,9 @@ $darken: 15%
 
 //   1.7 - screens
 $screen-xs: 480px
-$screen-sm: 767px 
-$screen-md: 992px 
-$screen-lg: 1200px 
+$screen-sm: 767px
+$screen-md: 992px
+$screen-lg: 1200px
 
 // ------------------------------------
 // 2 - Mixins
@@ -439,7 +439,7 @@ h1
   margin-bottom: $gutter * 1.5
   .embed-responsive
     border: 1px solid #333
-  
+
   &.video-smaller
     @media (min-width: $screen-md)
       width: 60%
@@ -923,14 +923,14 @@ td
     float: right
     background: none
     border: none
-    
+
     @each $category, $color in $categories
       .#{$category} &
         color: $color
 
     .contraste &
       color: #fff
-      
+
   .updated-at
     @extend .vote-result
     margin-top: $gutter
@@ -965,7 +965,7 @@ td
       &:after
         display: block
         content: "[...]"
-        // content: "\e000" 
+        // content: "\e000"
         position: absolute
         top: 0
         right: 2px
@@ -995,12 +995,12 @@ td
         text-transform: uppercase
       .footable-row-detail-value
         display: block
-      
+
       // fix height
       .footable-row-detail-row:nth-child(1)
         .footable-row-detail-value:before
           height: 30px
-      
+
       // check icon
       .footable-row-detail-row:nth-child(2)
         .footable-row-detail-name
@@ -1117,8 +1117,15 @@ td
       content: "\f054"
   &-disabled
     opacity: 0.25
+    
+.presenter-warning
+  background-color: #D9D9DD
+  font-weight: bold
 
 // .calendar
+.calendar__disabled
+  opacity: 0.6
+
 .calendar__presenter
   font-weight: bold
   font-size: 20px
@@ -1127,12 +1134,12 @@ td
   height: 90px
   padding-top: 20px
   background-color: #eeeff1
-  
+
   &:not(:last-child)
     border-right: 2px solid #fff
   &:first-child
     padding-left: 40px
-  
+
   @media (max-width: $screen-sm)
     &:first-child
       border-bottom: 2px solid #fff
@@ -1144,14 +1151,14 @@ td
 
     &:not(:last-child)
       border-right: 2px solid #262626
-    
+
     @media (max-width: $screen-sm)
       &:first-child
         border-bottom: 2px solid #262626
         border-right: none
 
     // @media (max-width: $screen-sm)
-     
+
 .calendar__date,
 .calendar__time
   font-size: 20px
@@ -1208,7 +1215,7 @@ td
 
 // 6.20 - participe
 .talk__participate
-  .button 
+  .button
     position: relative
     z-index: 5
 .talk__counter
@@ -1228,7 +1235,7 @@ td
   @each $category, $color in $categories
     .#{$category} &
       color: $color
-  
+
   @media (max-width: $screen-sm)
     width: 100%
     margin-left: 0
