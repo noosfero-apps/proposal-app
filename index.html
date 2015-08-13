@@ -51,6 +51,17 @@
         return fileref;
       }
 
+      function loadCSSFiles(){
+        var css_files = [
+          'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700',
+          'http://fonts.googleapis.com/css?family=Asap:400,700'
+        ];
+        var head = document.getElementsByTagName('head')[0]
+        for(i = 0; i < css_files.length; i++){
+          head.appendChild(makeCSSLink(css_files[i]));
+        }
+      }
+
 
       function makeJSURL(filename){
         var url = Url.addBaseUrl(filename);
@@ -102,6 +113,8 @@
       if(!document.addEventListener){
         loadOldBrowserWarn();
       }
+
+      loadCSSFiles();
     </script>
 
   </head>
