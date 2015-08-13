@@ -22,8 +22,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
   var lastHash = window.location.hash;
 
-  // var host = 'http://login.dialoga.gov.br';
-  var host = 'http://hom.login.dialoga.serpro';
+  var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
+  var host = isProduction ? 'http://login.dialoga.gov.br' : 'http://hom.login.dialoga.serpro';
   var serpro_captcha_clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
   var dialoga_community = 19195;
   var proposal_discussion = '103358'; //participa
