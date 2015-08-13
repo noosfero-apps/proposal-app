@@ -1397,8 +1397,27 @@ h3.titulo-destaque
     &-#{$category}
       background-color: $color
       background-image: url(images/icons/#{$category}.png)
+  .#{$category}
+    ul.list-color
+      li:before
+        color: $color
 
 // hack
+ul.list-color
+  list-style: none
+  padding: 0
+  margin: 0
+
+  li
+    padding-left: 1em 
+    text-indent: -.7em
+    &:before
+      content: "• "
+      font-weight: bold
+      font-size: 20px
+      position: relative
+      top: 2px
+
 .saude
   .bloco-destaque
     background-image: url(http://www.participa.br/articles/public/0009/6039/mais-medicos-foto4.png)
@@ -1602,6 +1621,13 @@ h3.titulo-destaque
         margin-left: 0
         margin-top: 5px
 
+// content
+.vcenter
+  display: inline-block
+  vertical-align: middle
+  float: none
+  margin-right: -2px
+  margin-left: -2px
 
 // HACK IDG
 #barra-brasil .brasil-flag
