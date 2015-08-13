@@ -852,7 +852,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         msg = msg.replace('password_confirmation', 'campo "confirmação da senha"');
         msg = msg.replace(/password/g, 'campo "senha"');
         msg = msg.replace(/login/g, 'campo "nome de usuário"');
-        msg = msg.replace(/user/g, 'campo "nome de usuário"');
+        msg = msg.replace(/user/g, 'campo "nome/e-mail"');
         msg = msg.replace('email', 'campo "e-mail"');
         msg = msg.substring(0, msg.length - 5) + '.';
         return msg;
