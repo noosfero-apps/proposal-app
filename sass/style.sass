@@ -1431,8 +1431,21 @@ ul.list-color
       padding-right: 0
       text-align: right
       right: -15px
+
+      @media (max-width: $screen-lg)
+        right: 23px
+      @media (max-width: $screen-md)
+        right: 0
+        padding-bottom: 20px
+        text-align: center
+      @media (max-width: $screen-xs)
+        img
+          width: 100%
+
   .col-cultura
     padding: 35px
+    @media (min-width: $screen-md)
+      padding-bottom: 28px
 
 .category-title
   background-position: 5px 50%
