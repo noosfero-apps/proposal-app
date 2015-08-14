@@ -472,6 +472,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             active_category = 'reducao-da-pobreza';
             category_id = 183;
             break;
+          case 'categories cultura':
+            active_category = 'cultura';
+            category_id = 194;
+            break;
         }
 
         var topic_id = proposal_id.split('-').pop();
