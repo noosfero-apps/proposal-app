@@ -941,6 +941,12 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', Main.guid());
       },
       computeBoxHeight: function(){
+
+        // check if is IE9
+        if($('.lt-ie10').length > 0){
+          return;
+        }
+
         var hPerLineOnTitle = 25;
         var hPerLineOnParagraph = 20;
         var maxLinesByParagraph = 0;
