@@ -23,7 +23,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   var lastHash = window.location.hash;
 
   var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
-  var host = isProduction ? 'http://login.dialoga.gov.br' : 'http://hom.login.dialoga.gov.br';
+  var host = isProduction ? 'http://login.dialoga.gov.br' : 'http://hom.login.dialoga.serpro';
   var serpro_captcha_clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
   var dialoga_community = 19195;
   var proposal_discussion = '103358'; //participa
@@ -373,9 +373,9 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var $proposalGroup = $('#proposal-group');
         var $proposalList = $proposalGroup.find('.proposal-list');
         var $proposalItem = $proposalList.find('.proposal-item');
-        
+
         $proposalItem.hide();
-        
+
         $.each(themeClasses, function(i, themeClass) {
           var proposalsByTheme = $proposalList.find('.' + themeClass);
           var randomizedIndex = Math.floor(Math.random() * proposalsByTheme.length);
@@ -1430,8 +1430,17 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
       }).fail(function(data) {
 
         $message.show();
+        $message.removeClass('message-warning');
+
         if(data.status === 401){
-          $message.text('Nome de usuário, e-mail ou senha incorretos, não foi possível acessar.');
+          var response = $.parseJSON(data.responseText);
+          if (response.message && response.message != 'Unauthorized') {
+            $message.addClass('message-warning');
+            $message.text(response.message);
+          }else {
+            $message.text('Nome de usuário, e-mail ou senha incorretos, não foi possível acessar.');
+          }
+
         }else{
           $message.text('Um erro inesperado ocorreu');
         }
