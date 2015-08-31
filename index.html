@@ -593,10 +593,10 @@
     <script id="calendar-template" type="text/x-handlebars-template">
       <div class="calendar {{category_class}}">
           <div class="col-sm-12">
-            {{#if event.body}}
+            {{#compare event.setting.presenter event.title operator="!=="}}
 
               <div class="row alert presenter-warning">
-                {{event.body}}
+                {{{event.body}}}
               </div>
 
               <div class="row calendar__disabled">
@@ -618,7 +618,7 @@
                 </div>
               </div>
 
-            {{/if}}
+            {{^}}
 
             <div class="row">
               <div class="calendar__column col-xs-12 col-sm-6">
