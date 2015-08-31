@@ -603,10 +603,10 @@
         {{/if}}
 
           <div class="col-sm-12">
-            {{#compare event.setting.presenter event.title operator="!=="}}
+            {{#if event.body}}
 
               <div class="row alert presenter-warning">
-                {{event.setting.presenter}}
+                {{event.body}}
               </div>
 
               <div class="row calendar__disabled">
@@ -628,7 +628,7 @@
                 </div>
               </div>
 
-            {{^}}
+            {{/if}}
 
             <div class="row">
               <div class="calendar__column col-xs-12 col-sm-6">
