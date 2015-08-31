@@ -596,7 +596,7 @@
             {{#compare event.setting.presenter event.title operator="!=="}}
 
               <div class="row alert presenter-warning">
-                {{{event.body}}}
+                {{stripTags event.body}}
               </div>
 
               <div class="row calendar__disabled">
