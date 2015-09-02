@@ -636,11 +636,15 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         var isActivateUser    = regexActivateUser.exec(hash) !== null;
         var isChangeUserPassword = regexChangeUserPassword.exec(hash) !== null;
 
+        // set default picture url of social share
+        $('.social.top .fb-share').attr('data-picture', host + '/images/logo.png').data('picture', host + '/images/logo.png');
+
         if(isArticle) {
           this.display_article(hash.split('/')[2], lastHash);
         }
 
         var proposalTitle;
+        var proposalImage;
 
         if( isProposal ){
 
@@ -650,6 +654,11 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
           var $proposal = $('#proposal-item-' + proposalId);
           proposalTitle = $proposal.find('.title').text();
+          proposalImage = $proposal.find('.abstract img').attr('src');
+
+          // set social share (fb) picture
+          $('.social.top .fb-share').attr('data-picture', proposalImage).data('picture', proposalImage);
+
           var proposalOffset = $proposal.offset();
 
           if(proposalOffset){
