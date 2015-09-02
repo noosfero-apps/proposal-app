@@ -71,8 +71,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
     var API = {
       articles: '',
-      proposals: '/api/v1/articles/{topic_id}/children',
-
+      proposals: '/api/v1/articles/{topic_id}/children'
     };
 
     API.getProposalsURL = function (topicId){
@@ -97,6 +96,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
     return {
       private_token: null,
+      host: host,
       getProposalId: function() {
         var regexProposals = /\d.*\/propostas\/*.*/;
         var proposalId = 0;
@@ -145,6 +145,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             var article = data.articles[0];
             var $parentContainer = $('#proposal-item-'+topic_id);
             var parentTitle = $parentContainer.find('.proposal-header .title').text();
+            
             var parentImage = $parentContainer.find('.proposal-header img').attr('src');
             article.parent = {id: topic_id, title: parentTitle, image_url: parentImage};
             $randomProposal.html(supportProposalTemplate(article));

@@ -109,6 +109,12 @@ define(['handlebars'], function(Handlebars){
       url = '';
     }
     url = 'http:'+Url.addBaseUrl(url);
+    
+    // check host of image url
+    if(image_url && !image_url.match('^' + Main.host)){
+      image_url = window.Main.host + image_url;
+    }
+
     return template({title: title, description: description, url: url, image_url: image_url});
   });
 
