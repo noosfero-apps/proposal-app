@@ -143,8 +143,10 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             }
 
             var article = data.articles[0];
-            var parentTitle = $('#proposal-item-'+topic_id).find('.proposal-header .title').text();
-            article.parent = {id: topic_id, title: parentTitle};
+            var $parentContainer = $('#proposal-item-'+topic_id);
+            var parentTitle = $parentContainer.find('.proposal-header .title').text();
+            var parentImage = $parentContainer.find('.proposal-header img').attr('src');
+            article.parent = {id: topic_id, title: parentTitle, image_url: parentImage};
             $randomProposal.html(supportProposalTemplate(article));
             $body.off('click', '.vote-actions .skip');
             $body.on('click', '.vote-actions .skip', function(e) {
