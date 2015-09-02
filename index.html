@@ -163,7 +163,7 @@
           <a href="#/programas">Programas</a>
         </div>
         <div class="social top">
-          {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#"}}{{/social_share}}
+          {{#social_share "Dialoga Brasil" "Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo" "#" "http://dialoga.gov.br/images/logo.png"}}{{/social_share}}
         </div>
       </header>
 
@@ -283,7 +283,7 @@
                         <div class="col-sm-4 col-sm-offset-4">
                           <div class="social right">
                             <span>COMPARTILHE<br>ESTE PROGRAMA</span>
-                            {{{social_share title abstract (program_detail_url id)}}}
+                            {{{social_share title abstract (program_detail_url id) image.url }}}
                           </div>
                         </div>
                       </div>
@@ -381,7 +381,7 @@
       </div>
       <div class="social">
         <span>Compartilhe esta proposta</span>
-        {{{social_share parent.title abstract (proposal_url parent.id id)}}}
+        {{{social_share parent.title abstract (proposal_url parent.id id) parent.image.url}}}
       </div>
     </script>
 
@@ -571,7 +571,7 @@
 
     <script id="social-share" type="text/x-handlebars-template">
       <ul>
-        <li><a href="{{url}}" class="fb-share icon icon-facebook" data-caption="{{title}}" data-description="{{stripTags description}}"><span class="fa fa-facebook"></span><span class="sr-only">Compartilhar no Facebook</span></a></li>
+        <li><a href="{{url}}" class="fb-share icon icon-facebook" data-caption="{{title}}" data-description="{{stripTags description}}" data-picture="{{image_url}}"><span class="fa fa-facebook"></span><span class="sr-only">Compartilhar no Facebook</span></a></li>
         <li><a href="https://twitter.com/intent/tweet?url={{encodeURI url}}&text={{stripTags description}}" target="_blank" class="tw-share icon icon-twitter popup"><span class="fa fa-twitter"></span><span class="sr-only">Compartilhar no Twitter</span></a></li>
         <li><a href="https://plus.google.com/share?url={{encodeURI url}}" target="_blank" class="gp-share icon icon-gplus popup"><span class="fa fa-google-plus"></span><span class="sr-only">Compartilhar no Google Plus</span></a></li>
         <li><a href="whatsapp://send?text={{stripTags description}} {{encodeURI url}}" target="_blank" class="ws-share icon icon-whatsapp"><span class="fa fa-whatsapp"></span><span class="sr-only">Compartilhar no WhatsApp</span></a></li>

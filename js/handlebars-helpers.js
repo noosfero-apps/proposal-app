@@ -103,13 +103,13 @@ define(['handlebars'], function(Handlebars){
     return +(Math.round(num + "e+2")  + "e-2");
   });
 
-  Handlebars.registerHelper('social_share', function(title, description, url) {
+  Handlebars.registerHelper('social_share', function(title, description, url, image_url) {
     var template = Handlebars.compile($('#social-share').html());
     if(url==='#') {
       url = '';
     }
     url = 'http:'+Url.addBaseUrl(url);
-    return template({title: title, description: description, url: url});
+    return template({title: title, description: description, url: url, image_url: image_url});
   });
 
   Handlebars.registerHelper('proposal_url', function(parent_id, id) {

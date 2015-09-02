@@ -1458,6 +1458,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           name: $(this).data('name') || 'Dialoga Brasil',
           caption: $(this).data('caption') || 'dialoga.gov.br',
           description: $(this).data('description'),
+          picture: $(this).data('picture'),
       }, function(response){
         console.log('response', response);
       });
