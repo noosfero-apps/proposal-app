@@ -3,7 +3,10 @@ define(['piwik'], function(){
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
- 
+
+  var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
+  var siteId = isProduction ? 65 : 1;
+
   (function() {
     var u="http://estatisticas.dialoga.gov.br/";
     _paq.push(["setTrackerUrl", u+"piwik.php"]);
