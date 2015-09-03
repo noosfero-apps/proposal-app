@@ -1,4 +1,4 @@
-define(['piwik'], function(){
+define(['piwik_config'], function(){
 
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);

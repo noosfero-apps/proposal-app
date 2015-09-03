@@ -1,5 +1,5 @@
 /* global define */
-define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick, ProposalApp){
+define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers', 'piwik_config'], function($, Handlebars, FastClick, ProposalApp){
   // 'use strict';
 
   // The template code
