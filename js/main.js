@@ -874,8 +874,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         return msg;
       },
       display_events: function(cat_id, active_category) {
-        //var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
-        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
+        //var url = host + '/api/v1/communities/' + dialoga_community + '/articles?category_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
+        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?category_ids[]=' + cat_id + '&content_type=Event';
         $.getJSON(url).done(function (data) {
 
           if(data.articles.length === 0){
