@@ -1053,7 +1053,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                                       .addClass('alert-success')
                                       .show();
 
-                $(document).trigger('login:success', response);
+                $(document).trigger('login:success', response['user']);
               }
 
             },
@@ -1438,7 +1438,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           $loginPanel.hide();
         }
 
-        $(document).trigger('login:success', data);
+        $(document).trigger('login:success', data['user']);
       }).fail(function(data) {
 
         $message.show();
@@ -1712,7 +1712,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                 if($sectionContent && $sectionContent.length > 0){
                   Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
                 }
-                $(document).trigger('login:success', data);
+                $(document).trigger('login:success', data['user']);
               } else {
                 $signupForm.find('.cancel-signup').click();
                 $signupForm.hide();
