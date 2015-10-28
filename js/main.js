@@ -22,8 +22,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
   var lastHash = window.location.hash;
 
-  // var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
-  var isProduction = true;
+  var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
   var host = isProduction ? 'http://login.dialoga.gov.br' : 'http://hom.login.dialoga.gov.br';
   var serpro_captcha_clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
   var dialoga_community = 19195;
