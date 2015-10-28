@@ -1273,6 +1273,13 @@ td
   position: relative
   margin-bottom: 10px
 
+
+// 6.23 - freeze messages
+// .freeze--home-message
+.freeze--theme-message
+  font-weight: bold
+  margin: 10px 0
+
 // ------------------------------------
 // 7 - Modificadores
 // ------------------------------------
@@ -1397,6 +1404,11 @@ h3.titulo-destaque
     .category-title
       background-color: $color
       border-color: darken($color, $darken)
+
+    .freeze--theme-message p,
+    .freeze--program-message p
+      color: $color
+
   .icon
     &-#{$category}
       background-color: $color
