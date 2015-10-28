@@ -22,7 +22,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
   var lastHash = window.location.hash;
 
-  var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
+  // var isProduction = /^http:\/\/dialoga\.gov\.br\//.test(window.location.href);
+  var isProduction = true;
   var host = isProduction ? 'http://login.dialoga.gov.br' : 'http://hom.login.dialoga.gov.br';
   var serpro_captcha_clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
   var dialoga_community = 19195;
@@ -240,6 +241,60 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             $loading.hide();
             $('.support-proposal .alert').show();
           });
+      },
+      loadTopProposals: function (topic_id) {
+        
+        // TODO: start loading
+        
+        var url = host + '/api/v1/proposals_discussion_plugin/' + topic_id + '/ranking?per_page=3&page=1';
+        $.getJSON(url).done(function( data, stats, xhr ) {
+          
+          // TODO: stop loading
+          
+          if ( !data || !data.proposals ) {
+            console.error('Proposals not found.');
+            return;
+          }
+
+          var $containerWrapper = $('#proposal-item-' + topic_id);
+          var $containerTopProposals = $containerWrapper.find('.freeze--top-proposals');
+          var $tbody = $containerTopProposals.find('tbody');
+
+          if ( $containerTopProposals.css('display') === 'block' ) {
+            console.log('Top ranking already loaded.');
+            return;
+          }
+
+          var TEMPLATE_TR = '' +
+          '<tr>' +
+            '<td>{{position}}°</td>' +
+            '<td>{{abstract}}</td>' +
+            '<td>{{hits}}</td>' +
+            '<td>{{votes_for}}</td>' +
+            '<td>{{votes_against}}</td>' +
+          '</tr>';
+          
+          var proposals = data.proposals;
+          var proposal = null;
+          var proposal_tpl = null;
+          
+          for (var i = proposals.length - 1; i >= 0; i--) {
+            proposal = proposals[i];
+            proposal_tpl = '' + TEMPLATE_TR;
+            proposal_tpl = replace(proposal_tpl, '{{position}}', proposal.position);
+            proposal_tpl = replace(proposal_tpl, '{{abstract}}', proposal.abstract);
+            proposal_tpl = replace(proposal_tpl, '{{hits}}', proposal.hits);
+            proposal_tpl = replace(proposal_tpl, '{{votes_for}}', proposal.votes_for);
+            proposal_tpl = replace(proposal_tpl, '{{votes_against}}', proposal.votes_against);
+
+            $tbody.prepend($(proposal_tpl));
+          }
+
+          $containerTopProposals.css('display', 'block');
+
+          console.log('data', data);
+
+        });
       },
       loadRanking: function($resultsContainer, topic_id, page) {
         $resultsContainer.find('.loading').show();
@@ -483,6 +538,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
         var topic_id = proposal_id.split('-').pop();
         this.loadRandomProposal(topic_id);
+        this.loadTopProposals(topic_id);
         Main.display_events(category_id, active_category);
       },
       display_proposal_detail: function(proposal_id){
