@@ -1,5 +1,5 @@
 /* global define */
-define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers', 'piwik'], function($, Handlebars, FastClick, ProposalApp){
+define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers', 'piwik_config'], function($, Handlebars, FastClick, ProposalApp){
   // 'use strict';
 
   // The template code
@@ -930,8 +930,8 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         return msg;
       },
       display_events: function(cat_id, active_category) {
-        //var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
-        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
+        //var url = host + '/api/v1/communities/' + dialoga_community + '/articles?category_ids[]=' + cat_id + '&content_type=Event&private_token=' + '375bee7e17d0021af7160ce664874618';
+        var url = host + '/api/v1/communities/' + dialoga_community + '/articles?category_ids[]=' + cat_id + '&content_type=Event';
         $.getJSON(url).done(function (data) {
 
           if(data.articles.length === 0){
@@ -1109,7 +1109,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                                       .addClass('alert-success')
                                       .show();
 
-                $(document).trigger('login:success', response);
+                $(document).trigger('login:success', response['user']);
               }
 
             },
@@ -1494,7 +1494,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           $loginPanel.hide();
         }
 
-        $(document).trigger('login:success', data);
+        $(document).trigger('login:success', data['user']);
       }).fail(function(data) {
 
         $message.show();
@@ -1768,7 +1768,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
                 if($sectionContent && $sectionContent.length > 0){
                   Main.displaySuccess($sectionContent, 'Cadastro efetuado com sucesso', 1000, 'icon-user-created');
                 }
-                $(document).trigger('login:success', data);
+                $(document).trigger('login:success', data['user']);
               } else {
                 $signupForm.find('.cancel-signup').click();
                 $signupForm.hide();

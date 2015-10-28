@@ -83,7 +83,7 @@
         var script_element = document.createElement('script');
         script_element.type = 'text/javascript';
         script_element.src = makeJSURL('js/require.js');
-        script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js'));
+        script_element.setAttribute('data-main', makeJSURL('js/requirejs-config.js?v=2'));
         head.appendChild(script_element);
       }
 
@@ -403,7 +403,7 @@
               {{#each proposals}}
                 <tr>
                   <td class="">{{calcPosition @index ../pagination.per_page ../pagination.page}}°</td>
-                  <td class="abstract-text"><div class="truncate"><p class="truncated"><a href="{{proposal_url ../topic_id id}}">{{stripTags abstract}}</a></p></div></td>
+                  <td class="abstract-text"><div class="truncate"><p class="truncated"><a href="{{proposal_url ../topic_id proposal_id}}">{{stripTags abstract}}</a></p></div></td>
                   <td class="views value">{{hits}}</td>
                   <td class="votes-for value">{{votes_for}}</td>
                   <td class="votes-against value">{{votes_against}}</td>
