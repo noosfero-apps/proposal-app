@@ -1277,6 +1277,32 @@ td
 // 6.23 - freeze messages
 .freeze--home-message
   font-weight: bold
+  font-size: 16px
+  .p1
+    font-size: 4em // 64
+    @media (max-width: $screen-lg)
+      font-size: 3em // 48
+    @media (max-width: $screen-md)
+      font-size: 2em // 32
+    @media (max-width: $screen-xs)
+      font-size: 1.6em // ~25
+  .p2,
+  .p3,
+  .p4
+    font-size: 1.5em
+    @media (max-width: $screen-lg)
+      font-size: 1.4em
+    @media (max-width: $screen-md)
+      font-size: 1.3em
+    @media (max-width: $screen-xs)
+      font-size: 1.1em
+  .p2
+    color: #5AAB2F
+  .p3
+    color: #0086B7
+  .p4
+    color: #E24F4D
+
 .freeze--theme-message
   font-weight: bold
   margin: 10px 0
