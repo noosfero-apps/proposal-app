@@ -314,18 +314,12 @@
                     <div class="freeze--program-message">
                       <p>
                         Estamos trabalhando nas respostas às propostas mais apoiadas para o {{title}}.
-                        <br/>
-                        Afinal, acreditamos que o país fica melhor quando você participa!
-                      </p>
-                      <p>
-                        Confira abaixo as três propostas mais apoiadas.
-                        O resultado completo das propostas apresentadas você encontra no link
-                        <a href="#/programas/{{id}}/resultados" class="vote-result box-bottom">resultado geral</a>.
+                        Agora o governo federal analisará e responderá as 3 propostas mais apoiadas, afinal, acreditamos que o país fica melhor quando você participa!
                       </p>
                     </div>
 
                     <div class="freeze--top-proposals" style="display: none;">
-
+                    <h3 style="font-weight: bold;">Propostas mais apoiadas deste programa:</h3>
                       <table>
                         <thead>
                           <tr class="header">
@@ -338,7 +332,7 @@
                         </thead>
                         <tbody></tbody>
                       </table>
-
+                      <a href="#/programas/{{id}}/resultados" class="vote-result" style="display: block; font-size: 20px; margin: 10px 0; font-weight: bold;">Resultado geral</a>
                     </div>
 
                     <div class="results-container hide col-sm-12"></div>
@@ -399,7 +393,7 @@
               {{#each proposals}}
                 <tr>
                   <td class="">{{calcPosition @index ../pagination.per_page ../pagination.page}}°</td>
-                  <td class="abstract-text"><div class="truncate"><p class="truncated"><a href="{{proposal_url ../topic_id proposal_id}}">{{stripTags abstract}}</a></p></div></td>
+                  <td class="abstract-text"><div class="truncate"><p class="truncated">{{stripTags abstract}}</p></div></td>
                   <td class="views value">{{hits}}</td>
                   <td class="votes-for value">{{votes_for}}</td>
                   <td class="votes-against value">{{votes_against}}</td>
