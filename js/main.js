@@ -260,7 +260,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
           var $tbody = $containerTopProposals.find('tbody');
 
           if ( $containerTopProposals.css('display') === 'block' ) {
-            console.log('Top ranking already loaded.');
+            // console.debug('Top ranking already loaded.');
             return;
           }
 
@@ -291,7 +291,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
 
           $containerTopProposals.css('display', 'block');
 
-          console.log('data', data);
+          // console.log('data', data);
 
         });
       },
@@ -1592,7 +1592,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $message.html('Verifique seu email para efetuar a troca da senha.');
         $message.show();
       }).fail(function(data) {
-        console.log(data.responseJSON);
+        // console.error(data.responseJSON);
 
         Main.reloadCaptcha($forgotPasswordForm.find('#serpro_captcha')[0]);
         var $message = $forgotPasswordForm.find('.message');
