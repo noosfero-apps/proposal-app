@@ -130,7 +130,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
             url += '/' + childId;
           }
           //url += '?private_token=' + private_token + '&limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
-          url += '?limit=1&order=random()&_='+new Date().getTime()+'&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal';
+          url += '?limit=1&order=random()&_='+new Date().getTime()+'&fields[]=id&fields[]=name&fields[]=slug&fields[]=abstract&fields[]=created_by&content_type=ProposalsDiscussionPlugin::Proposal';
 
           $.getJSON(url).done(function( data ) {
             $loading.hide();
@@ -558,7 +558,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
         $proposal.show();
 
         //var url = host + '/api/v1/articles/' + proposal_id + '?private_token=' + Main.private_token + '&fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
-        var url = host + '/api/v1/articles/' + proposal_id + '?fields=id,body&content_type=ProposalsDiscussionPlugin::Topic';
+        var url = host + '/api/v1/articles/' + proposal_id + '?fields=id&fields[]=body&content_type=ProposalsDiscussionPlugin::Topic';
         $.getJSON(url).done(function( data ) {
           $('#proposal-item-' + proposal_id + ' .body-content').replaceWith(data.article.body);
         })
@@ -1127,7 +1127,7 @@ define(['jquery', 'handlebars', 'fastclick', 'proposal_app', 'handlebars_helpers
   })();
 
 
-  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + Main.private_token + '&fields=id,children,categories,abstract,title,image,url,setting,position';
+  var noosferoAPI = host + '/api/v1/articles/' + proposal_discussion + '?private_token=' + Main.private_token + '&fields=id&fields[]=children&fields[]=categories&fields[]=abstract&fields[]=title&fields[]=image&fields[]=url&fields[]=setting&fields[]=position';
 
   $.getJSON(noosferoAPI)
     .done(function( data ) {
